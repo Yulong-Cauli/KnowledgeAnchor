@@ -12,6 +12,7 @@
 | [`Multimodal_Fusion/`](Multimodal_Fusion) | 多传感器 / 雷达-相机融合 | 5 |
 | [`Quantization/`](Quantization) | 模型量化与压缩 | 8 |
 | [`3D_Occupancy/`](3D_Occupancy) | 3D 语义占用预测 | 5 |
+| [`QA dataset/`](QA%20dataset) | 驾驶 VQA 与语言增强 | 1 |
 | [`Math_and_Notes/`](Math_and_Notes) | 数学与通用笔记 | 3 |
 | [`assets/`](assets) | 论文插图与表格截图，按论文名分目录 | — |
 
@@ -71,6 +72,14 @@
 | [RadarOcc](3D_Occupancy/RadarOcc.md) | NeurIPS 2024 | 4D 成像雷达、3D 占据预测、4D 雷达张量 (4DRT)、旁瓣感知、球坐标编码 | [Toytiny/RadarOcc](https://github.com/Toytiny/RadarOcc) |
 
 > `SparseOcc`（CVPR 2024, VISION-SJTU）与 `NJU-SparseOcc`（ECCV 2024, MCG-NJU）是同名但不同的工作，引用时注意区分。
+
+## 驾驶 VQA
+
+关于自动驾驶视觉问答（VQA）数据集与评测基准的笔记。
+
+| 论文 | 出处 | 关键词 | 代码 |
+| --- | --- | --- | --- |
+| [LingoQA](QA%20dataset/LingoQA.md) | ECCV 2024 | 自动驾驶 VQA、评测基准、Lingo-Judge、视觉语言模型 (VLM) | [wayveai/LingoQA](https://github.com/wayveai/LingoQA) |
 
 ## 数学与通用笔记
 
