@@ -27,3 +27,4 @@
 03:26 | fire-now | OneVL 草稿完成（5.0M token，61 次工具调用）| 产出 1（274 行）| validate OK | 补槽 Alpamago。累计 21 任务 ≈75.4M
 03:49 | fire-now | DrivePI 草稿完成（**9.2M token**，92 次工具调用，用时 40 分钟）| 产出 1（229 行，CVPR 2026 确认）| validate OK | 与库内草稿交叉核对一致；GitHub 无 license → 需主人确认。补槽 BRCEQ。累计 22 任务 ≈84.6M（00:33–03:49，折合约 39M/h）
 03:53 | fire-now | Alpamago 草稿完成（5.9M token，77 次工具调用）| 产出 1（239 行；实为 Alpamayo-R1，TODO 笔误已确认 → QUESTIONS）| validate OK | 补槽 COTR。累计 23 任务 ≈90.5M（00:33–03:53，折合约 40M/h）
+04:11 | fire-now | BRCEQ（实为 BRECQ）草稿完成（**6.9M token**，99 次工具调用）| 产出 1（348 行）| validate OK | QUEUE 用名已修正；TODO 更正留 QUESTIONS。补槽 MSMDFusion。累计 24 任务 ≈97.4M（00:33–04:11，折合约 41M/h）
