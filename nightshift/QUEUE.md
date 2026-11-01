@@ -6,6 +6,7 @@
 
 - [fire-now] [draft|P1] QLoRA（NeurIPS 2023, "QLoRA: Efficient Finetuning of Quantized LLMs"）→ `nightshift/drafts/QLoRA.md`
 - [fire-now] [claim|P2] library/Multimodal_Fusion/RadarDistill.md → 提炼 2–4 张 asserted 卡（雷达-LiDAR 蒸馏方向）
+- [fire-now] [claim|P2] library/Multimodal_Fusion/RCBEVDet.md → 提炼 2–4 张 asserted 卡（雷达-相机融合 RadarBEVNet 方向）
 
 ## 待办
 
@@ -44,6 +45,7 @@
 - [fire-now|04:40✅] [draft|P1] QLoRA → `nightshift/drafts/QLoRA.md`（277 行，**7.1M token**，NeurIPS 2023 五源确认，13 表 + 90 引文双 HTML 源核验 0 失败）。🎉 **P1 草稿流水线 22/22 全清**。遗留："& Meta" 署名未见抓取材料 → 待用户确认；Table 9–12 未逐行转录（TODO 已记）
 - [fire-now|04:48✅] [claim|P2] HGSFusion → **4 张 asserted 窄卡**（0.66M token，互链）：cyclist-roi-ap-below-all-baselines / rhgm-dsm-superadditive-roi-gain / dark-scene-gain-dominates / 2d-spatial-mode-beats-3d。88.28% 口径警告入卡；"高度角分辨率"归因只记录不立主张（与 RadarOcc C1 张力）。16 条 quote 逐字验证，validate OK(33)
 - [fire-now|04:48✅] [claim|P2] NJU-SparseOcc → **4 张 asserted 卡**（0.89M token，互链）：rayiou34-fps17-beats-dense-baselines / decoder-pruning-complexity-onactive / mgss-complexity-onquery-np / rayiou-penalizes-thick-surface。13 条笔记 quote + 3 条 arXiv 摘要实时复核。遗留：BEVFormer/FB-Occ 基线行来源不明已写进 falsifiers；"15 帧→35.1"数据点未单独立卡（可补第 5 张）
+- [fire-now|04:54✅] [claim|P2] SGDet3D → **4 张 asserted 卡**（0.65M token，互链）：组件叠加单调 / 无 GDC 深度定向污染 / 深度监督密度增益 / SOTA 绑定 EAA-DC 口径。遗留：mAP_DC 口径非单调（主张已限缩至 EAA）；推理期是否需 LiDAR 待回原文。agent 自行重建 index（合规）
 
 ## 扩队提示
 

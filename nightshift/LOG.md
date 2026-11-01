@@ -34,3 +34,4 @@
 04:39 | fire-now | R4Det claim 提炼完成（0.44M token，4 张卡）| 产出 4 | validate OK(25) + index 重建 + 抽查命中 | 补槽 NJU-SparseOcc。累计 28 任务 ≈107.4M；claim 库 12 → 25
 04:40 | fire-now | QLoRA 草稿完成（**7.1M token**，83 次工具调用）| 产出 1（277 行）| validate OK | 🎉 P1 全清（22/22）。补槽 HGSFusion。累计 29 任务 ≈114.5M（00:33–04:40，折合约 41M/h）
 04:48 | fire-now | HGSFusion + NJU-SparseOcc 挖矿完成（0.66M + 0.89M，8 张卡）| 产出 8 | validate OK(33) + index 重建 + 双抽查命中 | claim 库 12 → 33。补槽 SGDet3D、RadarDistill。累计 31 任务 ≈116.1M
+04:54 | fire-now | SGDet3D 挖矿完成（0.65M token，4 张卡）| 产出 4 | validate OK(37) + index 重建 | 补槽 RCBEVDet。累计 32 任务 ≈116.8M；claim 库 12 → 37
