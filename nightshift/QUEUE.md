@@ -4,13 +4,12 @@
 
 ## 进行中
 
-- [fire-now] [draft|P1] MobileNet/V2/V3 三篇合一（V1 arXiv 2017 / V2 CVPR 2018 / V3 ICCV 2019）→ `nightshift/drafts/MobileNet.md`
-- [fire-now] [draft|P1] MobileOne（Apple, "MobileOne: An Improved One millisecond Mobile Backbone"）→ `nightshift/drafts/MobileOne.md`
-- [fire-now] [draft|P1] ShuffleNet（CVPR 2018, "ShuffleNet: An Extremely Efficient Convolutional Neural Network for Mobile Devices"）→ `nightshift/drafts/ShuffleNet.md`
+- [fire-now] [draft|P1] LLaVA（NeurIPS 2023 oral, "Visual Instruction Tuning"）→ `nightshift/drafts/LLaVA.md`
+- [fire-now] [draft|P1] Qwen3-VL（可能无独立 arXiv 论文，按提示词分流：正式论文 / 官方文档短版 / 停手）→ `nightshift/drafts/Qwen3VL.md`
 
 ## 待办
 
-- [draft|P1] TODO.md「待读 / 待写 L1」其余论文（LLaVA、Qwen3-VL、OpenVLA、OpenDriveVLA、OneVL、DrivePI、Alpamago、BRCEQ、COTR、MSMDFusion、QLoRA）→ 由各班按 R2 逐篇展开为任务，产出 `nightshift/drafts/<论文名>.md`
+- [draft|P1] TODO.md「待读 / 待写 L1」其余论文（OpenVLA、OpenDriveVLA、OneVL、DrivePI、Alpamago、BRCEQ、COTR、MSMDFusion、QLoRA）→ 由各班按 R2 逐篇展开为任务，产出 `nightshift/drafts/<论文名>.md`
 
 ## 完成
 
@@ -27,6 +26,9 @@
 - [fire-now|01:31✅] [draft|P1] PillarNet → `nightshift/drafts/PillarNet.md`（288 行，**6.0M token** 新高，110 引句 + Table 1–6 逐格 0 错位，正文数字对表验算）。发现多处原文疑点："+0.34% mAP" 对不上 Table 4 行差（实为 +0.08）、§4.2 交叉引用 Table 6 疑应为 Table 5、多处拼写瑕疵照抄加注——均留人工裁决
 - [fire-now|01:41✅] [draft|P1] LSQ → `nightshift/drafts/LSQ.md`（253 行，1.7M token，Table 1–4 逐行 + 式 (1)–(11) 转写标注，43/43 表行匹配）。开源状态 grep 核实：官方未开源，如实标注
 - [fire-now|01:55✅] [draft|P1] Deep Compression → `nightshift/drafts/DeepCompression.md`（218 行，3.6M token，528 项核验全过：66 引文逐字 + 7 表 62 行逐格，另用 v5 PDF 交叉复核）。遗留：Appendix A Table 8/9 未逐行转录（TODO 注明）；开源状态"abs 页未给出、实现基于 Caffe"如实写
+- [fire-now|02:18✅] [draft|P1] MobileOne → `nightshift/drafts/MobileOne.md`（526 行，3.8M token，CVPR 2023，24 表 216 行逐格 + 36 引文核验，含与 RepQ-ViT 关系一句）。⚠ 原文自不一致：MNASNet-A1 Table 9=75.2 vs Table 14=75.8 双照抄加标注（建卡勿混用）；"比 MobileViT-S 快 5×" 未采信（配对变体不明）
+- [fire-now|02:20✅] [draft|P1] ShuffleNet → `nightshift/drafts/ShuffleNet.md`（Table 1–8 逐行 + 40 引文核验 ALL PASSED，开源 megvii-model 实抓确认）。插曲：01:55 派发后被限流打断约 20 分钟，恢复后确认已完成无需重跑。遗留：CVPR 2018 出处 camera-ready 未核对（v2 自称 "This report"）→ QUESTIONS
+- [fire-now|02:20✅] [draft|P1] MobileNet V1/V2/V3 三篇合一 → `nightshift/drafts/MobileNet.md`（599 行，**11.3M token** 历史新高，103 次工具调用，26 表 150 引句 0 失败）。⚠ 最重遗留：V2/V3 的 ar5iv 摘要与 abs 页 v1–v5 摘要均不一致（V3 数字 20/6.6/34 vs 15/4.6/30），正文按 ar5iv、摘要按 abs 分别标注，严格对版需 PDF 复核 → QUESTIONS
 
 ## 扩队提示
 
