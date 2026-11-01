@@ -15,3 +15,4 @@
 9. **TODO 笔误更正确认（二）**："BRCEQ" 实为 **BRECQ**（arXiv:2102.05426，ICLR 2021，PTQ；API 检索 BRCEQ 0 命中、BRECQ 恰 1 命中，且 `library/assets/BRCEQ/` 三张截图均为 BRECQ 内容）。草稿按 BRECQ 写成；TODO.md 是禁改文件，请你顺手改。BRECQ 的 ICLR 2021 出处仅依据官方 GitHub 自述，引用前建议核 OpenReview。
 10. **COTR 配图表号错位**：本地 `library/assets/COTR/Table4.png` 的内容实为论文 HTML v2 的 Table 3，PDF 与 HTML 表号疑整体错位一位。回填配图前请对照官方 PDF 确认映射。另 COTR 原文内部有三处数字/表述不一致（§4.3 41.05 vs Table 2 的 41.39 等），笔记已注记。
 11. **RadarOcc 消融表待查**：RadarOcc 笔记缺实验章节（止于损失函数小节），4 张新卡因此全部立为窄卡。若论文原文有 SSS/DBD/S2C 消融表，可补笔记后另立性能卡——补 library 笔记需你同意，是否要做？
+12. **VQ-Map 笔记乱码**：`library/Quantization/VQ-Map.md` §4.1 分析行约 105 行处有乱码"细□度"（疑为"细粒度"），请人工修复。另 VQ-Map 四张新卡均基于笔记单源自报数字，笔记未给 arXiv 号，引用前建议对原文核对。
