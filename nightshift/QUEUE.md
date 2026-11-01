@@ -4,12 +4,12 @@
 
 ## 进行中
 
-- [fire-now] [draft|P1] Alpamago（VLM/VLA 组，检索后先核对标题与主题再使用，有歧义就停手）→ `nightshift/drafts/Alpamago.md`
 - [fire-now] [draft|P1] BRCEQ（其他组，检索后先核对标题与主题再使用，检索不到就停手）→ `nightshift/drafts/BRCEQ.md`
+- [fire-now] [draft|P1] COTR（其他组，同名多篇时选雷达/自动驾驶最相关者并说明候选）→ `nightshift/drafts/COTR.md`
 
 ## 待办
 
-- [draft|P1] TODO.md「待读 / 待写 L1」其余论文（COTR、MSMDFusion、QLoRA）→ 由各班按 R2 逐篇展开为任务，产出 `nightshift/drafts/<论文名>.md`
+- [draft|P1] TODO.md「待读 / 待写 L1」其余论文（MSMDFusion、QLoRA）→ 由各班按 R2 逐篇展开为任务，产出 `nightshift/drafts/<论文名>.md`
 
 ## 完成
 
@@ -35,6 +35,7 @@
 - [fire-now|03:09✅] [draft|P1] OpenDriveVLA → `nightshift/drafts/OpenDriveVLA.md`（243 行，5.9M token，arXiv:2503.23463 API 唯一命中，9 表逐格 + 165 引文核验）。⚠ 实际标题为 "...Large Vision Language **Action** Model"（与任务给定单复数不同），按"唯一命中+主题吻合"采用 → QUESTIONS 待主人确认；assets 预存 Table4/5/TableB.png 经比对对应 TABLE IV/V/XI
 - [fire-now|03:26✅] [draft|P1] OneVL → `nightshift/drafts/OneVL.md`（274 行，5.0M token，arXiv:2604.18486 "Xiaomi OneVL" API 唯一命中，10 表逐格 + 145 引文五池核验 0 失败，Eq.(1)–(6) alttext 逐字）。遗留：README 称 Apache-2.0 但仓库无 LICENSE 文件 → 待人工确认；延迟测量硬件环境 HTML 未载，引用绝对值前查 PDF
 - [fire-now|03:49✅] [draft|P1] DrivePI → `nightshift/drafts/DrivePI.md`（229 行，**9.2M token**，arXiv:2512.12799 CVPR 2026，表 1–9 逐格 + 151 引文五源核验）。主动与库内 OpenDriveVLA/LLaVA 草稿交叉核对数字一致。遗留：GitHub 无 license 引用代码前需确认；PDF/HTML 参考文献编号有局部偏移，引用按版本核对
+- [fire-now|03:53✅] [draft|P1] Alpamago → `nightshift/drafts/Alpamago.md`（239 行，5.9M token，实为 **Alpamayo-R1** arXiv:2511.00088 NVIDIA——"Alpamago" 是 TODO 笔误，身份经预存 assets 表格逐值交叉确认）。TABLE 6–14 全抄 + 198 引文核验，初检 8 处问题已修复复验 0 失败。遗留：HF 页抓取超时，开源状态以论文 §7 + GitHub Apache-2.0 为准 → QUESTIONS 待确认命名更正
 
 ## 扩队提示
 
