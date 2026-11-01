@@ -20,3 +20,4 @@
 02:18 | fire-now | ShuffleNet 派发被限流拒绝 → 并发上限校准为 **2**（此前 3 的假设偏乐观）。已改：cron 班次批量 3→2；fire-now 也按 2 在跑执行。ShuffleNet 留队待槽。当前在跑：MobileNet 三部曲、MobileOne
 02:19 | fire-now | MobileOne 草稿完成（3.8M token，用时 37 分钟）| 产出 1（526 行）| validate OK | 原文 Table 9 vs 14 自不一致已 ⚠。补槽 ShuffleNet（实为恢复：其 20 分钟前已被限流打断，带 23KB 进度续写，经查文件 mtime 确认）。累计 14 任务 ≈36.2M
 02:20 | fire-now | ShuffleNet 确认完工（恢复后仅汇报，0.6M token）+ MobileNet 三部曲完工（**11.3M token** 历史新高，599 行，103 次工具调用）| 产出 2 | validate OK | ar5iv 版本歧义 → QUESTIONS。补槽 LLaVA + Qwen3-VL。累计 16 任务 ≈48M（00:33–02:20，折合约 29M/h；注：被限流打断时段的 token 消耗未计入，实际更高）
+02:36 | fire-now | LLaVA 草稿完成（2.4M token，63 次工具调用）| 产出 1（173 行）| validate OK | 补槽 OpenVLA。累计 17 任务 ≈50.5M

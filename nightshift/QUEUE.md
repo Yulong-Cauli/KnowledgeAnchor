@@ -4,12 +4,12 @@
 
 ## 进行中
 
-- [fire-now] [draft|P1] LLaVA（NeurIPS 2023 oral, "Visual Instruction Tuning"）→ `nightshift/drafts/LLaVA.md`
 - [fire-now] [draft|P1] Qwen3-VL（可能无独立 arXiv 论文，按提示词分流：正式论文 / 官方文档短版 / 停手）→ `nightshift/drafts/Qwen3VL.md`
+- [fire-now] [draft|P1] OpenVLA（CoRL 2024, "OpenVLA: An Open-Source Vision-Language-Action Model"）→ `nightshift/drafts/OpenVLA.md`
 
 ## 待办
 
-- [draft|P1] TODO.md「待读 / 待写 L1」其余论文（OpenVLA、OpenDriveVLA、OneVL、DrivePI、Alpamago、BRCEQ、COTR、MSMDFusion、QLoRA）→ 由各班按 R2 逐篇展开为任务，产出 `nightshift/drafts/<论文名>.md`
+- [draft|P1] TODO.md「待读 / 待写 L1」其余论文（OpenDriveVLA、OneVL、DrivePI、Alpamago、BRCEQ、COTR、MSMDFusion、QLoRA）→ 由各班按 R2 逐篇展开为任务，产出 `nightshift/drafts/<论文名>.md`
 
 ## 完成
 
@@ -29,6 +29,7 @@
 - [fire-now|02:18✅] [draft|P1] MobileOne → `nightshift/drafts/MobileOne.md`（526 行，3.8M token，CVPR 2023，24 表 216 行逐格 + 36 引文核验，含与 RepQ-ViT 关系一句）。⚠ 原文自不一致：MNASNet-A1 Table 9=75.2 vs Table 14=75.8 双照抄加标注（建卡勿混用）；"比 MobileViT-S 快 5×" 未采信（配对变体不明）
 - [fire-now|02:20✅] [draft|P1] ShuffleNet → `nightshift/drafts/ShuffleNet.md`（Table 1–8 逐行 + 40 引文核验 ALL PASSED，开源 megvii-model 实抓确认）。插曲：01:55 派发后被限流打断约 20 分钟，恢复后确认已完成无需重跑。遗留：CVPR 2018 出处 camera-ready 未核对（v2 自称 "This report"）→ QUESTIONS
 - [fire-now|02:20✅] [draft|P1] MobileNet V1/V2/V3 三篇合一 → `nightshift/drafts/MobileNet.md`（599 行，**11.3M token** 历史新高，103 次工具调用，26 表 150 引句 0 失败）。⚠ 最重遗留：V2/V3 的 ar5iv 摘要与 abs 页 v1–v5 摘要均不一致（V3 数字 20/6.6/34 vs 15/4.6/30），正文按 ar5iv、摘要按 abs 分别标注，严格对版需 PDF 复核 → QUESTIONS
+- [fire-now|02:36✅] [draft|P1] LLaVA → `nightshift/drafts/LLaVA.md`（173 行，2.4M token，NeurIPS 2023 oral 经 API 核对唯一同名，115 引文 + 4 表逐格 + 4 公式 alttext 0 失败）。遗留：GPT-4-judge 相对分性质已标注；v1↔v2 差异未核对
 
 ## 扩队提示
 
