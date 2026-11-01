@@ -13,6 +13,10 @@ evidence:
     locator: "§1 概述"
     quote: "但传统方法将其处理为稀疏点云，导致 CFAR（恒虚警率）检测过程中丢失了大量低 RCS（雷达散射截面）物体的弱反射信号。"
     relation: supports
+  - source: library/3D_Occupancy/RadarOcc.md
+    locator: "§2 方法 / 数据减量【减量后的结果】"
+    quote: "同时在输入端解决了由于雷达物理特性导致的低 RCS 目标消失问题。"
+    relation: supports
 falsifiers:
   - "同一占据模型分别以 CFAR 稀疏点云与原始 4DRT 为输入，低 RCS 类别（行人/骑行者）指标点云不差或更好——『CFAR 丢失弱反射造成下游损失』不成立"
   - "原文或复现显示 4DRT 相对点云的增益在控制参数量/训练配置后消失，或主要来自模型容量差异而非弱信号保留"
