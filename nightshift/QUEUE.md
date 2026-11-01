@@ -5,12 +5,12 @@
 ## 进行中
 
 - [fire-now] [draft|P1] PillarNet（ECCV 2022, "PillarNet: Real-Time and High-Performance Pillar-based 3D Object Detection"）→ `nightshift/drafts/PillarNet.md`
-- [fire-now|R2新增] [draft|P1] AutoVLA（端到端自动驾驶 VLA）→ `nightshift/drafts/AutoVLA.md`，检索 arXiv 后先核对标题再使用，有歧义就停手
+- [fire-now] [draft|P1] RCBEVDet++（"RCBEVDet++: Toward High-accuracy Radar-Camera Fusion 3D Perception Network"，RCBEVDet 的扩展版）→ `nightshift/drafts/RCBEVDetPP.md`
 - [fire-now] [draft|P1] MIT-BEVFusion（ICRA 2023, "BEVFusion: Multi-Task Multi-Sensor Fusion with Unified Bird's-Eye View Representation"）→ `nightshift/drafts/MIT-BEVFusion.md`
 
 ## 待办
 
-- [draft|P1] TODO.md「待读 / 待写 L1」其余论文（RCBEVDet++、Deep Compression、LSQ、MobileNet/V2/V3、MobileOne、ShuffleNet、LLaVA、Qwen3-VL、OpenVLA、OpenDriveVLA、OneVL、DrivePI、Alpamago、BRCEQ、COTR、MSMDFusion、QLoRA）→ 由各班按 R2 逐篇展开为任务，产出 `nightshift/drafts/<论文名>.md`
+- [draft|P1] TODO.md「待读 / 待写 L1」其余论文（Deep Compression、LSQ、MobileNet/V2/V3、MobileOne、ShuffleNet、LLaVA、Qwen3-VL、OpenVLA、OpenDriveVLA、OneVL、DrivePI、Alpamago、BRCEQ、COTR、MSMDFusion、QLoRA）→ 由各班按 R2 逐篇展开为任务，产出 `nightshift/drafts/<论文名>.md`
 
 ## 完成
 
@@ -21,6 +21,7 @@
 - [fire-now|01:07✅] [draft|P1] BEVDet → `nightshift/drafts/BEVDet.md`（235 行，1.35M token，Table 1–7 全部行 + 13 条引文脚本核验）。发现原文自相矛盾：§4.3 称配置 C "peaks at epoch 15" vs Table 4 C 行 "0.262 (e11)"，两处照抄已标注；assets 文件名与论文编号错位（Table2.png 实为论文 Table 4），回填配图时注意
 - [fire-now|01:13✅] [claim|P0] BEV-Planner → **5 张 asserted 卡**（0.33M token，review_due 2026-12-02，related 互链）：claim-bevplanner-egomlp-parity-l2-collision / egostatus-injection-closes-gap / ego-velocity-dominates-planning / nuscenes-straight-driving-imbalance / unidad-postprocessing-raises-ccr。16 条 quote 全部逐字验证，validate OK(17)，index 已重建。遗留（留 QA 轮）：note 锚点风格统一、数字回源逐格复核
 - [fire-now|01:21✅] [audit|P3] EchoFusion 两卡 → 小修 2 张卡（Table 7 行名对齐论文原文、注明笔记 §3.1 省略行），validate OK(17)。未新建卡：笔记错误已被现有 mismatch 卡覆盖；新发现候选：论文正文 "only 0.03 less than LiDAR" vs Table 6 实差 0.45（疑论文笔误）→ 已记 QUESTIONS 待主人定
+- [fire-now|01:29✅] [draft|P1] AutoVLA → `nightshift/drafts/AutoVLA.md`（259 行，**5.9M token**，NeurIPS 2025, arXiv:2506.13757，10 张表逐字行 + 140 引文程序验证，开源状态实抓确认）。自查：§1 "superior performance" 与 Table 1/S2/S3 多处非第一矛盾已 ⚠（建卡时建议只锚单一数字）；Table S3 两行同名 DriveTraj 照抄待核
 
 ## 扩队提示
 

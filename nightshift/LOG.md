@@ -10,3 +10,4 @@
 01:07 | fire-now | BEVDet 草稿完成（1.35M token，用时 13.8 分钟）| 产出 1（235 行）| validate OK（17 张卡 = 12 旧 + 5 张 BEV-Planner 新卡在写）| 原文 §4.3 vs Table 4 矛盾已标注。补槽 EchoFusion audit。累计 5 任务 ≈8.2M
 01:13 | fire-now | BEV-Planner claim 提炼完成（0.33M token，5 张卡）| 产出 5 | validate OK(17) + index 重建 + 调度班抽查 quote 逐字命中 | 补槽 PillarNet 草稿。累计 6 任务 ≈8.6M
 01:21 | fire-now | EchoFusion 两卡审计完成（0.56M token，用时 8.4 分钟）| 产出 2（小修 2 卡，status 仍 asserted）| validate OK(17) | 未新建卡（现有 mismatch 卡已覆盖）；论文自身 0.03 vs 0.45 疑笔误 → QUESTIONS。补槽 MIT-BEVFusion 草稿。累计 7 任务 ≈9.2M
+01:29 | fire-now | AutoVLA 草稿完成（**5.9M token**，64 次工具调用，用时 20.4 分钟）| 产出 1（259 行）| validate OK | §1 自夸 vs 表格矛盾已 ⚠。补槽 RCBEVDet++。累计 8 任务 ≈15.1M（00:33 起折合约 16M/h）
