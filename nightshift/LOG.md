@@ -36,3 +36,4 @@
 04:48 | fire-now | HGSFusion + NJU-SparseOcc 挖矿完成（0.66M + 0.89M，8 张卡）| 产出 8 | validate OK(33) + index 重建 + 双抽查命中 | claim 库 12 → 33。补槽 SGDet3D、RadarDistill。累计 31 任务 ≈116.1M
 04:54 | fire-now | SGDet3D 挖矿完成（0.65M token，4 张卡）| 产出 4 | validate OK(37) + index 重建 | 补槽 RCBEVDet。累计 32 任务 ≈116.8M；claim 库 12 → 37
 04:59 | fire-now | RadarDistill 挖矿完成（0.52M token，4 张卡）| 产出 4 | validate OK(41) + index 重建 | 补槽 OmniQuant。累计 33 任务 ≈117.3M；claim 库 12 → 41
+05:03 | fire-now | RCBEVDet 挖矿完成（0.76M token，4 张窄卡）| 产出 4 | validate OK(45) + index 重建 | 补槽 VQ-Map。累计 34 任务 ≈118.1M；claim 库 12 → 45
