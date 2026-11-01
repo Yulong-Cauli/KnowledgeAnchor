@@ -5,7 +5,7 @@
 ## 进行中
 
 - [fire-now] [draft|P1] QLoRA（NeurIPS 2023, "QLoRA: Efficient Finetuning of Quantized LLMs"）→ `nightshift/drafts/QLoRA.md`
-- [fire-now] [claim|P2] library/3D_Occupancy/RadarOcc.md → 提炼 2–4 张 asserted 卡（TODO 优先项：旁瓣感知稀疏化 + 球坐标编码 vs 笛卡尔；撑不起强主张就立窄卡，参考 nightshift/cross/4d-radar.md 的口径发现）
+- [fire-now] [claim|P2] library/Classical_Detection/R4Det.md → 提炼 2–4 张 asserted 卡（4D 雷达-相机融合方向；撑不起强主张就立窄卡）
 
 ## 待办
 
@@ -39,6 +39,7 @@
 - [fire-now|04:11✅] [draft|P1] BRCEQ → `nightshift/drafts/BRCEQ.md`（348 行，**6.9M token**，实为 **BRECQ** arXiv:2102.05426 ICLR 2021——字母易位笔误，assets 全部为 BRECQ 内容佐证）。Table 1–6 逐行 + 81 引文核验，§4.4 数字对账一致。遗留：ICLR 2021 仅 GitHub 自述未核 OpenReview；原文 3 处笔误照抄注记 → TODO 更正留 QUESTIONS
 - [fire-now|04:15✅] [draft|P1] COTR → `nightshift/drafts/COTR.md`（288 行，4.5M token，7 个同名论文中锁定 CVPR 2024 占用预测版，7 表 66 行 + 38 引文核验）。发现原文内部不一致（§4.3 41.05 vs Table 2 41.39 等）已注记；assets/COTR/Table4.png 实为 HTML Table 3（表号疑错位）→ QUESTIONS
 - [fire-now|04:28✅] [draft|P1] MSMDFusion → `nightshift/drafts/MSMDFusion.md`（290 行，4.3M token，CVPR 2023 LiDAR-相机融合确认，6 表逐格 + 57 引文核验，assets 9 图抽验一致）。诚实标注：本文是 LiDAR-相机非雷达-相机，未强加库内关联。遗留：assets Table7.png 实为 Figure 6、公式截图未嵌入待确认
+- [fire-now|04:34✅] [claim|P2] RadarOcc → **4 张 asserted 窄卡**（0.75M token，review_due 2026-12-02，related 互链）：claim-radarocc-sss-rangewise-preserves-lowrcs / dbd-compresses-doppler-to-8-descriptors / s2c-deformable-avoids-interp-degradation / cfar-pointcloud-loses-lowrcs。9 条 quote 逐字验证，validate OK(21)，index 已重建。关键决定：笔记无实验章节（cross 文件 M5 已证实），拒绝立"stable-beats-Cartesian"强主张，全部窄卡 + scope 口径限定。遗留：回原文核对有无 SSS/DBD/S2C 消融表（涉及补笔记，需主人同意）→ QUESTIONS
 
 ## 扩队提示
 
