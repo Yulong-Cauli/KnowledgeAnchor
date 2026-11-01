@@ -9,8 +9,8 @@
 - [fire-now] [claim|P2] library/Quantization/VQ-Map.md → 提炼 2–4 张 asserted 卡（BEV 离散表示方向）
 - [fire-now] [claim|P2] library/Multimodal_Fusion/Ali-BEVFusion.md → 提炼 2–4 张 asserted 卡（注意与 MIT 版区分）
 - [fire-now] [claim|P2] library/Classical_Detection/FCOS.md → 提炼 2–4 张 asserted 卡（经典设计主张与消融结论）
-- [fire-now] [claim|P2] 为 OmniQuant 笔记表格混列立 note-mismatch 卡（claim-omniquant-note-table-mismatch，参照 emc2 模式）
 - [fire-now] [claim|P2] "library/Classical_Detection/PointNet & PointPillars.md" → 提炼 2–4 张 asserted 卡（置换不变性、Pillar 编码方向）
+- [fire-now] [claim|P2] library/Classical_Detection/CornerNet.md → 提炼 2–4 张 asserted 卡（角点池化、Associative Embedding）
 
 ## 待办
 
@@ -58,6 +58,7 @@
 - [fire-now|05:19✅] [claim|P2] OmniQuant → **4 张 asserted 卡**（3.0M token，互链 + 链 QwT 卡）：w2a16g128-beats-gptq-awq / w4a4-zeroshot-5265 / let-lwc-ablation / w4a16g128-913toks。数字与 arXiv v3 + v1 PDF 逐格交叉核对；**发现笔记实验表 1 混列**（13B 表头下实为 7B 列）与 FP16 基线行不符 → note-mismatch 卡已排队 + QUESTIONS。校准集口径（QwT 教训）写入各卡 scope
 - [fire-now|05:26✅] [claim|P2] CaDDN → **4 张消融卡**（0.59M token，互链）：深度监督主导增益 +10.4% / LID 优于 UD / Soft 分布优于 Argmax / 联合训练优于冻结。14 条 quote 逐字验证，validate OK(65)。遗留：笔记消融未标数据集与 AP 版本，四卡 scope 如实注明"需对照原论文补齐"；两处设计主张无消融未立卡（不硬凑）
 - [fire-now|05:31✅] [claim|P2] CenterNet-Points → **4 张卡**（0.34M token，互链）：heatmap-peaks-replace-nms / regression-replaces-grouping / fps-gain-over-cornernet / center-collision-rare（自报口径不同已注明不可直接对比）。12 条 quote 逐字验证，validate OK(69)。遗留：FPS 数字无硬件/分辨率口径 → 待人工
+- [fire-now|05:33✅] [claim|P2] OmniQuant note-mismatch 卡 → `claims/claim-omniquant-note-table-mismatch.md`（0.57M token）：18 条 evidence 双源成立（笔记+LOG 逐字 + 实抓 arXiv v3/v1 PDF pdftotext 逐格，URL+日期齐全）。validate OK(70)。遗留：笔记修复需主人处理（改法建议在卡内待验证节）
 
 ## 扩队提示
 
