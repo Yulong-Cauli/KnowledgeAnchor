@@ -10,3 +10,10 @@ Desktop.ini
 
 # Ignore editor state
 .obsidian/
+
+# Generated index
+index/
+
+# Local tool state
+.workbuddy/
+.zcodeignore
