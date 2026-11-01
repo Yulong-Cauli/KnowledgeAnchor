@@ -10,3 +10,4 @@
 4. **EchoFusion 论文自身疑点**：正文称 RT+C 的 BEV AP "only 0.03 less than LiDAR"，但 Table 6 数字 84.92 vs 84.47 实差 0.45，疑似论文笔误。是否值得另立一张 claim 卡记录此矛盾（措辞会是"论文声称/数字不自洽"），由你决定。
 5. **ShuffleNet 出处存疑**：arXiv abs 页无 Comments 字段，"CVPR 2018" 系任务给定；v2 正文自称 "This report"。建卡/引用前建议对照 CVF Open Access 版确认。
 6. **MobileNet 系列 ar5iv 版本歧义**：V2/V3 的 ar5iv 摘要与 arXiv abs 页 v1–v5 摘要均不一致（V3 头条数字 20/6.6/34 vs 15/4.6/30）。笔记已双源分别标注，但引用 V2/V3 数字前建议以官方 PDF 对版。另 V3 内部 Table 3 vs 附录 Table 9 有 219/217、67.4/67.5 两处小出入。
+7. **OpenDriveVLA 标题确认**：实际标题为 "OpenDriveVLA: Towards End-to-end Autonomous Driving with Large Vision Language **Action** Model"（arXiv:2503.23463，API ti 检索唯一命中，v1/v2 一致），与我下发任务里写的 "...Vision Language Models" 有出入。已按唯一命中采用，请你确认无误。
