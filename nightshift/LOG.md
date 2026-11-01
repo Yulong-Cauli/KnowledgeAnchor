@@ -24,3 +24,4 @@
 02:41 | fire-now | Qwen3-VL 草稿完成（4.4M token，77 次工具调用）| 产出 1（328 行，arXiv:2511.21631 确认存在独立论文）| validate OK | PDF 专属大表不硬转抄（EMC2 教训生效）。补槽 OpenDriveVLA。累计 18 任务 ≈54.9M
 03:06 | fire-now | OpenVLA 草稿完成（**9.6M token** 新纪录，126 次工具调用，用时 30 分钟）| 产出 1（227 行）| validate OK | 补槽 OneVL。累计 19 任务 ≈64.5M（00:33–03:06，折合约 35M/h）
 03:09 | fire-now | OpenDriveVLA 草稿完成（5.9M token，84 次工具调用）| 产出 1（243 行）| validate OK | 标题与任务给定有出入（Action Model），按唯一命中采用 → QUESTIONS。补槽 DrivePI。累计 20 任务 ≈70.4M（00:33–03:09，折合约 37M/h）
+03:26 | fire-now | OneVL 草稿完成（5.0M token，61 次工具调用）| 产出 1（274 行）| validate OK | 补槽 Alpamago。累计 21 任务 ≈75.4M

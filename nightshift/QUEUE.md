@@ -4,12 +4,12 @@
 
 ## 进行中
 
-- [fire-now] [draft|P1] OneVL（VLM/VLA 组，检索后先核对标题与主题再使用，有歧义就停手）→ `nightshift/drafts/OneVL.md`
 - [fire-now] [draft|P1] DrivePI（VLM/VLA 组，检索后先核对标题与主题再使用，有歧义就停手）→ `nightshift/drafts/DrivePI.md`
+- [fire-now] [draft|P1] Alpamago（VLM/VLA 组，检索后先核对标题与主题再使用，有歧义就停手）→ `nightshift/drafts/Alpamago.md`
 
 ## 待办
 
-- [draft|P1] TODO.md「待读 / 待写 L1」其余论文（Alpamago、BRCEQ、COTR、MSMDFusion、QLoRA）→ 由各班按 R2 逐篇展开为任务，产出 `nightshift/drafts/<论文名>.md`
+- [draft|P1] TODO.md「待读 / 待写 L1」其余论文（BRCEQ、COTR、MSMDFusion、QLoRA）→ 由各班按 R2 逐篇展开为任务，产出 `nightshift/drafts/<论文名>.md`
 
 ## 完成
 
@@ -33,6 +33,7 @@
 - [fire-now|02:41✅] [draft|P1] Qwen3-VL → `nightshift/drafts/Qwen3VL.md`（328 行，4.4M token，arXiv:2511.21631 Technical Report，Table 1–9 逐字转抄，194/194 引文核验）。吸取 EMC2 教训：HTML 缺失的 PDF 大表不硬转抄只抽查（MMStar 78.7 / MMMU 80.6 与 prose 一致）。遗留：三处原文瑕疵照录待勘误；v1↔v2 差异未比对
 - [fire-now|03:06✅] [draft|P1] OpenVLA → `nightshift/drafts/OpenVLA.md`（227 行，**9.6M token** 新纪录，126 次工具调用，四源核验 arXiv+PMLR+GitHub API，132 引文 + 48 表行 0 失败）。与 LLaVA 草稿互链有据。遗留：HuggingFace 不可达（SSL），开源核验基于 GitHub API；PMLR 作者 17 vs arXiv 18（缺 Grace Lam）已备忘
 - [fire-now|03:09✅] [draft|P1] OpenDriveVLA → `nightshift/drafts/OpenDriveVLA.md`（243 行，5.9M token，arXiv:2503.23463 API 唯一命中，9 表逐格 + 165 引文核验）。⚠ 实际标题为 "...Large Vision Language **Action** Model"（与任务给定单复数不同），按"唯一命中+主题吻合"采用 → QUESTIONS 待主人确认；assets 预存 Table4/5/TableB.png 经比对对应 TABLE IV/V/XI
+- [fire-now|03:26✅] [draft|P1] OneVL → `nightshift/drafts/OneVL.md`（274 行，5.0M token，arXiv:2604.18486 "Xiaomi OneVL" API 唯一命中，10 表逐格 + 145 引文五池核验 0 失败，Eq.(1)–(6) alttext 逐字）。遗留：README 称 Apache-2.0 但仓库无 LICENSE 文件 → 待人工确认；延迟测量硬件环境 HTML 未载，引用绝对值前查 PDF
 
 ## 扩队提示
 
