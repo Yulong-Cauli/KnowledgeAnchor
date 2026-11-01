@@ -93,7 +93,7 @@ PointNet 采用了一个简单粗暴但有效的策略 ：
 
 **核心思想**：将 3D 点云转换为Pillars，通过 PointNet 学习柱子特征，随后将其“散射”（Scatter）回 2D 网格生成伪图像Pseudo Image，最后利用 2D CNN 进行检测。这种设计避免了昂贵的 3D 卷积，实现了速度与精度的平衡 。
 
-<div align="center"><img src="https://raw.githubusercontent.com/Yulong-Cauli/KnowledgeAnchor/main/assets/PointPillars/Figure2.png"></div>
+<div align="center"><img src="https://raw.githubusercontent.com/Yulong-Cauli/KnowledgeAnchor/main/library/assets/PointPillars/Figure2.png"></div>
 
 ##  Pillar Feature Net (PFN)
 
@@ -232,7 +232,7 @@ return batch_dict
 
 **方向分类**：由于回归损失（Sine-Error）无法区分车头朝前 ($0^\circ$) 还是朝后 ($180^\circ$)，网络增加了一个 softmax 分类分支来学习离散化的方向 10。
 
-<div align="center"><img src="https://raw.githubusercontent.com/Yulong-Cauli/KnowledgeAnchor/main/assets/PointPillars/Figure_Loss.png"></div>
+<div align="center"><img src="https://raw.githubusercontent.com/Yulong-Cauli/KnowledgeAnchor/main/library/assets/PointPillars/Figure_Loss.png"></div>
 
 代码通过 `AnchorHeadSingle` 类实现，包含三个并行的 $1\times1$ 卷积分支。
 
@@ -282,7 +282,7 @@ PillarNet 包含三个核心模块：
 
 **总体思想：** 通过多尺度 encoder + 强融合 neck 替代 PointPillars 的弱 backbone，并通过 OD-IoU 提升 box 回归稳定性。
 
-<div align="center"><img src="https://raw.githubusercontent.com/Yulong-Cauli/KnowledgeAnchor/main/assets/PillarNet/Figure_Compare.png"></div>
+<div align="center"><img src="https://raw.githubusercontent.com/Yulong-Cauli/KnowledgeAnchor/main/library/assets/PillarNet/Figure_Compare.png"></div>
 
 ------
 

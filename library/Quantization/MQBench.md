@@ -14,7 +14,7 @@
 
 是**首个真正面向工业级落地、确保训练与部署完全一致的模型量化基准测试框架**。
 
-<div align="center"><img src="https://raw.githubusercontent.com/Yulong-Cauli/KnowledgeAnchor/main/assets/MQBench/_page_1_Figure_0.jpeg""></div>
+<div align="center"><img src="https://raw.githubusercontent.com/Yulong-Cauli/KnowledgeAnchor/main/library/assets/MQBench/_page_1_Figure_0.jpeg""></div>
 
 ---
 
@@ -73,9 +73,9 @@ $$
 
 其中 $q_x q_w$ 是物理电路上的 `INT8 x INT8 -> INT32` 累加。MQBench 必须在 PyTorch 中通过设定严格的伪量化参数，来使得模拟计算的结果与物理硬件上述公式完全一致。
 
-<div align="center"><img src="https://raw.githubusercontent.com/Yulong-Cauli/KnowledgeAnchor/main/assets/MQBench/_page_3_Figure_0.jpeg""></div>
+<div align="center"><img src="https://raw.githubusercontent.com/Yulong-Cauli/KnowledgeAnchor/main/library/assets/MQBench/_page_3_Figure_0.jpeg""></div>
 
-<div align="center"><img src="https://raw.githubusercontent.com/Yulong-Cauli/KnowledgeAnchor/main/assets/MQBench/_page_3_Figure_1.jpeg""></div>
+<div align="center"><img src="https://raw.githubusercontent.com/Yulong-Cauli/KnowledgeAnchor/main/library/assets/MQBench/_page_3_Figure_1.jpeg""></div>
 
 ---
 
@@ -154,7 +154,7 @@ $$
 但在 QAT 训练时，每一轮 Batch 送进来的数据都在变，导致当步的 $\mu_{batch}$ 和 $\sigma_{batch}$ 剧烈波动。
 如果我们在每次 Forward 传播时，直接彻底把波动的 $\mu_{batch}$ 吸收到偏置 $b$ 里去更新参数，反向传播的梯度会极其混乱，模型根本无法收敛，这对应了论文中提到的图 3-a 在训练时不可行。
 
-<div align="center"><img src="https://raw.githubusercontent.com/Yulong-Cauli/KnowledgeAnchor/main/assets/MQBench/_page_4_Figure_0.jpeg""></div>
+<div align="center"><img src="https://raw.githubusercontent.com/Yulong-Cauli/KnowledgeAnchor/main/library/assets/MQBench/_page_4_Figure_0.jpeg""></div>
 
 **5 张核心演进图解析：**
 
@@ -180,7 +180,7 @@ $$
 
 不同的硬件编译器对节点拓扑极其苛刻。学术界随意插量化节点会导致真实芯片无法进行算子融合，或者因类型不匹配直接报错。
 
-<div align="center"><img src="https://raw.githubusercontent.com/Yulong-Cauli/KnowledgeAnchor/main/assets/MQBench/_page_5_Figure_0.jpeg""></div>
+<div align="center"><img src="https://raw.githubusercontent.com/Yulong-Cauli/KnowledgeAnchor/main/library/assets/MQBench/_page_5_Figure_0.jpeg""></div>
 
 **3 张核心拓扑图解析（以残差结构为例）：**
 *   **图 (1) 学术设定**：无脑在算子后插 FakeQuant。导致 Add 节点的两个输入一个是 INT8（带误差），一个是 FP32（未截断），硬件底层根本无法异构相加；且打破了底层 `Conv+ReLU` 的硬融合规则。
