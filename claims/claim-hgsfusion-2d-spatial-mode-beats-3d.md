@@ -34,7 +34,7 @@ signoff: null
 
 论文声称（据笔记 §4.5 转录，尚未独立验证）：在 HGSFusion 自己的消融中，2D（BEV）空间模式预测优于 3D——带显式监督时 RoI AP 79.46 vs 75.58（+3.88），EAA AP 58.96 vs 56.41（+2.55）；无监督侧同向（2D 78.77 vs 3D 74.70）。同表显式监督在 2D 下 +0.69 RoI AP（79.46 vs 78.77），与 R4Det / SGDet3D 的「中间几何量显式监督有增益」同向（cross 文档 S5）。
 
-口径张力（引用本卡时必须带上）：笔记把 2D 优势归因于「4D 雷达高度角分辨率不足，3D 占据预测会引入噪声高度信息」，这与 RadarOcc 的立场相反——RadarOcc 整条 pipeline 建立在 4D 雷达张量的俯仰维（球坐标 r/a/e）之上，并称其特征图「保持了雷达原始的分辨率优势」（cross 文档 C1）。两者任务不同（纯雷达 4DRT 占据预测 vs 融合检测管线内的空间模式预测），笔记层面无法仲裁。因此本卡只立「HGSFusion 管线内 2D > 3D 的消融排序」这条窄主张；「4D 雷达俯仰维信息价值低」**不立卡**——它需要同一硬件/数据集上的对照实验才能裁决（cross 文档 §6 遗留问题 6.5/6.6 方向）。库内 claim-radarocc-s2c-deformable-avoids-interp-degradation 卡正文已同步记录此张力。
+口径张力（引用本卡时必须带上）：笔记把 2D 优势归因于「4D 雷达高度角分辨率不足，3D 占据预测会引入噪声高度信息」，这与 RadarOcc 的立场相反——RadarOcc 整条 pipeline 建立在 4D 雷达张量的俯仰维（球坐标 r/a/e）之上，并称其特征图「保持了雷达原始的分辨率优势」（cross 文档 C1）。两者任务不同（纯雷达 4DRT 占据预测 vs 融合检测管线内的空间模式预测），笔记层面无法仲裁。因此本卡只立「HGSFusion 管线内 2D > 3D 的消融排序」这条窄主张；「4D 雷达俯仰维信息价值低」**不立卡**——它需要同一硬件/数据集上的对照实验才能裁决（cross 文档 §6 遗留问题 6.5 方向）。库内 claim-radarocc-s2c-deformable-avoids-interp-degradation 卡正文已同步记录此张力。
 
 另外：Table 7 的 2D 监督行（58.96 / 79.46）与 Table 3 全量行数值相同，即该消融的最优配置就是全量模型；「RoI AP」口径未定义，与 Table 1 各列关系不明（见 [Cyclist 卡](claim-hgsfusion-cyclist-roi-ap-below-all-baselines.md) 口径警告 3）。
 

@@ -40,7 +40,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（据笔记 §3 转述，尚未独立验证）：在 Occ3D-nuScenes、Tesla A100 (fp32) 口径下，全稀疏架构的 SparseOcc 以 7 帧时序输入取得 RayIoU 34.0、17.3 FPS；同表两条稠密基线为 BEVFormer 4 帧 32.2 / 2.3 FPS、FB-Occ 16 帧 33.7 / 5.2 FPS。注意差距的结构：FPS 差一个量级（17.3 vs 5.2），RayIoU 只高 0.3–1.8——本卡主张是「同表高于稠密基线」，不是 SOTA。
+论文声称（据笔记 §3 转述，尚未独立验证）：在 Occ3D-nuScenes、Tesla A100 (fp32) 口径下，全稀疏架构的 SparseOcc 以 7 帧时序输入取得 RayIoU 34.0、17.3 FPS；同表两条稠密基线为 BEVFormer 4 帧 32.2 / 2.3 FPS、FB-Occ 16 帧 33.7 / 5.2 FPS。注意差距的结构：FPS 差 3.3 倍（17.3 vs 5.2；对 BEVFormer 的 2.3 约 7.5 倍），RayIoU 只高 0.3–1.8——本卡主张是「同表高于稠密基线」，不是 SOTA。
 
 限定与注意：
 1. 笔记未说明基线数字是复现还是引用；FPS 跨论文对比口径常不可比（[EMC2 卡](claim-emc2-orin-sub400ms-leading-accuracy.md)的前车之鉴），故 scope 写明「自报对比表」。
