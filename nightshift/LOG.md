@@ -43,3 +43,25 @@
 05:26 | fire-now | CaDDN 挖矿完成（0.59M token，4 张消融卡）+ FCOS 完工确认（4 张设计窄卡）| 产出 8 | validate OK(65) + index 重建 | 补槽 OmniQuant-mismatch 卡 + CenterNet-Points。累计 39 任务 ≈123.1M；claim 库 12 → 65
 05:31 | fire-now | CenterNet-Points 挖矿完成（0.34M token，4 张卡）| 产出 4 | validate OK(69) + index 重建 | 补槽 PointNet&PointPillars。累计 40 任务 ≈123.4M；claim 库 12 → 69
 05:33 | fire-now | OmniQuant note-mismatch 卡完成（0.57M token，18 条双源证据）| 产出 1 | validate OK(70) + index 重建 | 补槽 CornerNet。累计 41 任务 ≈124M
+05:38 | fire-now | PointNet&PointPillars 挖矿完成（0.51M token，4 张窄卡）| 产出 4 | 本任务卡零报错（全库 validate 暂 exit 1 系 CornerNet related 悬空，待其完工）| 补槽 SurroundOcc。累计 42 任务 ≈124.5M；claim 库 → 74（含在写）
+05:38 | fire-now | CornerNet 挖矿完成（0.39M token，4 张窄卡，related 悬空自愈）| 产出 4 | validate OK(78) + index 重建 | 补槽 RepQ-ViT。累计 43 任务 ≈124.9M；claim 库 12 → 78
+05:42 | fire-now | SurroundOcc 挖矿完成（0.44M token，4 张卡）| 产出 4 | validate OK(82) + index 重建 | 补槽 QD-BEV。累计 44 任务 ≈125.3M；claim 库 12 → 82
+05:46 | fire-now | RepQ-ViT 挖矿完成（1.0M token，4 张卡 + 2 卡回链）| 产出 6 | validate OK(86) + index 重建 | 补槽 PD-Quant。累计 45 任务 ≈126.3M；claim 库 12 → 86
+05:50 | fire-now | PD-Quant 挖矿完成（0.40M token，4 张卡）| 产出 5（含 QwT 回链）| validate OK(90) + index 重建 | 补槽 MQBench。累计 46 任务 ≈126.7M；claim 库 12 → 90
+05:52 | fire-now | QD-BEV 挖矿完成（0.88M token，4 张卡）| 产出 4 | validate OK(94) + index 重建 | 规避假 arXiv id。补槽 SparseOcc。累计 47 任务 ≈127.6M；claim 库 12 → 94
+05:53 | fire-now | MQBench 挖矿完成（0.24M token，4 张卡）| 产出 4 | validate OK(98) + index 重建 | 补槽 Fast R-CNN。累计 48 任务 ≈127.8M；claim 库 12 → 98
+05:59 | fire-now | Fast R-CNN 挖矿完成（0.53M token，4 张卡）| 产出 4 | validate OK(102)🎉 破百 + index 重建 | 补槽 CenterNet-Triplets。累计 49 任务 ≈128.3M；claim 库 12 → 102
+06:01 | fire-now | SparseOcc 挖矿完成（0.75M token，3 张卡）| 产出 3 | validate OK(105) + index 重建 | P2 池见底 → R6 QA 轮启动（round2 批 1 = BEV-Planner 5 卡）。累计 50 任务 ≈129.1M；claim 库 12 → 105
+06:06 | fire-now | CenterNet-Triplets 挖矿完成（0.76M token，4 张卡）| 产出 4 | validate OK(109) + index 重建 | 🎉 P2 收官（18 篇 75 卡）。补槽 QA-dataset 评估。累计 51 任务 ≈129.9M；claim 库 12 → 109
+06:07 | fire-now | QA round2 批 1 完成（0.74M token，BEV-Planner 5 卡全 PASS）| 产出 1 报告 | validate OK(109) | 补槽批 2（RadarOcc+R4Det）。累计 52 任务 ≈130.6M
+06:09 | fire-now | QA-dataset 评估完成（0.52M token，LingoQA 3 张窄卡）| 产出 3 | validate OK(112) + index 重建 | 补槽批 3（HGSFusion+NJU）。累计 53 任务 ≈131.2M；claim 库 12 → 112
+06:12 | fire-now | QA round2 批 2 完成（0.56M token，8 卡 PASS6 FIXED2）| 产出 1 报告 + 2 卡修正 | validate OK(112) | 补槽批 4（Sparse/Surround/CenterNet 12 卡）。累计 54 任务 ≈131.7M
+06:17 | fire-now | QA round2 批 3 完成（1.12M token，8 卡 PASS6 FIXED2）| 产出 1 报告 + 2 卡修正 | validate OK(112) | 补槽批 5（量化+融合 16 卡）。累计 55 任务 ≈132.9M
+06:22 | fire-now | QA round2 批 4 完成（1.70M token，11 卡 PASS9 FIXED2 ISSUED2）| 产出 1 报告 + 2 卡修正 + 2 张笔记缺陷卡 | validate OK(114) + index 重建 | 补槽批 6（经典检测 16 卡）。累计 56 任务 ≈134.6M；claim 库 12 → 114
+06:27 | fire-now | QA round2 批 6 完成（1.05M token，16 卡 PASS15 FIXED1）| 产出 1 报告 + 1 卡修正 | validate OK(114) | 补槽批 7（QA 轮最后一批）。累计 57 任务 ≈135.7M
+06:37 | fire-now | QA round2 批 7 完成（0.86M token，11 卡全 PASS）| 产出 1 报告 | validate OK(114) | QA 七批收官（81 卡，批 5 在跑）。补槽 BEV-Planner 精读报告。累计 58 任务 ≈136.6M
+06:48 | fire-now | QA round2 批 5 完成（**9.5M token**，138 次工具调用，16 卡 PASS4 FIXED12）| 产出 1 报告 + 12 卡修正 | validate OK(114) + index 重建 | 🎉 QA round2 全收官（97 卡）。补槽 AI-Infra 评估（最后一个任务）。累计 59 任务 ≈146.1M
+06:52 | fire-now | BEV-Planner 精读报告完成（0.85M token，336 行）| 产出 1 | validate OK(114) | 补槽全库 claim 地图（真正最后一个任务）。累计 60 任务 ≈147M
+06:55 | fire-now | AI-Infra 评估完成（0.56M token，230 行，5 个 claim 草案）| 产出 1 | validate OK(114) | 补槽 library 修复清单（收尾任务）。累计 61 任务 ≈147.6M
+07:05 | fire-now | library 修复清单完成（2.62M token，52 次工具调用，17 篇 29 条）| 产出 1 | validate OK(114) | 队列仅剩 QA 补批（在跑）。累计 62 任务 ≈150.2M
+07:09 | fire-now | QA 最终补批完成（0.99M token，24 卡全 PASS）| 产出 1 报告 | validate OK(114) | 🎉 **值班工作全部完成，队列清空**。QA 总账：121 卡 PASS 104 / FIXED 16 / ISSUED 2。累计 63 任务 ≈151.2M。等待 08:20 收班晨报

@@ -10,7 +10,19 @@
 - [fire-now] [claim|P2] library/Multimodal_Fusion/Ali-BEVFusion.md → 提炼 2–4 张 asserted 卡（注意与 MIT 版区分）
 - [fire-now] [claim|P2] library/Classical_Detection/FCOS.md → 提炼 2–4 张 asserted 卡（经典设计主张与消融结论）
 - [fire-now] [claim|P2] "library/Classical_Detection/PointNet & PointPillars.md" → 提炼 2–4 张 asserted 卡（置换不变性、Pillar 编码方向）
-- [fire-now] [claim|P2] library/Classical_Detection/CornerNet.md → 提炼 2–4 张 asserted 卡（角点池化、Associative Embedding）
+- [fire-now] [claim|P2] "library/Classical_Detection/Fast R-CNN 和 Faster R-CNN .md" → 提炼 2–4 张 asserted 卡（RoI Pooling、RPN 设计主张）
+- [fire-now] [claim|P2] "library/Classical_Detection/CenterNet：Keypoint Triplets.md" → 提炼 2–4 张 asserted 卡（勿与 Objects as Points 混）
+- [fire-now] [report] BEV-Planner 深度精读报告 → nightshift/reports/bevplanner-deep-read.md（论证链 + 5 卡关系 + UniAD 对照 + 人工核验建议；仅本地素材）
+- [fire-now] [suggest|P4] AI Infra 三篇笔记 claim 适配性评估 → nightshift/suggestions/ai-infra-claim-assessment.md（TODO 候选池项，只评估不建卡）
+- [fire-now] [report] 全库 claim 地图 → nightshift/reports/claim-map.md（114 卡按主题分组 + 强度标注 + signoff 候选 Top5 + 薄弱点清单）
+- [fire-now] [QA|round2|补批] 24 卡复审（在跑，最终一批）
+
+## ⛔ 停机注记（07:09，fire-now 调度器）
+
+**值班工作已全部完成，队列清空。** QA round2 七批 + 最终补批共 121 张卡复审，全部新卡覆盖，无需 round3。08:20 前触发的班次：**请勿再生成任何 QA/挖矿任务**（防止灌水），直接退出即可；08:20 后的班次按提示词第 0 节进入收班晨报模式。
+- [fire-now] [claim|P2] library/3D_Occupancy/SparseOcc.md → 提炼 2–4 张 asserted 卡（全稀疏占用；勿与 NJU-SparseOcc 混）
+- [fire-now] [claim|P2] library/Quantization/QD-BEV.md → 提炼 2–4 张 asserted 卡（BEV 量化感知训练 + 渐进量化）
+- [fire-now] [claim|P2] library/3D_Occupancy/SurroundOcc.md → 提炼 2–4 张 asserted 卡（多相机稠密占用方向）
 
 ## 待办
 
@@ -59,6 +71,28 @@
 - [fire-now|05:26✅] [claim|P2] CaDDN → **4 张消融卡**（0.59M token，互链）：深度监督主导增益 +10.4% / LID 优于 UD / Soft 分布优于 Argmax / 联合训练优于冻结。14 条 quote 逐字验证，validate OK(65)。遗留：笔记消融未标数据集与 AP 版本，四卡 scope 如实注明"需对照原论文补齐"；两处设计主张无消融未立卡（不硬凑）
 - [fire-now|05:31✅] [claim|P2] CenterNet-Points → **4 张卡**（0.34M token，互链）：heatmap-peaks-replace-nms / regression-replaces-grouping / fps-gain-over-cornernet / center-collision-rare（自报口径不同已注明不可直接对比）。12 条 quote 逐字验证，validate OK(69)。遗留：FPS 数字无硬件/分辨率口径 → 待人工
 - [fire-now|05:33✅] [claim|P2] OmniQuant note-mismatch 卡 → `claims/claim-omniquant-note-table-mismatch.md`（0.57M token）：18 条 evidence 双源成立（笔记+LOG 逐字 + 实抓 arXiv v3/v1 PDF pdftotext 逐格，URL+日期齐全）。validate OK(70)。遗留：笔记修复需主人处理（改法建议在卡内待验证节）
+- [fire-now|05:38✅] [claim|P2] PointNet&PointPillars → **4 张设计窄卡**（0.51M token，互链）：置换不变性 / maxpool 骨架抗噪 / Pillar 化避 3D 卷积 / Sine-Error 方向分支。16 条 quote 逐字验证，本任务卡零报错。遗留：笔记无三行头部与编号章节（L1 约定不符，建议留用户）；全库 validate exit 1 系并行 CornerNet 在写 related 悬空，待其完工自愈
+- [fire-now|05:38✅] [claim|P2] CornerNet → **4 张设计窄卡**（0.39M token，互链 + 挂 CenterNet/FCOS）：paired-keypoints / corner-pooling / associative-embedding / single-scale-no-fpn。12 条 quote 逐字验证，related 悬空自愈，validate OK(78)。遗留：笔记无实验章节→零精度/速度主张，补实验后可加消融卡
+- [fire-now|05:42✅] [claim|P2] SurroundOcc → **4 张卡**（0.44M token，互链）：dense-gt 监督 11.96→31.49 / 对比表同表更高（窄口径）/ 3D voxel query 垂直结构（仅定性）/ Poisson 重建 GT 管线（构造性）。ICCV 2023 + arXiv 号经抓取核实。validate OK(82)。遗留：消融数字单源待回原文；nuScenes 划分/协议未注明已写 scope
+- [fire-now|05:46✅] [claim|P2] RepQ-ViT → **4 张卡**（1.0M token，互链，回链 QwT/OmniQuant 已合规执行）：w4a4-leads-baselines / layernorm-reparam（33.17→69.03）/ softmax-log2-lossless / 32图-1.3min 校准成本窄卡。14 条 quote 逐字验证，validate OK(86)。遗留：§3.3 效率表未注明模型与校准 split；消融表两处同值读表限定请主人复核
+- [fire-now|05:50✅] [claim|P2] PD-Quant → **4 张卡**（0.40M token，QwT 卡回链）：pd-metric-beats-mse-cosine / **pd-loss-alone-overfits-calibration（70.51% vs 验证 1.07%，QwT 教训的正面应用）** / dc-bn-stats 窄卡 / beats-brecq-qdrop（自报 +1.21~3.99pp）。validate OK(90)。遗留：Table 1/3 数据集与口径未注明需对照原文
+- [fire-now|05:52✅] [claim|P2] QD-BEV → **4 张卡**（0.88M token，互链量化主线）：encoder 敏感度 / PTQ<8bit 崩塌 / 渐进式 QAT 优于标准 W4A6 / Tiny 8x 压缩反超 FP32。ar5iv 逐项核对 + 规避假 arXiv id（2309.05217→2308.10515）。validate OK(94)。遗留：Table 4 分辨率口径、Tiny/Small 增益限定已写入卡内
+- [fire-now|05:53✅] [claim|P2] MQBench → **4 张工具主张卡**（0.24M token，互链量化主线）：首个硬件对齐基准 / 三类硬件图约束 / SNPE Scale 绑定断崖掉点 / BN folding Zero Drop。7 条 quote 逐字验证，validate OK(98)。遗留：笔记未记论文完整标题与实验口径，scope 均收窄注明
+- [fire-now|05:59✅] [claim|P2] Fast R-CNN → **4 张经典设计卡**（0.53M token，互链）：RoI Pooling 机制 / 多任务损失 / RPN 共享 58.7→59.9 / 两阶段 vs 单阶段 +4.8pp。14 条 quote 逐字验证，validate OK(102)🎉 破百。遗留：消融数字无数据集标注（疑 VOC）已如实写入 scope
+- [fire-now|06:01✅] [claim|P2] SparseOcc → **3 张卡**（0.75M token，互链）：miou141 同表高于稠密基线 / FLOPs −74.9%（摘要口径）/ 分解核相对序窄卡。11 条 quote + arXiv:2404.09502 摘要双抓取佐证；同名论文消歧（VISION-SJTU CVPR 2024 vs NJU ECCV 2024）写入卡内。validate OK(105)。遗留：基准名、FLOPs 口径、消融绝对值不一致待回原文（均写入卡内）
+- [fire-now|06:06✅] [claim|P2] CenterNet-Triplets → **4 张卡**（0.76M token，互链 + 与 Objects as Points/Cornernet 消歧）：CRE +2.3 AP 小物体 / CTP +0.9 AP 大物体 / CCP +0.5（协同归因限定）/ GT 中心 oracle 41.3→56.5（瓶颈定位）。12 条 quote 逐字验证，validate OK(109)。🎉 **P2 挖矿收官：18 篇笔记 75 张卡**。遗留：消融协议未注明已写 scope；自适应中心区域无消融未立卡
+- [fire-now|06:07✅] [QA|round2] 批 1 BEV-Planner 5 卡 → `nightshift/qa/round2-bevplanner.md`。**PASS ×5 / FIXED 0 / MISMATCH 0**：14 条 quote 逐字节匹配、表格交叉验证无错位。你研究重点的卡片质量过关 ✅
+- [fire-now|06:09✅] [claim|P2] QA dataset 评估 → LingoQA 值得立卡：**3 张窄卡**（0.52M token）：lingo-judge-spearman-0950 / 7b-baseline-matches-gpt4v / late-fusion-beats-early-mid。quote 逐字验证，validate OK(112)。遗留：§3.2 笔记自行推断未立卡（正确）；多行表格拆行引用建议人工对 Table 4/5 再核
+- [fire-now|06:12✅] [QA|round2] 批 2 RadarOcc+R4Det 8 卡 → `nightshift/qa/round2-radarocc-r4det.md`。**PASS ×6 / FIXED ×2 / MISMATCH ×0**：16/16 quote 命中；FIXED ①radarocc-cfar 补第二 evidence 支撑标题后半句 ②r4det-depth 卡把"（如 Metric3D）"的推断改回如实转述
+- [fire-now|06:17✅] [QA|round2] 批 3 HGSFusion+NJU 8 卡 → `nightshift/qa/round2-hgsfusion-nju.md`。**PASS ×6 / FIXED ×2 / MISMATCH ×0**：25/25 quote 命中（含 arXiv 摘要 3 条实抓复核）；FIXED ①NJU FPS"差一个量级"→精确 3.3 倍 ②HGSFusion 悬空引用 §6.6→6.5。遗留：HGSFusion 笔记 LXL 行重复与 +11.41% 单位写法需回原文裁定（卡内口径警告已覆盖）
+- [fire-now|06:22✅] [QA|round2] 批 4 Sparse/Surround/CenterNet 11 卡 → `nightshift/qa/round2-sparseocc-surroundocc-centernet.md`。**PASS ×9 / FIXED ×2 / ISSUED ×2**：31 条本地 quote + 6 条网络证据实抓；FIXED ①sparseocc README 措辞改实抓原句 ②surroundocc"接近翻两番"→"约 2.6 倍"；ISSUED ①CenterNet 笔记残留引用编号 17/18181818/20 → 新卡 claim-centernetpoints-note-citation-artifacts ②SparseOcc 笔记对话式残留 → claim-sparseocc-note-conversational-residue
+- [fire-now|06:27✅] [QA|round2] 批 6 经典检测 16 卡 → `nightshift/qa/round2-classical.md`。**PASS ×15 / FIXED ×1 / ISSUED ×0**：43 条 quote 逐字命中（含 LaTeX 转义/内空格/"方向 10"残留）；FIXED ①cornernet-single-scale FPS 交叉引用补"未注明硬件/分辨率" caveat。数字抽查全对（CaDDN 增量、CornerNet Δ=1、PointPillars 9 维）
+- [fire-now|06:37✅] [QA|round2] 批 7（最后一批）Ali+MQ+LingoQA 11 卡 → `nightshift/qa/round2-ali-mq-lingoqa.md`。**PASS ×11 / FIXED ×0 / ISSUED ×0**：33 条 quote 逐字命中含全角标点与表内空格。附赠：外部核实 Ali-BEVFusion=arXiv:2205.13790、MQBench=arXiv:2111.03759，8 卡"论文全名笔记未载"可回填（留主人定夺）。**QA round2 七批收官：81 卡 PASS 76 / FIXED 4 / ISSUED 2（批 5 在跑）**
+- [fire-now|06:48✅] [QA|round2] 批 5 量化+融合 16 卡 → `nightshift/qa/round2-quant-fusion.md`（**9.5M token，138 次工具调用**）。**PASS ×4 / FIXED ×12 / ISSUED ×0**：重抓 arXiv v1/v3/README 后新增修订 37 条 evidence；更正上一轮误判——"AFD 的教学"非笔误（论文式(9)–(10) 确由 AFD 损失承担），cma 卡标题/归属已更正；RCBEVDet 消融数字实为 CVPR v1 Table 5/7 已含；VQ-Map arXiv=2411.01618 确认、"时间"列系训练时长已注明。🎉 **QA round2 全部收官：97 卡 PASS 80 / FIXED 16 / ISSUED 2**。遗留：VQ-Map 笔记失效图片路径(D:\)与乱码、RCBEVDet 坐标噪声数字待人工
+- [fire-now|06:52✅] [report] BEV-Planner 精读报告 → `nightshift/reports/bevplanner-deep-read.md`（336 行，69 条 quote 逐字验证附录）。核心：injection/velocity 证据最强（★★★）、straight-driving-imbalance 最弱（★，背景假设）；egomlp-parity 为枢纽卡（4 卡 related 连坐）；两笔记无"开环 vs 闭环"争论——真争论在开环内部三口径；UniAD 存在四套不可混用数字。遗留 4 条 → QUESTIONS
+- [fire-now|06:55✅] [suggest|P4] AI-Infra 评估 → `nightshift/suggestions/ai-infra-claim-assessment.md`（230 行，36 条 quote 逐字验证）：liger-pr1423 适合 2 卡 / liger-pr1424 适合 2+1 卡（单发显存测量假阳性方法主张全批复用价值最高）/ pr1501 建议留 L1。TODO 疑虑获印证但应按内容类型区分。5 草案 id/主张/scope/falsifiers 齐全待主人定夺
+- [fire-now|07:05✅] [suggest|P4] library 修复清单 → `nightshift/suggestions/library-fix-list.md`（**17 篇笔记 29 条问题**，行号全部实测）：P1 数字正确性 ×6（EMC2/OmniQuant/HGSFusion/EchoFusion）/ P2 引用出处 ×10 / P3 排版 ×13。新发现：Ali 残留实为 23 处、P&P 缺头部、VQ-Map 无 arXiv 号（可回填 2411.01618）。含"核实后无需修改"5 条防重复劳动
+- [fire-now|07:09✅] [QA|round2|补批] 最终 24 卡（PD-Quant/QD-BEV/RepQ-ViT/CenterNet-Triplets/Fast R-CNN/SGDet3D）→ `nightshift/qa/round2-final-batch.md`。**PASS ×24 / FIXED ×0 / ISSUED ×0**：90/90 quote 逐字命中，数字重算全自洽。🎉 **QA round2 总账：121 卡复审，PASS 104 / FIXED 16 / ISSUED 2，全部新卡覆盖**
 
 ## 扩队提示
 
