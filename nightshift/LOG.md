@@ -38,3 +38,4 @@
 04:59 | fire-now | RadarDistill 挖矿完成（0.52M token，4 张卡）| 产出 4 | validate OK(41) + index 重建 | 补槽 OmniQuant。累计 33 任务 ≈117.3M；claim 库 12 → 41
 05:03 | fire-now | RCBEVDet 挖矿完成（0.76M token，4 张窄卡）| 产出 4 | validate OK(45) + index 重建 | 补槽 VQ-Map。累计 34 任务 ≈118.1M；claim 库 12 → 45
 05:08 | fire-now | VQ-Map 挖矿完成（0.54M token，4 张卡）| 产出 4 | validate OK(49) + index 重建 | 笔记乱码 → QUESTIONS。补槽 Ali-BEVFusion。累计 35 任务 ≈118.6M；claim 库 12 → 49
+05:14 | fire-now | Ali-BEVFusion 挖矿完成（0.57M token，4 张窄卡）| 产出 4 | validate OK(53) + index 重建 | 补槽 FCOS。累计 36 任务 ≈119.2M；claim 库 12 → 53

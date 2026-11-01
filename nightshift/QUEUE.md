@@ -9,6 +9,7 @@
 - [fire-now] [claim|P2] library/Quantization/OmniQuant.md → 提炼 2–4 张 asserted 卡（LLM 量化 PTQ；校准集 vs 测试集口径写进 scope）
 - [fire-now] [claim|P2] library/Quantization/VQ-Map.md → 提炼 2–4 张 asserted 卡（BEV 离散表示方向）
 - [fire-now] [claim|P2] library/Multimodal_Fusion/Ali-BEVFusion.md → 提炼 2–4 张 asserted 卡（注意与 MIT 版区分）
+- [fire-now] [claim|P2] library/Classical_Detection/FCOS.md → 提炼 2–4 张 asserted 卡（经典设计主张与消融结论）
 
 ## 待办
 
@@ -51,6 +52,7 @@
 - [fire-now|04:59✅] [claim|P2] RadarDistill → **4 张 asserted 卡**（0.52M token，互链）：主卡 radar-only 蒘馏提升（mAP 20.5/43.7 vs 8.6/34.7，数字补自官方 README 实抓并记 URL）+ 机制卡×3。遗留：笔记零实验数字，口径依赖 README 需对照 arXiv:2403.05061 正文；笔记"AFD 的教学"疑笔误已标注
 - [fire-now|05:03✅] [claim|P2] RCBEVDet → **4 张 asserted 窄卡**（0.76M token，互链）：rcs-aware-scattering / dmsa-gaussian-mask / camf-alignment-then-fusion / dualstream-injection-extraction。笔记无实验数字→全窄卡，扩展版数字只以"论文声称/待人工核对"入正文未进 evidence。13 条 quote 逐字验证，validate OK(45)
 - [fire-now|05:08✅] [claim|P2] VQ-Map → **4 张 asserted 卡**（0.54M token，互链）：miou-622-leads-table / argoverse-zero-shot-iou-734 / token-classification-beats-regression（窄卡：差距仅 1.5）/ tiny-868g-macs-matches-ddp（1/7 计算量，无实测延迟已限定）。13 条 quote 逐字验证，validate OK(49)。遗留：笔记 §4.1 有一处乱码"细□度"（约 105 行）需人工修 → QUESTIONS；四卡均单源自报未抓原文（笔记无 arXiv 号）
+- [fire-now|05:14✅] [claim|P2] Ali-BEVFusion → **4 张方法/协议级窄卡**（0.57M token，互链）：dynamic-fusion-SE / camera-stream-independent / lidar-backbone-compatible / two-stage-9epoch。笔记无实验数字→无性能主张（不硬凑）；与 MIT 版同名不同作已在各卡注明。18 条 quote 逐字验证，validate OK(53)。遗留：官方仓库与原文抓取超时，对照待人工
 
 ## 扩队提示
 
