@@ -4,12 +4,12 @@
 
 ## 进行中
 
-- [fire-now] [draft|P1] OpenVLA（CoRL 2024, "OpenVLA: An Open-Source Vision-Language-Action Model"）→ `nightshift/drafts/OpenVLA.md`
 - [fire-now] [draft|P1] OpenDriveVLA（端到端自动驾驶 VLA，2025）→ `nightshift/drafts/OpenDriveVLA.md`
+- [fire-now] [draft|P1] OneVL（VLM/VLA 组，检索后先核对标题与主题再使用，有歧义就停手）→ `nightshift/drafts/OneVL.md`
 
 ## 待办
 
-- [draft|P1] TODO.md「待读 / 待写 L1」其余论文（OneVL、DrivePI、Alpamago、BRCEQ、COTR、MSMDFusion、QLoRA）→ 由各班按 R2 逐篇展开为任务，产出 `nightshift/drafts/<论文名>.md`
+- [draft|P1] TODO.md「待读 / 待写 L1」其余论文（DrivePI、Alpamago、BRCEQ、COTR、MSMDFusion、QLoRA）→ 由各班按 R2 逐篇展开为任务，产出 `nightshift/drafts/<论文名>.md`
 
 ## 完成
 
@@ -31,6 +31,7 @@
 - [fire-now|02:20✅] [draft|P1] MobileNet V1/V2/V3 三篇合一 → `nightshift/drafts/MobileNet.md`（599 行，**11.3M token** 历史新高，103 次工具调用，26 表 150 引句 0 失败）。⚠ 最重遗留：V2/V3 的 ar5iv 摘要与 abs 页 v1–v5 摘要均不一致（V3 数字 20/6.6/34 vs 15/4.6/30），正文按 ar5iv、摘要按 abs 分别标注，严格对版需 PDF 复核 → QUESTIONS
 - [fire-now|02:36✅] [draft|P1] LLaVA → `nightshift/drafts/LLaVA.md`（173 行，2.4M token，NeurIPS 2023 oral 经 API 核对唯一同名，115 引文 + 4 表逐格 + 4 公式 alttext 0 失败）。遗留：GPT-4-judge 相对分性质已标注；v1↔v2 差异未核对
 - [fire-now|02:41✅] [draft|P1] Qwen3-VL → `nightshift/drafts/Qwen3VL.md`（328 行，4.4M token，arXiv:2511.21631 Technical Report，Table 1–9 逐字转抄，194/194 引文核验）。吸取 EMC2 教训：HTML 缺失的 PDF 大表不硬转抄只抽查（MMStar 78.7 / MMMU 80.6 与 prose 一致）。遗留：三处原文瑕疵照录待勘误；v1↔v2 差异未比对
+- [fire-now|03:06✅] [draft|P1] OpenVLA → `nightshift/drafts/OpenVLA.md`（227 行，**9.6M token** 新纪录，126 次工具调用，四源核验 arXiv+PMLR+GitHub API，132 引文 + 48 表行 0 失败）。与 LLaVA 草稿互链有据。遗留：HuggingFace 不可达（SSL），开源核验基于 GitHub API；PMLR 作者 17 vs arXiv 18（缺 Grace Lam）已备忘
 
 ## 扩队提示
 

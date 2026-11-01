@@ -22,3 +22,4 @@
 02:20 | fire-now | ShuffleNet 确认完工（恢复后仅汇报，0.6M token）+ MobileNet 三部曲完工（**11.3M token** 历史新高，599 行，103 次工具调用）| 产出 2 | validate OK | ar5iv 版本歧义 → QUESTIONS。补槽 LLaVA + Qwen3-VL。累计 16 任务 ≈48M（00:33–02:20，折合约 29M/h；注：被限流打断时段的 token 消耗未计入，实际更高）
 02:36 | fire-now | LLaVA 草稿完成（2.4M token，63 次工具调用）| 产出 1（173 行）| validate OK | 补槽 OpenVLA。累计 17 任务 ≈50.5M
 02:41 | fire-now | Qwen3-VL 草稿完成（4.4M token，77 次工具调用）| 产出 1（328 行，arXiv:2511.21631 确认存在独立论文）| validate OK | PDF 专属大表不硬转抄（EMC2 教训生效）。补槽 OpenDriveVLA。累计 18 任务 ≈54.9M
+03:06 | fire-now | OpenVLA 草稿完成（**9.6M token** 新纪录，126 次工具调用，用时 30 分钟）| 产出 1（227 行）| validate OK | 补槽 OneVL。累计 19 任务 ≈64.5M（00:33–03:06，折合约 35M/h）
