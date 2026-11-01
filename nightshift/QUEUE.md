@@ -5,8 +5,7 @@
 ## 进行中
 
 - [fire-now] [draft|P1] QLoRA（NeurIPS 2023, "QLoRA: Efficient Finetuning of Quantized LLMs"）→ `nightshift/drafts/QLoRA.md`
-- [fire-now] [claim|P2] library/3D_Occupancy/NJU-SparseOcc.md → 提炼 2–4 张 asserted 卡（稀疏占用方向）
-- [fire-now] [claim|P2] library/Multimodal_Fusion/HGSFusion.md → 提炼 2–4 张 asserted 卡（注意 cross 文件已核实的口径问题：88.28% 是 RoI AP 非 mAP）
+- [fire-now] [claim|P2] library/Multimodal_Fusion/RadarDistill.md → 提炼 2–4 张 asserted 卡（雷达-LiDAR 蒸馏方向）
 
 ## 待办
 
@@ -43,6 +42,8 @@
 - [fire-now|04:34✅] [claim|P2] RadarOcc → **4 张 asserted 窄卡**（0.75M token，review_due 2026-12-02，related 互链）：claim-radarocc-sss-rangewise-preserves-lowrcs / dbd-compresses-doppler-to-8-descriptors / s2c-deformable-avoids-interp-degradation / cfar-pointcloud-loses-lowrcs。9 条 quote 逐字验证，validate OK(21)，index 已重建。关键决定：笔记无实验章节（cross 文件 M5 已证实），拒绝立"stable-beats-Cartesian"强主张，全部窄卡 + scope 口径限定。遗留：回原文核对有无 SSS/DBD/S2C 消融表（涉及补笔记，需主人同意）→ QUESTIONS
 - [fire-now|04:39✅] [claim|P2] R4Det → **4 张 asserted 卡**（0.44M token，互链）："正交叠加"已注明是累计式消融解读、未立 SOTA 主张；EAA 口径未定义 caveat 已写入 scope。8 条 quote 逐字验证，validate OK(25)，index 已重建。遗留：t-2/t-3 帧距消融数字需回原文；笔记 §2.1 小节编号瑕疵未改（禁改）
 - [fire-now|04:40✅] [draft|P1] QLoRA → `nightshift/drafts/QLoRA.md`（277 行，**7.1M token**，NeurIPS 2023 五源确认，13 表 + 90 引文双 HTML 源核验 0 失败）。🎉 **P1 草稿流水线 22/22 全清**。遗留："& Meta" 署名未见抓取材料 → 待用户确认；Table 9–12 未逐行转录（TODO 已记）
+- [fire-now|04:48✅] [claim|P2] HGSFusion → **4 张 asserted 窄卡**（0.66M token，互链）：cyclist-roi-ap-below-all-baselines / rhgm-dsm-superadditive-roi-gain / dark-scene-gain-dominates / 2d-spatial-mode-beats-3d。88.28% 口径警告入卡；"高度角分辨率"归因只记录不立主张（与 RadarOcc C1 张力）。16 条 quote 逐字验证，validate OK(33)
+- [fire-now|04:48✅] [claim|P2] NJU-SparseOcc → **4 张 asserted 卡**（0.89M token，互链）：rayiou34-fps17-beats-dense-baselines / decoder-pruning-complexity-onactive / mgss-complexity-onquery-np / rayiou-penalizes-thick-surface。13 条笔记 quote + 3 条 arXiv 摘要实时复核。遗留：BEVFormer/FB-Occ 基线行来源不明已写进 falsifiers；"15 帧→35.1"数据点未单独立卡（可补第 5 张）
 
 ## 扩队提示
 
