@@ -6,7 +6,6 @@
 
 - [fire-now] [claim|P0] library/ADe2e/BEV-Planner.md → 提炼 2–5 张 asserted claim 卡（依赖上面的 draft 完成，笔记不存在则跳过）。围绕 ego status / 开环评测类核心可证伪主张；每卡 scope + falsifiers 齐全，quote 从笔记逐字复制并 Grep 验证。⭐ 主人当前研究重点
 - [fire-now|R2新增] [draft|P1] AutoVLA（端到端自动驾驶 VLA）→ `nightshift/drafts/AutoVLA.md`，检索 arXiv 后先核对标题再使用，有歧义就停手
-- [fire-now|R2新增] [draft|P1] BEVDet → `nightshift/drafts/BEVDet.md`，按库内约定写 L1 草稿
 - [fire-now] [audit|P3] claims/claim-echofusion-3d-ap-below-lidar.md 与 claims/claim-echofusion-note-table-mismatch.md 对照笔记逐条复核 evidence
 
 ## 待办
@@ -19,6 +18,7 @@
 - [fire-now|00:53✅] [cross|P4] 4D 雷达四篇横向对比 → `nightshift/cross/4d-radar.md`。33 处引文程序逐字验证；要点：RadarOcc（4DRT 俯仰维是管线基础）与 HGSFusion（称俯仰分辨率不足引入噪声）表态相反；三篇在 VoD 的指标族互不可比但都声称 SOTA；HGSFusion 概述头条 88.28% 实为 Car 类 RoI AP 而非 mAP
 - [fire-now|00:55✅] [draft|P1] UniAD → `nightshift/drafts/UniAD.md`（3.7M token，46 条引句 + 13 张表逐格校验）。自查发现原文不自洽：§3.4 正文 −15.8%/−11.2% 与 Table 8 行内数字（−9.0%/−13.2%）对不上，已在笔记 ⚠ 标注；Table 2 仅逐字摘录 5/13 行，TODO 注明
 - [fire-now|01:01✅] [draft|P0] BEV-Planner → **直写 `library/ADe2e/BEV-Planner.md`**（172 行，标题核对一致，引文与表格逐字核验；原文拼写照抄加注）+ `nightshift/suggestions/library-README-ADe2e.md`。遗留：GitHub README 抓取超时（开源状态仅以 arXiv 摘要为据）；输入分辨率 256×704 来自 HTML alttext，建议主人对 PDF 复核。后续 [claim|P0] 已派发
+- [fire-now|01:07✅] [draft|P1] BEVDet → `nightshift/drafts/BEVDet.md`（235 行，1.35M token，Table 1–7 全部行 + 13 条引文脚本核验）。发现原文自相矛盾：§4.3 称配置 C "peaks at epoch 15" vs Table 4 C 行 "0.262 (e11)"，两处照抄已标注；assets 文件名与论文编号错位（Table2.png 实为论文 Table 4），回填配图时注意
 
 ## 扩队提示
 
