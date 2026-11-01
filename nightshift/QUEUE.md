@@ -4,12 +4,12 @@
 
 ## 进行中
 
-- [fire-now] [draft|P1] COTR（其他组，同名多篇时选雷达/自动驾驶最相关者并说明候选）→ `nightshift/drafts/COTR.md`
 - [fire-now] [draft|P1] MSMDFusion（其他组，检索后先核对标题与主题再使用，有歧义就停手）→ `nightshift/drafts/MSMDFusion.md`
+- [fire-now] [draft|P1] QLoRA（NeurIPS 2023, "QLoRA: Efficient Finetuning of Quantized LLMs"）→ `nightshift/drafts/QLoRA.md`
 
 ## 待办
 
-- [draft|P1] TODO.md「待读 / 待写 L1」其余论文（QLoRA）→ 由各班按 R2 逐篇展开为任务，产出 `nightshift/drafts/<论文名>.md`（注：TODO 用名 "BRCEQ" 经查证为 BRECQ 笔误，已按 BRECQ 产出）
+- [draft|P2] P1 全部完成后转 P2：library/ 下还没有对应 claim 的笔记 → 每篇一条 [claim] 任务（2–5 张卡；建卡前先确认同 id 不存在）。优先级：P0 相关（ADe2e）> 有 PDF 的 > 其余（注：TODO 用名 "BRCEQ" 经查证为 BRECQ 笔误，已按 BRECQ 产出）
 
 ## 完成
 
@@ -37,6 +37,7 @@
 - [fire-now|03:49✅] [draft|P1] DrivePI → `nightshift/drafts/DrivePI.md`（229 行，**9.2M token**，arXiv:2512.12799 CVPR 2026，表 1–9 逐格 + 151 引文五源核验）。主动与库内 OpenDriveVLA/LLaVA 草稿交叉核对数字一致。遗留：GitHub 无 license 引用代码前需确认；PDF/HTML 参考文献编号有局部偏移，引用按版本核对
 - [fire-now|03:53✅] [draft|P1] Alpamago → `nightshift/drafts/Alpamago.md`（239 行，5.9M token，实为 **Alpamayo-R1** arXiv:2511.00088 NVIDIA——"Alpamago" 是 TODO 笔误，身份经预存 assets 表格逐值交叉确认）。TABLE 6–14 全抄 + 198 引文核验，初检 8 处问题已修复复验 0 失败。遗留：HF 页抓取超时，开源状态以论文 §7 + GitHub Apache-2.0 为准 → QUESTIONS 待确认命名更正
 - [fire-now|04:11✅] [draft|P1] BRCEQ → `nightshift/drafts/BRCEQ.md`（348 行，**6.9M token**，实为 **BRECQ** arXiv:2102.05426 ICLR 2021——字母易位笔误，assets 全部为 BRECQ 内容佐证）。Table 1–6 逐行 + 81 引文核验，§4.4 数字对账一致。遗留：ICLR 2021 仅 GitHub 自述未核 OpenReview；原文 3 处笔误照抄注记 → TODO 更正留 QUESTIONS
+- [fire-now|04:15✅] [draft|P1] COTR → `nightshift/drafts/COTR.md`（288 行，4.5M token，7 个同名论文中锁定 CVPR 2024 占用预测版，7 表 66 行 + 38 引文核验）。发现原文内部不一致（§4.3 41.05 vs Table 2 41.39 等）已注记；assets/COTR/Table4.png 实为 HTML Table 3（表号疑错位）→ QUESTIONS
 
 ## 扩队提示
 

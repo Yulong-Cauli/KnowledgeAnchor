@@ -13,3 +13,4 @@
 7. **OpenDriveVLA 标题确认**：实际标题为 "OpenDriveVLA: Towards End-to-end Autonomous Driving with Large Vision Language **Action** Model"（arXiv:2503.23463，API ti 检索唯一命中，v1/v2 一致），与我下发任务里写的 "...Vision Language Models" 有出入。已按唯一命中采用，请你确认无误。
 8. **TODO 笔误更正确认**：TODO「VLM / VLA」组里的 "Alpamago" 经 arXiv 全网检索不存在（totalResults=0），实为 NVIDIA 的 **Alpamayo-R1**（arXiv:2511.00088）；身份已由你预存的 `library/assets/Alpamago/` 表格截图与论文 HTML 逐值交叉确认。草稿按 Alpamayo-R1 写成，文件名暂用 Alpamago.md，正式入库时建议更名并修 TODO。
 9. **TODO 笔误更正确认（二）**："BRCEQ" 实为 **BRECQ**（arXiv:2102.05426，ICLR 2021，PTQ；API 检索 BRCEQ 0 命中、BRECQ 恰 1 命中，且 `library/assets/BRCEQ/` 三张截图均为 BRECQ 内容）。草稿按 BRECQ 写成；TODO.md 是禁改文件，请你顺手改。BRECQ 的 ICLR 2021 出处仅依据官方 GitHub 自述，引用前建议核 OpenReview。
+10. **COTR 配图表号错位**：本地 `library/assets/COTR/Table4.png` 的内容实为论文 HTML v2 的 Table 3，PDF 与 HTML 表号疑整体错位一位。回填配图前请对照官方 PDF 确认映射。另 COTR 原文内部有三处数字/表述不一致（§4.3 41.05 vs Table 2 的 41.39 等），笔记已注记。
