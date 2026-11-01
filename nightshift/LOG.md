@@ -17,3 +17,4 @@
 01:31 | fire-now | PillarNet 草稿完成（**6.0M token** 新高，70 次工具调用）| 产出 1（288 行，110 引句 + 表格逐格 0 错位）| validate OK | 验算出原文 "+0.34%" 与表差不符等多处疑点。补槽 MobileNet 三部曲。累计 11 任务 ≈27.1M（00:33–01:31 折合约 30M/h）
 01:41 | fire-now | LSQ 草稿完成（1.7M token，33 次工具调用）| 产出 1（253 行）| validate OK | 补槽 MobileOne。累计 12 任务 ≈28.8M
 01:55 | fire-now | Deep Compression 草稿完成（3.6M token，65 次工具调用）| 产出 1（218 行，528 项核验全过）| validate OK | 补槽 ShuffleNet。累计 13 任务 ≈32.4M（00:33–01:55 折合约 34M/h）
+02:18 | fire-now | ShuffleNet 派发被限流拒绝 → 并发上限校准为 **2**（此前 3 的假设偏乐观）。已改：cron 班次批量 3→2；fire-now 也按 2 在跑执行。ShuffleNet 留队待槽。当前在跑：MobileNet 三部曲、MobileOne
