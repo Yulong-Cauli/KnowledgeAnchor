@@ -39,3 +39,4 @@
 05:03 | fire-now | RCBEVDet 挖矿完成（0.76M token，4 张窄卡）| 产出 4 | validate OK(45) + index 重建 | 补槽 VQ-Map。累计 34 任务 ≈118.1M；claim 库 12 → 45
 05:08 | fire-now | VQ-Map 挖矿完成（0.54M token，4 张卡）| 产出 4 | validate OK(49) + index 重建 | 笔记乱码 → QUESTIONS。补槽 Ali-BEVFusion。累计 35 任务 ≈118.6M；claim 库 12 → 49
 05:14 | fire-now | Ali-BEVFusion 挖矿完成（0.57M token，4 张窄卡）| 产出 4 | validate OK(53) + index 重建 | 补槽 FCOS。累计 36 任务 ≈119.2M；claim 库 12 → 53
+05:19 | fire-now | OmniQuant 挖矿完成（3.0M token，4 张卡）| 产出 4 | validate OK(57→61 含 FCOS 在写) + index 重建 | ⚠ 笔记实验表混列 + FP16 基线不符 → mismatch 卡排队 + QUESTIONS。补槽 CaDDN。累计 37 任务 ≈122.2M；claim 库 → 57+

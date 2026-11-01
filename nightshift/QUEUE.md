@@ -6,14 +6,15 @@
 
 - [fire-now] [draft|P1] QLoRA（NeurIPS 2023, "QLoRA: Efficient Finetuning of Quantized LLMs"）→ `nightshift/drafts/QLoRA.md`
 - [fire-now] [claim|P2] library/Multimodal_Fusion/RCBEVDet.md → 提炼 2–4 张 asserted 卡（雷达-相机融合 RadarBEVNet 方向）
-- [fire-now] [claim|P2] library/Quantization/OmniQuant.md → 提炼 2–4 张 asserted 卡（LLM 量化 PTQ；校准集 vs 测试集口径写进 scope）
 - [fire-now] [claim|P2] library/Quantization/VQ-Map.md → 提炼 2–4 张 asserted 卡（BEV 离散表示方向）
 - [fire-now] [claim|P2] library/Multimodal_Fusion/Ali-BEVFusion.md → 提炼 2–4 张 asserted 卡（注意与 MIT 版区分）
 - [fire-now] [claim|P2] library/Classical_Detection/FCOS.md → 提炼 2–4 张 asserted 卡（经典设计主张与消融结论）
+- [fire-now] [claim|P2] library/Classical_Detection/CaDDN.md → 提炼 2–4 张 asserted 卡（单目 3D 检测方向）
 
 ## 待办
 
-- [draft|P2] P2 挖矿池（P1 已近清空）：library/ 下还没有 claim 的笔记 → 每篇一条 [claim] 任务。优先级：有 PDF 的（RadarOcc✅派出、R4Det、NJU-SparseOcc）> TODO 点名的 > 其余。已知无卡笔记：RadarOcc、R4Det、NJU-SparseOcc、SparseOcc、SurroundOcc、HGSFusion、RadarDistill、RCBEVDet、Ali-BEVFusion、CaDDN、CenterNet×2、CornerNet、FCOS、Fast R-CNN、PointNet&PointPillars、SGDet3D、MQBench、RepQ-ViT、PD-Quant、QD-BEV、OmniQuant、VQ-Map 等（注：TODO 用名 "BRCEQ" 经查证为 BRECQ 笔误，已按 BRECQ 产出）
+- [draft|P2] P2 挖矿池：剩余无卡笔记（SparseOcc、SurroundOcc、CenterNet×2、CornerNet、Fast R-CNN、PointNet&PointPillars、MQBench、RepQ-ViT、PD-Quant、QD-BEV 等）。注：TODO 用名 "BRCEQ" 经查证为 BRECQ 笔误，已按 BRECQ 产出
+- [claim|P2] 为 OmniQuant 笔记表格混列问题立 note-mismatch 卡：笔记「实验 1」表头 LLaMA-13B W2A16 下实为 LLaMA-1-7B W2A16g128 列（对照 arXiv v3 camera-ready 核实），FP16 基线行亦与原表不符；模式参照 claims/claim-emc2-note-table-mismatch.md，id 建议 claim-omniquant-note-table-mismatch
 
 ## 完成
 
@@ -53,6 +54,7 @@
 - [fire-now|05:03✅] [claim|P2] RCBEVDet → **4 张 asserted 窄卡**（0.76M token，互链）：rcs-aware-scattering / dmsa-gaussian-mask / camf-alignment-then-fusion / dualstream-injection-extraction。笔记无实验数字→全窄卡，扩展版数字只以"论文声称/待人工核对"入正文未进 evidence。13 条 quote 逐字验证，validate OK(45)
 - [fire-now|05:08✅] [claim|P2] VQ-Map → **4 张 asserted 卡**（0.54M token，互链）：miou-622-leads-table / argoverse-zero-shot-iou-734 / token-classification-beats-regression（窄卡：差距仅 1.5）/ tiny-868g-macs-matches-ddp（1/7 计算量，无实测延迟已限定）。13 条 quote 逐字验证，validate OK(49)。遗留：笔记 §4.1 有一处乱码"细□度"（约 105 行）需人工修 → QUESTIONS；四卡均单源自报未抓原文（笔记无 arXiv 号）
 - [fire-now|05:14✅] [claim|P2] Ali-BEVFusion → **4 张方法/协议级窄卡**（0.57M token，互链）：dynamic-fusion-SE / camera-stream-independent / lidar-backbone-compatible / two-stage-9epoch。笔记无实验数字→无性能主张（不硬凑）；与 MIT 版同名不同作已在各卡注明。18 条 quote 逐字验证，validate OK(53)。遗留：官方仓库与原文抓取超时，对照待人工
+- [fire-now|05:19✅] [claim|P2] OmniQuant → **4 张 asserted 卡**（3.0M token，互链 + 链 QwT 卡）：w2a16g128-beats-gptq-awq / w4a4-zeroshot-5265 / let-lwc-ablation / w4a16g128-913toks。数字与 arXiv v3 + v1 PDF 逐格交叉核对；**发现笔记实验表 1 混列**（13B 表头下实为 7B 列）与 FP16 基线行不符 → note-mismatch 卡已排队 + QUESTIONS。校准集口径（QwT 教训）写入各卡 scope
 
 ## 扩队提示
 
