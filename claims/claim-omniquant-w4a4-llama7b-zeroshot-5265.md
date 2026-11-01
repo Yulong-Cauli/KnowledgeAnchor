@@ -47,7 +47,7 @@ falsifiers:
   - "评测任务清单或 lm-eval-harness 版本不同导致排序变化；或换用非 WikiText2 域校准数据后平均准确率大幅下降（论文 Table A10 仅验证校准域变化下 PPL 方差 0.0006–0.17，未报告零样本准确率的校准域方差）"
   - "W4A4 的 per-token 激活量化在目标推理引擎上无可行实现，导致该精度数字无法转化为部署收益"
 review_due: 2026-12-02
-related: [claim-omniquant-let-lwc-ablation-w4a4-best, claim-omniquant-w2a16g128-llama7b-ppl-beats-gptq-awq, claim-qwt-r2-gate-nonregression]
+related: [claim-omniquant-let-lwc-ablation-w4a4-best, claim-omniquant-w2a16g128-llama7b-ppl-beats-gptq-awq, claim-qwt-r2-gate-nonregression, claim-repqvit-w4a4-imagenet-leads-ptq-baselines]
 signoff: null
 ---
 

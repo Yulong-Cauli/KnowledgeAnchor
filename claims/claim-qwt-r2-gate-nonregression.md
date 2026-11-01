@@ -21,7 +21,7 @@ falsifiers:
   - "找到 R² > 0（校准集）但测试集精度低于 PTQ 的案例"
   - "在检测/部署模型上复现，观察门控是否仍能兜底"
 review_due: 2026-11-15
-related: []
+related: [claim-repqvit-w4a4-imagenet-leads-ptq-baselines]
 signoff: null
 ---
 
