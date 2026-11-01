@@ -6,6 +6,7 @@
 
 - [fire-now] [draft|P1] QLoRA（NeurIPS 2023, "QLoRA: Efficient Finetuning of Quantized LLMs"）→ `nightshift/drafts/QLoRA.md`
 - [fire-now] [claim|P2] library/3D_Occupancy/NJU-SparseOcc.md → 提炼 2–4 张 asserted 卡（稀疏占用方向）
+- [fire-now] [claim|P2] library/Multimodal_Fusion/HGSFusion.md → 提炼 2–4 张 asserted 卡（注意 cross 文件已核实的口径问题：88.28% 是 RoI AP 非 mAP）
 
 ## 待办
 
@@ -41,6 +42,7 @@
 - [fire-now|04:28✅] [draft|P1] MSMDFusion → `nightshift/drafts/MSMDFusion.md`（290 行，4.3M token，CVPR 2023 LiDAR-相机融合确认，6 表逐格 + 57 引文核验，assets 9 图抽验一致）。诚实标注：本文是 LiDAR-相机非雷达-相机，未强加库内关联。遗留：assets Table7.png 实为 Figure 6、公式截图未嵌入待确认
 - [fire-now|04:34✅] [claim|P2] RadarOcc → **4 张 asserted 窄卡**（0.75M token，review_due 2026-12-02，related 互链）：claim-radarocc-sss-rangewise-preserves-lowrcs / dbd-compresses-doppler-to-8-descriptors / s2c-deformable-avoids-interp-degradation / cfar-pointcloud-loses-lowrcs。9 条 quote 逐字验证，validate OK(21)，index 已重建。关键决定：笔记无实验章节（cross 文件 M5 已证实），拒绝立"stable-beats-Cartesian"强主张，全部窄卡 + scope 口径限定。遗留：回原文核对有无 SSS/DBD/S2C 消融表（涉及补笔记，需主人同意）→ QUESTIONS
 - [fire-now|04:39✅] [claim|P2] R4Det → **4 张 asserted 卡**（0.44M token，互链）："正交叠加"已注明是累计式消融解读、未立 SOTA 主张；EAA 口径未定义 caveat 已写入 scope。8 条 quote 逐字验证，validate OK(25)，index 已重建。遗留：t-2/t-3 帧距消融数字需回原文；笔记 §2.1 小节编号瑕疵未改（禁改）
+- [fire-now|04:40✅] [draft|P1] QLoRA → `nightshift/drafts/QLoRA.md`（277 行，**7.1M token**，NeurIPS 2023 五源确认，13 表 + 90 引文双 HTML 源核验 0 失败）。🎉 **P1 草稿流水线 22/22 全清**。遗留："& Meta" 署名未见抓取材料 → 待用户确认；Table 9–12 未逐行转录（TODO 已记）
 
 ## 扩队提示
 
