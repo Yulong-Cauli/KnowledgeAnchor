@@ -6,11 +6,11 @@
 
 - [fire-now] [draft|P1] PillarNet（ECCV 2022, "PillarNet: Real-Time and High-Performance Pillar-based 3D Object Detection"）→ `nightshift/drafts/PillarNet.md`
 - [fire-now|R2新增] [draft|P1] AutoVLA（端到端自动驾驶 VLA）→ `nightshift/drafts/AutoVLA.md`，检索 arXiv 后先核对标题再使用，有歧义就停手
-- [fire-now] [audit|P3] claims/claim-echofusion-3d-ap-below-lidar.md 与 claims/claim-echofusion-note-table-mismatch.md 对照笔记逐条复核 evidence
+- [fire-now] [draft|P1] MIT-BEVFusion（ICRA 2023, "BEVFusion: Multi-Task Multi-Sensor Fusion with Unified Bird's-Eye View Representation"）→ `nightshift/drafts/MIT-BEVFusion.md`
 
 ## 待办
 
-- [draft|P1] TODO.md「待读 / 待写 L1」其余论文（MIT-BEVFusion、RCBEVDet++、Deep Compression、LSQ、MobileNet/V2/V3、MobileOne、ShuffleNet、LLaVA、Qwen3-VL、OpenVLA、OpenDriveVLA、OneVL、DrivePI、Alpamago、BRCEQ、COTR、MSMDFusion、QLoRA）→ 由各班按 R2 逐篇展开为任务，产出 `nightshift/drafts/<论文名>.md`
+- [draft|P1] TODO.md「待读 / 待写 L1」其余论文（RCBEVDet++、Deep Compression、LSQ、MobileNet/V2/V3、MobileOne、ShuffleNet、LLaVA、Qwen3-VL、OpenVLA、OpenDriveVLA、OneVL、DrivePI、Alpamago、BRCEQ、COTR、MSMDFusion、QLoRA）→ 由各班按 R2 逐篇展开为任务，产出 `nightshift/drafts/<论文名>.md`
 
 ## 完成
 
@@ -20,6 +20,7 @@
 - [fire-now|01:01✅] [draft|P0] BEV-Planner → **直写 `library/ADe2e/BEV-Planner.md`**（172 行，标题核对一致，引文与表格逐字核验；原文拼写照抄加注）+ `nightshift/suggestions/library-README-ADe2e.md`。遗留：GitHub README 抓取超时（开源状态仅以 arXiv 摘要为据）；输入分辨率 256×704 来自 HTML alttext，建议主人对 PDF 复核。后续 [claim|P0] 已派发
 - [fire-now|01:07✅] [draft|P1] BEVDet → `nightshift/drafts/BEVDet.md`（235 行，1.35M token，Table 1–7 全部行 + 13 条引文脚本核验）。发现原文自相矛盾：§4.3 称配置 C "peaks at epoch 15" vs Table 4 C 行 "0.262 (e11)"，两处照抄已标注；assets 文件名与论文编号错位（Table2.png 实为论文 Table 4），回填配图时注意
 - [fire-now|01:13✅] [claim|P0] BEV-Planner → **5 张 asserted 卡**（0.33M token，review_due 2026-12-02，related 互链）：claim-bevplanner-egomlp-parity-l2-collision / egostatus-injection-closes-gap / ego-velocity-dominates-planning / nuscenes-straight-driving-imbalance / unidad-postprocessing-raises-ccr。16 条 quote 全部逐字验证，validate OK(17)，index 已重建。遗留（留 QA 轮）：note 锚点风格统一、数字回源逐格复核
+- [fire-now|01:21✅] [audit|P3] EchoFusion 两卡 → 小修 2 张卡（Table 7 行名对齐论文原文、注明笔记 §3.1 省略行），validate OK(17)。未新建卡：笔记错误已被现有 mismatch 卡覆盖；新发现候选：论文正文 "only 0.03 less than LiDAR" vs Table 6 实差 0.45（疑论文笔误）→ 已记 QUESTIONS 待主人定
 
 ## 扩队提示
 
