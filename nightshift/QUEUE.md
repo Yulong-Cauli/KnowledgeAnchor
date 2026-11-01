@@ -4,13 +4,13 @@
 
 ## 进行中
 
-- [fire-now] [draft|P1] PillarNet（ECCV 2022, "PillarNet: Real-Time and High-Performance Pillar-based 3D Object Detection"）→ `nightshift/drafts/PillarNet.md`
+- [fire-now] [draft|P1] MobileNet/V2/V3 三篇合一（V1 arXiv 2017 / V2 CVPR 2018 / V3 ICCV 2019）→ `nightshift/drafts/MobileNet.md`
 - [fire-now] [draft|P1] LSQ（ICLR 2020, "Learned Step Size Quantization"）→ `nightshift/drafts/LSQ.md`
 - [fire-now] [draft|P1] Deep Compression（ICLR 2016, "Deep Compression: Compressing Deep Neural Networks with Pruning, Trained Quantization and Huffman Coding"）→ `nightshift/drafts/DeepCompression.md`
 
 ## 待办
 
-- [draft|P1] TODO.md「待读 / 待写 L1」其余论文（MobileNet/V2/V3、MobileOne、ShuffleNet、LLaVA、Qwen3-VL、OpenVLA、OpenDriveVLA、OneVL、DrivePI、Alpamago、BRCEQ、COTR、MSMDFusion、QLoRA）→ 由各班按 R2 逐篇展开为任务，产出 `nightshift/drafts/<论文名>.md`
+- [draft|P1] TODO.md「待读 / 待写 L1」其余论文（MobileOne、ShuffleNet、LLaVA、Qwen3-VL、OpenVLA、OpenDriveVLA、OneVL、DrivePI、Alpamago、BRCEQ、COTR、MSMDFusion、QLoRA）→ 由各班按 R2 逐篇展开为任务，产出 `nightshift/drafts/<论文名>.md`
 
 ## 完成
 
@@ -24,6 +24,7 @@
 - [fire-now|01:29✅] [draft|P1] AutoVLA → `nightshift/drafts/AutoVLA.md`（259 行，**5.9M token**，NeurIPS 2025, arXiv:2506.13757，10 张表逐字行 + 140 引文程序验证，开源状态实抓确认）。自查：§1 "superior performance" 与 Table 1/S2/S3 多处非第一矛盾已 ⚠（建卡时建议只锚单一数字）；Table S3 两行同名 DriveTraj 照抄待核
 - [fire-now|01:28✅] [draft|P1] MIT-BEVFusion → `nightshift/drafts/MIT-BEVFusion.md`（185 行，2.4M token，Table I–IV 42 行 + 64 引句脚本核验，正确避开同名异 arXiv 号 2205.13590）。遗留：ICRA 2023 出处依据 GitHub News+BibTeX（IEEE Xplore 页待人工补）；abs 与 HTML v3 摘要措辞差异已在头部对照列出
 - [fire-now|01:29✅] [draft|P1] RCBEVDet++ → `nightshift/drafts/RCBEVDetPP.md`（426 行，3.6M token，arXiv:2409.04979 标题核对一致，14 张表 122 行逐格 + 67 引文逐字核验，含与 RCBEVDet.md 关系说明）。遗留：正式发表出处未知按 arXiv v1 标注；原文 Table II 引用编号与 "diving" 拼写疑原文笔误已照抄标注；反向链接 RCBEVDet.md 需主人同意
+- [fire-now|01:31✅] [draft|P1] PillarNet → `nightshift/drafts/PillarNet.md`（288 行，**6.0M token** 新高，110 引句 + Table 1–6 逐格 0 错位，正文数字对表验算）。发现多处原文疑点："+0.34% mAP" 对不上 Table 4 行差（实为 +0.08）、§4.2 交叉引用 Table 6 疑应为 Table 5、多处拼写瑕疵照抄加注——均留人工裁决
 
 ## 扩队提示
 
