@@ -15,3 +15,4 @@
 01:28 | fire-now | MIT-BEVFusion 草稿完成（2.4M token，51 次工具调用）| 产出 1（185 行）| validate OK | 正确避开同名异 arXiv 号。补槽 Deep Compression。累计 9 任务 ≈17.5M
 01:29 | fire-now | RCBEVDet++ 草稿完成（3.6M token，58 次工具调用）| 产出 1（426 行）| validate OK | 补槽 LSQ。累计 10 任务 ≈21.1M（00:33–01:29 折合约 23M/h）
 01:31 | fire-now | PillarNet 草稿完成（**6.0M token** 新高，70 次工具调用）| 产出 1（288 行，110 引句 + 表格逐格 0 错位）| validate OK | 验算出原文 "+0.34%" 与表差不符等多处疑点。补槽 MobileNet 三部曲。累计 11 任务 ≈27.1M（00:33–01:31 折合约 30M/h）
+01:41 | fire-now | LSQ 草稿完成（1.7M token，33 次工具调用）| 产出 1（253 行）| validate OK | 补槽 MobileOne。累计 12 任务 ≈28.8M
