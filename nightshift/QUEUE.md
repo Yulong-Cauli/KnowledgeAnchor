@@ -4,12 +4,12 @@
 
 ## 进行中
 
-- [fire-now] [draft|P1] MSMDFusion（其他组，检索后先核对标题与主题再使用，有歧义就停手）→ `nightshift/drafts/MSMDFusion.md`
 - [fire-now] [draft|P1] QLoRA（NeurIPS 2023, "QLoRA: Efficient Finetuning of Quantized LLMs"）→ `nightshift/drafts/QLoRA.md`
+- [fire-now] [claim|P2] library/3D_Occupancy/RadarOcc.md → 提炼 2–4 张 asserted 卡（TODO 优先项：旁瓣感知稀疏化 + 球坐标编码 vs 笛卡尔；撑不起强主张就立窄卡，参考 nightshift/cross/4d-radar.md 的口径发现）
 
 ## 待办
 
-- [draft|P2] P1 全部完成后转 P2：library/ 下还没有对应 claim 的笔记 → 每篇一条 [claim] 任务（2–5 张卡；建卡前先确认同 id 不存在）。优先级：P0 相关（ADe2e）> 有 PDF 的 > 其余（注：TODO 用名 "BRCEQ" 经查证为 BRECQ 笔误，已按 BRECQ 产出）
+- [draft|P2] P2 挖矿池（P1 已近清空）：library/ 下还没有 claim 的笔记 → 每篇一条 [claim] 任务。优先级：有 PDF 的（RadarOcc✅派出、R4Det、NJU-SparseOcc）> TODO 点名的 > 其余。已知无卡笔记：RadarOcc、R4Det、NJU-SparseOcc、SparseOcc、SurroundOcc、HGSFusion、RadarDistill、RCBEVDet、Ali-BEVFusion、CaDDN、CenterNet×2、CornerNet、FCOS、Fast R-CNN、PointNet&PointPillars、SGDet3D、MQBench、RepQ-ViT、PD-Quant、QD-BEV、OmniQuant、VQ-Map 等（注：TODO 用名 "BRCEQ" 经查证为 BRECQ 笔误，已按 BRECQ 产出）
 
 ## 完成
 
@@ -38,6 +38,7 @@
 - [fire-now|03:53✅] [draft|P1] Alpamago → `nightshift/drafts/Alpamago.md`（239 行，5.9M token，实为 **Alpamayo-R1** arXiv:2511.00088 NVIDIA——"Alpamago" 是 TODO 笔误，身份经预存 assets 表格逐值交叉确认）。TABLE 6–14 全抄 + 198 引文核验，初检 8 处问题已修复复验 0 失败。遗留：HF 页抓取超时，开源状态以论文 §7 + GitHub Apache-2.0 为准 → QUESTIONS 待确认命名更正
 - [fire-now|04:11✅] [draft|P1] BRCEQ → `nightshift/drafts/BRCEQ.md`（348 行，**6.9M token**，实为 **BRECQ** arXiv:2102.05426 ICLR 2021——字母易位笔误，assets 全部为 BRECQ 内容佐证）。Table 1–6 逐行 + 81 引文核验，§4.4 数字对账一致。遗留：ICLR 2021 仅 GitHub 自述未核 OpenReview；原文 3 处笔误照抄注记 → TODO 更正留 QUESTIONS
 - [fire-now|04:15✅] [draft|P1] COTR → `nightshift/drafts/COTR.md`（288 行，4.5M token，7 个同名论文中锁定 CVPR 2024 占用预测版，7 表 66 行 + 38 引文核验）。发现原文内部不一致（§4.3 41.05 vs Table 2 41.39 等）已注记；assets/COTR/Table4.png 实为 HTML Table 3（表号疑错位）→ QUESTIONS
+- [fire-now|04:28✅] [draft|P1] MSMDFusion → `nightshift/drafts/MSMDFusion.md`（290 行，4.3M token，CVPR 2023 LiDAR-相机融合确认，6 表逐格 + 57 引文核验，assets 9 图抽验一致）。诚实标注：本文是 LiDAR-相机非雷达-相机，未强加库内关联。遗留：assets Table7.png 实为 Figure 6、公式截图未嵌入待确认
 
 ## 扩队提示
 

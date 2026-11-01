@@ -29,3 +29,4 @@
 03:53 | fire-now | Alpamago 草稿完成（5.9M token，77 次工具调用）| 产出 1（239 行；实为 Alpamayo-R1，TODO 笔误已确认 → QUESTIONS）| validate OK | 补槽 COTR。累计 23 任务 ≈90.5M（00:33–03:53，折合约 40M/h）
 04:11 | fire-now | BRCEQ（实为 BRECQ）草稿完成（**6.9M token**，99 次工具调用）| 产出 1（348 行）| validate OK | QUEUE 用名已修正；TODO 更正留 QUESTIONS。补槽 MSMDFusion。累计 24 任务 ≈97.4M（00:33–04:11，折合约 41M/h）
 04:15 | fire-now | COTR 草稿完成（4.5M token，64 次工具调用）| 产出 1（288 行，CVPR 2024 占用预测版确认）| validate OK | 配图表号错位 → QUESTIONS。补槽 QLoRA（P1 最后一篇）。累计 25 任务 ≈101.9M（00:33–04:15，折合约 41M/h）
+04:28 | fire-now | MSMDFusion 草稿完成（4.3M token，71 次工具调用）| 产出 1（290 行）| validate OK | P2 挖矿启动：派 RadarOcc（TODO 优先项）。累计 26 任务 ≈106.2M
