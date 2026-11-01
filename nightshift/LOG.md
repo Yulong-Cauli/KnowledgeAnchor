@@ -13,3 +13,4 @@
 01:29 | fire-now | AutoVLA 草稿完成（**5.9M token**，64 次工具调用，用时 20.4 分钟）| 产出 1（259 行）| validate OK | §1 自夸 vs 表格矛盾已 ⚠。补槽 RCBEVDet++。累计 8 任务 ≈15.1M（00:33 起折合约 16M/h）
 01:17 | fire-now | 时钟校准：上两条「01:21 / 01:29」为估记，实际约 01:09 与 01:15；以系统时钟为准，累计烧速按 00:33–01:17 实测 ≈ **21M/h**（8 任务 15.1M / 44 分钟）。此后每班收割取实际 date
 01:28 | fire-now | MIT-BEVFusion 草稿完成（2.4M token，51 次工具调用）| 产出 1（185 行）| validate OK | 正确避开同名异 arXiv 号。补槽 Deep Compression。累计 9 任务 ≈17.5M
+01:29 | fire-now | RCBEVDet++ 草稿完成（3.6M token，58 次工具调用）| 产出 1（426 行）| validate OK | 补槽 LSQ。累计 10 任务 ≈21.1M（00:33–01:29 折合约 23M/h）
