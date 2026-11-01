@@ -3,7 +3,7 @@ id: claim-sparseocc-miou141-beats-dense-baselines
 title: "SparseOcc 声称：nuScenes-Occupancy 验证集上 IoU 21.8 / mIoU 14.1，同表高于三条相机稠密基线（C-CONet 20.1/12.8、OpenOccupancy 19.3/10.3、TPVFormer 15.3/7.8）"
 type: claim
 status: asserted
-scope: "nuScenes-Occupancy 验证集（笔记措辞；官方 GitHub README 口径为 OpenOccupancy-nuScenes val，arXiv 摘要未点名基准，准确基准名需回原文核对）；相机输入；SparseOcc 自报对比表（笔记 §4.1 / Table 1）；笔记未注明基线数字是同协议复现还是引用各自原文，未注明评测硬件；据库内笔记转述，尚未独立验证"
+scope: "nuScenes-Occupancy 验证集（笔记措辞；官方 GitHub README 口径为 OpenOccupancy validation set，arXiv 摘要未点名基准，准确基准名需回原文核对）；相机输入；SparseOcc 自报对比表（笔记 §4.1 / Table 1）；笔记未注明基线数字是同协议复现还是引用各自原文，未注明评测硬件；据库内笔记转述，尚未独立验证"
 tags: [occupancy-prediction, sparse-3d, sparse-conv, sparseocc, nuscenes, sparse-tokens]
 note: library/3D_Occupancy/SparseOcc.md#41-nuscenes-occupancy-性能对比-table-1
 paper: "CVPR 2024 · SparseOcc: Rethinking Sparse Latent Representation for Vision-Based Semantic Occupancy Prediction · arXiv:2404.09502 · https://github.com/VISION-SJTU/SparseOcc"
@@ -49,7 +49,7 @@ signoff: null
 限定与注意：
 
 1. 命名消歧：本卡对应 CVPR 2024、VISION-SJTU 的 SparseOcc（arXiv:2404.09502，"Rethinking Sparse Latent Representation"）；库内另一笔记 `library/3D_Occupancy/NJU-SparseOcc.md` 对应 ECCV 2024、MCG-NJU 的 "Fully Sparse 3D Occupancy Prediction"（arXiv:2312.17118）。两篇方法同名，勿混。
-2. 基准名称：笔记写 "nuScenes-Occupancy 验证集"；官方 GitHub README（抓取于 2026-11-02，https://github.com/VISION-SJTU/SparseOcc）写基准为 OpenOccupancy-nuScenes val；arXiv 摘要未点名基准。两者应指同一基准（表中 C-CONet 的 12.8 与摘要 "from 12.8% to 14.1% mIOU" 交叉一致），准确措辞需回原文核对。
+2. 基准名称：笔记写 "nuScenes-Occupancy 验证集"；官方 GitHub README（抓取于 2026-11-02，https://github.com/VISION-SJTU/SparseOcc）写基准为 OpenOccupancy validation set（README 原句 "Occupancy Prediction on OpenOccupancy validation set"）；arXiv 摘要未点名基准。两者应指同一基准（表中 C-CONet 的 12.8 与摘要 "from 12.8% to 14.1% mIOU" 交叉一致），准确措辞需回原文核对。
 3. Table 1 的延迟列（0.19s vs 0.57–2.18s）与显存列未注明硬件与统计口径，跨论文可比性存疑（[EMC2 卡](claim-emc2-orin-sub400ms-leading-accuracy.md)前车之鉴），故延迟不进本卡主张；算力对比另见 [FLOPs 卡](claim-sparseocc-flops-749pct-below-dense.md)。
 4. arXiv 摘要抓取于 2026-11-02（https://arxiv.org/abs/2404.09502），仅核对到摘要句，未核对原文 Table 1 全表。
 

@@ -28,7 +28,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（据笔记 §5.2 转述，尚未独立验证）：在 nuScenes 上，其余配置不变、仅把监督信号从原始稀疏点云替换为离线生成的密集占用真值，SC IoU（几何）从 11.96% 升至 31.49%，接近翻两番。这是本篇笔记里幅度最大的一处消融，也是笔记总结「数据是王道」的依据。密集真值本身由 §3 的离线 pipeline 生成，见 [pipeline 卡](claim-surroundocc-poisson-reconstruction-dense-gt-pipeline.md)。
+论文声称（据笔记 §5.2 转述，尚未独立验证）：在 nuScenes 上，其余配置不变、仅把监督信号从原始稀疏点云替换为离线生成的密集占用真值，SC IoU（几何）从 11.96% 升至 31.49%（约 2.6 倍）。这是本篇笔记里幅度最大的一处消融，也是笔记总结「数据是王道」的依据。密集真值本身由 §3 的离线 pipeline 生成，见 [pipeline 卡](claim-surroundocc-poisson-reconstruction-dense-gt-pipeline.md)。
 
 限定与注意：
 1. 11.96% 是「稀疏点云监督下的 SurroundOcc」的绝对值，不能当作任何其他方法或设置的基线读数。
