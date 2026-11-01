@@ -16,7 +16,7 @@ ViT 中存在两个具有“极端分布”的激活值：**LayerNorm 后的剧�
 
 RepQ-ViT 提出了一种全新的**“量化-推理解耦范式”**：在量化阶段使用**复杂的量化器**（保精度），在推理阶段通过**尺度重参数化（Scale Reparameterization）**将其无缝转换为**简单的量化器**（保速度）。该方法无需超参数调节和昂贵的重建过程，在 4-bit 下首次将 ViT 的精度提升到了可用水平。
 
-<div align="center"><img src="https://raw.githubusercontent.com/Yulong-Cauli/Paper-Notes/main/assets/RepQ-ViT/Figure1.jpeg" alt="Overview of RepQ-ViT" width="60%"></div>
+<div align="center"><img src="https://raw.githubusercontent.com/Yulong-Cauli/KnowledgeAnchor/main/assets/RepQ-ViT/Figure1.jpeg" alt="Overview of RepQ-ViT" width="60%"></div>
 
 ---
 
@@ -28,7 +28,7 @@ RepQ-ViT 的核心在于用严谨的数学等价/近似变换，将复杂的量�
 
 **痛点：** LayerNorm 后的激活值在不同通道间差异巨大，必须用**逐通道量化 (Channel-wise)** 才能保精度，但这在硬件激活运算上不被支持，硬件仅支持**逐层量化 Layer-wise**。
 
-<div align="center"><img src="https://raw.githubusercontent.com/Yulong-Cauli/Paper-Notes/main/assets/RepQ-ViT/Figure2.jpeg" alt="Overview of RepQ-ViT" width="60%"></div>
+<div align="center"><img src="https://raw.githubusercontent.com/Yulong-Cauli/KnowledgeAnchor/main/assets/RepQ-ViT/Figure2.jpeg" alt="Overview of RepQ-ViT" width="60%"></div>
 
 **解决思路：**
 假设原逐通道的比例尺为 $s$，零点为 $z$ ，$s$ 和 $z$ 是形状为 `[D]` 的一维数组（长度等于通道数）。目标是转换为统一的逐层参数 $\tilde{s}$ 和 $\tilde{z}$ 。
@@ -158,7 +158,7 @@ $$
 
 **痛点：** Attention 矩阵呈幂律分布，大部分值接近0，极少数大值非常关键。硬件友好的 $\log_2$ 量化器分辨率不足，会将大量关键分数粗暴截断。底数为 $\sqrt{2}$ 的量化器精度高，但**不支持硬件移位加速（Bit-shifting）**。
 
-<div align="center"><img src="https://raw.githubusercontent.com/Yulong-Cauli/Paper-Notes/main/assets/RepQ-ViT/Figure3.jpeg" alt="Overview of RepQ-ViT" width="60%"></div>
+<div align="center"><img src="https://raw.githubusercontent.com/Yulong-Cauli/KnowledgeAnchor/main/assets/RepQ-ViT/Figure3.jpeg" alt="Overview of RepQ-ViT" width="60%"></div>
 
 **解决思路：**
 利用对数与指数的数学性质，将 $\log_{\sqrt{2}}$ 强行拆解为纯整数的 $\log_2$ 和位移操作。
