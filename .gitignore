@@ -7,6 +7,7 @@ Desktop.ini
 *.tmp
 *.log
 *.workbuddy
+*.zwork
 
 # Ignore editor state
 .obsidian/

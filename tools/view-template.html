@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>KnowledgeAnchor · Claim 视图</title>
+<style>
+:root { --bg:#f5f6f8; --card:#fff; --line:#e5e7eb; --ink:#111827; --muted:#6b7280; --accent:#2563eb; }
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin:0; background:var(--bg); color:var(--ink); font:14px/1.65 -apple-system,'Segoe UI','Microsoft YaHei','PingFang SC',sans-serif; }
+a { color:var(--accent); text-decoration:none; }
+a:hover { text-decoration:underline; }
+code, .mono { font-family:ui-monospace,Consolas,'Cascadia Mono',monospace; font-size:12px; }
+.topbar { display:flex; justify-content:space-between; align-items:baseline; gap:12px; max-width:1080px; margin:0 auto; padding:18px 20px 0; flex-wrap:wrap; }
+.brand { font-size:18px; font-weight:700; }
+.brand .sub { font-weight:400; color:var(--muted); font-size:13px; margin-left:8px; }
+.gentime { color:var(--muted); font-size:12px; }
+.tabs { max-width:1080px; margin:12px auto 0; padding:0 20px; display:flex; gap:6px; align-items:center; border-bottom:1px solid var(--line); flex-wrap:wrap; }
+.tab { border:1px solid transparent; border-bottom:none; background:none; padding:8px 14px; font-size:14px; color:var(--muted); cursor:pointer; border-radius:8px 8px 0 0; }
+.tab.active { background:var(--card); border-color:var(--line); color:var(--ink); font-weight:600; }
+.crumb { color:var(--muted); font-size:13px; margin-left:8px; }
+main { max-width:1080px; margin:0 auto; padding:20px; min-height:50vh; }
+.foot { max-width:1080px; margin:8px auto 0; padding:12px 20px 28px; color:var(--muted); font-size:12px; border-top:1px dashed var(--line); }
+.grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+@media (max-width: 760px) { .grid { grid-template-columns:1fr; } }
+.card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px; }
+.card.wide { grid-column:1 / -1; }
+.card h2, .detail h2 { font-size:13px; margin:18px 0 10px; color:var(--muted); letter-spacing:.02em; }
+.card h2:first-child, .detail h2:first-child { margin-top:0; }
+.stats { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px; }
+.stat { display:inline-flex; flex-direction:column; gap:2px; align-items:flex-start; min-width:88px; background:#f8fafc; border:1px solid var(--line); border-radius:10px; padding:10px 12px; cursor:pointer; font:inherit; }
+.stat:hover { border-color:var(--accent); }
+.stat b { font-size:20px; line-height:1.2; }
+.mini { display:inline-block; padding:1px 8px; border-radius:999px; font-size:11px; font-weight:600; border:1px solid transparent; white-space:nowrap; }
+.b-asserted { background:#fef3c7; color:#92400e; border-color:#fcd34d; }
+.b-verified { background:#dcfce7; color:#166534; border-color:#86efac; }
+.b-refuted  { background:#fee2e2; color:#991b1b; border-color:#fca5a5; }
+.b-stale    { background:#e5e7eb; color:#374151; border-color:#d1d5db; }
+.b-adopt { background:#d1fae5; color:#065f46; border-color:#6ee7b7; }
+.b-trial { background:#dbeafe; color:#1e40af; border-color:#93c5fd; }
+.b-watch { background:#fef3c7; color:#92400e; border-color:#fcd34d; }
+.b-avoid { background:#ffe4e6; color:#9f1239; border-color:#fda4af; }
+.chips { display:flex; flex-wrap:wrap; gap:6px; }
+.chip { background:#eef2f7; border:1px solid var(--line); border-radius:999px; padding:3px 10px; font-size:12px; cursor:pointer; font:inherit; font-size:12px; color:var(--ink); }
+button.chip:hover { border-color:var(--accent); }
+.chip.on { background:#dbeafe; border-color:#93c5fd; color:#1e40af; }
+.chip b { font-weight:700; }
+.due-list { display:flex; flex-direction:column; gap:6px; margin-bottom:10px; }
+.due-row { display:flex; gap:10px; align-items:baseline; text-align:left; width:100%; background:#f8fafc; border:1px solid var(--line); border-radius:8px; padding:8px 10px; cursor:pointer; font:inherit; font-size:13px; }
+.due-row:hover { border-color:var(--accent); }
+.due-date { font-weight:600; font-variant-numeric:tabular-nums; }
+.due-count { color:var(--muted); white-space:nowrap; }
+.due-sample { color:var(--muted); font-size:12px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.due-over { color:#b91c1c; }
+.due-row.due-over { background:#fef2f2; border-color:#fecaca; }
+.due-over.due-date, td.due-over, .v.due-over { color:#b91c1c; font-weight:600; }
+.due-soon.due-date, td.due-soon, .v.due-soon { color:#b45309; font-weight:600; }
+.muted { color:var(--muted); }
+.small { font-size:12px; }
+.count { color:var(--muted); font-size:12px; margin:0 0 8px; }
+.controls { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px; align-items:center; }
+.controls input[type="search"] { flex:1; min-width:220px; padding:7px 10px; border:1px solid var(--line); border-radius:8px; font:inherit; }
+.controls select { padding:7px 8px; border:1px solid var(--line); border-radius:8px; font:inherit; background:#fff; }
+button.ghost { background:#fff; border:1px solid var(--line); border-radius:8px; padding:7px 12px; cursor:pointer; font:inherit; font-size:13px; color:var(--muted); }
+button.ghost:hover { color:var(--ink); border-color:var(--accent); }
+.tablewrap { background:var(--card); border:1px solid var(--line); border-radius:12px; overflow-x:auto; }
+table.claims { width:100%; border-collapse:collapse; min-width:760px; }
+table.claims th { text-align:left; font-size:12px; color:var(--muted); font-weight:600; padding:9px 10px; border-bottom:1px solid var(--line); background:#fafbfc; white-space:nowrap; }
+table.claims td { padding:9px 10px; border-bottom:1px solid #f0f1f3; vertical-align:top; }
+table.claims tbody tr:hover td { background:#f8fafc; }
+table.claims tbody tr:last-child td { border-bottom:none; }
+.tcell a.row-link { color:var(--ink); font-weight:600; }
+.tcell a.row-link:hover { color:var(--accent); }
+.cid { color:var(--muted); font-family:ui-monospace,Consolas,monospace; font-size:11px; margin-top:2px; }
+.tags { max-width:220px; }
+.tag { display:inline-block; background:#f1f5f9; color:#475569; border-radius:6px; padding:1px 6px; font-size:11px; margin:0 4px 4px 0; white-space:nowrap; }
+.tag.more { background:transparent; color:var(--muted); }
+.empty { padding:24px 0; text-align:center; }
+.detail h1 { font-size:20px; line-height:1.4; margin:10px 0 8px; }
+.back { display:inline-block; margin-bottom:4px; font-size:13px; }
+.badges { display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin-bottom:6px; }
+.banner { margin:12px 0 16px; padding:10px 14px; border-left:4px solid var(--line); border-radius:8px; font-size:13px; }
+.banner.b-asserted { background:#fffbeb; border-color:#f59e0b; color:#92400e; }
+.banner.b-verified { background:#f0fdf4; border-color:#22c55e; color:#166534; }
+.banner.b-refuted { background:#fef2f2; border-color:#ef4444; color:#991b1b; }
+.banner.b-stale { background:#f9fafb; border-color:#9ca3af; color:#4b5563; }
+.meta { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 14px; margin-bottom:6px; }
+.kv { display:grid; grid-template-columns:110px 1fr; gap:10px; padding:7px 0; border-bottom:1px dashed #f0f1f3; font-size:13px; }
+.kv:last-child { border-bottom:none; }
+.kv .k { color:var(--muted); font-size:12px; padding-top:1px; }
+.kv .v { min-width:0; overflow-wrap:anywhere; }
+ul.fals { margin:0 0 8px; padding-left:22px; }
+ul.fals li { margin:4px 0; }
+.ev { border:1px solid var(--line); border-radius:10px; padding:10px 12px; margin-bottom:8px; background:var(--card); }
+.ev-head { display:flex; gap:8px; align-items:center; flex-wrap:wrap; color:var(--muted); }
+.ev blockquote { margin:8px 0 0; padding:8px 12px; background:#f8fafc; border-left:3px solid #cbd5e1; font-size:13px; border-radius:0 8px 8px 0; overflow-wrap:anywhere; }
+.relchip { display:inline-block; padding:3px 10px; background:#eef2f7; border:1px solid var(--line); border-radius:999px; font-size:12px; margin:0 6px 6px 0; max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; vertical-align:bottom; }
+.relchip.back { color:var(--muted); background:#f3f4f6; }
+.relchip.missing { color:#991b1b; background:#fef2f2; border-color:#fecaca; }
+.unsigned { border:1px dashed #d1d5db; background:#fafafa; padding:12px 14px; border-radius:10px; color:#4b5563; font-size:13px; }
+table.signoff { border-collapse:collapse; background:var(--card); border:1px solid var(--line); border-radius:10px; }
+table.signoff th, table.signoff td { border:1px solid var(--line); padding:6px 12px; font-size:13px; text-align:left; }
+table.signoff th { background:#fafbfc; color:var(--muted); font-weight:600; }
+.body { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 18px 12px; font-size:13.5px; }
+.body h3 { font-size:15px; margin:18px 0 6px; }
+.body h4 { font-size:13.5px; margin:14px 0 4px; }
+.body p { margin:8px 0; }
+.body ul, .body ol { margin:6px 0; padding-left:22px; }
+.body li { margin:3px 0; }
+.body blockquote { margin:8px 0; padding:6px 12px; background:#f8fafc; border-left:3px solid #cbd5e1; border-radius:0 8px 8px 0; }
+.body code { background:#f1f5f9; border-radius:4px; padding:0 4px; }
+.claim-link { font-family:ui-monospace,Consolas,monospace; font-size:12px; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">KnowledgeAnchor<span class="sub">Claim 视图（只读）</span></div>
+  <div class="gentime" id="gen-time"></div>
+</header>
+<nav class="tabs" id="tabs">
+  <button class="tab" data-tab="overview">总览</button>
+  <button class="tab" data-tab="list">Claim 列表</button>
+  <span class="crumb" id="crumb"></span>
+</nav>
+<main id="app"></main>
+<footer class="foot">
+  由 <code>node tools/ka.mjs viz</code> 生成，属派生物（index/ 已 gitignore），数据更新后重跑即可。
+  引用规则：asserted 必须表述为「论文声称 / 尚未独立验证」；高风险决策只使用 verified；
+  verified 的 signoff 只能由本人手工编辑 claim 文件填写，本界面与 Agent 均不得代填。
+</footer>
+<script id="ka-data" type="application/json">__KA_DATA__</script>
+<script>
+'use strict';
+const DATA = JSON.parse(document.getElementById('ka-data').textContent);
+const CLAIMS = DATA.claims;
+const BY_ID = new Map(CLAIMS.map((c) => [c.id, c]));
+const BACKLINKS = new Map();
+for (const c of CLAIMS) {
+  for (const r of c.related || []) {
+    if (!BACKLINKS.has(r)) BACKLINKS.set(r, []);
+    BACKLINKS.get(r).push(c.id);
+  }
+}
+const ALL_TAGS = [...new Set(CLAIMS.flatMap((c) => c.tags || []))].sort((a, b) => a.localeCompare(b));
+const STATUS_ORDER = ['asserted', 'verified', 'refuted', 'stale'];
+const STANCE_ORDER = ['adopt', 'trial', 'watch', 'avoid'];
+const STATUS_META = {
+  asserted: { banner: '论文声称 / 尚未独立验证 —— 本卡未经本人独立验证，引用时必须表述为「论文声称」，不得写成事实；高风险决策（选型、部署、写方案）只允许使用 verified。' },
+  verified: { banner: '已由本人独立验证 —— 方法、日期与证据 hash 见下方 signoff。' },
+  refuted: { banner: '已被推翻 —— 保留可追溯，不得据此行动。' },
+  stale: { banner: '已过期 —— 结论可能不再适用于当前版本或口径。' }
+};
+const state = { tab: 'overview', q: '', statuses: new Set(), stances: new Set(), tag: '', due: '', sort: 'id' };
+const app = document.getElementById('app');
+const tabsEl = document.getElementById('tabs');
+
+function esc(value) {
+  return String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
+}
+function todayStr() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+function dueClass(due) {
+  const today = todayStr();
+  if (due < today) return 'due-over';
+  const limit = new Date();
+  limit.setDate(limit.getDate() + 30);
+  const limitStr = `${limit.getFullYear()}-${String(limit.getMonth() + 1).padStart(2, '0')}-${String(limit.getDate()).padStart(2, '0')}`;
+  return due <= limitStr ? 'due-soon' : '';
+}
+function countBy(key, order) {
+  const counts = new Map(order.map((k) => [k, 0]));
+  for (const c of CLAIMS) counts.set(c[key], (counts.get(c[key]) || 0) + 1);
+  return counts;
+}
+function dueGroups() {
+  const map = new Map();
+  for (const c of CLAIMS) {
+    if (!c.review_due) continue;
+    if (!map.has(c.review_due)) map.set(c.review_due, []);
+    map.get(c.review_due).push(c);
+  }
+  return [...map.entries()].sort((a, b) => a[0].localeCompare(b[0]));
+}
+function filteredClaims() {
+  let rows = CLAIMS;
+  if (state.q) {
+    const q = state.q.toLowerCase();
+    rows = rows.filter((c) => [c.id, c.title, c.scope, c.paper, (c.tags || []).join(' ')].join('\n').toLowerCase().includes(q));
+  }
+  if (state.statuses.size) rows = rows.filter((c) => state.statuses.has(c.status));
+  if (state.stances.size) rows = rows.filter((c) => state.stances.has(c.stance));
+  if (state.tag) rows = rows.filter((c) => (c.tags || []).includes(state.tag));
+  if (state.due) rows = rows.filter((c) => c.review_due === state.due);
+  rows = [...rows];
+  if (state.sort === 'due') {
+    rows.sort((a, b) => (a.review_due ?? '9999-99-99').localeCompare(b.review_due ?? '9999-99-99') || a.id.localeCompare(b.id));
+  } else {
+    rows.sort((a, b) => a.id.localeCompare(b.id));
+  }
+  return rows;
+}
+function inlineMd(s) {
+  const codes = [];
+  s = s.replace(/`([^`]+)`/g, (m, c) => { codes.push(c); return `\u0000${codes.length - 1}\u0000`; });
+  s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  s = s.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (m, label, href) => {
+    if (/^(https?:|file:)/.test(href)) return `<a href="${href}" target="_blank" rel="noopener">${label}</a>`;
+    if (/^(claims|library|index|nightshift|tools|schema|templates)\//.test(href)) return `<a href="../${href}" target="_blank">${label}</a>`;
+    return label;
+  });
+  s = s.replace(/\b(claim-[a-z0-9]+(?:-[a-z0-9]+)+)\b/g, (m, id) => (BY_ID.has(id) ? `<a class="claim-link" href="#/c/${id}">${id}</a>` : m));
+  s = s.replace(/\u0000(\d+)\u0000/g, (m, i) => `<code>${codes[Number(i)]}</code>`);
+  return s;
+}
+function mdLite(text) {
+  const lines = esc(text).split(/\r?\n/);
+  const out = [];
+  let list = null;
+  const closeList = () => { if (list) { out.push(`</${list}>`); list = null; } };
+  for (const raw of lines) {
+    const line = raw.trimEnd();
+    if (/^#{1,3}\s+/.test(line)) {
+      closeList();
+      out.push(`<h3>${inlineMd(line.replace(/^#{1,3}\s+/, ''))}</h3>`);
+    } else if (/^####\s+/.test(line)) {
+      closeList();
+      out.push(`<h4>${inlineMd(line.replace(/^####\s+/, ''))}</h4>`);
+    } else if (/^[-*]\s+/.test(line)) {
+      if (list !== 'ul') { closeList(); out.push('<ul>'); list = 'ul'; }
+      out.push(`<li>${inlineMd(line.replace(/^[-*]\s+/, ''))}</li>`);
+    } else if (/^\d+[.)]\s+/.test(line)) {
+      if (list !== 'ol') { closeList(); out.push('<ol>'); list = 'ol'; }
+      out.push(`<li>${inlineMd(line.replace(/^\d+[.)]\s+/, ''))}</li>`);
+    } else if (/^>\s?/.test(line)) {
+      closeList();
+      out.push(`<blockquote>${inlineMd(line.replace(/^>\s?/, ''))}</blockquote>`);
+    } else if (line.trim() === '') {
+      closeList();
+    } else {
+      closeList();
+      out.push(`<p>${inlineMd(line)}</p>`);
+    }
+  }
+  closeList();
+  return out.join('\n');
+}
+function relChip(id, back) {
+  const card = BY_ID.get(id);
+  if (!card) return `<span class="relchip missing">${esc(id)}（未找到）</span>`;
+  return `<a class="relchip${back ? ' back' : ''}" href="#/c/${id}" title="${esc(card.title)}">${esc(id.replace(/^claim-/, ''))}</a>`;
+}
+
+function renderOverview() {
+  const sc = countBy('status', STATUS_ORDER);
+  const tc = countBy('stance', STANCE_ORDER);
+  const noDue = CLAIMS.filter((c) => !c.review_due).length;
+  const groups = dueGroups();
+  const dueRows = groups.map(([due, cards]) => `
+    <button class="due-row ${dueClass(due)}" data-due="${due}">
+      <span class="due-date ${dueClass(due)}">${due}</span>
+      <span class="due-count">${cards.length} 张</span>
+      <span class="due-sample">${esc(cards.slice(0, 2).map((c) => c.id.replace(/^claim-/, '')).join(' · '))}${cards.length > 2 ? ' …' : ''}</span>
+    </button>`).join('');
+  const tagChips = ALL_TAGS.map((t) => {
+    const n = CLAIMS.filter((c) => (c.tags || []).includes(t)).length;
+    return `<button class="chip" data-tag="${esc(t)}">${esc(t)} <b>${n}</b></button>`;
+  }).join('');
+  app.innerHTML = `
+    <section class="grid">
+      <div class="card">
+        <h2>信任等级（点击进入列表）</h2>
+        <div class="stats">
+          <button class="stat" data-status=""><b>${CLAIMS.length}</b><span>全部</span></button>
+          ${STATUS_ORDER.map((s) => `<button class="stat" data-status="${s}"><b>${sc.get(s)}</b><span class="mini b-${s}">${s}</span></button>`).join('')}
+        </div>
+        <h2>立场</h2>
+        <div class="stats">
+          ${STANCE_ORDER.map((s) => `<button class="stat" data-stance="${s}"><b>${tc.get(s)}</b><span class="mini b-${s}">${s}</span></button>`).join('')}
+        </div>
+      </div>
+      <div class="card">
+        <h2>复核到期（点击按到期日过滤）</h2>
+        ${groups.length ? `<div class="due-list">${dueRows}</div>` : '<p class="muted">没有设置 review_due 的条目。</p>'}
+        <p class="muted small">红色 = 已逾期，橙色 = 30 天内；另有 ${noDue} 张卡未设 review_due。</p>
+      </div>
+      <div class="card wide">
+        <h2>主题标签（${ALL_TAGS.length} 个，点击进入列表）</h2>
+        <div class="chips">${tagChips}</div>
+      </div>
+    </section>`;
+}
+
+function renderFacets() {
+  const box = document.getElementById('facets');
+  box.innerHTML =
+    STATUS_ORDER.map((s) => `<button class="chip toggle${state.statuses.has(s) ? ' on' : ''}" data-f="status" data-v="${s}">${s}</button>`).join('') +
+    STANCE_ORDER.map((s) => `<button class="chip toggle${state.stances.has(s) ? ' on' : ''}" data-f="stance" data-v="${s}">${s}</button>`).join('') +
+    (state.due ? `<button class="chip on" data-f="due" data-v="${esc(state.due)}">到期 ${esc(state.due)} ✕</button>` : '') +
+    (state.tag ? `<button class="chip on" data-f="tag" data-v="${esc(state.tag)}">#${esc(state.tag)} ✕</button>` : '');
+  box.onclick = (event) => {
+    const el = event.target.closest('[data-f]');
+    if (!el) return;
+    const { f, v } = el.dataset;
+    if (f === 'status') { if (state.statuses.has(v)) state.statuses.delete(v); else state.statuses.add(v); }
+    else if (f === 'stance') { if (state.stances.has(v)) state.stances.delete(v); else state.stances.add(v); }
+    else if (f === 'due') state.due = '';
+    else if (f === 'tag') { state.tag = ''; document.getElementById('tag-sel').value = ''; }
+    renderFacets();
+    renderRows();
+  };
+}
+
+function renderRows() {
+  const rows = filteredClaims();
+  document.getElementById('rows').innerHTML =
+    `<p class="count">共 ${CLAIMS.length} 张 · 筛选后 ${rows.length} 张</p>` +
+    (rows.length
+      ? `<div class="tablewrap"><table class="claims">
+        <thead><tr><th>标题</th><th>状态</th><th>立场</th><th>标签</th><th>到期</th><th>证据</th><th>related</th></tr></thead>
+        <tbody>${rows.map((c) => `
+          <tr>
+            <td class="tcell"><a class="row-link" href="#/c/${c.id}">${esc(c.title)}</a><div class="cid">${esc(c.id)}</div></td>
+            <td><span class="mini b-${c.status}">${esc(c.status)}</span></td>
+            <td><span class="mini b-${c.stance}">${esc(c.stance)}</span></td>
+            <td class="tags">${(c.tags || []).slice(0, 3).map((t) => `<span class="tag">${esc(t)}</span>`).join('')}${(c.tags || []).length > 3 ? `<span class="tag more">+${c.tags.length - 3}</span>` : ''}</td>
+            <td class="${c.review_due ? dueClass(c.review_due) : 'muted'}">${esc(c.review_due || '—')}</td>
+            <td>${(c.evidence || []).length}</td>
+            <td>${(c.related || []).length}</td>
+          </tr>`).join('')}</tbody></table></div>`
+      : '<p class="muted empty">没有匹配的 claim。</p>');
+}
+
+function renderList() {
+  app.innerHTML = `
+    <div class="controls">
+      <input id="q" type="search" placeholder="搜索 id / 标题 / scope / paper / 标签…" value="${esc(state.q)}">
+      <select id="tag-sel"><option value="">全部标签</option>${ALL_TAGS.map((t) => `<option value="${esc(t)}"${state.tag === t ? ' selected' : ''}>${esc(t)}</option>`).join('')}</select>
+      <select id="sort-sel">
+        <option value="id"${state.sort === 'id' ? ' selected' : ''}>按 id</option>
+        <option value="due"${state.sort === 'due' ? ' selected' : ''}>按到期日</option>
+      </select>
+      <button id="reset" class="ghost">重置</button>
+    </div>
+    <div class="controls chips" id="facets"></div>
+    <div id="rows"></div>`;
+  renderFacets();
+  renderRows();
+  const qEl = document.getElementById('q');
+  qEl.addEventListener('input', () => { state.q = qEl.value; renderRows(); });
+  document.getElementById('tag-sel').addEventListener('change', (e) => { state.tag = e.target.value; renderFacets(); renderRows(); });
+  document.getElementById('sort-sel').addEventListener('change', (e) => { state.sort = e.target.value; renderRows(); });
+  document.getElementById('reset').addEventListener('click', () => {
+    state.q = '';
+    state.statuses.clear();
+    state.stances.clear();
+    state.tag = '';
+    state.due = '';
+    renderList();
+  });
+}
+
+function renderDetail(id) {
+  const c = BY_ID.get(id);
+  const banner = STATUS_META[c.status]?.banner || '';
+  const backlinks = (BACKLINKS.get(id) || []).filter((b) => !(c.related || []).includes(b));
+  const fwd = c.related || [];
+  const noteLink = c.note ? `../${c.note.split('#')[0]}` : null;
+  const hasRel = fwd.length || backlinks.length;
+  app.innerHTML = `
+    <div class="detail">
+      <a class="back" href="#/list">← 返回列表</a>
+      <h1>${esc(c.title)}</h1>
+      <div class="badges">
+        <span class="mini b-${c.status}">${esc(c.status)}</span>
+        <span class="mini b-${c.stance}">${esc(c.stance)}</span>
+        ${(c.tags || []).map((t) => `<button class="tag" data-tagchip="${esc(t)}" style="cursor:pointer">${esc(t)}</button>`).join('')}
+      </div>
+      <div class="banner b-${c.status}">${esc(banner)}</div>
+      <div class="meta">
+        <div class="kv"><span class="k">scope</span><span class="v">${esc(c.scope)}</span></div>
+        ${c.paper ? `<div class="kv"><span class="k">paper</span><span class="v">${esc(c.paper)}</span></div>` : ''}
+        ${c.note ? `<div class="kv"><span class="k">note</span><span class="v"><a href="${noteLink}" target="_blank">${esc(c.note)}</a></span></div>` : ''}
+        <div class="kv"><span class="k">review_due</span><span class="v ${c.review_due ? dueClass(c.review_due) : 'muted'}">${esc(c.review_due || '—')}</span></div>
+        <div class="kv"><span class="k">文件</span><span class="v mono"><a href="../${esc(c.path)}" target="_blank">${esc(c.path)}</a></span></div>
+      </div>
+      <h2>Falsifiers（什么结果会推翻它）</h2>
+      <ul class="fals">${(c.falsifiers || []).map((f) => `<li>${esc(f)}</li>`).join('')}</ul>
+      <h2>Evidence（${(c.evidence || []).length}）</h2>
+      ${(c.evidence || []).map((e) => `
+        <div class="ev">
+          <div class="ev-head"><span class="mini ${e.relation === 'supports' ? 'b-verified' : 'b-refuted'}">${esc(e.relation)}</span><span class="mono">${esc(e.source)}${e.locator ? ' · ' + esc(e.locator) : ''}</span></div>
+          <blockquote>${esc(e.quote)}</blockquote>
+        </div>`).join('')}
+      <h2>Related</h2>
+      ${hasRel
+        ? `<div class="chips">${fwd.map((r) => relChip(r, false)).join('')}${backlinks.map((b) => relChip(b, true)).join('')}</div><p class="muted small">灰色为反向引用（其他卡的 related 指向本卡）。</p>`
+        : '<p class="muted">无。</p>'}
+      <h2>Signoff</h2>
+      ${c.signoff
+        ? `<table class="signoff"><tr><th>by</th><td>${esc(c.signoff.by)}</td></tr><tr><th>at</th><td>${esc(c.signoff.at)}</td></tr><tr><th>method</th><td>${esc(c.signoff.method)}</td></tr><tr><th>evidence_hash</th><td class="mono">${esc(c.signoff.evidence_hash)}</td></tr></table>`
+        : '<div class="unsigned">尚未签署。verified 只能由你本人手工编辑 claim 文件填写 signoff（by / at / method / evidence_hash）；本界面与 Agent 均不得代填。</div>'}
+      ${c.body ? `<h2>正文</h2><div class="body">${mdLite(c.body)}</div>` : ''}
+    </div>`;
+}
+
+function updateTabs() {
+  for (const b of tabsEl.querySelectorAll('.tab')) {
+    b.classList.toggle('active', b.dataset.tab === state.tab);
+  }
+  document.getElementById('crumb').textContent = state.tab === 'detail' ? '· 详情' : '';
+}
+
+function route() {
+  const m = location.hash.match(/^#\/c\/(claim-[a-z0-9]+(?:-[a-z0-9]+)*)$/);
+  if (m && BY_ID.has(m[1])) {
+    state.tab = 'detail';
+    renderDetail(m[1]);
+  } else if (location.hash === '#/list') {
+    state.tab = 'list';
+    renderList();
+  } else {
+    state.tab = 'overview';
+    renderOverview();
+  }
+  updateTabs();
+  window.scrollTo(0, 0);
+}
+
+function goto(hash) {
+  if (location.hash === hash) route();
+  else location.hash = hash;
+}
+
+tabsEl.addEventListener('click', (event) => {
+  const b = event.target.closest('.tab');
+  if (!b) return;
+  goto(b.dataset.tab === 'list' ? '#/list' : '#/');
+});
+
+app.addEventListener('click', (event) => {
+  const el = event.target.closest('[data-status],[data-stance],[data-tag],[data-due],[data-tagchip]');
+  if (!el) return;
+  if (el.hasAttribute('data-status')) {
+    state.statuses = el.dataset.status ? new Set([el.dataset.status]) : new Set();
+    state.stances.clear();
+    goto('#/list');
+    return;
+  }
+  if (el.hasAttribute('data-stance')) { state.stances = new Set([el.dataset.stance]); goto('#/list'); return; }
+  if (el.hasAttribute('data-tag')) { state.tag = el.dataset.tag; goto('#/list'); return; }
+  if (el.hasAttribute('data-tagchip')) { state.tag = el.dataset.tagchip; goto('#/list'); return; }
+  if (el.hasAttribute('data-due')) { state.due = el.dataset.due; goto('#/list'); return; }
+});
+
+window.addEventListener('hashchange', route);
+document.getElementById('gen-time').textContent = `生成于 ${DATA.generated_at} · ${CLAIMS.length} 张 claim`;
+route();
+</script>
+</body>
+</html>
