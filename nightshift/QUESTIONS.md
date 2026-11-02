@@ -69,3 +69,7 @@
 
 40. **check-materials 首跑结果**（`node tools/check-materials.mjs`）：53 素材目录/57 笔记/282 图，其中仅 118 图被笔记引用。①素材无笔记 ×3（CameraParams/KITTI/Misc——TODO 本就标注"不一定是论文，按需整理"）；②笔记无素材 ×11（数学×3/liger×3 天然无图、ADe2e×3 系素材位置特例 #16、LingoQA、PTQAT）；③未引用图 ×164（大量已截素材未嵌入正文）。是否清理/豁免"无图笔记"（影响 exit 码策略）由你定。
 41. **Qwen3-VL 术语勘误**：论文 v2 §3.2.7 实际术语为 **Length-Adaptive Sampling**（任务书写作 "Length-adaptive Visual Resolution"，笔记无直接引文）——建卡以实抓 arXiv 引文为据并注明；引用该机制时用 v2 术语。
+
+## 2026-11-03 fire-0619（R2 二轮 + 总账摘要）
+
+42. **两处待人工核**：① AutoVLA Table S3 两行同名 DriveTraj 是否同一方法两次提交（建卡时已避开该两行）；② ShuffleNet Table 5 对照的 MobileNet 数字来源（原论文 vs 作者复现）表内未明示——对比卡已把归因风险写进 falsifier，引用前建议回原文脚注确认。

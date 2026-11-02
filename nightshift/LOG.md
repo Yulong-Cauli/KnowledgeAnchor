@@ -74,3 +74,4 @@
 05:09 | fire-0423 | cross occupancy + 精读×2，2 任务 | 产出 3 报告 | validate OK(117) + index 重建 | 2 并发无限流，≈30.8M token（单任务 22.5M 新纪录）；NJU 基线行不符+SparseOcc 80%→67% → QUESTIONS #35/#36 + fix 任务入队；R2 扩队五批入队
 05:50 | fire-0510 | fix NJU + R2 扩队 a/b/c，3 任务 | 产出 29 新卡（117→146）+ 2 笔记修正 + 3 卡同步 | validate OK(146) + index 重建 | 2 并发×2 批 ≈13.0M token；SparseOcc 80%/67% 双口径并存（cross 漏检，拒绝盲改）→ QUESTIONS #38；剩 tool/R2-d/R2-e
 06:20 | fire-0547 | R2-d/e + tool 脚本，3 任务 | 产出 26 新卡（146→172）+ check-materials.mjs | validate OK(172) + index 重建 | 2 并发×2 批 ≈12.3M token；🎉 R2 扩队全清（21 篇 46 卡）；剩 R2 二轮候选/R3 晨报摘要
+06:43 | fire-0619 | R2 二轮 6 卡 + 总账摘要，2 任务 | 产出 shift-summary.md + 6 新卡（172→178）| validate OK(178) + index 重建 | 2 并发无限流，≈6.8M token；队列清空写停机注记，剩余班次零消耗待机待 08:20 晨报

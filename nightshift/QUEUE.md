@@ -16,8 +16,6 @@
 
 ### P2 质量线
 
-- [ ] [R2|二轮补卡] 首轮 21 篇已有卡；以下为各班记录的"预算内未立"候选（先 ls 确认同 id 不存在）：PillarNet nuScenes test 快照（69.6/70.8/71.4 NDS @ 14/13/12 FPS，Table 1）、LSQ §3.6 负面发现卡（学到的步长不最小化量化误差）、MobileNetV3 SE/NAS/h-swish 设计卡、ShuffleNet "优于 MobileNet" Table 5 对比卡（窄口径）、AutoVLA nuScenes/Waymo 表现卡、MSMDFusion 多尺度融合 +2% mAP 卡（Table 5）、UniAD "两预测任务缺一不可"（Table 2 中间行需先补笔记摘录——若笔记无该行则不建）
-- [ ] [R3|晨报前] 若队列空：为收班晨报整理一页"值班总账摘要"（各类型产出计数 + signoff 材料就绪清单：QwT verify 报告 + omniquant-w4a4 精读 ★★★ + njusparseocc 精读 ★★），写 nightshift/reports/shift-summary.md
 
 ## 完成
 
@@ -57,3 +55,11 @@
 - [fire-0547|06:20✅] [tool] `tools/check-materials.mjs` 落地（纯 Node 内置模块，别名表覆盖 Alpamago/BRECQ/Qwen3VL/RCBEVDetPP 等本库已知映射）：53 素材目录/57 笔记/282 图盘点——①素材无笔记×3（CameraParams/KITTI/Misc）②笔记无素材×11（数学/liger 天然无图 + ADe2e 素材位置特例）③未引用图×164；exit=1 符合设计（豁免策略 → QUESTIONS #40）
 
 **fire-0547 小结：🎉 R2 扩队全清（21 篇 46 卡），check-materials 落地，validate OK(172)，index 重建。剩：R2 二轮候选卡、R3 晨报摘要。**
+- [fire-0619|06:43✅] [R2|二轮补卡] 6 张（172→178）：PillarNet test 快照（三行绑口径+TTA 例外注记）、LSQ 负面发现（"does not in fact minimize quantization error" 原句锚定）、MobileNetV3 NAS/SE/h-swish 设计、ShuffleNet Table 5 对比（g=3 窄口径，对照来源未明示风险入 falsifier）、AutoVLA 三表快照（competitive-not-first 措辞，避开 S3 两行待核行）、MSMDFusion 多尺度（+1.42 mAP 行差与论文 "~2%" 口径并写）。**UniAD"两预测任务"候选正确跳过**（笔记无 Table 2 中间行，不擅自补笔记）
+- [fire-0619|06:43✅] [R3] 值班总账摘要 → `nightshift/reports/shift-summary.md`（实数核验：库 172→178、笔记修正 26 篇次、mismatch 卡 4+2、R2 实为 55 卡——纠偏 QUEUE 小结的 46）。**两处如实纠偏：egomlp-parity 实评 ★★（链内 ★★★ 是 injection/velocity）；本班数据截至 fire-0547+本班**
+
+**fire-0619 小结：R2 二轮 6 卡 + 总账摘要，validate OK(178)，index 重建。**
+
+## ⛔ 停机注记（06:43，fire-0619 调度器）
+
+**值班工作全部完成，队列清空。** 2026-11-03 凌晨班 10 火累计：22 篇入库、claim 库 114→178、QA 三轮、cross×4、精读×3、fix-list 全清、README 重建、check-materials 落地。07:20 前触发的班次：**请勿再生成任何任务**（防灌水），直接退出即可；08:20 后的班次按提示词第 0 节进入收班晨报模式（REPORT-2026-11-03.md）。
