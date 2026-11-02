@@ -16,9 +16,13 @@
 
 ### P2 质量线
 
-- [ ] [cross|P2] Occupancy 稀疏化：SparseOcc/NJU-SparseOcc/SurroundOcc/RadarOcc → 与 `cross/4d-radar.md` 互链
-- [ ] [report|P2] 精读：claim-map Top5 中未覆盖的 `claim-omniquant-w4a4-llama7b-zeroshot-5265`、`claim-njusparseocc-rayiou34-fps17-beats-dense-baselines`（signoff 前置）
 - [ ] [tool|P3] 新增 `tools/check-materials.mjs`：`assets/` 有素材无笔记自动检查（只新增，勿动主人 WIP）
+- [ ] [fix|P2] NJU-SparseOcc / SparseOcc 笔记修正（精读报告实抓定案，evidence 在 `nightshift/reports/njusparseocc-rayiou-deep-read.md` 与 `cross/occupancy-sparsification.md` §3-M6）：①NJU 笔记 L93/L94 基线行 BEVFormer 32.2/2.3→32.4/3.0、FB-Occ 33.7/5.2→33.5/10.3（全版本核对）；②SparseOcc「约 80% 体素为空」→67%（SemanticKITTI GT 口径）；③铁律3 同步主卡 claim-njusparseocc-rayiou34-fps17-beats-dense-baselines（title 阈值 33.7→33.5、FPS 倍数 3.3×/7.5×→1.68×/5.77×、scope/falsifier 措辞）与 sparseocc 卡「80%」相关表述；④w2a16g128 卡过期 locator 括注同步（OmniQuant 笔记修正的收尾）；⑤OmniQuant 卡 scope 若写"5 数据集"改"六任务平均"（52.65 系 PIQA/ARC-e/ARC-c/BoolQ/HellaSwag/Winogrande 六任务）
+- [ ] [R2|扩队-a] 量化组新入库 4 篇补卡：BRECQ（0 卡，QUESTIONS #30 建议采纳）、DeepCompression、LSQ、QLoRA → 每篇 2–4 张窄卡（方法/消融主张；QLoRA 有实验表可立 2–3 张；先 ls 确认同 id 不存在）
+- [ ] [R2|扩队-b] 骨干组新入库 3 篇补卡：MobileNet（V1/V2/V3 合一，注意跨版本口径）、MobileOne、ShuffleNet → 每篇 2–3 张设计窄卡
+- [ ] [R2|扩队-c] 检测组新入库 4 篇补卡：BEVDet、PillarNet、MIT-BEVFusion、RCBEVDetPP → 每篇 2–4 张窄卡（草稿内原文疑点照抄加注，勿硬立 SOTA 主张）
+- [ ] [R2|扩队-d] VLM/VLA 组新入库 7 篇补卡：LLaVA、Qwen3-VL、OpenVLA、OpenDriveVLA、OneVL、DrivePI、Alpamayo-R1 → 每篇 2–3 张窄卡（评测数字注意版本与口径）
+- [ ] [R2|扩队-e] 其余新入库 4 篇补卡：UniAD、AutoVLA（ADe2e）+ COTR、MSMDFusion → 每篇 2–4 张窄卡（UniAD 注意"四套不可混用数字"，见 reports/bevplanner-deep-read.md）
 - [ ] [扩队|R2] QA round3 已收官、P0/P1 全清 → 对本次新入库 21 篇笔记补 [claim] 提炼（每篇 2–5 张窄卡，先确认同 id 不存在；无实验章节不硬立性能主张；建议从主人研究重点优先：BEV_Detection/、VLM_VLA/）
 
 ## 完成
@@ -47,3 +51,7 @@
 - [fire-0345|04:35✅] [verify|P2] 六项出处核查全定案（实抓）：BEV-Planner **确认开源**（GitHub API，无 LICENSE 待查）+ 分辨率 256×704 PDF 原句逐字命中；ShuffleNet **CVPR 2018 CVF 正式收录确认**（pp.6848-6856）；MobileNet **ar5iv 与官方 PDF 一致、abs 页元数据系脱节旧文**（Table 3 vs 9 系论文自身不一致，照抄维持）；COTR **表号错位假设否定**（PDF 与 HTML v2 完全一致，错的只是 Table4.png 文件名）。结论回写 QUESTIONS #31–34
 
 **fire-0345 小结：P0 全清（README ✓）+ PD-Quant/QwT 修正 + VLA cross + 六项出处定案，validate OK(117)，index 重建。剩：cross occupancy、精读×1、tool、R2 扩队。**
+- [fire-0423|05:09✅] [cross|P2] Occupancy 稀疏化对比 → `nightshift/cross/occupancy-sparsification.md`（4 篇 17 卡，NJU 五版本+SparseOcc CVF+SurroundOcc v2 实抓）：定位矩阵 / 四路线谱系 / 口径 M1–M7。**新发现：NJU 笔记基线行与全部版本不符（32.2/2.3、33.7/5.2 → 实为 32.4/3.0、33.5/10.3，主卡 falsifier 触发）；SparseOcc「80% 空」实为 67%；NJU 剪枝系 top-k 非阈值** → 新 [fix] 任务入队
+- [fire-0423|05:09✅] [report|P2] 精读×2（signoff 前置）：`omniquant-w4a4-deep-read.md`（52.65=六任务平均确认双口径互证，主卡 **★★★**，笔记修正后 4 表与 v3 逐格零差异）+ `njusparseocc-rayiou-deep-read.md`（34.0/17.3 三处自洽 ★★★，但卡现状 ★★——基线行来源不明坐实、倍数缩水 3.3×→1.68×；RayIoU 系本文提出，"引用各自原文"falsifier 结构性排除）
+
+**fire-0423 小结：cross 3/3 全清、精读×2 落地（signoff 前置材料齐），validate OK(117)，index 重建。R2 扩队五批入队（21 篇待补卡）。**
