@@ -49,7 +49,7 @@ $$
 $$
 \mathcal{L}_{abs} = \frac{1}{|\mathcal{M}_{sparse}|} \sum_{i \in \mathcal{M}_{sparse}} \text{Smooth}_{L1}(\hat{d}_i, d_{g_i}^{sparse})
 $$
-在全图所有像素集合 $\mathcal{M}_{all}$ 上，计算预测深度 $\hat{d}$ 与视觉基础模型（如 Metric3D）生成的密集伪真值深度 $d_{g}^{dense}$ 之间的偏差：
+在全图所有像素集合 $\mathcal{M}_{all}$ 上，计算预测深度 $\hat{d}$ 与视觉基础模型 Metric3D 生成的密集伪真值深度 $d_{g}^{dense}$ 之间的偏差：
 
 $$
 \mathcal{L}_{dense} = \frac{1}{|\mathcal{M}_{all}|} \sum_{i \in \mathcal{M}_{all}} \text{Smooth}_{L1}(\hat{d}_i, d_{g_i}^{dense})
@@ -68,7 +68,9 @@ $$\mathcal{L}_{pair}(i,j)=Softplus(-sign(d_{g_i}^{dense} - d_{g_j}^{dense})(\hat
 
 **总深度损失**：$\mathcal{L}_{depth}=\lambda_{1}\mathcal{L}_{prob}+\lambda_{2}\mathcal{L}_{found}+\lambda_{3}\mathcal{L}_{relative}$
 
-### 1. 三重监督的实验支撑
+> 注（2026-11-03 按原文核实）：上一段「如 Metric3D」的「如」系转录含糊——原文 §3.2 Foundation-Model-Guided Depth Supervision 明确写 "we incorporate both sparse radar-anchored depth and dense pseudo-ground truth (Metric3D), denoted as $d_g^{dense}$, as supervision."，即密集伪 GT 实际所用基础模型就是 Metric3D（非举例），笔记已相应去掉「如」字。依据：CVPR 2026 CVF Open Access 版 PDF（openaccess.thecvf.com/content/CVPR2026/papers/Xia_R4Det_4D_Radar-Camera_Fusion_for_High-Performance_3D_Object_Detection_CVPR_2026_paper.pdf），2026-11-03 下载核对。
+
+#### 2.1.1 三重监督的实验支撑
 
 论文通过 Table 5 的消融实验验证了三重监督设计的正交性和必要性。每引入一种监督机制，BEV mAP 均呈现严格的单调增长：
 
@@ -76,7 +78,7 @@ $$\mathcal{L}_{pair}(i,j)=Softplus(-sign(d_{g_i}^{dense} - d_{g_j}^{dense})(\hat
 - **引入基础模型密集监督 ($+\mathcal{L}_{dense}$)**：BEV mAP 提升至 46.08%（增幅 +0.93%）。证明密集伪标签有效填补了雷达点云的物理盲区。
 - **引入结构化排序监督 ($+\mathcal{L}_{relative}$)**：BEV mAP 进一步提升至 46.86%（增幅 +0.78%）。证明在全图绝对深度约束的基础上，针对物体边缘的相对深度阶跃约束能有效改善轮廓清晰度。
 
-### 2. $\mathcal{L}_{prob}$ 与 $\mathcal{L}_{found}$ 的非重复性推导
+#### 2.1.2 $\mathcal{L}_{prob}$ 与 $\mathcal{L}_{found}$ 的非重复性推导
 
 概率监督（$\mathcal{L}_{prob}$）与基础模型引导监督（$\mathcal{L}_{found}$）在数学优化目标和空间作用域上完全解耦，二者不构成冗余。
 

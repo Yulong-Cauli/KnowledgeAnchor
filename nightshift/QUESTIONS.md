@@ -33,3 +33,10 @@
 21. **素材文件名错位批量清单**（各笔记 caption 已逐一注记，是否统一改名由主人定）：BEVDet Table2.png=论文Table 4、Format1.png=式(2)；PillarNet Figure_Loss.png=式(2)、Table4_EncoderAblation.png 为重复截图；LLaVA Figure1.png=Table 3、Table2.png=Table 1；Qwen3-VL Figure2.png=Figure 1；LSQ Equation2.png=式(3)；RCBEVDet++ `_page_*` 与论文图号无关。
 22. **PillarNet 内容并存**：新入库 `library/BEV_Detection/PillarNet.md` 与 `Classical_Detection/PointNet & PointPillars.md` 内的 PillarNet 段并存，是否合并由你定。
 23. **RCBEVDetPP §V-B1 "reduce the velocity error by 14.6%"** 无法由 Table I 行差推出（论文原句照抄未改、笔记已注）——引用/建卡勿取该句。
+
+## 2026-11-03 fire-0238（fix P2 + RadarOcc 消融核查）
+
+24. **hgsfusion-cyclist 卡语义反转坐实（#20 跟进）**：F7 修正后（§4.1 表按 arXiv:2412.11489v1 Table 1 走廊区逐格改正），Cyclist 87.49 实高于纯雷达基线 PointPillars 85.07——`claim-hgsfusion-cyclist-roi-ap-below-all-baselines` 主张不成立。卡按铁律 3 未动，降级/改写由你定。
+25. **两张 note-artifact 卡 falsifier 已触发**：笔记残留（CenterNet 引用编号、SparseOcc 对话式残留）已随 fix P2 修复，`claim-centernetpoints-note-citation-artifacts` 与 `claim-sparseocc-note-conversational-residue` 的"已修复改写或删除"分支成立，卡内已加「笔记已修正」附注；status 处置（stale）只能由你手工定。
+26. **RadarOcc 三条遗留**：① `claim-radarocc-dbd-compresses-doppler-to-8-descriptors` 的 falsifier 部分触发——DBD 消融增益 ≤0.7 且方向混杂（25.6m 四列 w/o DBD 反略高），是否降级由你定；② 笔记旧文"Focal Loss"与原文 §4.6 cross-entropy 不符（已加注未改）；③ 附录 Table 6：验证集 mIoU@12.8m 峰值在 Nr=450 而非选用的 250（SSS 增益对 Nr 敏感，已录入新卡与笔记）。新性能卡 `claim-radarocc-sss-ablation-gain-10p2`（SSS→percentile 掉 10.2 mIoU）已立，scope/falsifiers 齐全。
+27. **零碎**：① FCOS 卡 title/scope 仍写"未注明出处"，可按新加的出处定位附注更新（留你）；② `library/Math_and_Notes/四元数.md` L189/L361 有同类句尾残留「10」「17」（fix-list 范围外，未动）；③ RadarOcc 笔记"恶劣天气优势"仅定性图无数值、"comparable to 16-beam LiDAR"系论文自评（mIoU@51.2m 实落后 5.6 点，已照录加注）。

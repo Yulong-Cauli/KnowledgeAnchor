@@ -39,6 +39,8 @@ signoff: null
 2. **VoD 上各家的指标族互不可比**：SGDet3D 用 mAP_EAA / mAP_DC；HGSFusion 消融用 EAA AP / RoI AP、SOTA 表用 mAP (RoI) 62.61（头条 88.28 是 Car 类 RoI AP，见 [Cyclist 卡](claim-hgsfusion-cyclist-roi-ap-below-all-baselines.md) 口径警告）；R4Det 在 VoD 只报即插即用 mAP_EAA 增量。59.49 与 58.96（HGSFusion EAA）、62.61（HGSFusion RoI）**不可横向比较**，两篇各自声称 VoD SOTA，笔记层面无法仲裁（cross 文档 M1/M2）。
 3. 因此任何「SGDet3D 与 HGSFusion 谁强」的表述都构成口径错误；要做横向比较，必须先回各自原文核对 EAA / DC / RoI 的定义并统一协议。
 
+> 附注（2026-11-03，笔记修正同步）：HGSFusion 笔记 §4.1 SOTA 表已按论文原文全表修正——走廊区 mAP (RoI) 为 **79.46**，上文所引「mAP (RoI) 62.61」实为走廊区 Pedestrian (RoI)（原文行：Car 88.28 / Pedestrian 62.61 / Cyclist 87.49 / mAP 79.46）。口径警告 2 中的 62.61 请按修正后数字解读；「SGDet3D 与 HGSFusion 口径互不可比、不可横向比较」的结论不受影响。依据：arXiv:2412.11489v1 HTML Table 1（arxiv.org/html/2412.11489v1，2026-11-03 抓取），见笔记 §4.1 表后注。
+
 ## 待验证
 
 - 回 SGDet3D 原文核对 SOTA 对比表：对比方法、mAP_EAA / mAP_DC 的精确定义、TJ4DRadSet 表数字。

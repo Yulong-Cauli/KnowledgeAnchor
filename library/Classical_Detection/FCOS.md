@@ -20,7 +20,7 @@ $$
     <img src="https://raw.githubusercontent.com/Yulong-Cauli/KnowledgeAnchor/main/library/assets/FCOS/Figure2_a.png" width="90%">
     <br>
     <div style="color:orange; border-bottom: 1px solid #d9d9d9; display: inline-block; color: #999; padding: 2px;">
-      注意：关于 Center-ness 的归属问题，后续实验证明，将其移到回归分支后，AP 进一步提升
+      注意：关于 Center-ness 的归属问题，后续实验证明，将其移到回归分支后，AP 进一步提升（2026-11-03 补出处：论文主体把 center-ness 放在与分类分支并行的位置；arXiv:1904.01355v5 §3.3 脚注 2 明言「center-ness 改为与回归分支并行时 COCO AP 可提升」，§4.1.1 Table 3「+ ctr. on reg.」行 AP 37.1 → 37.4（COCO minival）；2026-11-03 实抓 arxiv.org/html/1904.01355 核实）
     </div>
     <img src="https://raw.githubusercontent.com/Yulong-Cauli/KnowledgeAnchor/main/library/assets/FCOS/Figure2_Tips.png" width="70%">
 </div>

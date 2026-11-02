@@ -1,7 +1,7 @@
 # BEV-Planner: Is Ego Status All You Need for Open-Loop End-to-End Autonomous Driving?
 
 **出处会议：** CVPR 2024（arXiv:2312.03031，v2 2024-06-02）  
-**是否开源：** 开源，https://github.com/NVlabs/BEV-Planner （摘要原文："Code and models are available at https://github.com/NVlabs/BEV-Planner."）  
+**是否开源：** 开源，https://github.com/NVlabs/BEV-Planner （摘要原文："Code and models are available at https://github.com/NVlabs/BEV-Planner."；2026-11-03 二级确认：GitHub 仓库实抓为公开仓库，含 README 与完整训练/评测代码，README 标题与论文一致；页面未见 license 字段，引用代码实现时注意授权待查）  
 **关键词：** 端到端自动驾驶、开环评测（open-loop）、ego status、nuScenes、路沿碰撞率（CCR）、ego query
 
 > 来源（抓取日期 2026-11-02）：
@@ -45,7 +45,7 @@
 
 ### 3.1 实现细节（§4.1）
 
-- R50 backbone [10]；输入分辨率 256×704（原文 LaTeX 注记 `256\!\times\!704`，即写作 256×704；HTML 渲染版此处有 mphantom 缺字 bug，以 alttext 为准），小于现有方法 [16,13]；BEV 分辨率 128×128，感知范围约 50 米；历史 BEV 取过去 4 个时间步沿通道维拼接、不对齐；再用 [14]（BEVDepth）的 BEV encoder 把通道压到 256。训练 12 epochs，8×V100，batch size 32，学习率 1e-4。
+- R50 backbone [10]；输入分辨率 256×704（2026-11-03 已对官方 PDF 核实：文本层原句 "The input resolution is 256×704, smaller than existing methods [13, 16]."，下载自 arxiv.org/pdf/2312.03031；HTML 渲染版此处 mphantom 缺字 bug 不再采信），小于现有方法 [13, 16]（原文引用序）；BEV 分辨率 128×128，感知范围约 50 米；历史 BEV 取过去 4 个时间步沿通道维拼接、不对齐；再用 [14]（BEVDepth）的 BEV encoder 把通道压到 256。训练 12 epochs，8×V100，batch size 32，学习率 1e-4。
 
 ### 3.2 评测指标（§4.2 + Appendix B）
 

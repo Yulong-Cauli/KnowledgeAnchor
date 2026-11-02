@@ -27,6 +27,8 @@ signoff: null
 
 限定：图注未注明“后续实验”的具体出处（原论文正文、扩展版或第三方工作），笔记全文亦无 AP 数字；本卡只记录该设计方向，不主张任何数字。
 
+> 附注（2026-11-03，出处已定位）：上述「待验证」第一项已部分完成——FCOS arXiv:1904.01355 **v5**（2019-08-20）§3.3 脚注 2 原文："it has been shown that the AP on MS-COCO can be improved if the center-ness is parallel with the regression branch instead of the classification branch."；§4.1.1 Table 3（COCO minival 消融）「+ ctr. on reg.」行 AP 37.1 → 37.4。即图注所述「移到回归分支 AP 提升」在原文有据（脚注引述 + 消融表），2026-11-03 实抓 arxiv.org/html/1904.01355 核实；笔记图注已补该 locator。本卡 scope/title 未改，数字是否补入 evidence 待主人定夺（evidence 仍以笔记 quote 为准）。
+
 ## 待验证
 
 - 在 FCOS 原论文及官方仓库 / 后续版本中找到该结论的原始出处与具体数字，补进 evidence。

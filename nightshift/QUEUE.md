@@ -5,7 +5,7 @@
 ## 本班授权（主人 2026-11-03 00:50 批复）
 
 - ✅ 直写 `library/`：草稿入库、README 重建、fix-list 修正、QUESTIONS 已授权修复（边界见 RULES.md 顶部注记）。
-- ✅ 建卡两项：EchoFusion 数字不自洽窄卡；RadarOcc 消融核查后视证据立性能卡。
+- ✅ 建卡两项：EchoFusion 数字不自洽窄卡（✅ 已建）；RadarOcc 消融核查后视证据立性能卡（进行中）。
 - ⛔ 未授权：AI Infra 立卡（5 张草案留在 `suggestions/`）；改 TODO.md（笔误主人已修）；主人的 WIP（tools/ka*.mjs、selftest、serve、web/）。
 
 ## 进行中
@@ -16,19 +16,16 @@
 
 ### P0 入库流水线（每条 = 入库前逐字 QA（quote/数字/出处）→ 直写 library/ 对应目录 → validate；index 由调度班统一重建）
 
-- [ ] [fix|P2] fix-list 其余 23 处 + QUESTIONS #12 VQ-Map 乱码「细□度」→「细粒度」+ 回填 arXiv 号（VQ-Map 2411.01618、Ali-BEVFusion 2205.13790、MQBench 2111.03759，写入笔记头部并注记来源）
 - [ ] [README|依赖入库完成] 重建 `library/README.md`（AI Infra 3 篇 + ADe2e + 本班新入库篇目 + Efficient_Backbone/ 新目录，篇数核准）+ 根 README「**类型：**」来源头约定同步进「笔记约定」
 
 ### P1 建卡与核查（已授权）
 
-- [ ] [claim|P1] EchoFusion：正文「only 0.03 less than LiDAR」vs Table 6 实差 0.45 → 数字不自洽窄卡（QUESTIONS #4）
-- [ ] [verify|P1] RadarOcc：原文 SSS/DBD/S2C 消融表核查 → 授权补笔记实验章节 → 视证据立性能卡（QUESTIONS #11；原 4 张窄卡 scope 相应放宽）
-- [ ] [verify|P2] BEV-Planner：开源状态（QUESTIONS #1）+ 输入分辨率 256×704 对照 PDF 复核（#2）；证据足够则直改笔记三行头部并注记
-- [ ] [verify|P2] QUESTIONS #5 ShuffleNet CVF 出处 / #6 MobileNet V2/V3 PDF 对版 / #10 COTR 表号映射：核完直改笔记注记，结论回写 QUESTIONS
+- [ ] [verify|P2] BEV-Planner：开源状态（QUESTIONS #1）+ 输入分辨率 256×704 对照 PDF 复核（#2）；证据足够则直改笔记三行头部并注记〔fire-0238 认领未开跑，回收重排〕
+- [ ] [verify|P2] QUESTIONS #5 ShuffleNet CVF 出处 / #6 MobileNet V2/V3 PDF 对版 / #10 COTR 表号映射：核完直改笔记注记，结论回写 QUESTIONS〔fire-0238 认领未开跑，回收重排〕
 
 ### P2 质量线
 
-- [ ] [QA|round3] 121 卡终审：先 FIXED ×16 + ISSUED ×2 + 两张 note-mismatch 卡，再全量抽查；同一产物第 3 轮（规则上限，之后停）
+- [ ] [QA|round3] 121 卡终审：先 FIXED ×16 + ISSUED ×2 + 两张 note-mismatch 卡，再全量抽查；同一产物第 3 轮（规则上限，之后停）〔fire-0238 认领未开跑，回收重排〕
 - [ ] [cross|P2] 量化主线横向对比：QwT/OmniQuant/RepQ-ViT/PD-Quant/QD-BEV/BRECQ/PTQAT/EMC2 → `nightshift/cross/quantization.md`（哪些互证、哪些单源自报、口径差异）
 - [ ] [cross|P2] Occupancy 稀疏化：SparseOcc/NJU-SparseOcc/SurroundOcc/RadarOcc → 与 `cross/4d-radar.md` 互链
 - [ ] [cross|P2] VLA 线：UniAD/AutoVLA/OpenVLA/OpenDriveVLA/Alpamayo-R1/DrivePI
@@ -42,10 +39,10 @@
 - [fire-0106|01:44✅] [入库|骨干] DeepCompression.md、LSQ.md → `library/Quantization/`（233/268 行）；MobileNet.md、MobileOne.md、ShuffleNet.md → 新建 `library/Efficient_Backbone/`（635/537/282 行）。361 条引句全自洽 0 失败，16 张素材逐张核对回填 13 张。遗留：ShuffleNet 唯一素材图实为 V2 论文图（素材错位实锤，未引用已注记）；LSQ Equation2.png 实为式(3)；MobileNet V1/V2 MAdds 跨论文口径差记入笔记遗留
 - [fire-0106|01:44✅] [入库|其他] COTR.md → `library/3D_Occupancy/`（300 行，64/64 引文对照实抓 HTML v2 逐字 PASS，表号错位 caveat 落位）；MSMDFusion.md → `library/Multimodal_Fusion/`（314 行，67/67 引文 PASS，Table7.png=Figure 6 caveat 落位）。遗留：COTR 三处原文不一致照录待对官方 PDF；Figure 6 数值系目视抄录
 
-**fire-0106 小结：入库 11/22 篇（4113 行），validate OK(114)，index 重建。剩检测×4 + VLM/VLA×7 待下一班。**
+**fire-0106 小结：入库 11/22 篇（4113 行），validate OK(114)，index 重建。**
 - [fire-0143|02:45✅] [入库|检测] BEVDet.md、PillarNet.md → 新建 `library/BEV_Detection/`（250/313 行）；MIT-BEVFusion.md、RCBEVDetPP.md → `library/Multimodal_Fusion/`（194/445 行；RCBEVDet.md 回链 +4，本班授权覆盖）。274 引句自洽、54 项数字验算、27 图逐张核对内容后嵌入
 - [fire-0143|02:45✅] [入库|VLM/VLA] 新建 `library/VLM_VLA/`：LLaVA/Qwen3-VL/OpenVLA/OpenDriveVLA/OneVL/DrivePI + **Alpamayo-R1.md（更名入库）**，共 7 篇 1763 行。1092 条 quote 自洽 0 失败；QUESTIONS #7（OpenDriveVLA 实题含 Action）/ #8（Alpamago→Alpamayo-R1）caveat 已落笔记头部
 - [fire-0143|02:45✅] [fix|P1] EMC2 §5.1 按 arXiv v1 重建（A4000/Jetson 两列，旧数字不属于任何版本）、OmniQuant 实验1表头改 7B W2A16g128 + 实验4基线行、HGSFusion LXL Ped 72.93→58.30 + 头部回填 arXiv 号——全部本次实抓核实。铁律3：3 卡 quote 同步修订、2 张 mismatch 卡加「笔记已修正」附注（status 未动）
 - [fire-0143|02:45✅] [claim|P1] `claim-echofusion-paper-table6-inconsistent-with-text`（115 卡）：实抓 v1/v2 双源 7 条 evidence，**方向反转**——正文 "0.03 less" 但表格 RT+C 实高 0.45；重复建卡已自删去重
 
-**fire-0143 小结：🎉 P0 入库流水线 22/22 全清（两班合计 22 篇 +1 回链），validate OK(115)，index 重建。README 重建任务解锁。剩：fix P2、README、P1 verify×3、P2 质量线×6。**
+**fire-0143 小结：🎉 P0 入库流水线 22/22 全清（两班合计 22 篇 +1 回链），validate OK(115)，index 重建。README 重建任务解锁。**

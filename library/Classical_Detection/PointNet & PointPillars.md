@@ -1,8 +1,12 @@
 # PointNet
 
+**出处会议：** CVPR 2017（arXiv:1612.00593；2026-11-03 回填，依据：arXiv abs 页实抓核实，标题 "PointNet: Deep Learning on Point Sets for 3D Classification and Segmentation"，Comments 注明 CVPR 2017）  
+**是否开源：** https://github.com/charlesq34/pointnet （2026-11-03 经 GitHub API 确认存在）  
+**关键词：** 点云分类/分割、置换不变性、对称函数（Max Pooling）、T-Net 空间对齐
+
 ## 点云无序性 & 对称函数
 
-**问题**：输入顺序不应影响结果，点云本质上是一个集合 $\{P_1, P_2, ..., P_n\}$ ，没有固定顺序。如果把点云数据重新排列），它代表的形状没有任何改变。
+**问题**：输入顺序不应影响结果，点云本质上是一个集合 $\{P_1, P_2, ..., P_n\}$ ，没有固定顺序。如果把点云数据重新排列，它代表的形状没有任何改变。
 
 然而，传统的神经网络（如 RNN）或全连接层对输入顺序非常敏感。PointNet 必须设计一种机制，让网络对输入点的 $N!$ 种排列都具有置换不变性 (Permutation Invariance) 。
 
@@ -89,7 +93,11 @@ PointNet 采用了一个简单粗暴但有效的策略 ：
 
 
 
-#  PointPillars
+# PointPillars
+
+**出处会议：** CVPR 2019（arXiv:1812.05784；2026-11-03 回填，依据：arXiv abs 页实抓核实，标题 "PointPillars: Fast Encoders for Object Detection from Point Clouds"，v2 注明 CVPR 2019 接收）  
+**是否开源：** https://github.com/nutonomy/second.pytorch （2026-11-03 经 GitHub API 确认，仓库描述 "PointPillars for KITTI object detection"）  
+**关键词：** Pillar 特征编码、伪图像、2D CNN 检测头、免 3D 卷积
 
 **核心思想**：将 3D 点云转换为Pillars，通过 PointNet 学习柱子特征，随后将其“散射”（Scatter）回 2D 网格生成伪图像Pseudo Image，最后利用 2D CNN 进行检测。这种设计避免了昂贵的 3D 卷积，实现了速度与精度的平衡 。
 
@@ -230,7 +238,7 @@ return batch_dict
 
 **回归**：预测 $(x, y, z, w, l, h, \theta)$ 的残差。
 
-**方向分类**：由于回归损失（Sine-Error）无法区分车头朝前 ($0^\circ$) 还是朝后 ($180^\circ$)，网络增加了一个 softmax 分类分支来学习离散化的方向 10。
+**方向分类**：由于回归损失（Sine-Error）无法区分车头朝前 ($0^\circ$) 还是朝后 ($180^\circ$)，网络增加了一个 softmax 分类分支来学习离散化的方向。
 
 <div align="center"><img src="https://raw.githubusercontent.com/Yulong-Cauli/KnowledgeAnchor/main/library/assets/PointPillars/Figure_Loss.png"></div>
 
@@ -249,7 +257,7 @@ self.conv_cls = nn.Conv2d(
 )
 
 # 2. 边界框回归分支 (Box Regression Branch)
-# 论文定义了 7 个回归目标: (x, y, z, w, l, h, theta) [cite: 230]
+# 论文定义了 7 个回归目标: (x, y, z, w, l, h, theta)
 # self.box_coder.code_size 通常为 7
 self.conv_box = nn.Conv2d(
     input_channels,

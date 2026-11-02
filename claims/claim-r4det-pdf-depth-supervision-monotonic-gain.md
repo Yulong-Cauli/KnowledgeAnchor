@@ -5,7 +5,7 @@ type: claim
 status: asserted
 scope: "TJ4DRadSet；4D 雷达-相机 3D 检测，R4Det 管线内 PDF（全景深度融合）模块的深度监督消融（论文 Table 5，据库内笔记 §2.1 转录）；基线为仅 L_prob + L_abs（BEV mAP 45.15），依次叠加 L_dense（46.08）与 L_relative（46.86）；指标为 BEV mAP；R4Det 自报数字，尚未独立验证；笔记未记录 VoD 上的对应消融"
 tags: [4d-radar, radar-camera-fusion, r4det, depth-fusion, depth-supervision, tj4dradset, ablation]
-note: library/Classical_Detection/R4Det.md#1-三重监督的实验支撑
+note: library/Classical_Detection/R4Det.md#211-三重监督的实验支撑
 paper: "CVPR 2026 · R4Det: 4D Radar-Camera Fusion for High-Performance 3D Object Detection（笔记标注未开源，未记录 arXiv 号）"
 stance: watch
 evidence:
@@ -37,6 +37,7 @@ signoff: null
 一致性交叉核对：笔记 §3.1 系统消融表中 Baseline 45.15、+PDF 46.86，与 Table 5 的首尾两档一致（PDF 全量 = prob+abs+dense+relative），两表数字自洽。
 
 必须记住的限定：这是 R4Det 自报的消融数字；「每引入一项单调增长」是**逐级叠加顺序下的观察**，改变叠加顺序是否仍单调，笔记未记录（Table 5 是否覆盖其他叠加顺序需回原文核对）。监督源方面，笔记 §2.1 只把密集伪标签记为「视觉基础模型（如 Metric3D）生成的密集伪真值深度」，实际实验所用基础模型笔记未明确记录，收益可能与该基础模型的深度质量绑定。
+> 附注（2026-11-03，笔记修正同步）：①笔记 §2.1 下小节已重编号（「### 1. 三重监督的实验支撑」→「#### 2.1.1」），本卡 note 锚已由 #1-三重监督的实验支撑 同步为 #211-三重监督的实验支撑。②密集伪标签源已按原文核实——R4Det 原文 §3.2 原句 "we incorporate both sparse radar-anchored depth and dense pseudo-ground truth (Metric3D), denoted as d_g^dense, as supervision."，实际所用基础模型即 Metric3D；笔记已把「如 Metric3D」改为「Metric3D」（依据：CVPR 2026 CVF Open Access PDF，2026-11-03 下载核对）。上文「笔记未明确记录实际基础模型」一句就此过时；「收益与该基础模型深度质量绑定」的限定与 falsifier 仍适用。
 
 ## 待验证
 

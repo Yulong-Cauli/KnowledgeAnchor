@@ -11,7 +11,7 @@ stance: watch
 evidence:
   - source: library/Classical_Detection/PointNet & PointPillars.md
     locator: "§Detection Head"
-    quote: "**方向分类**：由于回归损失（Sine-Error）无法区分车头朝前 ($0^\circ$) 还是朝后 ($180^\circ$)，网络增加了一个 softmax 分类分支来学习离散化的方向 10。"
+    quote: "**方向分类**：由于回归损失（Sine-Error）无法区分车头朝前 ($0^\circ$) 还是朝后 ($180^\circ$)，网络增加了一个 softmax 分类分支来学习离散化的方向。"
     relation: supports
   - source: library/Classical_Detection/PointNet & PointPillars.md
     locator: "§Detection Head / 代码（AnchorHeadSingle）"
@@ -31,6 +31,8 @@ signoff: null
 ---
 
 ## 我的理解
+
+> 修订注记（2026-11-03，笔记修正同步）：笔记「方向分类」行句尾网页残留「 10」已删（fix-list F27），本卡 evidence quote 1 已逐字同步更新（仅去残留编号，语义不变）。
 
 笔记声称（尚未独立验证）：PointPillars 检测头为 SSD 单阶段架构，回归分支预测 $(x, y, z, w, l, h, \theta)$ 的残差；由于回归用的 Sine-Error 损失无法区分车头朝前（$0^\circ$）与朝后（$180^\circ$），网络额外增加一个 softmax 方向分类分支学习离散化方向；笔记所载 AnchorHeadSingle 实现中该分支是并行 $1\times1$ 卷积之一，由 USE_DIRECTION_CLASSIFIER 配置开关控制。
 

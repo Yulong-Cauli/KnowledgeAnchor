@@ -1,6 +1,6 @@
 # VQ-Map: 基于矢量量化的离散空间鸟瞰图地图布局估计
 
-**出处会议：** NeurIPS 2024  
+**出处会议：** NeurIPS 2024（arXiv:2411.01618；2026-11-03 回填，依据：arXiv abs 页实抓核实，标题 "VQ-Map: Bird's-Eye-View Map Layout Estimation in Tokenized Discrete Space via Vector Quantization"）  
 **是否开源：** https://github.com/Z1zyw/VQ-Map  
 **关键词：** BEV感知、语义地图构建、离散表示(VQ-VAE)、Deformable Attention、跨模态对齐(PV-BEV)
 
@@ -59,7 +59,7 @@ $$
 
 该阶段的核心任务是：基于相机透视图（PV）提取的特征，预测当前 BEV 空间每个 Patch 对应的 Token 索引是几号。
 
-![Figure4](D:\Research\Notes\assets\VQ-Map\Figure4.png)
+![Figure4](https://raw.githubusercontent.com/Yulong-Cauli/KnowledgeAnchor/main/library/assets/VQ-Map/Figure4.png)
 
 1. **Token Query 初始化**：
    初始化 $N$ 个可学习的 Embedding $\mathbf{E}_q \in \mathbb{R}^{N \times D}$，作为侦探（Query），每个 Query 负责预测一个固定的 BEV 空间网格。
@@ -102,7 +102,7 @@ $$
 | DDP (Diffusion)   | 83.6         | 58.3            | 61.6        | 52.4         | 59.4            |
 | **VQ-Map (Ours)** | **83.8**     | **60.9**        | **64.2**    | **57.7**     | **62.2**        |
 
-**分析**：VQ-Map 在复杂、细��度的类别（如 Stopline 停止线涨幅 +10.3、Walkway 人行道涨幅 +5.8）上提升巨大。这些类别极度依赖结构先验，而 VQ 字典恰好弥补了图像遮挡带来的物理信息缺失。
+**分析**：VQ-Map 在复杂、细粒度的类别（如 Stopline 停止线涨幅 +10.3、Walkway 人行道涨幅 +5.8）上提升巨大。这些类别极度依赖结构先验，而 VQ 字典恰好弥补了图像遮挡带来的物理信息缺失。
 
 ### 4.2 零样本跨数据集泛化 (Argoverse Monocular)
 

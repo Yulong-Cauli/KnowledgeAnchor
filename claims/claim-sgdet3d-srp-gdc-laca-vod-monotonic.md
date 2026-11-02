@@ -46,6 +46,8 @@ signoff: null
 
 必须记住的限定：「单调增长」是**固定叠加顺序下的观察**（与 [R4Det 三重监督卡](claim-r4det-pdf-depth-supervision-monotonic-gain.md) 同款限定），换叠加顺序是否仍单调，笔记未记录；mAP_EAA / mAP_DC 口径笔记未定义，引用任何数字不得脱离口径。
 
+> 附注（2026-11-03，笔记修正同步）：scope 中「不得与 HGSFusion 的 58.96 / 62.61 横向比较」里的 62.61，经笔记修正核实实为 HGSFusion 走廊区 **Pedestrian (RoI)**；HGSFusion 走廊区 mAP (RoI) 为 79.46（EAA AP 58.96 为消融表全量值，不变）。「59.49 / 77.11 不得与 HGSFusion 数字横向比较」的限定本身不变。依据：arXiv:2412.11489v1 HTML Table 1（arxiv.org/html/2412.11489v1，2026-11-03 抓取），见 HGSFusion 笔记 §4.1 表后注。
+
 ## 待验证
 
 - 回 SGDet3D 原文核对消融表四行数字与「+ SRP / + GDC / 完整模型」各行的模块组合精确定义，确认 mAP_EAA / mAP_DC 口径。

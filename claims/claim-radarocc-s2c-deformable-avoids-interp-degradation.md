@@ -10,11 +10,11 @@ paper: "NeurIPS 2024 · RadarOcc: Robust 3D Occupancy Prediction with 4D Imaging
 stance: watch
 evidence:
   - source: library/3D_Occupancy/RadarOcc.md
-    locator: "§2 方法 / S2C Aggregation【核心动机】"
+    locator: "§2 方法 / S2C Aggregation【2.3.1 核心动机】（原小节号「1.」，2026-11-03 笔记小节重编号后同步）"
     quote: "**采样非均匀性**：近处体素在球坐标中对应极多采样点，远处体素对应极少，插值会导致特征严重退化或走样。"
     relation: supports
   - source: library/3D_Occupancy/RadarOcc.md
-    locator: "§2 方法 / S2C Aggregation【5. 跨维度对齐的优势】"
+    locator: "§2 方法 / S2C Aggregation【2.3.5 跨维度对齐的优势】（原小节号「5.」，2026-11-03 笔记小节重编号后同步）"
     quote: "**消除插值误差**：这种“基于查询”的聚合方式将坐标转换过程纳入了端到端的学习中，避免了传统插值带来的特征平滑问题。"
     relation: supports
   - source: library/3D_Occupancy/RadarOcc.md
@@ -45,3 +45,5 @@ TODO 提示方向是「球坐标编码是否稳定优于笛卡尔基线」——
 
 成立：非均匀采样传感器（雷达、深度相机）到任务空间的坐标转换应优先可学习聚合而非硬插值，可作为自研管线的设计默认。
 不成立：硬插值在该分辨率/尺度下足够，S2C 模块属过度设计，路线选择回到简单几何变换 + 后端补偿。
+
+2026-11-03 消融核查：见 claim-radarocc-sss-ablation-gain-10p2。

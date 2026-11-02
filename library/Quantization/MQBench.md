@@ -1,6 +1,6 @@
 # MQBench
 
-**出处会议：** NeurIPS 2021  
+**出处会议：** NeurIPS 2021（arXiv:2111.03759；2026-11-03 回填，依据：arXiv abs 页实抓核实，标题 "MQBench: Towards Reproducible and Deployable Model Quantization Benchmark"，Comments 注明 NeurIPS 2021 Datasets and Benchmarks Track）  
 **是否开源：** https://github.com/ModelTC/MQBench  2025年1月10号还在更新  
 **关键词：** Benchmark，QAT，PTQ，计算图
 
@@ -195,7 +195,7 @@ MQBench 在强制拉齐所有条件的“绝对公平”赛场上，得出了以
 
 *   **5.1 剥除“训练外挂”的公平比拼**：当所有算法使用相同的超参搜索、数据增强后，差距大幅缩小。比起复杂的截断公式，**量化步长（Step Size）的学习率调整最为关键**。基于梯度的 **LSQ 算法** 展现出最强的普适性。
 *   **5.2 硬件图约束的残酷审判**：在学术图（Academic）下各算法均表现极好，但在 TensorRT 中会有轻微掉点。而一旦切入 SNPE (DSP) 的强图约束（强制绑定 Scale），大部分算法精度发生断崖式暴跌。证明了脱离硬件谈量化毫无意义。
-*   **5.3 BN 融合的照妖镜**：验证了 3.2 节的各 BN Folding 策略。图(b)无法收敛，图(c)(d)与真实部署间存在 1-2% 的精度差。只有采用了**图(e) 策略**的模型，实现了训练态与部署态的 **Zero Drop（零掉点）**。
+*   **5.3 BN 融合的照妖镜**：验证了论文 §3.2（对应本笔记 §2.2）的各 BN Folding 策略。图(b)无法收敛，图(c)(d)与真实部署间存在 1-2% 的精度差。只有采用了**图(e) 策略**的模型，实现了训练态与部署态的 **Zero Drop（零掉点）**。
 *   **5.4 测试4-bit 量化**：在 INT8 下拉不开差距的算法，在极度缺乏表达空间的 4-bit 遭受降维打击。统计学方法彻底失效，只有 LSQ / PACT 这种**把截断边界作为参数参与反向传播学习**的方法活了下来。
 
 ---

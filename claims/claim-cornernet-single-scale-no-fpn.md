@@ -11,7 +11,7 @@ stance: watch
 evidence:
   - source: library/Classical_Detection/CornerNet.md
     locator: "§Architecture"
-    quote: "使用 **Hourglass Network ** 作为骨干网络，两个堆叠的 Hourglass 模块，深度为 104 层。这种结构通过重复的下采样和上采样，能够同时捕获**全局信息**（用于分类）和**局部细节**（用于精确定位）。"
+    quote: "使用 **Hourglass Network** 作为骨干网络，两个堆叠的 Hourglass 模块，深度为 104 层。这种结构通过重复的下采样和上采样，能够同时捕获**全局信息**（用于分类）和**局部细节**（用于精确定位）。"
     relation: supports
   - source: library/Classical_Detection/CornerNet.md
     locator: "§Architecture"
@@ -27,6 +27,8 @@ signoff: null
 ---
 
 ## 我的理解
+
+> 修订注记（2026-11-03，笔记修正同步）：笔记「**Hourglass Network **」双星号内尾随空格已按 fix-list F28 删除，本卡 evidence quote 1 已逐字同步更新（仅去一个空格，语义不变）。
 
 论文声称（笔记所载，尚未独立验证）：与许多依赖特征金字塔的检测器不同，CornerNet 不使用 FPN，只用骨干网络最后一层的输出预测不同大小的物体；骨干为两个堆叠的 Hourglass 模块（深度 104 层），通过重复下采样/上采样同时捕获全局信息（分类）与局部细节（定位）。
 

@@ -12,7 +12,7 @@ HGSFusion 是一种专门针对 4D 毫米波雷达在 3D 目标检测中的两�
 
 - **RHGM 模块**：利用图像语义引导，通过混合概率分布（高斯+均匀）生成密集的雷达点，并采用“独立编码”保护特征。
 - **DSM 模块**：通过“空间同步”用雷达几何信息补足图像深度，通过“模态同步”根据光照条件动态分配模态权重。
-- **性能**：在 VoD 数据集上 RoI AP 达到 88.28%，在 TJ4DRadSet 上也达到了 SOTA 水平。
+- **性能**：在 VoD 数据集上 Car 类 RoI AP 达到 88.28%，在 TJ4DRadSet 上也达到了 SOTA 水平。
 
 ------
 
@@ -116,15 +116,15 @@ DSM 通过两步走战略，先解决“空间对齐”，再解决“环境鲁�
 
 | **方法**             | **模态** | **Car (RoI)** | **Pedestrian (RoI)** | **Cyclist (RoI)** | **mAP (RoI)** |
 | -------------------- | -------- | ------------- | -------------------- | ----------------- | ------------- |
-| PointPillars         | R        | 70.15         | 67.48                | 85.07             | 47.22         |
-| RadarPillarNet       | R        | 71.65         | 65.86                | 86.19             | 43.10         |
-| BEVFusion            | R+C      | 70.21         | 68.52                | 89.48             | 45.86         |
+| PointPillars         | R        | 70.15         | 47.22                | 85.07             | 67.48         |
+| RadarPillarNet       | R        | 71.65         | 42.80                | 83.14             | 65.86         |
+| BEVFusion            | R+C      | 70.21         | 45.86                | 89.48             | 68.52         |
 | LXL                  | R+C      | 72.18         | 58.30                | 88.31             | 72.93         |
-| **HGSFusion (Ours)** | **R+C**  | **88.28**     | **87.49**            | **79.46**         | **62.61**     |
+| **HGSFusion (Ours)** | **R+C**  | **88.28**     | **62.61**            | **87.49**         | **79.46**     |
 
-> 注（2026-11-03 修正 + 待人工核对）：①本表对应论文 Table 1 的 In Driving Corridor 区块。LXL 行 Pedestrian (RoI) 原转录为 72.93（与 mAP 列同值重复），已按原文改为 58.30；mAP 列 72.93 与原文一致，保留。依据：arXiv:2412.11489v1 与 AAAI 2025 camera-ready PDF（ojs.aaai.org article 32328）Table 1，2026-11-03 抓取，两者逐格一致。②经同表逐格核对，本表其余行的 Pedestrian/mAP 列指派与原文不符（原文各行 mAP = 三类均值：HGSFusion 行原文为 Car 88.28 / Pedestrian 62.61 / Cyclist 87.49 / mAP 79.46；PointPillars 行 70.15 / 47.22 / 85.07 / 67.48；BEVFusion 行 70.21 / 45.86 / 89.48 / 68.52；RadarPillarNet 行 71.65 / 42.80 / 83.14 / 65.86）。因改动会触及既有卡 `claim-hgsfusion-cyclist-roi-ap-below-all-baselines` 的结论成立性（Cyclist 排序格局改变），本次仅加注不改数字，待调度班次/主人按铁律 3 处理。
+> 注（2026-11-03 全表按原文修正）：本表对应论文 Table 1 的 In Driving Corridor 区块（RoI AP）。此前转录存在列指派错位：LXL 行 Pedestrian 误作 72.93（fire-0143 已改 58.30）；PointPillars / BEVFusion 行 Pedestrian↔mAP 两列互换；RadarPillarNet 行混入 FUTR3D 的 86.19 / 43.10；HGSFusion 行三列轮转（把 Pedestrian 62.61 标成 mAP、mAP 79.46 标成 Cyclist、Cyclist 87.49 标成 Pedestrian）。以上均已按原文逐格改正（原文各行 mAP = 三类均值，交叉核对通过）。依据：arXiv:2412.11489v1 HTML Table 1（arxiv.org/html/2412.11489v1，2026-11-03 抓取），与 fire-0143 班次对 arXiv v1 + AAAI 2025 camera-ready PDF（ojs.aaai.org article 32328）的逐格核对结果一致。影响：修正后 HGSFusion Cyclist (RoI) 87.49 高于纯雷达基线 PointPillars（85.07）/ RadarPillarNet（83.14），但仍低于 BEVFusion（89.48）与 LXL（88.31）——既有卡 `claim-hgsfusion-cyclist-roi-ap-below-all-baselines`「Cyclist 低于全部对比方法」的结论被推翻（语义反转，按铁律 3 卡未动，待主人处置）。
 
-**分析**：HGSFusion 在汽车和行人检测上表现极其出色，RoI AP 分别提升至 88.28% 和 87.49%。但在骑行者（Cyclist）类别出现下滑，原因是 VoD 中存在大量与骑行者外观极度相似的“自行车架”和“未使用自行车”，导致 RHGM 生成了干扰特征。
+**分析**：论文声称在 Car 与 Pedestrian 类别取得同表最佳（Car RoI AP 88.28 / Pedestrian RoI AP 62.61）。骑行者（Cyclist）类别出现下滑（87.49，低于 BEVFusion 89.48 与 LXL 88.31），论文归因于 VoD 场景中存在大量与骑行者外观极度相似的物体（停放自行车、自行车架、滑板车等），干扰了 RHGM 生成的点云。（注：本段数字已随 2026-11-03 全表修正同步更正；修正前本段曾把 87.49 误作 Pedestrian RoI AP。）
 
 ### 4.2 模块消融实验 (Table 3)
 

@@ -322,7 +322,7 @@ LSQ 和 PACT 是经典的量化感知训练 (QAT) 方法，也会学习裁剪阈
 
 **适用性：⭐⭐⭐⭐⭐ (非常高)**
 
-*   **原理通用性：** LWC 处理的是“权重的长尾分布”问题。无论是 LLM 里的 `Linear` 层，还是 BEVFusion 里的 `Conv2d` (图像分支) 或 `SparseConv` (激光雷达分支)，权重矩阵里都有离群���。
+*   **原理通用性：** LWC 处理的是“权重的长尾分布”问题。无论是 LLM 里的 `Linear` 层，还是 BEVFusion 里的 `Conv2d` (图像分支) 或 `SparseConv` (激光雷达分支)，权重矩阵里都有离群值。
 *   **迁移策略：**
     *   对于 **Conv2d**：OmniQuant 的 LWC 公式可以直接套用。唯一的区别是 Linear 层的权重是二维的 $(C_{out}, C_{in})$ ，而卷积层权重是四维的 $(C_{out}, C_{in}, K, K)$ 。你只需要在计算 Max/Min 时注意维度规约即可（通常是对 Channel 维度做裁剪）。
     *   对于 **SparseConv (稀疏卷积)**：这是 LiDAR 分支的核心。稀疏卷积的权重本质上也是矩阵乘法，LWC 同样适用。
@@ -366,7 +366,7 @@ LET 的核心是利用 $Y = (X/s) \cdot (sW)$ 将激活值的难度转移给权�
 BEVFusion 虽然结构复杂，但也是模块化的（Backbone -> Neck -> Head）。
 
 *   **OmniQuant 的分块策略完全适用。** 你可以先冻住其他部分，只优化 Image Backbone，再优化 LiDAR Backbone，最后优化 Head。
-*   **数据问题：** LLM 用 WikiText 只有几千个 Token。BEVFusion 需要用 nuScenes 数据集。因为是 PTQ（训练后量化），你只需要几百帧校准数据（Calibration Data），���如 100-200 个场景，就能在几个小时内跑完量化参数搜索。这比重新训练（QAT）要快得多。
+*   **数据问题：** LLM 用 WikiText 只有几千个 Token。BEVFusion 需要用 nuScenes 数据集。因为是 PTQ（训练后量化），你只需要几百帧校准数据（Calibration Data），例如 100-200 个场景，就能在几个小时内跑完量化参数搜索。这比重新训练（QAT）要快得多。
 
 ---
 

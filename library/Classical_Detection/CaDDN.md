@@ -177,6 +177,8 @@ $$
 
 ## 4. 消融实验
 
+> 口径注（2026-11-03 补）：本节 Table 3 / Table 4 的数字均为论文在 **KITTI val set**（官方 3,712 train / 3,769 val 划分，消融仅在 train 上训练、在 val 上评测）上的 **Car 类 3D 检测 AP|R40**（Car IoU 阈值 0.7），按 Easy / Moderate / Hard 三档报告。解析列中的增量 Δ 按表内三档数字计算：+1.5% / +10.4% / +3.17% 均为 Easy 档差值（Mod/Hard 档差值更小），+0.6~1% 跨三档（Easy +0.67 / Mod +1.07 / Hard +0.91）。依据：arXiv:2103.01100（CVPR 2021，TRAILab）PDF 文本层 Table 3 表题 "CaDDN Ablation Experiments on the KITTI val set using AP|R40"、Table 4 表题 "CaDDN Depth Estimation Ablation on the KITTI val set using AP|R40"（Car (IoU = 0.7)）与 §4.1 评测协议，2026-11-03 下载 arxiv.org/pdf/2103.01100 核对。
+
 #### Table 3: CaDDN 内部模块消融 (CaDDN Ablation Experiments)
 
 这张表旨在验证 CaDDN 提出的各个组件（深度预测、监督、加权、离散化）是否真的有效。它通过逐步添加模块的方式展示了性能的提升路径。
