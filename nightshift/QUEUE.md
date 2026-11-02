@@ -10,8 +10,7 @@
 
 ## 进行中
 
-- [fire-0143] [fix|P1] `library-fix-list.md` 六处 P1 数字正确性（EMC2/OmniQuant/HGSFusion/EchoFusion）：修笔记 + Grep 全库受影响卡 quote 同步更新/加注；OmniQuant 表格混列修完在 `claim-omniquant-note-table-mismatch` 加「笔记已修正」附注（status 不动）
-- [fire-0143] [claim|P1] EchoFusion：正文「only 0.03 less than LiDAR」vs Table 6 实差 0.45 → 数字不自洽窄卡（QUESTIONS #4）
+（空）
 
 ## 待办
 
@@ -44,3 +43,9 @@
 - [fire-0106|01:44✅] [入库|其他] COTR.md → `library/3D_Occupancy/`（300 行，64/64 引文对照实抓 HTML v2 逐字 PASS，表号错位 caveat 落位）；MSMDFusion.md → `library/Multimodal_Fusion/`（314 行，67/67 引文 PASS，Table7.png=Figure 6 caveat 落位）。遗留：COTR 三处原文不一致照录待对官方 PDF；Figure 6 数值系目视抄录
 
 **fire-0106 小结：入库 11/22 篇（4113 行），validate OK(114)，index 重建。剩检测×4 + VLM/VLA×7 待下一班。**
+- [fire-0143|02:45✅] [入库|检测] BEVDet.md、PillarNet.md → 新建 `library/BEV_Detection/`（250/313 行）；MIT-BEVFusion.md、RCBEVDetPP.md → `library/Multimodal_Fusion/`（194/445 行；RCBEVDet.md 回链 +4，本班授权覆盖）。274 引句自洽、54 项数字验算、27 图逐张核对内容后嵌入
+- [fire-0143|02:45✅] [入库|VLM/VLA] 新建 `library/VLM_VLA/`：LLaVA/Qwen3-VL/OpenVLA/OpenDriveVLA/OneVL/DrivePI + **Alpamayo-R1.md（更名入库）**，共 7 篇 1763 行。1092 条 quote 自洽 0 失败；QUESTIONS #7（OpenDriveVLA 实题含 Action）/ #8（Alpamago→Alpamayo-R1）caveat 已落笔记头部
+- [fire-0143|02:45✅] [fix|P1] EMC2 §5.1 按 arXiv v1 重建（A4000/Jetson 两列，旧数字不属于任何版本）、OmniQuant 实验1表头改 7B W2A16g128 + 实验4基线行、HGSFusion LXL Ped 72.93→58.30 + 头部回填 arXiv 号——全部本次实抓核实。铁律3：3 卡 quote 同步修订、2 张 mismatch 卡加「笔记已修正」附注（status 未动）
+- [fire-0143|02:45✅] [claim|P1] `claim-echofusion-paper-table6-inconsistent-with-text`（115 卡）：实抓 v1/v2 双源 7 条 evidence，**方向反转**——正文 "0.03 less" 但表格 RT+C 实高 0.45；重复建卡已自删去重
+
+**fire-0143 小结：🎉 P0 入库流水线 22/22 全清（两班合计 22 篇 +1 回链），validate OK(115)，index 重建。README 重建任务解锁。剩：fix P2、README、P1 verify×3、P2 质量线×6。**
