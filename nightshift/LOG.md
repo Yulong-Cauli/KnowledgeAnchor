@@ -65,3 +65,4 @@
 06:55 | fire-now | AI-Infra 评估完成（0.56M token，230 行，5 个 claim 草案）| 产出 1 | validate OK(114) | 补槽 library 修复清单（收尾任务）。累计 61 任务 ≈147.6M
 07:05 | fire-now | library 修复清单完成（2.62M token，52 次工具调用，17 篇 29 条）| 产出 1 | validate OK(114) | 队列仅剩 QA 补批（在跑）。累计 62 任务 ≈150.2M
 07:09 | fire-now | QA 最终补批完成（0.99M token，24 卡全 PASS）| 产出 1 报告 | validate OK(114) | 🎉 **值班工作全部完成，队列清空**。QA 总账：121 卡 PASS 104 / FIXED 16 / ISSUED 2。累计 63 任务 ≈151.2M。等待 08:20 收班晨报
+01:25 | fire-0106 | 入库批1（ADe2e×2 + 量化×2）2 任务 4 文件 | 产出 4 笔记 1207 行 | validate OK(114) + index 重建 | 2 并发无限流，≈2.9M token；遗留 Fig3.png 来源不明、ADe2e 素材目录位置待主人
