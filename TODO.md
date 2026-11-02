@@ -24,8 +24,8 @@
 一条 claim 只写一个可证伪主张；下列“结论”都要先核对原文，再定 `scope` 和 `falsifiers`。
 
 - [ ] **QwT**：已有 [claim 卡](claims/claim-qwt-r2-gate-nonregression.md)，当前 `asserted`；核对“R² 门控保证不劣于原 PTQ”是否只在校准集意义下成立。
-- [ ] **PTQAT**：从 [笔记](library/Quantization/PTQAT.md) 提炼：在 nuScenes W4 上，PTQAT 用少于全参数 QAT 的可训练参数，达到不低于全参数 QAT 的 mAP/NDS；scope 写清 SparseBEV / BEVFormer、A100、W4。另可补 W8A8 + TensorRT 的 FPS/显存 claim，注意模型是 BEVDepth4D。
-- [ ] **EMC2**：从 [笔记](library/Multimodal_Fusion/EMC2.md) 提炼：在 Jetson AGX Orin 上，EMC2 能否在 <400ms 延迟下保持 KITTI Hard / nuScenes 的表中领先精度；核对硬件、输入模态与评测协议是否对等。
+- [x] **PTQAT**：已起草 [claim-ptqat-w4-outperforms-full-qat-fewer-params](claims/claim-ptqat-w4-outperforms-full-qat-fewer-params.md) 与 [claim-ptqat-w8a8-tensorrt-accuracy-recovery](claims/claim-ptqat-w8a8-tensorrt-accuracy-recovery.md)；数字已对照 arXiv:2508.10557 v1（Table 1/5，val split）核对一致。
+- [x] **EMC2**：已起草 [claim-emc2-orin-sub400ms-leading-accuracy](claims/claim-emc2-orin-sub400ms-leading-accuracy.md)；核对发现笔记 §5.1 对比表与 arXiv v1 不一致（延迟列混淆 A4000/Jetson、个别 AP 取错难度列），另立 [claim-emc2-note-table-mismatch](claims/claim-emc2-note-table-mismatch.md)。
 - [ ] **RadarOcc**（可选）：从 [笔记](library/3D_Occupancy/RadarOcc.md) 提炼：旁瓣感知稀疏化 + 球坐标编码是否稳定优于笛卡尔基线；先读实验部分，再决定是否值得立 claim。
 
 ## 待验证 / 待签署 L3
@@ -35,7 +35,7 @@
 
 ## 维护
 
-- [ ] 首次提交脚手架：`README.md`、`AGENTS.md`、`claims/`、`schema/`、`templates/`、`tools/`、`TODO.md`。目前都未提交。
+- [x] 首次提交脚手架：`README.md`、`AGENTS.md`、`claims/`、`schema/`、`templates/`、`tools/`、`TODO.md`。已在 `274f361` 等提交完成。
 - [ ] 把根 README 的 `**类型：**` 来源头约定同步到 [library/README.md](library/README.md) 的「笔记约定」。
 - [ ] 旧仓库 `D:\Research\Notes` 仍有未提交改动（`README.md`、`.zcodeignore`、`AI Infra/`、`QA dataset/`）；等新库稳定后再决定归档，不要直接删。
 - [ ] 定期跑 `node tools/ka.mjs validate`、`index`、`review`；claim 状态与 TODO 不一致时，以 claim 卡为准。
