@@ -1,6 +1,6 @@
 # HGSFusion 学习笔记：带混合生成与同步的雷达-相机融合 3D 目标检测
 
-**出处会议：** AAAI 2025  
+**出处会议：** AAAI 2025（arXiv:2412.11489，"HGSFusion: Radar-Camera Fusion with Hybrid Generation and Synchronization for 3D Object Detection"）  
 **是否开源：** https://github.com/garfield-cpp/HGSFusion  
 **关键词：** 4D毫米波雷达-相机融合、点云生成、深度同步、混合概率分布
 
@@ -119,8 +119,10 @@ DSM 通过两步走战略，先解决“空间对齐”，再解决“环境鲁�
 | PointPillars         | R        | 70.15         | 67.48                | 85.07             | 47.22         |
 | RadarPillarNet       | R        | 71.65         | 65.86                | 86.19             | 43.10         |
 | BEVFusion            | R+C      | 70.21         | 68.52                | 89.48             | 45.86         |
-| LXL                  | R+C      | 72.18         | 72.93                | 88.31             | 72.93         |
+| LXL                  | R+C      | 72.18         | 58.30                | 88.31             | 72.93         |
 | **HGSFusion (Ours)** | **R+C**  | **88.28**     | **87.49**            | **79.46**         | **62.61**     |
+
+> 注（2026-11-03 修正 + 待人工核对）：①本表对应论文 Table 1 的 In Driving Corridor 区块。LXL 行 Pedestrian (RoI) 原转录为 72.93（与 mAP 列同值重复），已按原文改为 58.30；mAP 列 72.93 与原文一致，保留。依据：arXiv:2412.11489v1 与 AAAI 2025 camera-ready PDF（ojs.aaai.org article 32328）Table 1，2026-11-03 抓取，两者逐格一致。②经同表逐格核对，本表其余行的 Pedestrian/mAP 列指派与原文不符（原文各行 mAP = 三类均值：HGSFusion 行原文为 Car 88.28 / Pedestrian 62.61 / Cyclist 87.49 / mAP 79.46；PointPillars 行 70.15 / 47.22 / 85.07 / 67.48；BEVFusion 行 70.21 / 45.86 / 89.48 / 68.52；RadarPillarNet 行 71.65 / 42.80 / 83.14 / 65.86）。因改动会触及既有卡 `claim-hgsfusion-cyclist-roi-ap-below-all-baselines` 的结论成立性（Cyclist 排序格局改变），本次仅加注不改数字，待调度班次/主人按铁律 3 处理。
 
 **分析**：HGSFusion 在汽车和行人检测上表现极其出色，RoI AP 分别提升至 88.28% 和 87.49%。但在骑行者（Cyclist）类别出现下滑，原因是 VoD 中存在大量与骑行者外观极度相似的“自行车架”和“未使用自行车”，导致 RHGM 生成了干扰特征。
 
@@ -154,6 +156,8 @@ DSM 通过两步走战略，先解决“空间对齐”，再解决“环境鲁�
 | **Dark (暗光)** | 4.27                  | **15.68**              | **+11.41%**  |
 | Normal (正常)   | 33.50                 | 35.82                  | +2.32%       |
 | Shiny (强光)    | 22.37                 | 25.28                  | +2.91%       |
+
+> 注（2026-11-03）：表内「+11.41%」按表内数字 15.68 − 4.27 = 11.41 实为 **+11.41 个百分点**（相对增幅约 267%），Normal/Shiny 两行的 +2.32% / +2.91% 同理亦为百分点。论文 Table 5（arXiv:2412.11489）本身只有三行数值、无提升列，正文则沿用「improvement by 11.41%」的百分比写法；笔记按论文口径转录，数字未改，引用时请写「+11.41 个百分点」。
 
 **分析**：在最极端黑暗场景下，HGSFusion 实现了 11.41% 的跨越式提升。这强有力地支持了 DSM 模块中模态同步的理论：在视觉失效时，模型能成功切换到以雷达为主的感知模式。
 

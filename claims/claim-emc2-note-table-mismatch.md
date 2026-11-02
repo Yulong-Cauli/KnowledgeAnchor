@@ -51,6 +51,7 @@ signoff: null
 
 - 核对 ICCV 2025 camera-ready（CVF Open Access）版本的 Table 1，确认笔记依据的是哪个版本。
 - 若 LoGoNet 965ms 出自论文正文另一处（如 A4000 不同输入配置），补注出处。
+- **2026-11-03 笔记已修正**：§5.1 表已按 arXiv v1 逐格重建（恢复 A4000/Jetson 两列延迟：PointPillar 41/972、Second-IoU 58/N/A、LoGoNet 100/N/A、TED 162/N/A、EMC2 160/372.5；Second-IoU 骑行者 Hard 66.26、LoGoNet 汽车 Hard 84.31、TED 汽车 Hard 86.73），分析句同步改写（965ms 改归多模态 Voxel-RCNN，EMC2 372.5ms 相对 965–1787ms 方法 2.5×–4.8× 加速为论文正文口径）。本次修正依据：https://arxiv.org/html/2507.04123v1（HTML，2026-11-03 抓取）与 ICCV 2025 camera-ready https://openaccess.thecvf.com/content/ICCV2025/papers/Liu_Towards_Accurate_and_Efficient_3D_Object_Detection_for_Autonomous_Driving_ICCV_2025_paper.pdf（CVF Open Access，2026-11-03 抓取）——两版本 Table 1 逐格一致，故笔记旧数字不属于任何已发表版本（上文「待验证」第 1 条已据此解决）。另核对中补获一处：笔记旧 TED 行 A4000「154」实为 CAT-DET 的 A4000 值（原表 TED 为 162），已在笔记注记说明。本卡 status 与既有 evidence 未动（其中笔记 quote 为修正前历史记录）。
 
 ## 若成立 / 不成立意味着什么
 

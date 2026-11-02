@@ -10,15 +10,13 @@
 
 ## 进行中
 
-（空）
+- [fire-0143] [fix|P1] `library-fix-list.md` 六处 P1 数字正确性（EMC2/OmniQuant/HGSFusion/EchoFusion）：修笔记 + Grep 全库受影响卡 quote 同步更新/加注；OmniQuant 表格混列修完在 `claim-omniquant-note-table-mismatch` 加「笔记已修正」附注（status 不动）
+- [fire-0143] [claim|P1] EchoFusion：正文「only 0.03 less than LiDAR」vs Table 6 实差 0.45 → 数字不自洽窄卡（QUESTIONS #4）
 
 ## 待办
 
 ### P0 入库流水线（每条 = 入库前逐字 QA（quote/数字/出处）→ 直写 library/ 对应目录 → validate；index 由调度班统一重建）
 
-- [ ] [入库|检测] `drafts/BEVDet.md`、`PillarNet.md`、`MIT-BEVFusion.md`、`RCBEVDetPP.md` → 按内容归入现有分类或新建目录（RCBEVDetPP 与 `Multimodal_Fusion/RCBEVDet.md` 同区并互链；草稿内原文疑点均照抄加注）〔fire-0106 认领未开跑，回收重排〕
-- [ ] [入库|VLM/VLA] `drafts/LLaVA.md`、`Qwen3VL.md`、`OpenVLA.md`、`OpenDriveVLA.md`、`OneVL.md`、`DrivePI.md` → 新建 `library/VLM_VLA/`；`drafts/Alpamago.md` → **更名 `Alpamayo-R1.md`** 入库（QUESTIONS #6/#7 的版本/标题 caveat 写进笔记头部）〔fire-0106 认领未开跑，回收重排〕
-- [ ] [fix|P1] `library-fix-list.md` 六处 P1 数字正确性（EMC2/OmniQuant/HGSFusion/EchoFusion）：修笔记 + Grep 全库受影响卡 quote 同步更新/加注；OmniQuant 表格混列修完在 `claim-omniquant-note-table-mismatch` 加「笔记已修正」附注（status 不动）
 - [ ] [fix|P2] fix-list 其余 23 处 + QUESTIONS #12 VQ-Map 乱码「细□度」→「细粒度」+ 回填 arXiv 号（VQ-Map 2411.01618、Ali-BEVFusion 2205.13790、MQBench 2111.03759，写入笔记头部并注记来源）
 - [ ] [README|依赖入库完成] 重建 `library/README.md`（AI Infra 3 篇 + ADe2e + 本班新入库篇目 + Efficient_Backbone/ 新目录，篇数核准）+ 根 README「**类型：**」来源头约定同步进「笔记约定」
 

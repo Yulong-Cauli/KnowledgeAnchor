@@ -25,3 +25,11 @@
 16. **ADe2e 素材目录位置**：UniAD/AutoVLA 素材在 `library/ADe2e/<论文名>/` 而非 README 约定的 `assets/<论文名>/`；本次未迁移（不擅动主人素材）。要么迁移要么改约定——README 重建任务（P0 尾）等这条结论。
 17. **COTR 表号映射（原 #10 跟进）**：入库版已把「Table4.png 内容=HTML v2 Table 3」caveat 落进笔记 Locator 注与 §3.3 配图注；PDF↔HTML 表号整体错位仍待对官方 PDF 定位（另三处原文数字不一致照录）。
 18. **MobileNet V1/V2 MAdds 跨论文口径差**：V1 Table 6 569M vs V2 Table 4 575M（疑同规格），已记入 MobileNet 笔记遗留 8；两表数字不要跨论文混用。
+
+## 2026-11-03 fire-0143（入库批 3 + fix P1 + EchoFusion 卡）
+
+19. **EchoFusion 方向反转（#4 跟进）**：实抓 arXiv:2307.16532 v1/v2 后发现——正文 "only 0.03 less than LiDAR" 但 Table 6（v1 为 Table 5）RT+C 84.92 比 L 84.47 **高** 0.45，"less" 方向与表格相反。窄卡 `claim-echofusion-paper-table6-inconsistent-with-text` 已建（7 条 evidence 双源）。另 `assets/EchoFusion/Table6.png` 内容实为 Table S3（文件名不符）。
+20. **HGSFusion §4.1 其余行与原文不符（重要，P1 之外新发现）**：PointPillars/BEVFusion 行 Ped↔mAP 两列互换、HGSFusion 行三列轮转、RadarPillarNet 行混入 FUTR3D 的 86.19/43.10。**按原文修正会使 claim-hgsfusion-cyclist-roi-ap-below-all-baselines 主张反转**（原文 Cyclist 87.49 > PointPillars 85.07），本次只加表后注未改数字——修不修、cyclist 卡是否降级，由你定。另 fix-list F7 的"全类 mAP (RoI) 62.61"实为走廊区 Pedestrian（走廊 mAP 是 79.46）。
+21. **素材文件名错位批量清单**（各笔记 caption 已逐一注记，是否统一改名由主人定）：BEVDet Table2.png=论文Table 4、Format1.png=式(2)；PillarNet Figure_Loss.png=式(2)、Table4_EncoderAblation.png 为重复截图；LLaVA Figure1.png=Table 3、Table2.png=Table 1；Qwen3-VL Figure2.png=Figure 1；LSQ Equation2.png=式(3)；RCBEVDet++ `_page_*` 与论文图号无关。
+22. **PillarNet 内容并存**：新入库 `library/BEV_Detection/PillarNet.md` 与 `Classical_Detection/PointNet & PointPillars.md` 内的 PillarNet 段并存，是否合并由你定。
+23. **RCBEVDetPP §V-B1 "reduce the velocity error by 14.6%"** 无法由 Table I 行差推出（论文原句照抄未改、笔记已注）——引用/建卡勿取该句。

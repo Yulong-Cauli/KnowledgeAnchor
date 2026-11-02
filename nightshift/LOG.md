@@ -67,3 +67,4 @@
 07:09 | fire-now | QA 最终补批完成（0.99M token，24 卡全 PASS）| 产出 1 报告 | validate OK(114) | 🎉 **值班工作全部完成，队列清空**。QA 总账：121 卡 PASS 104 / FIXED 16 / ISSUED 2。累计 63 任务 ≈151.2M。等待 08:20 收班晨报
 01:25 | fire-0106 | 入库批1（ADe2e×2 + 量化×2）2 任务 4 文件 | 产出 4 笔记 1207 行 | validate OK(114) + index 重建 | 2 并发无限流，≈2.9M token；遗留 Fig3.png 来源不明、ADe2e 素材目录位置待主人
 01:46 | fire-0106 | 入库批2（骨干×5 + 其他×2）2 任务 7 文件 | 产出 7 笔记 2569 行 | validate OK(114) + index 重建 | 2 并发无限流，≈7.4M token；本班累计入库 11/22 篇；检测/VLM-VLA 两组回收待办待下一班；QUESTIONS +14~18
+02:45 | fire-0143 | 入库检测×4 + VLM/VLA×7 + fix P1 + EchoFusion 卡，4 任务 2 批 | 产出 11 新库文件 + RCBEVDet 回链 + 3 笔记修正 + 1 新卡 + 5 卡修订 | validate OK(115) + index 重建 | 2 并发无限流，≈19.3M token；🎉 P0 入库 22/22 全清；HGSFusion 其余行不符会反转 cyclist 卡 → QUESTIONS #20 留主人；EchoFusion 方向反转 → #19

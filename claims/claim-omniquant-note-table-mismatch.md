@@ -102,6 +102,7 @@ signoff: null
 - 用户逐格复核笔记实验 1 / 实验 4 与 arXiv v3 Table 1 / Table 3（人工复核是本卡的最终裁决，见 falsifiers）。
 - 确认笔记写作时依据的论文版本：若存在某版本其表格与笔记完全一致，则属版本差异，按 falsifier 改判并在笔记标注版本号。
 - 修复方案（经用户同意）：实验 1 表头改为「LLaMA-1-7B W2A16g128」并补 RTN 1.9e3（或换用 13B 逐通道列原值 6.8e4 / 5.5e3 / 13.21）；实验 4 FP16 基线改为 WM 24.3 GB / RM 27.1 GB / 52.5 tokens/s、加速约 1.74×、WM 口径节省约 71%。
+- **2026-11-03 笔记已修正**（本次修正依据：https://arxiv.org/pdf/2308.13137v3 Table 1 p.7 / Table 3 p.9，pdftotext 提取，2026-11-03 抓取逐格核对，与本卡 evidence 引文一致）：实验 1 表头改为「LLaMA-1-7B W2A16g128」并补 RTN 1.9e3（GPTQ 44.01 / AWQ 2.6e5 / OmniQuant 9.72 三值不变，表后注记 13B 逐通道列原值与 v1/v3 差异）；实验 4 FP16 基线改为 WM 24.3 GB / RM 27.1 GB / 52.5 tokens/s、加速约 1.74×、WM 口径节省 ~71%（量化侧 7.0 GB / 91.3 tokens/s 不变）。关联卡 claim-omniquant-w4a16g128-llama13b-a100-913toks 的笔记 quote 已同步更新。本卡 status 与既有 evidence 未动（其中笔记 quote 为修正前历史记录）。
 
 ## 若成立 / 不成立意味着什么
 

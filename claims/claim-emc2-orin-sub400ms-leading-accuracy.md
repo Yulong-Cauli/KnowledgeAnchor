@@ -11,7 +11,7 @@ stance: watch
 evidence:
   - source: library/Multimodal_Fusion/EMC2.md
     locator: "§5.1 / Table 1"
-    quote: "| **EMC2 (Ours)**   | **66.81**             | **88.15**             | **77.62**               | **372.5**            |"
+    quote: "| **EMC2 (Ours)**   | **66.81**             | **88.15**             | **77.62**               | **160**             | **372.5**            |"
     relation: supports
   - source: library/Multimodal_Fusion/EMC2.md
     locator: "§5.2 / Table 2"
@@ -35,6 +35,8 @@ signoff: null
 ---
 
 ## 我的理解
+
+> 修订注记 2026-11-03：笔记 §5.1 表已按论文原表重建（恢复 A4000/Jetson 两列延迟列，并修正 Second-IoU/LoGoNet/TED 三行的错位数字），EMC2 自身行数字 66.81 / 88.15 / 77.62 / 372.5 未变、仅新增 A4000 列 160，本卡 §5.1 evidence quote 已同步更新。修正依据：arXiv:2507.04123v1 与 ICCV 2025 camera-ready（CVF Open Access）Table 1，2026-11-03 抓取逐格核对一致。本卡主张与 status 不受影响（EMC2 自身行数字一致，且本卡限定 1 本就按 v1 指出对比方法 Jetson 列多为 N/A / 972ms）。
 
 EMC2 自报：KITTI 上 372.5ms 且三类 Hard AP（66.81 / 88.15 / 77.62）为对比表最高；nuScenes 上 229.3ms 且 mAP/NDS（0.7241 / 0.7316）高于 BEVFusion（0.6852 / 0.7138）。"表中领先"成立的前提是精度数字来自同一评测协议（KITTI R40 Hard；nuScenes val）。
 

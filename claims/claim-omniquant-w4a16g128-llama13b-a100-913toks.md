@@ -11,11 +11,11 @@ stance: watch
 evidence:
   - source: library/Quantization/OmniQuant.md
     locator: "§4 / 实验 4：真实推理加速"
-    quote: "| **显存占用** | ~26 GB       | **7.0 GB**        | **节省 ~73%**  |"
+    quote: "| **显存占用** | 24.3 GB (WM) / 27.1 GB (RM) | **7.0 GB** | **节省 ~71%（WM 口径）** |"
     relation: supports
   - source: library/Quantization/OmniQuant.md
     locator: "§4 / 实验 4：真实推理加速"
-    quote: "| **推理速度** | ~40 tokens/s | **91.3 tokens/s** | **加速 > 2倍** |"
+    quote: "| **推理速度** | 52.5 tokens/s | **91.3 tokens/s** | **加速约 1.74×** |"
     relation: supports
   - source: https://arxiv.org/pdf/2308.13137v3
     locator: "Table 3, p.9（W4A16g128 行，13B 列为 WM 7.0G / RM 10.0G / 91.3；pdftotext 提取，抓取 2026-11-02）"
@@ -35,6 +35,8 @@ signoff: null
 ---
 
 ## 我的理解
+
+> 修订注记 2026-11-03：笔记实验 4 的 FP16 基线行已按论文原表修正——修正前「~26 GB / ~40 tokens/s / 加速 > 2倍」，修正后「WM 24.3 GB / RM 27.1 GB / 52.5 tokens/s、加速约 1.74×、WM 口径节省 ~71%」，与本卡 scope 既有描述（同表 FP 行 24.3/27.1/52.5、实际加速约 1.74 倍）一致；本卡 evidence 中笔记两行 quote 已同步更新。修正依据：https://arxiv.org/pdf/2308.13137v3 Table 3 p.9（pdftotext 提取，2026-11-03 抓取核对，与本卡下方论文引文一致）。量化侧 7.0 GB / 91.3 tokens/s 未变，本卡主张与 status 不受影响。
 
 论文声称（asserted，尚未独立验证）：LLaMA-13B 经 W4A16g128 量化并完成参数融合（LET 吸收进 LayerNorm、LWC 融合进权重，推理零额外算子）后，用 MLC-LLM 部署在 NVIDIA A100-80G 上：量化权重存储 (WM) 7.0 GB（运行显存 RM 10.0 GB），512-token 生成吞吐 91.3 tokens/s。
 

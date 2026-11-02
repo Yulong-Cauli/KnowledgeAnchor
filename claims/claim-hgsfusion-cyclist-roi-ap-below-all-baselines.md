@@ -27,7 +27,7 @@ evidence:
     relation: supports
   - source: library/Multimodal_Fusion/HGSFusion.md
     locator: "§4.1 / Table 1"
-    quote: "| LXL                  | R+C      | 72.18         | 72.93                | 88.31             | 72.93"
+    quote: "| LXL                  | R+C      | 72.18         | 58.30                | 88.31             | 72.93"
     relation: supports
   - source: library/Multimodal_Fusion/HGSFusion.md
     locator: "§4.1 / Table 1 分析"
@@ -43,6 +43,8 @@ signoff: null
 ---
 
 ## 我的理解
+
+> 修订注记 2026-11-03：笔记 §4.1 LXL 行 Pedestrian (RoI) 已按论文原表修正 72.93 → 58.30（mAP (RoI) 72.93 与原文一致，保留），本卡 evidence 中 LXL 行 quote 已同步更新。修正依据：arXiv:2412.11489v1 与 AAAI 2025 camera-ready PDF（ojs.aaai.org article 32328）Table 1，2026-11-03 抓取，两者逐格一致。LXL 行 Cyclist 88.31 未变，本卡「Cyclist 低于全部对比方法」的同表排序结论不受此修正影响。但同次逐格核对发现：本表其余行的 Pedestrian/mAP 列指派与原文不符（原文 HGSFusion 行为 Car 88.28 / Pedestrian 62.61 / Cyclist 87.49 / mAP 79.46，见笔记 §4.1 表后注）——若后续按原文修这些行，原文 Cyclist 87.49 将高于 PointPillars 85.07，本卡「低于全部对比方法」结论会被推翻，属结论语义反转，故本卡暂不动（铁律 3），留待调度班次/主人处理。
 
 论文声称（据笔记 §4.1 转录，尚未独立验证）：VoD 的 SOTA 对比表中，HGSFusion 的 Car (RoI) 88.28 与 Pedestrian (RoI) 87.49 为同表最高，但 Cyclist (RoI) 79.46 低于同表其余全部四个方法——不只低于雷达-相机的 BEVFusion（89.48）与 LXL（88.31），也低于纯雷达的 PointPillars（85.07）与 RadarPillarNet（86.19）。笔记把下滑归因于 VoD 中与骑行者外观极相似的自行车架/未使用自行车污染了 RHGM 生成的点（这是论文的解读，笔记未给出针对该归因的单独消融）。该失效模式与 RadarOcc「低 RCS 弱目标需在输入端特别保护」的教训同向（cross 文档 S4）：生成/增密路线在易混弱目标上有自己的暴露面。
 
