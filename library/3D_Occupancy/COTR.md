@@ -6,7 +6,7 @@
 
 > **关联笔记：** 本文是**纯视觉（camera-only）**的 3D 占据预测方法，与库内笔记 [RadarOcc](RadarOcc.md)（4D 成像雷达占据预测，NeurIPS 2024）同属 3D occupancy prediction 任务族但传感器模态不同（本文纯视觉、RadarOcc 为 4D 成像雷达输入）。论文在补充材料自述低光场景失效时写道 "other modalities such as LiDAR or Radar might be required to aid successful detection"，可作为库内雷达/多模态融合笔记（如 HGSFusion、RCBEVDet）的动机参照。库内 [SurroundOcc](SurroundOcc.md)（ICCV 2023）是本文 Table 1 中被集成（plug-in）的四个基线之一。
 >
-> **Locator 约定：** 本笔记章节号（§1–§5，含 §2.1–§2.3、§3.1–§3.4、§4.1–§4.3）、公式号 (1)–(4)、表号 Table 1–7 均指 arXiv HTML v2（https://arxiv.org/html/2312.01919v2 ，LaTeXML 生成）的编号；Table 4–7 位于 Supplementary Material。HTML 中 Table 4 被拆成两个元素：只含 caption 的空 figure（id S5.T4）与数据表（id tab1），本笔记 Table 4 的数据行取自 id=tab1。英文引号内文字为本次从该 HTML 抓取的逐字原文；数学式保留 HTML alttext 的 LaTeX 形式（$256\times 704$ 即原文写法）；✔/✘ 为原文勾叉符号（HTML 部分表格用 ✗，已统一记作 ✘）。注意：库内本地截图 `library/assets/COTR/` 的 `Table2.png`（内容 = HTML Table 2）、`Table4.png`（内容 = HTML **Table 3**），提示 PDF（camera-ready）与 arXiv HTML v2 的表号在后半部分可能整体错位一位——**引用图表时必须以内容为准并逐张核对**（QUESTIONS #10 caveat；三张截图已于 2026-11-03 入库时逐张目视核对，见正文配图加注与文末 TODO）。
+> **Locator 约定：** 本笔记章节号（§1–§5，含 §2.1–§2.3、§3.1–§3.4、§4.1–§4.3）、公式号 (1)–(4)、表号 Table 1–7 均指 arXiv HTML v2（https://arxiv.org/html/2312.01919v2 ，LaTeXML 生成）的编号；Table 4–7 位于 Supplementary Material。HTML 中 Table 4 被拆成两个元素：只含 caption 的空 figure（id S5.T4）与数据表（id tab1），本笔记 Table 4 的数据行取自 id=tab1。英文引号内文字为本次从该 HTML 抓取的逐字原文；数学式保留 HTML alttext 的 LaTeX 形式（$256\times 704$ 即原文写法）；✔/✘ 为原文勾叉符号（HTML 部分表格用 ✗，已统一记作 ✘）。注意：库内本地截图 `library/assets/COTR/` 的 `Table2.png`（内容 = HTML Table 2）、`Table4.png`（内容 = HTML **Table 3**）。~~提示 PDF（camera-ready）与 arXiv HTML v2 的表号在后半部分可能整体错位一位~~——**2026-11-03 verify 班已对官方 PDF 复核并否定该假设**：arXiv PDF v2（https://arxiv.org/pdf/2312.01919v2 ，文本层水印 "arXiv:2312.01919v2 [cs.CV] 11 Apr 2024"）与 CVF camera-ready（https://openaccess.thecvf.com/content/CVPR2024/papers/Ma_COTR_Compact_Occupancy_TRansformer_for_Vision-based_3D_Occupancy_Prediction_CVPR_2024_paper.pdf ，10 页正文）的表号均与 HTML v2 **一致**——两版 Table 3 均为语义分组数消融（caption "Table 3. Ablation study on the number of Semantic Groups."）、Table 4 均为逐类 IoU 表，Table 5–7 亦同 HTML；**错位的只是 `Table4.png` 截图文件名**（截图画面无 caption，内容对应 Table 3）。引用图表时仍必须以内容为准并逐张核对（QUESTIONS #10/#17 结论；三张截图已于 2026-11-03 入库时逐张目视核对，见正文配图加注与文末 TODO）。
 
 ---
 
@@ -205,9 +205,9 @@ Supplementary 正文（Per-class comparison with SOTA 段）："Notably, a consp
 | {gt label} | ✔ | 73.68 | - | 42.70 | - |
 | {fg, bg, empty}, $\ldots$ , {gt label} | ✔ | 75.01 | +1.33 | 44.45 | +1.75 |
 
-![COTR 本地截图 Table4.png（注意：内容实为论文 HTML v2 的 Table 3 语义分组数消融，文件名与 HTML 表号错位一位）](../assets/COTR/Table4.png)
+![COTR 本地截图 Table4.png（注意：内容实为论文 HTML v2 的 Table 3 语义分组数消融，文件名与内容错位一位）](../assets/COTR/Table4.png)
 
-（配图注 / **QUESTIONS #10 caveat**：`library/assets/COTR/Table4.png` 文件名叫 Table4，但 2026-11-03 入库时目视核对其内容 = HTML v2 **Table 3**（语义分组数消融），与上表逐格一致（71.74/40.22 至 75.01/44.45）——本地 PDF（camera-ready）与 arXiv HTML v2 的表号在后半部分疑整体错位一位。引用本地素材时必须逐张按内容核对表号，勿按文件名引用。）
+（配图注 / **QUESTIONS #10 caveat（2026-11-03 已结）**：`library/assets/COTR/Table4.png` 文件名叫 Table4，但 2026-11-03 入库时目视核对其内容 = HTML v2 **Table 3**（语义分组数消融），与上表逐格一致（71.74/40.22 至 75.01/44.45）。原疑"PDF 与 HTML 表号整体错位一位"**经 verify 班对官方 PDF 复核后否定**：arXiv PDF v2 与 CVF camera-ready 中该表编号同为 Table 3（caption "Table 3. Ablation study on the number of Semantic Groups."，逐类 IoU 表同编 Table 4），PDF 与 HTML 表号一致，**错的只是截图文件名**。引用本地素材时仍须逐张按内容核对表号，勿按文件名引用。）
 
 正文（§4.3）：
 
@@ -283,13 +283,14 @@ Supplementary 正文："It’s worth noting that, since we only used the Coarse-
 
 ## TODO
 
-- [x] **配图已回填（2026-11-03 入库）**：`library/assets/COTR/` 3 张截图已按现有目录相对路径（`../assets/COTR/`）嵌入正文——`Figure2.png`（= 论文 Fig. 2 整体架构 → §2.1）、`Table2.png`（= HTML Table 2 组件消融 → §3.3）、`Table4.png`（**内容 = HTML Table 3** 分组数消融 → §3.3；文件名与 HTML 表号错位一位，已按 QUESTIONS #10 加注）；入库时已逐张目视核对图片内容并与笔记表格对格。未新建 assets 目录、未移动/重命名素材。
+- [x] **配图已回填（2026-11-03 入库）**：`library/assets/COTR/` 3 张截图已按现有目录相对路径（`../assets/COTR/`）嵌入正文——`Figure2.png`（= 论文 Fig. 2 整体架构 → §2.1）、`Table2.png`（= HTML Table 2 组件消融 → §3.3）、`Table4.png`（**内容 = HTML Table 3** 分组数消融 → §3.3；文件名与内容错位一位，已按 QUESTIONS #10 加注）；入库时已逐张目视核对图片内容并与笔记表格对格。未新建 assets 目录、未移动/重命名素材。**2026-11-03 verify 班复核**：官方 PDF（arXiv v2 + CVF camera-ready）表号与 HTML v2 一致、无整体错位，仅截图文件名错位（见 §3.3 配图注与 Locator 约定）；是否把 `Table4.png` 改名（如 `Table3.png`）由主人定，本班不擅动素材文件名。
 - [ ] 本笔记由草稿（`nightshift/drafts/COTR.md`，保留不删）经入库前 QA 后写入（2026-11-03）：quote 64 条经脚本验证在草稿文本中逐字存在（自洽检查），并全部对照本次实抓的 arXiv HTML v2（https://arxiv.org/html/2312.01919v2 ）逐字核验通过；数字抽查 9 处与表格行一致（Table 1 四组 IoU/mIoU 增量 3.8/5.5/1.6/1.2 与 5.1/4.7/3.8/5.2、44.5−42.1=2.4 vs 正文 "2.3%"、402.98/78.47≈5.13 vs "approximately 5×"、Table 2 增量列 +1.72/+5.38、Table 3 增量列 +0.34/+1.17/+1.33/+1.75、紧凑表示 1/16 体素比等）；Eq. (1)–(4) 与补充材料形状（$O_{\rm E}\in\mathbb{R}^{32\times 200\times 200\times 16}$、$O_{c}\in\mathbb{R}^{256\times 50\times 50\times 16}$）已对 HTML alttext 核验一致。入库时修正一处草稿自洽问题（§一观察句 "IoU 增益达不到 8%" 与其自列的 8.4% 矛盾，已按表内数字改写，见正文括注）。尚未经用户审阅；引用规则遵循 AGENTS.md：论文结论均表述为「论文声称」，未做独立验证。
 - [ ] **同名论文甄别记录（抓取/甄别日期 2026-11-02）**：arXiv API 以 `ti:"COTR"` 检索共得 7 条，其余候选为：COTR: Correspondence Transformer for Matching Across Images（2103.14167，ICCV 2021，图像匹配）、COTR: Convolution in Transformer Network for End to End Polyp Detection（2105.10925，息肉检测）、CoTr: Efficiently Bridging CNN and Transformer for 3D Medical Image Segmentation（2103.03024，医学分割）、Chain-of-Translation Prompting (CoTR)（2409.04512，低资源语言 NLP）、L3Cube-MahaEmotions（2506.00863，马拉地语情感数据集）、以及 1409.2829（加速器物理，COTR 为术语缩写）。本笔记采用与库内自动驾驶感知主题唯一匹配的 arXiv:2312.01919。采用的论文标题完整含 "COTR" 字样，无字面出入。
 - [ ] 抓取来源（本次实际抓取，日期 2026-11-02）：
   - arXiv abs 页：https://arxiv.org/abs/2312.01919 （核对标题 "COTR: Compact Occupancy TRansformer for Vision-based 3D Occupancy Prediction"、作者 Qihang Ma, Xin Tan, Yanyun Qu, Lizhuang Ma, Zhizhong Zhang, Yuan Xie、v1 2023-12-04 / v2 2024-04-11、Comments "CVPR2024. Code is available at this https URL"）
   - arXiv HTML 全文（LaTeXML）：https://arxiv.org/html/2312.01919v2 （全部引文、公式 alttext、Table 1–7 数据均来自此页；引文与表格已脚本核验为逐字一致）
   - GitHub API：https://api.github.com/repos/NotACracker/COTR （核实开源仓库存在、描述与创建日期）
+  - 官方 PDF 复核（2026-11-03 verify 班，pdftotext 提取，产物存 /tmp 未入库）：arXiv v2 PDF https://arxiv.org/pdf/2312.01919v2 （14 页，含补充材料，水印 "arXiv:2312.01919v2 [cs.CV] 11 Apr 2024"；表号 Table 1–7 与 HTML v2 一致）；CVF camera-ready https://openaccess.thecvf.com/content/CVPR2024/papers/Ma_COTR_Compact_Occupancy_TRansformer_for_Vision-based_3D_Occupancy_Prediction_CVPR_2024_paper.pdf （10 页正文，无补充材料；Table 1–3 与 HTML v2 一致；收录页 https://openaccess.thecvf.com/content/CVPR2024/html/Ma_COTR_Compact_Occupancy_TRansformer_for_Vision-based_3D_Occupancy_Prediction_CVPR_2024_paper.html ）
 - [ ] 遗留观察（写笔记时发现，供调度班次参考）：
   1. §4.3 正文 "achieves 41.05% mIoU scores" 与 Table 2 全组件行 41.39 不一致（疑笔误），两处均照录；
   2. §4.1 分组数一句自相矛盾且残缺："K=6 ... resulting in a total of 4 groups"（照录），分组总数到底为 6 还是 4 待对 PDF 原文；
@@ -297,4 +298,5 @@ Supplementary 正文："It’s worth noting that, since we only used the Coarse-
   4. 原文多处拼写笔误照录未改动：§3.2 "TRansforemr"、Table 2 表题 "Course-to-Fine"/"on the each component"、§3.4 "occcupancy"、§4.3 "mIou"、Supplementary "a fare comparison"、"Nuscenes"；
   5. HTML 中 Table 4（id tab1）的 OccFormer 与 + COTR 两行重复出现两次，已照录；该表的 caption figure（id S5.T4）与数据 figure（id tab1）在 HTML 中分离；
   6. 本地 PDF 截图 Table4.png 的内容对应 HTML Table 3，提示 PDF（Camera-ready）与 arXiv HTML v2 的表号在后半部分可能错位一位，后续引用 PDF 时需按内容核对；
+     → **2026-11-03 verify 班复核结论（已结）**：错位假设不成立。arXiv PDF v2（https://arxiv.org/pdf/2312.01919v2 ，pdftotext 提取）与 CVF camera-ready（10 页正文，https://openaccess.thecvf.com/content/CVPR2024/papers/Ma_COTR_Compact_Occupancy_TRansformer_for_Vision-based_3D_Occupancy_Prediction_CVPR_2024_paper.pdf ）中：Table 1 = Occ3D 对比、Table 2 = 组件消融、Table 3 = 语义分组数消融、Table 4 = 逐类 IoU（补充材料）、Table 5 = 分辨率消融、Table 6/7 = 开销/效率——与 HTML v2 编号完全一致。`Table4.png` 系截图命名错位（画面无 caption）。另官方 PDF 亦印证 §4.3 正文 "41.05% mIoU" 与 "2.3%" 两处原文数字照录无误（PDF 内同样如此）。
   7. §4.2 的对比均为各基线加 COTR 后（TPVFormer/SurroundOcc 基线用 $900\times 1600$ 输入而 + COTR 行用 $256\times 704$，Image Size 列已照录），严格同输入对比需注意。

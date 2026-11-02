@@ -70,3 +70,4 @@
 02:45 | fire-0143 | 入库检测×4 + VLM/VLA×7 + fix P1 + EchoFusion 卡，4 任务 2 批 | 产出 11 新库文件 + RCBEVDet 回链 + 3 笔记修正 + 1 新卡 + 5 卡修订 | validate OK(115) + index 重建 | 2 并发无限流，≈19.3M token；🎉 P0 入库 22/22 全清；HGSFusion 其余行不符会反转 cyclist 卡 → QUESTIONS #20 留主人；EchoFusion 方向反转 → #19
 03:12 | fire-0238 | fix P2（23+3 项）+ RadarOcc 消融核查立卡，2 任务 | 产出：15 笔记修正 + 11 卡修订 + 1 新卡 + RadarOcc 实验章节 72 行 | validate OK(116) + index 重建 | 2 并发无限流，≈14.9M token；BEV-Planner/QUESTIONS 出处/round3 三条回收待办；QUESTIONS +24~27
 03:45 | fire-0313 | QA round3 全库终审 + 量化 cross，2 任务 | 产出 round3-final.md + cross/quantization.md + 3 卡修订 | validate OK(116) + index 重建 | 2 并发无限流，≈12.8M token；新发现 PD-Quant/QwT 笔记数字问题 → QUESTIONS #28/#29 + fix 任务入队
+04:36 | fire-0345 | fix PD-Quant/QwT + cross VLA + README 重建 + 六项出处核查，4 任务 2 批 | 产出 vla.md + README 重写 + 6 笔记修正 + 4 卡同步 + 1 新卡（117）| validate OK(117) + index 重建 | 2 并发无限流，≈18.2M token；QwT "2.6%" 实为 cross 漏检（v1/v4 均命中）；剩 cross occupancy/精读/tool/R2 扩队

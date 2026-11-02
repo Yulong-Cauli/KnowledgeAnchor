@@ -4,8 +4,8 @@
 
 ## 本班授权（主人 2026-11-03 00:50 批复）
 
-- ✅ 直写 `library/`：草稿入库、README 重建、fix-list 修正、QUESTIONS 已授权修复（边界见 RULES.md 顶部注记）。
-- ✅ 建卡两项：EchoFusion 数字不自洽窄卡（✅ 已建）；RadarOcc 消融核查后视证据立性能卡（进行中）。
+- ✅ 直写 `library/`：草稿入库（✅ 22/22）、README 重建（✅）、fix-list 修正（✅ P1+P2 全清）、QUESTIONS 已授权修复。
+- ✅ 建卡两项：EchoFusion 数字不自洽窄卡（✅）；RadarOcc 消融核查后视证据立性能卡（✅）。
 - ⛔ 未授权：AI Infra 立卡（5 张草案留在 `suggestions/`）；改 TODO.md（笔误主人已修）；主人的 WIP（tools/ka*.mjs、selftest、serve、web/）。
 
 ## 进行中
@@ -14,22 +14,12 @@
 
 ## 待办
 
-### P0 入库流水线（每条 = 入库前逐字 QA（quote/数字/出处）→ 直写 library/ 对应目录 → validate；index 由调度班统一重建）
-
-- [ ] [README|依赖入库完成] 重建 `library/README.md`（AI Infra 3 篇 + ADe2e + 本班新入库篇目 + Efficient_Backbone/ 新目录，篇数核准）+ 根 README「**类型：**」来源头约定同步进「笔记约定」
-- [ ] [fix|P2] PD-Quant / QwT 笔记数字修正（cross/quantization.md §8 新发现 → QUESTIONS #28/#29）：PD-Quant 三张表按论文版本化正确数字重建（BRECQ 列、ResNet-50 行、Table 1/2 部分列），QwT ResNet-50 行改 arXiv v4 数字（62.3/68.5/72.5）、Mask R-CNN 行 Size 36.1MB 与 APbox 42.6→43.1 分清；**只有 cross 报告给出双源正确数字才改，改完 Grep 受影响卡铁律 3 同步；pdquant 三卡数值主张受累是否立 mismatch 卡随修正判定**；QwT §5 "2.6%/存储 2-4%" 出处未命中——查证或加注
-
-### P1 建卡与核查（已授权）
-
-- [ ] [verify|P2] BEV-Planner：开源状态（QUESTIONS #1）+ 输入分辨率 256×704 对照 PDF 复核（#2）；证据足够则直改笔记三行头部并注记〔fire-0238 认领未开跑，回收重排〕
-- [ ] [verify|P2] QUESTIONS #5 ShuffleNet CVF 出处 / #6 MobileNet V2/V3 PDF 对版 / #10 COTR 表号映射：核完直改笔记注记，结论回写 QUESTIONS〔fire-0238 认领未开跑，回收重排〕
-
 ### P2 质量线
 
 - [ ] [cross|P2] Occupancy 稀疏化：SparseOcc/NJU-SparseOcc/SurroundOcc/RadarOcc → 与 `cross/4d-radar.md` 互链
-- [ ] [cross|P2] VLA 线：UniAD/AutoVLA/OpenVLA/OpenDriveVLA/Alpamayo-R1/DrivePI
 - [ ] [report|P2] 精读：claim-map Top5 中未覆盖的 `claim-omniquant-w4a4-llama7b-zeroshot-5265`、`claim-njusparseocc-rayiou34-fps17-beats-dense-baselines`（signoff 前置）
 - [ ] [tool|P3] 新增 `tools/check-materials.mjs`：`assets/` 有素材无笔记自动检查（只新增，勿动主人 WIP）
+- [ ] [扩队|R2] QA round3 已收官、P0/P1 全清 → 对本次新入库 21 篇笔记补 [claim] 提炼（每篇 2–5 张窄卡，先确认同 id 不存在；无实验章节不硬立性能主张；建议从主人研究重点优先：BEV_Detection/、VLM_VLA/）
 
 ## 完成
 
@@ -51,3 +41,9 @@
 - [fire-0313|03:45✅] [cross|P2] 量化主线横向对比 → `nightshift/cross/quantization.md`（8 篇 + 22 卡，7 论文原文重抓复核）：比特配置矩阵 / 互证关系 S1–S5 / 口径差异 M1–M11 / 可靠性分层。**新发现：PD-Quant 笔记三张表部分数字三版本均不存在（3 卡受累）；QwT 笔记 ResNet-50 行系 v1 数字、Mask R-CNN 行误读 Size 为 AP** → QUESTIONS #28/#29 + 新 [fix] 任务入队
 
 **fire-0313 小结：QA 线三轮收官（round1→round2→round3），量化 cross 落地，validate OK(116)，index 重建。**
+- [fire-0345|04:35✅] [fix|P2] PD-Quant/QwT 笔记数字修正：PD-Quant 三表按 v3+CVF 重建（Table 1 补 R50/RegNet 列、Table 2 列序与校准值 71.09/68.26、Table 3 去 BRECQ 列）；QwT R50 行改 v4 数字、Mask R-CNN 行 Size/AP 分清、§5 补 locator（"2.6%" 原句 v1/v4 均命中——cross 报告漏检，已修正；"存储 2-4%" 仍待查）。铁律3：4 张 pdquant 卡 quote 同步 + beats-brecq/dc-bn 加「待主人裁定」。新卡 `claim-pdquant-note-table-mismatch`（117 卡）。**附赠发现：PD-Quant 附录 Table 11 存在真实 DC 消融（+0.34@1024），DC 卡有真实锚点可改写**
+- [fire-0345|04:35✅] [cross|P2] VLA 线横向对比 → `nightshift/cross/vla.md`（6 篇 + 附录 A 70 条 quote 全验）：定位矩阵 / 六条技术路线谱系 / nuScenes 三族口径分裂 / 互证 S1–S6 与单源 C1–C7。遗留 4 条 → 报告 §6
+- [fire-0345|04:35✅] [README] `library/README.md` 整体重建：11 目录 57 篇盘点（AI Infra 3、ADe2e 3、BEV_Detection 2、Efficient_Backbone 3、VLM_VLA 7 等全部补齐），71 条相对链接校验可达；「笔记约定」同步根 README「**类型：**」来源头约定；QUESTIONS #16 素材两处并存现状如实记录
+- [fire-0345|04:35✅] [verify|P2] 六项出处核查全定案（实抓）：BEV-Planner **确认开源**（GitHub API，无 LICENSE 待查）+ 分辨率 256×704 PDF 原句逐字命中；ShuffleNet **CVPR 2018 CVF 正式收录确认**（pp.6848-6856）；MobileNet **ar5iv 与官方 PDF 一致、abs 页元数据系脱节旧文**（Table 3 vs 9 系论文自身不一致，照抄维持）；COTR **表号错位假设否定**（PDF 与 HTML v2 完全一致，错的只是 Table4.png 文件名）。结论回写 QUESTIONS #31–34
+
+**fire-0345 小结：P0 全清（README ✓）+ PD-Quant/QwT 修正 + VLA cross + 六项出处定案，validate OK(117)，index 重建。剩：cross occupancy、精读×1、tool、R2 扩队。**

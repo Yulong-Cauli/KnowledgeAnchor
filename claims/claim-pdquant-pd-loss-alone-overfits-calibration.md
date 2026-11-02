@@ -11,15 +11,15 @@ stance: watch
 evidence:
   - source: library/Quantization/PD-Quant.md
     locator: "§4.2 / Table 2"
-    quote: "| PD-only                  | 70.51%              | 1.07%              |"
+    quote: "| PD-only         | 2/2            | 1.07         | 70.51         |"
     relation: supports
   - source: library/Quantization/PD-Quant.md
     locator: "§4.2 / Table 2"
-    quote: "| PD + Reg                 | 51.56%              | 49.16%             |"
+    quote: "| PD + Reg        | 2/2            | 49.16        | 71.09         |"
     relation: supports
   - source: library/Quantization/PD-Quant.md
     locator: "§4.2 / Table 2"
-    quote: "- **分析**：仅使用 PD 损失会导致严重的过拟合（校准集高，验证集低）。正则化 (Reg) 是恢复精度的关键，而分布修正 (DC) 进一步缩小了泛化差距。"
+    quote: "- **分析**：仅使用 PD 损失会导致严重的过拟合（校准集高，验证集低），正则化 (Reg) 是恢复验证精度的关键，Random Drop 进一步提升。"
     relation: supports
 falsifiers:
   - "复现中 PD-only 在 ResNet-18 W2A2 下校准/验证精度不出现大幅分离（验证精度未崩塌到个位数）"
@@ -31,6 +31,8 @@ signoff: null
 ---
 
 ## 我的理解
+
+> **2026-11-03 笔记数字修正（依据：nightshift/cross/quantization.md §8 + 实抓 URL：https://arxiv.org/pdf/2212.07048v3 、https://arxiv.org/pdf/2212.07048v1 、https://openaccess.thecvf.com/content/CVPR2023/papers/Liu_PD-Quant_Post-Training_Quantization_Based_on_Prediction_Difference_Metric_CVPR_2023_paper.pdf ，2026-11-03 抓取，pdftotext 提取，三版本一致）**：本卡核心主张（PD-only 校准 70.51% vs 验证 1.07% 的极端分离、Reg 恢复验证精度）**仍双源成立**——论文 Table 2 原值即 1.07(val)/70.51(cali) 与 49.16(val)/71.09(cali)。修正点：① 原笔记 +Reg 校准 51.56%、+Drop 校准 53.07% 两值论文中不存在（论文 Acc(cali) 为 71.09/68.26）；② 论文 Table 2 **无 DC 行**，原笔记「再加 DC 53.14%」不属于 Table 2（53.14 是 Table 3 完整方法 ResNet-18 2/2 的值）；③ 论文列序是 Acc(val) 在前、Acc(cali) 在后，原笔记表头两列写反；④ Table 2 caption 明确 ImageNet + 1024 张校准图——scope 中「校准集大小未注明」的缺口已补上。笔记已重建（含 FP 行与 W4A2 消融块），卡内 evidence quote 已同步；status 不动，主张不变。另见 claim-pdquant-note-table-mismatch。
 
 论文声称（尚未独立验证）：在 ResNet-18 W2A2 消融中，只用 PD 损失时校准集精度 70.51%、验证集精度仅 1.07%——校准与验证相差约 70 个百分点，是"校准集数字好看 ≠ 测试可用"的极端案例；加上 MSE 正则化后验证精度恢复到 49.16%（校准 51.56%），再加 Random Drop 52.74%、再加 DC 53.14%。
 

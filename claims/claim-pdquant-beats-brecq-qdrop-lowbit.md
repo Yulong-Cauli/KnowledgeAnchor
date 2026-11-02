@@ -11,15 +11,15 @@ stance: watch
 evidence:
   - source: library/Quantization/PD-Quant.md
     locator: "§4.3 / Table 3"
-    quote: "| **ResNet-18**   | 2/2           | 46.58%    | 51.42%    | **53.14%**   |"
+    quote: "| **ResNet-18**   | 2/2           | 51.42       | **53.14±0.14** |"
     relation: supports
   - source: library/Quantization/PD-Quant.md
     locator: "§4.3 / Table 3"
-    quote: "| **MNasNet**     | 2/2           | 20.33%    | 23.59%    | **27.58%**   |"
+    quote: "| **MNasNet**     | 2/2           | 23.59       | **27.58±0.60** |"
     relation: supports
   - source: library/Quantization/PD-Quant.md
     locator: "§4.3 / Table 3"
-    quote: "- **分析**：PD-Quant 在所有低比特设置下均优于基准。特别是在 MobileNet 和 MNasNet 等紧凑型网络上，由于其对分布更敏感，PD-Quant 带来的增益更加显著（最高提升 4%）。"
+    quote: "- **分析**：在笔记摘录的四个低比特设置下 PD-Quant 均高于 QDrop（+1.72 / +1.71 / +2.80 / +3.99 个百分点）。特别是在 MobileNet 和 MNasNet 等紧凑型网络上，由于其对分布更敏感，PD-Quant 带来的增益更加显著（最高接近 4 个百分点）。"
     relation: supports
 falsifiers:
   - "复现任一列出设置（ResNet-18/ResNet-50 2/2、MobileNetV2 4/2、MNasNet 2/2）中 PD-Quant 精度不高于 QDrop"
@@ -31,6 +31,8 @@ signoff: null
 ---
 
 ## 我的理解
+
+> **待主人裁定**（2026-11-03 笔记数字修正（依据：nightshift/cross/quantization.md §8 + 实抓 URL：https://arxiv.org/pdf/2212.07048v3 、https://arxiv.org/pdf/2212.07048v1 、https://openaccess.thecvf.com/content/CVPR2023/papers/Liu_PD-Quant_Post-Training_Quantization_Based_on_Prediction_Difference_Metric_CVPR_2023_paper.pdf ，2026-11-03 抓取，pdftotext 提取，三版本一致））：本卡 BRECQ 半边主张被证伪——论文 Table 3 **没有 BRECQ 基线列**（基线为 ACIQ-Mix/LAPQ/Bit-Split/AdaRound/QDrop），原笔记 BRECQ 列数字（46.58/55.33/15.11/20.33）在论文 v1/v3/CVF 三个版本中均不存在，QDrop 论文（arXiv:2203.05740v2）与 BRECQ 论文中也未命中，「PD-Quant 均高于 BRECQ」的对比在论文中不存在，**falsifier 2 被触发**。QDrop 半边主张仍成立且更强：ResNet-50 行修正为 QDrop 55.45 / PD-Quant 57.16±0.15（原 61.94/63.15 三版本均不存在），四个设置相对 QDrop 为 +1.72 / +1.71 / +2.80 / +3.99 个百分点。笔记已按论文原表重建（见 library/Quantization/PD-Quant.md §4.3 修正注记），卡内 evidence quote 已同步为新表逐字引文；卡 title/scope 内的 BRECQ 对比与 63.15% 为修正前旧数字，**不改卡 status**，改写主张（如拆掉 BRECQ 半边或整卡重述）待主人裁定。另见 claim-pdquant-note-table-mismatch。
 
 论文声称（尚未独立验证）：在笔记列出的四个低比特设置里，PD-Quant 精度全部高于 BRECQ 与 QDrop，相对 QDrop 的增益为 +1.72 / +1.21 / +2.80 / +3.99 个百分点（ResNet-18 / ResNet-50 / MobileNetV2 / MNasNet），紧凑型网络增益更大（笔记称"最高提升 4%"，对应 MNasNet 2/2 的 +3.99%）。
 

@@ -11,11 +11,11 @@ stance: watch
 evidence:
   - source: library/Quantization/PD-Quant.md
     locator: "§4.1 / Table 1"
-    quote: "| **PD (Ours)** | **28.41%** | **23.51%** |"
+    quote: "| **PD (g, Ours)** | **28.41**          | **12.27**          | **11.31**          | **6.01**           | **7.47**             | **3.17**             |"
     relation: supports
   - source: library/Quantization/PD-Quant.md
     locator: "§4.1 / Table 1"
-    quote: "| MSE           | 23.15%     | 17.55%     |"
+    quote: "| MSE (l)          | 23.15              | 10.31              | 9.23               | 4.85               | 3.71                 | 1.88                 |"
     relation: supports
   - source: library/Quantization/PD-Quant.md
     locator: "§4.1 / Table 1"
@@ -31,6 +31,8 @@ signoff: null
 ---
 
 ## 我的理解
+
+> **2026-11-03 笔记数字修正（依据：nightshift/cross/quantization.md §8 + 实抓 URL：https://arxiv.org/pdf/2212.07048v3 、https://arxiv.org/pdf/2212.07048v1 、https://openaccess.thecvf.com/content/CVPR2023/papers/Liu_PD-Quant_Post-Training_Quantization_Based_on_Prediction_Difference_Metric_CVPR_2023_paper.pdf ，2026-11-03 抓取，pdftotext 提取，三版本一致）**：原笔记 Table 1 的 Min-Max 1.83/0.81、Cosine 23.36/15.68、MSE W4A2 17.55、PD W4A2 23.51 在论文三版本中均不存在，笔记已按论文原表逐格重建（还补上了 ResNet-50 与 RegNet-600M 两组列）；W8A2 的 MSE 23.15 与 PD 28.41 两值原本就与论文一致。卡内 evidence quote 已同步为新表逐字引文。**主张方向不变且被修正后数字继续支持**：ResNet-18 W8A2/W4A2 下 PD 28.41/12.27 > MSE 23.15/10.31 > Cosine 11.09/4.15，Min-Max 行论文原文即为「-」（无数字）。另：论文 Table 1 caption 明确口径为「top-1 accuracy(%) on validation set」——本卡 scope 中「精度口径笔记均未注明」的缺口已补上（验证集 top-1）。status 不动。
 
 论文声称（尚未独立验证）：为激活缩放因子 S_a 选度量时，局部特征度量在 2-bit 激活下几乎失效——Min-Max 只有 1.83%（W8A2）/ 0.81%（W4A2），MSE 23.15% / 17.55%，Cosine 23.36% / 15.68%，而 PD（把量化误差传播到最终输出、算与全精度预测的 KL 散度）达到 28.41% / 23.51%。
 

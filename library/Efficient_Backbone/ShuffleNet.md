@@ -1,10 +1,10 @@
 # ShuffleNet: An Extremely Efficient Convolutional Neural Network for Mobile Devices
 
-**出处会议：** CVPR 2018（arXiv:1707.01083，v2 2017-12-07；Xiangyu Zhang, Xinyu Zhou, Mengxiao Lin, Jian Sun，Megvii Inc (Face++)，前两位作者标注同等贡献。注：本次抓取的 arXiv abs 页无 Comments 字段，CVPR 2018 出处系任务给定，正式版权页未核对）  
+**出处会议：** CVPR 2018（arXiv:1707.01083，v2 2017-12-07；Xiangyu Zhang, Xinyu Zhou, Mengxiao Lin, Jian Sun，Megvii Inc (Face++)，前两位作者标注同等贡献。注：本次抓取的 arXiv abs 页无 Comments 字段；2026-11-03 复核 CVF Open Access 已确认正式收录：https://openaccess.thecvf.com/content_cvpr_2018/html/Zhang_ShuffleNet_An_Extremely_CVPR_2018_paper.html 收录行原文 "Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2018"，pp. 6848-6856，bibtex Zhang_2018_CVPR；camera-ready PDF §1 同句亦作 "This report"，见文末抓取记录）  
 **是否开源：** 官方开源——https://github.com/megvii-model/ShuffleNet-Series （README 自述 "ShuffleNet Series by Megvii Research"，ShuffleNetV1 条目链接即 arXiv:1707.01083，含预训练模型下载；2026-11-02 访问核验。arXiv abs 页与 ar5iv 全文本身无代码链接；`Megvii-BaseDetection/ShuffleNet` 已 404）  
 **关键词：** 轻量级 CNN、pointwise 组卷积 (pointwise group convolution)、channel shuffle、深度可分离卷积 (depthwise separable convolution)、MobileNet 对比、ImageNet 分类、MS COCO 检测、ARM 实测加速
 
-> **Locator 约定：** 本笔记章节号（§1–§4，含 §3.1–§3.3、§4.1–§4.5）、图号（Figure 1–2）、表号（Table 1–8）均指 arXiv:1707.01083 v2 的 ar5iv HTML 版（https://ar5iv.labs.arxiv.org/html/1707.01083 ，抓取日期 2026-11-02；LaTeXML 渲染）。该版 §1 自称 "This report"，与 CVPR 2018 camera-ready 的措辞/页码可能有出入（见 TODO）。英文引号内文字为本次实际抓取的逐字原文（ar5iv 将未解析的参考文献渲染为原 cite key，如 `howard2017mobilenets`，个别引文中此类键已删去并以 … 标示删除处，其余逐字）；行内数学按渲染结果转写（$\times$→×、$\sim$→∼、$\%$→%）。所有数字均为论文声称，未经独立验证。表格逐行照抄，并经脚本对抓取文本逐行核验。
+> **Locator 约定：** 本笔记章节号（§1–§4，含 §3.1–§3.3、§4.1–§4.5）、图号（Figure 1–2）、表号（Table 1–8）均指 arXiv:1707.01083 v2 的 ar5iv HTML 版（https://ar5iv.labs.arxiv.org/html/1707.01083 ，抓取日期 2026-11-02；LaTeXML 渲染）。该版 §1 自称 "This report"（2026-11-03 复核：CVPR 2018 camera-ready 同句亦作 "This report"，措辞并非 v2 独有，见文末抓取记录）。英文引号内文字为本次实际抓取的逐字原文（ar5iv 将未解析的参考文献渲染为原 cite key，如 `howard2017mobilenets`，个别引文中此类键已删去并以 … 标示删除处，其余逐字）；行内数学按渲染结果转写（$\times$→×、$\sim$→∼、$\%$→%）。所有数字均为论文声称，未经独立验证。表格逐行照抄，并经脚本对抓取文本逐行核验。
 
 ---
 
@@ -269,8 +269,8 @@ Faster-RCNN（Caffe 公开实现，默认设置），COCO train+val 训练、min
 
 - [x] 库内既有素材内容核对（2026-11-03 入库）：`library/assets/ShuffleNet/Figure_ExperimentComparison.png` 逐张查看图片内容后确认——图例为 "Xception / ShuffleNet v1 / MobileNet v2 / **ShuffleNet v2 (Ours)**"，四个面板为 GPU/ARM 上吞吐 vs 精度、吞吐 vs MFLOPs 散点，属 **ShuffleNet V2 论文**（Ma et al., ECCV 2018）的实验对比图，**不是本文（ShuffleNet V1, arXiv:1707.01083）的 Figure 1/2**。按「逐张核对内容再引用」纪律，该图**不回填、不引用**到本笔记（素材文件名与论文内容错位的实锤案例）。
 - [ ] 配图仍缺（不新建 assets 目录）：本文 Figure 1（channel shuffle 图示）、Figure 2（ShuffleNet units）无对应素材，留 TODO，待补抓或用户提供。
-- [ ] 本文为 arXiv v2（2017-12-07）ar5iv HTML 版抓取；CVPR 2018 camera-ready 的页码与措辞未核对（v2 §1 自称 "This report"）。如需页码级 locator 或正式版权页/Comments 字段佐证出处，需补抓 CVF Open Access 版。
-- [ ] Table 1 的 "Image" 行在 g=1–8 各列均为 "3"（按抓取 HTML 逐字转录，应为输入 3 通道图的标注）；未与 CVPR 版核对，如疑为渲染错位需对照 PDF。
+- [x] 本文为 arXiv v2（2017-12-07）ar5iv HTML 版抓取；CVPR 2018 camera-ready 已于 2026-11-03 补抓 CVF Open Access 版核对——出处行确认 CVPR 2018 正式收录（pp. 6848-6856），且 camera-ready §1 同句亦作 "This report"（非 v2 独有措辞），见文末抓取记录。
+- [x] Table 1 的 "Image" 行在 g=1–8 各列均为 "3"（按抓取 HTML 逐字转录，应为输入 3 通道图的标注）；2026-11-03 已对照 CVF camera-ready PDF：同表 "Image" 行各 g 列同为 3、Conv1 行同为 24，与 ar5iv 转录一致，非渲染错位。
 - [ ] 预训练模型可用性未实测（官方仓库给出 OneDrive/BaiduYun 链接，未逐一验证可下载）。
 - [ ] 入库 QA 记录（2026-11-03）：本笔记由草稿（`nightshift/drafts/ShuffleNet.md`，保留不删）逐字复制入库；英文引句 49 条（含重复出现共 53 处）经脚本验证在草稿文本中逐字存在（自洽检查；论文源核验于草稿创建时完成，见「抓取记录」，本次 /tmp 抓取产物已不在，未重抓）；8 处数字抽查与表格行一致——摘要 "absolute 7.8% lower" = Table 5（0.25 MobileNet-224 49.4 − ShuffleNet 0.5×(g=4) 41.6 = 7.8）；§4.1.1 组卷积增益 1.2%/3.5%/4.4% = Table 2（33.6−32.4、45.1−41.6、57.1−52.7）验算成立；Table 3 Δ 列抽核 0.5x(g=8) 5.8 = 48.1−42.3；§4.3 "500 MFLOPs 量级准 3.1%" = Table 5（29.4−26.3）；实测 ~13× 加速与 Table 8（AlexNet 184.0ms / ShuffleNet 0.5× 15.2ms，184.0/15.2≈12.1，论文口径 ∼13×；理论 720/38≈18.9 与 "18×" 相容）；Table 6 0.5× 41.6 vs AlexNet 42.8 "精度相当"；§2 NASNet 引句 "26.3% @ 524 MFLOPs" = Table 5/6 ShuffleNet 2×(g=3) 行。尚未经用户审阅。
 
@@ -279,4 +279,6 @@ Faster-RCNN（Caffe 公开实现，默认设置），COCO train+val 训练、min
 - abs 页：https://arxiv.org/abs/1707.01083 （抓取日期 2026-11-02；标题 "ShuffleNet: An Extremely Efficient Convolutional Neural Network for Mobile Devices"，与任务给定标题一致；作者 Xiangyu Zhang, Xinyu Zhou, Mengxiao Lin, Jian Sun；v1 2017-07-04，v2 2017-12-07；Comments 字段缺失）
 - 全文：https://ar5iv.labs.arxiv.org/html/1707.01083 （抓取日期 2026-11-02，LaTeXML 渲染版；§1–§4、Table 1–8 均出自该版并经脚本逐行核验；公式为 LaTeX 转写）
 - 开源核验：https://github.com/megvii-model/ShuffleNet-Series （抓取日期 2026-11-02，HTTP 200，README 自述 "ShuffleNet Series by Megvii Research"，ShuffleNetV1 链接 arXiv:1707.01083）；另核验 https://github.com/Megvii-BaseDetection/ShuffleNet 返回 404
+- CVF Open Access 收录页：https://openaccess.thecvf.com/content_cvpr_2018/html/Zhang_ShuffleNet_An_Extremely_CVPR_2018_paper.html （抓取日期 2026-11-03；标题/作者与 arXiv 一致，收录行原文 "Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2018"，pp. 6848-6856，bibtex @InProceedings{Zhang_2018_CVPR}）
+- CVF camera-ready PDF：https://openaccess.thecvf.com/content_cvpr_2018/papers/Zhang_ShuffleNet_An_Extremely_CVPR_2018_paper.pdf （抓取日期 2026-11-03，9 页，pdftotext 提取；§1 首段同句作 "This report examines the opposite extreme..."，与 arXiv v2 一致；Table 1 "Image" 行各 g 列均为 3、Conv1 行均为 24，与 ar5iv 转录一致）
 - 入库：2026-11-03，经逐字 QA 后写入 `library/Efficient_Backbone/ShuffleNet.md`（草稿保留于 `nightshift/drafts/ShuffleNet.md` 未删除）。
