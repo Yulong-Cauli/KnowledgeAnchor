@@ -10,18 +10,17 @@
 
 ## 进行中
 
-- [fire-0106] [入库|检测] `drafts/BEVDet.md`、`PillarNet.md`、`MIT-BEVFusion.md`、`RCBEVDetPP.md` → 按内容归入现有分类或新建目录（RCBEVDetPP 与 `Multimodal_Fusion/RCBEVDet.md` 同区并互链；草稿内原文疑点均照抄加注）
-- [fire-0106] [入库|骨干] `drafts/DeepCompression.md`、`LSQ.md`、`MobileNet.md`、`MobileOne.md`、`ShuffleNet.md` → 高效骨干/压缩目录（可新建）
-- [fire-0106] [入库|VLM/VLA] `drafts/LLaVA.md`、`Qwen3VL.md`、`OpenVLA.md`、`OpenDriveVLA.md`、`OneVL.md`、`DrivePI.md` → VLM/VLA 目录（可新建）；`drafts/Alpamago.md` → **更名 `Alpamayo-R1.md`** 入库（QUESTIONS #6/#7 的版本/标题 caveat 写进笔记头部）
-- [fire-0106] [入库|其他] `drafts/COTR.md`、`MSMDFusion.md`（COTR 表号错位见 QUESTIONS #10，注记即可）
+（空）
 
 ## 待办
 
 ### P0 入库流水线（每条 = 入库前逐字 QA（quote/数字/出处）→ 直写 library/ 对应目录 → validate；index 由调度班统一重建）
 
+- [ ] [入库|检测] `drafts/BEVDet.md`、`PillarNet.md`、`MIT-BEVFusion.md`、`RCBEVDetPP.md` → 按内容归入现有分类或新建目录（RCBEVDetPP 与 `Multimodal_Fusion/RCBEVDet.md` 同区并互链；草稿内原文疑点均照抄加注）〔fire-0106 认领未开跑，回收重排〕
+- [ ] [入库|VLM/VLA] `drafts/LLaVA.md`、`Qwen3VL.md`、`OpenVLA.md`、`OpenDriveVLA.md`、`OneVL.md`、`DrivePI.md` → 新建 `library/VLM_VLA/`；`drafts/Alpamago.md` → **更名 `Alpamayo-R1.md`** 入库（QUESTIONS #6/#7 的版本/标题 caveat 写进笔记头部）〔fire-0106 认领未开跑，回收重排〕
 - [ ] [fix|P1] `library-fix-list.md` 六处 P1 数字正确性（EMC2/OmniQuant/HGSFusion/EchoFusion）：修笔记 + Grep 全库受影响卡 quote 同步更新/加注；OmniQuant 表格混列修完在 `claim-omniquant-note-table-mismatch` 加「笔记已修正」附注（status 不动）
 - [ ] [fix|P2] fix-list 其余 23 处 + QUESTIONS #12 VQ-Map 乱码「细□度」→「细粒度」+ 回填 arXiv 号（VQ-Map 2411.01618、Ali-BEVFusion 2205.13790、MQBench 2111.03759，写入笔记头部并注记来源）
-- [ ] [README|依赖入库完成] 重建 `library/README.md`（AI Infra 3 篇 + ADe2e + 本班新入库篇目，篇数核准）+ 根 README「**类型：**」来源头约定同步进「笔记约定」
+- [ ] [README|依赖入库完成] 重建 `library/README.md`（AI Infra 3 篇 + ADe2e + 本班新入库篇目 + Efficient_Backbone/ 新目录，篇数核准）+ 根 README「**类型：**」来源头约定同步进「笔记约定」
 
 ### P1 建卡与核查（已授权）
 
@@ -41,6 +40,9 @@
 
 ## 完成
 
-（本班完成后移入并注产出路径）
 - [fire-0106|01:25✅] [入库|ADe2e] UniAD.md、AutoVLA.md → `library/ADe2e/`（273/265 行；195 处引文自洽、31 项数字抽查吻合、⚠ 注记保留、7 处配图回填）。遗留：素材在 library/ADe2e/<论文名>/ 非 assets/ 约定处（留主人）；缺图清单在笔记 TODO
 - [fire-0106|01:25✅] [入库|量化] BRCEQ → **更名 `library/Quantization/BRECQ.md`**（360 行，ICLR 2021 出处 caveat 头部如实标注）；QLoRA.md → `library/Quantization/`（309 行，215 处引文自洽、14 项数字抽查吻合，10 张素材图逐一核对内容后嵌入）。遗留：`assets/QLoRA/Fig3.png` 来源不明未嵌入（素材登记已注明）；3 张素材文件名与论文编号错位（caption 已标注）
+- [fire-0106|01:44✅] [入库|骨干] DeepCompression.md、LSQ.md → `library/Quantization/`（233/268 行）；MobileNet.md、MobileOne.md、ShuffleNet.md → 新建 `library/Efficient_Backbone/`（635/537/282 行）。361 条引句全自洽 0 失败，16 张素材逐张核对回填 13 张。遗留：ShuffleNet 唯一素材图实为 V2 论文图（素材错位实锤，未引用已注记）；LSQ Equation2.png 实为式(3)；MobileNet V1/V2 MAdds 跨论文口径差记入笔记遗留
+- [fire-0106|01:44✅] [入库|其他] COTR.md → `library/3D_Occupancy/`（300 行，64/64 引文对照实抓 HTML v2 逐字 PASS，表号错位 caveat 落位）；MSMDFusion.md → `library/Multimodal_Fusion/`（314 行，67/67 引文 PASS，Table7.png=Figure 6 caveat 落位）。遗留：COTR 三处原文不一致照录待对官方 PDF；Figure 6 数值系目视抄录
+
+**fire-0106 小结：入库 11/22 篇（4113 行），validate OK(114)，index 重建。剩检测×4 + VLM/VLA×7 待下一班。**

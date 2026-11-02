@@ -17,3 +17,11 @@
 11. **RadarOcc 消融表待查**：RadarOcc 笔记缺实验章节（止于损失函数小节），4 张新卡因此全部立为窄卡。若论文原文有 SSS/DBD/S2C 消融表，可补笔记后另立性能卡——补 library 笔记需你同意，是否要做？
 12. **VQ-Map 笔记乱码**：`library/Quantization/VQ-Map.md` §4.1 分析行约 105 行处有乱码"细□度"（疑为"细粒度"），请人工修复。另 VQ-Map 四张新卡均基于笔记单源自报数字，笔记未给 arXiv 号，引用前建议对原文核对。
 13. **OmniQuant 笔记表格混列（重要）**：对照 arXiv v3 camera-ready + v1 PDF 核实——笔记「实验 1」表头 LLaMA-13B W2A16 列下的数字（44.01 / 2.6e5 / 9.72）实为 LLaMA-1-7B W2A16g128 列；「实验 4」FP16 基线行（~26GB / ~40tok/s / >2×）与原表（24.3 / 27.1 / 52.5，实际加速 ~1.74×）不符。note-mismatch 卡已排队（agent 可合法创建）；library/ 修正请你处理。
+
+## 2026-11-03 fire-0106（入库批 1–2）
+
+14. **assets/QLoRA/Fig3.png 来源不明**：Speedup–Params 图（图例含 A40/RTX 4090 等），经核不在 QLoRA 论文 v1 HTML 内（正文图仅至 Figure 6，无该图与 "A40"/"Speedup" 字样），未嵌入正文、仅素材登记注明。是否删除/保留由你定。
+15. **ShuffleNet 素材错位实锤**：库内唯一 ShuffleNet 素材 `Figure_ExperimentComparison.png` 图例为 "ShuffleNet v2 (Ours)"，属 V2 论文而非本文 Figure 1/2；笔记未引用（TODO 已注记）。是否补抓 V1 原图由你定。
+16. **ADe2e 素材目录位置**：UniAD/AutoVLA 素材在 `library/ADe2e/<论文名>/` 而非 README 约定的 `assets/<论文名>/`；本次未迁移（不擅动主人素材）。要么迁移要么改约定——README 重建任务（P0 尾）等这条结论。
+17. **COTR 表号映射（原 #10 跟进）**：入库版已把「Table4.png 内容=HTML v2 Table 3」caveat 落进笔记 Locator 注与 §3.3 配图注；PDF↔HTML 表号整体错位仍待对官方 PDF 定位（另三处原文数字不一致照录）。
+18. **MobileNet V1/V2 MAdds 跨论文口径差**：V1 Table 6 569M vs V2 Table 4 575M（疑同规格），已记入 MobileNet 笔记遗留 8；两表数字不要跨论文混用。
