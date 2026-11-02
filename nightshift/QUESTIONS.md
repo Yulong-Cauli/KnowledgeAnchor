@@ -40,3 +40,9 @@
 25. **两张 note-artifact 卡 falsifier 已触发**：笔记残留（CenterNet 引用编号、SparseOcc 对话式残留）已随 fix P2 修复，`claim-centernetpoints-note-citation-artifacts` 与 `claim-sparseocc-note-conversational-residue` 的"已修复改写或删除"分支成立，卡内已加「笔记已修正」附注；status 处置（stale）只能由你手工定。
 26. **RadarOcc 三条遗留**：① `claim-radarocc-dbd-compresses-doppler-to-8-descriptors` 的 falsifier 部分触发——DBD 消融增益 ≤0.7 且方向混杂（25.6m 四列 w/o DBD 反略高），是否降级由你定；② 笔记旧文"Focal Loss"与原文 §4.6 cross-entropy 不符（已加注未改）；③ 附录 Table 6：验证集 mIoU@12.8m 峰值在 Nr=450 而非选用的 250（SSS 增益对 Nr 敏感，已录入新卡与笔记）。新性能卡 `claim-radarocc-sss-ablation-gain-10p2`（SSS→percentile 掉 10.2 mIoU）已立，scope/falsifiers 齐全。
 27. **零碎**：① FCOS 卡 title/scope 仍写"未注明出处"，可按新加的出处定位附注更新（留你）；② `library/Math_and_Notes/四元数.md` L189/L361 有同类句尾残留「10」「17」（fix-list 范围外，未动）；③ RadarOcc 笔记"恶劣天气优势"仅定性图无数值、"comparable to 16-beam LiDAR"系论文自评（mIoU@51.2m 实落后 5.6 点，已照录加注）。
+
+## 2026-11-03 fire-0313（QA round3 + 量化 cross）
+
+28. **PD-Quant 笔记三张表部分数字三版本均不存在（重要）**：cross 报告对照 v1/v3/CVF 三版本逐格复核——BRECQ 列、ResNet-50 行、Table 1 的 Min-Max/Cosine/W4A2 列、Table 2 的 +DC 行 53.33/53.14 与两个校准值在论文任何版本都找不到。三张 pdquant 卡（pd-metric-beats-mse-cosine / pd-loss-alone-overfits-calibration / beats-brecq-qdrop）数值主张受累。修正数字 cross 报告已给出（版本化），是否照修 + 是否立 note-mismatch 卡，待你确认（也排入了 QUEUE [fix|P2]）。
+29. **QwT 笔记两处 + 一处出处未命中**：① ResNet-50 行是 arXiv v1 数字（v4 已改 62.3/68.5/72.5）；② Mask R-CNN 行把 Size 36.1MB 误读为 APbox（实际 42.6→43.1）；③ §5 "2.6%/存储 2-4%" 出处未命中。修法同 #28（cross 报告有正确数字）。
+30. **BRECQ 建卡建议**：cross 报告发现 BRECQ 已入库但 0 张卡（量化主线唯一缺口）；如需要可在下班按 R2 补 2–3 张窄卡，是否要建由你定。

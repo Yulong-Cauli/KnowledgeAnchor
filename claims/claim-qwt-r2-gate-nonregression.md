@@ -11,7 +11,7 @@ stance: watch
 evidence:
   - source: library/Quantization/QwT.md
     locator: "§3 / 论文第 3 节"
-    quote: "如果 R² ≤ 0：说明线性拟合失败，强制令 W=0, b=0"
+    quote: "**如果 $R^2 \le 0$**：说明线性拟合失败，强制令 $W=0, b=0$ 。"
     relation: supports
   - source: library/Quantization/QwT.md
     locator: "§3"
@@ -27,7 +27,7 @@ signoff: null
 
 ## 我的理解
 
-> 附注（2026-11-03，笔记修正同步）：笔记 L101「意义」句后已按 verify 报告 §4 建议 1/3 加限定——标注该句为笔记概括，论文「理论上不会更差」仅覆盖 R²≤0 置零分支，R²>0 分支仅校准集意义下成立、测试集为经验观察（补充材料 Table 4 含 BoolQ −0.03 / HellaSwag −0.51 逐数据集退化实例）。本卡 evidence quote 2 所引原句未改动；verify §4 对本卡的拆分主张 / 增补论文原文 evidence 等建议仍待主人定夺，本卡未动。
+> 附注（2026-11-03，笔记修正同步）：笔记 L101「意义」句后已按 verify 报告 §4 建议 1/3 加限定——标注该句为笔记概括，论文「理论上不会更差」仅覆盖 R²≤0 置零分支，R²>0 分支仅校准集意义下成立、测试集为经验观察（补充材料 Table 4 含 BoolQ −0.03 / HellaSwag −0.51 逐数据集退化实例）。本卡 evidence quote 2 所引原句未改动；verify §4 对本卡的拆分主张 / 增补论文原文 evidence 等建议仍待主人定夺，本卡未动。另 round3 终审（2026-11-03）：evidence quote 1 原为笔记该行的去 LaTeX 转写（「R² ≤ 0」），从未逐字命中，已同步为笔记原句逐字引文（仅换引文写法，未引入新事实，主张与 status 不变）。
 
 按论文描述，R² ≤ 0 时令 W=0、b=0，补偿后的模型与原 PTQ 模型完全一致，这一部分是逻辑上的兜底。但 R² > 0 只说明线性补偿在校准集上解释了部分残差，**不保证测试集上一定不退化**。
 
