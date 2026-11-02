@@ -17,10 +17,6 @@
 ### P2 质量线
 
 - [ ] [tool|P3] 新增 `tools/check-materials.mjs`：`assets/` 有素材无笔记自动检查（只新增，勿动主人 WIP）
-- [ ] [fix|P2] NJU-SparseOcc / SparseOcc 笔记修正（精读报告实抓定案，evidence 在 `nightshift/reports/njusparseocc-rayiou-deep-read.md` 与 `cross/occupancy-sparsification.md` §3-M6）：①NJU 笔记 L93/L94 基线行 BEVFormer 32.2/2.3→32.4/3.0、FB-Occ 33.7/5.2→33.5/10.3（全版本核对）；②SparseOcc「约 80% 体素为空」→67%（SemanticKITTI GT 口径）；③铁律3 同步主卡 claim-njusparseocc-rayiou34-fps17-beats-dense-baselines（title 阈值 33.7→33.5、FPS 倍数 3.3×/7.5×→1.68×/5.77×、scope/falsifier 措辞）与 sparseocc 卡「80%」相关表述；④w2a16g128 卡过期 locator 括注同步（OmniQuant 笔记修正的收尾）；⑤OmniQuant 卡 scope 若写"5 数据集"改"六任务平均"（52.65 系 PIQA/ARC-e/ARC-c/BoolQ/HellaSwag/Winogrande 六任务）
-- [ ] [R2|扩队-a] 量化组新入库 4 篇补卡：BRECQ（0 卡，QUESTIONS #30 建议采纳）、DeepCompression、LSQ、QLoRA → 每篇 2–4 张窄卡（方法/消融主张；QLoRA 有实验表可立 2–3 张；先 ls 确认同 id 不存在）
-- [ ] [R2|扩队-b] 骨干组新入库 3 篇补卡：MobileNet（V1/V2/V3 合一，注意跨版本口径）、MobileOne、ShuffleNet → 每篇 2–3 张设计窄卡
-- [ ] [R2|扩队-c] 检测组新入库 4 篇补卡：BEVDet、PillarNet、MIT-BEVFusion、RCBEVDetPP → 每篇 2–4 张窄卡（草稿内原文疑点照抄加注，勿硬立 SOTA 主张）
 - [ ] [R2|扩队-d] VLM/VLA 组新入库 7 篇补卡：LLaVA、Qwen3-VL、OpenVLA、OpenDriveVLA、OneVL、DrivePI、Alpamayo-R1 → 每篇 2–3 张窄卡（评测数字注意版本与口径）
 - [ ] [R2|扩队-e] 其余新入库 4 篇补卡：UniAD、AutoVLA（ADe2e）+ COTR、MSMDFusion → 每篇 2–4 张窄卡（UniAD 注意"四套不可混用数字"，见 reports/bevplanner-deep-read.md）
 - [ ] [扩队|R2] QA round3 已收官、P0/P1 全清 → 对本次新入库 21 篇笔记补 [claim] 提炼（每篇 2–5 张窄卡，先确认同 id 不存在；无实验章节不硬立性能主张；建议从主人研究重点优先：BEV_Detection/、VLM_VLA/）
@@ -55,3 +51,7 @@
 - [fire-0423|05:09✅] [report|P2] 精读×2（signoff 前置）：`omniquant-w4a4-deep-read.md`（52.65=六任务平均确认双口径互证，主卡 **★★★**，笔记修正后 4 表与 v3 逐格零差异）+ `njusparseocc-rayiou-deep-read.md`（34.0/17.3 三处自洽 ★★★，但卡现状 ★★——基线行来源不明坐实、倍数缩水 3.3×→1.68×；RayIoU 系本文提出，"引用各自原文"falsifier 结构性排除）
 
 **fire-0423 小结：cross 3/3 全清、精读×2 落地（signoff 前置材料齐），validate OK(117)，index 重建。R2 扩队五批入队（21 篇待补卡）。**
+- [fire-0510|05:50✅] [fix|P2] NJU 基线行修正（32.4/3.0、33.5/10.3 + Fig.4 混入溯源注记，v5 Table 1 实抓逐格确认）+ 主卡铁律3 同步（title 阈值 33.5、倍数 1.68×/5.77×、falsifier 改写，status 未动）+ OmniQuant w2a16g128 过期括注更新。**⚠ 拒绝盲改：SparseOcc 80% 与 67% 在 v1 系两个口径并存（§3.1 LSS 特征体 / §1 GT 口径），cross 报告"80% 未检得"系提取遗漏——保留 80% 补双口径注记**（→ QUESTIONS #38）
+- [fire-0510|05:50✅] [R2|扩队-a/b/c] 新入库 11 篇补卡 **29 张**（117→146）：量化组 12（BRECQ 3/DeepCompression 3/LSQ 2/QLoRA 4）+ 骨干组 7（MobileNet 3/MobileOne 2/ShuffleNet 2）+ 检测组 10（BEVDet 3/PillarNet 2/MIT-BEVFusion 3/RCBEVDetPP 2）。60+48+78 条 evidence quote 逐字 Grep 验证，关键表格实抓逐行复核。**子代理两处主动否决无据候选**（BEVDet 稀疏查询/PillarNet SAN-GEV 笔记无对应，按铁律 4 不建）——纪律在线
+
+**fire-0510 小结：NJU falsifier 修复 + R2 扩队 29 卡（146 卡），validate OK(146)，index 重建。剩：tool、R2-d（VLM/VLA 7 篇）、R2-e（其余 4 篇）。**

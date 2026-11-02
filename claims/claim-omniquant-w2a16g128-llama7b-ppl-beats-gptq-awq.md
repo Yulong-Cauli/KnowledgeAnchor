@@ -10,7 +10,7 @@ paper: "ICLR 2024, OmniQuant: Omnidirectionally Calibrated Quantization for Larg
 stance: watch
 evidence:
   - source: library/Quantization/OmniQuant.md
-    locator: "§4 / 实验 1：W2A16（笔记表头标 LLaMA-13B）"
+    locator: "§4 / 实验 1：W2A16（笔记表头已于 2026-11-03 修正为 LLaMA-1-7B W2A16g128；修正前标 LLaMA-13B）"
     quote: "| **GPTQ**      | 44.01               | **不可用**，精度损失巨大 |"
     relation: supports
   - source: library/Quantization/OmniQuant.md
@@ -44,6 +44,8 @@ signoff: null
 ---
 
 ## 我的理解
+
+> 修订注记（2026-11-03）：OmniQuant 笔记实验 1 表头已按 camera-ready 归因修正为「LLaMA-1-7B W2A16g128」并补 RTN 1.9e3（GPTQ 44.01 / AWQ 2.6e5 / OmniQuant 9.72 三值不变，本卡三条笔记 quote 逐字仍有效），本卡 evidence 第一条 locator 的过期括注（「笔记表头标 LLaMA-13B」）已同步更新。修正依据与过程见 [笔记表格错位卡](claim-omniquant-note-table-mismatch.md)；限定 1 中「笔记表格待修正」至此完成，其余描述按历史记录保留。本卡主张、scope 与 status 不变。
 
 论文声称（asserted，尚未独立验证）：在 2-bit 权重、128 分组的 W2A16g128 设置下，OmniQuant 把 LLaMA-1-7B 的 WikiText2 PPL 做到 9.72，而 GPTQ (44.01) 与 AWQ (2.6e5) 均失效、RTN 完全乱码——即极低比特 weight-only 场景中，可学习裁剪阈值（LWC）相对手工规则有数量级优势。
 

@@ -21,11 +21,13 @@
 
 ### 2.1 稀疏潜变量表示 (Sparse Latent Representation)
 
-利用 Lift-Splat-Shoot (LSS) 将 2D 特征映射到 3D 空间后，由于射线投射的特性，约 80% 的体素是空的。SparseOcc 仅保留非空体素，并使用**坐标格式（COO）**存储稀疏张量：
+利用 Lift-Splat-Shoot (LSS) 将 2D 特征映射到 3D 空间后，由于射线投射的特性，约 80% 的体素是空的（原文 §3.1："Notably, we observe that approximately 80% of the voxels in V are empty. This sparsity arises due to the nature of LSS, where 2D features are cast through ray casting and become sparser in distant regions."）。原文 §1 另给出一处口径不同的统计：considered 3D space 约 67% 为空（"approximately 67% of the considered 3D space is empty"，脚注 1 注明统计基于 SemanticKITTI 前 10 序列的 GT 占据标签）——80% 与 67% 并存于原文、口径不同，引用时勿混用。SparseOcc 仅保留非空体素，并使用**坐标格式（COO）**存储稀疏张量：
 $$
 V = \{(p_i = [x_i, y_i, z_i] \in \mathbb{R}^3, f_i \in \mathbb{R}^C) | i = 1, 2, ... N\}
 $$
 其中 $N$ 是非空体素的数量，$p_i$ 和 $f_i$ 分别表示第 $i$ 个体素的坐标和特征。后续所有操作均在稀疏表示上进行。
+
+> 勘误注记（2026-11-03）：本节两句统计已实抓 arXiv:2404.09502v1（唯一 arXiv 版本，https://arxiv.org/pdf/2404.09502v1 ，pdftotext 提取，2026-11-03 抓取逐字核对）复核——「约 80%」句与原文 §3.1 一致（80% 指 LSS 提升所得稠密特征体 V 中的空体素占比），原稿数字无误，本次仅补引文与口径；`nightshift/cross/occupancy-sparsification.md` §3-M7 曾记「"80%" 在 v1 全文未检得、笔记 80% 与原文 67% 不符」，系其提取遗漏，v1 中 80%（§3.1，LSS 特征体口径）与 67%（§1，considered 3D space、SemanticKITTI 前 10 序列 GT 口径）并存。
 
 ### 2.2 稀疏潜层扩散器 (Sparse Latent Diffuser)
 

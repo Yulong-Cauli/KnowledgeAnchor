@@ -59,3 +59,8 @@
 35. **NJU-SparseOcc 主卡 falsifier 触发（重要）**：精读实抓 v1–v5 全版本——笔记基线行 BEVFormer 32.2/2.3、FB-Occ 33.7/5.2 与全部版本不符（camera-ready Table 1 实为 32.4/3.0、33.5/10.3，32.2 疑混入 Fig.4 单场景面板）；该组数字在 Occ3D 论文/官方 README 均查不到（来源不明坐实）。RayIoU 34.0 仍高于两基线（方向不反转）但 FPS 倍数缩水（3.3×→1.68×、7.5×→5.77×）。修正方案已排 QUEUE [fix]；主卡 title 阈值 33.7→33.5、倍数措辞需你过目。
 36. **SparseOcc 笔记「约 80% 体素为空」实为 67%**（SemanticKITTI GT 口径）；「SMAE」任务标签在 arXiv 唯一版本中未检得（出处请指认）；NJU 剪枝实现系 top-k=32000 非阈值、复杂度 big-O 系笔记形式化（原文无 complexity 字样）——引用 mgss/decoder-pruning 卡时勿把"笔记无消融"读成"论文无"（论文 Table 3 有）。
 37. **OmniQuant 52.65 系六任务平均**（PIQA/ARC-e/ARC-c/BoolQ/HellaSwag/Winogrande），cross 报告曾写"5 数据集"系笔误；主卡精读评级 ★★★（Table 2/A2 双口径互证，笔记修正后零差异）。signoff 材料已齐：`nightshift/reports/omniquant-w4a4-deep-read.md`。
+
+## 2026-11-03 fire-0510（NJU fix + R2 扩队 a/b/c）
+
+38. **SparseOcc「80%」勘误（#36 部分撤回）**：fix 班实抓发现 v1 同时存在 80%（§3.1，LSS 特征体素口径，与笔记句逐字对应）与 67%（§1 脚注，SemanticKITTI 前 10 序列 GT 口径）——cross 报告 §3-M7「80% 未检得」系提取遗漏，笔记句保留并补双口径注记。引用时注意分清口径。
+39. **NJU 笔记 L99/L100 遗留**：「低分辨率阶段抹除>90%」与「15帧」两处口径注仍未修（本轮授权仅 L93/L94）；Table 1 基线行产生方式（复训 or 重评测）论文无明文，建议向官方仓库提 issue 后回填主卡。

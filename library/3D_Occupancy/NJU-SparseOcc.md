@@ -90,9 +90,11 @@ $$
 
 | **方法架构**  | **3D 表示范式**            | **时序输入** | **RayIoU** | **FPS (推理速度)** |
 | ------------- | -------------------------- | ------------ | ---------- | ------------------ |
-| BEVFormer     | 稠密 (Dense Cost Volume)   | 4帧          | 32.2       | 2.3                |
-| FB-Occ        | 稠密 (Dense Cost Volume)   | 16帧         | 33.7       | 5.2                |
+| BEVFormer     | 稠密 (Dense Cost Volume)   | 4帧          | 32.4       | 3.0                |
+| FB-Occ        | 稠密 (Dense Cost Volume)   | 16帧         | 33.5       | 10.3               |
 | **SparseOcc** | **全稀疏 (Sparse Tokens)** | **7帧**      | **34.0**   | **17.3**           |
+
+> 修正注记（2026-11-03）：本表两条基线行原稿写作 BEVFormer 32.2 / 2.3、FB-Occ 33.7 / 5.2，与 ECCV 2024 camera-ready Table 1 不符，已按 arXiv:2312.17118v5（[cs.CV] 19 Jul 2024，https://arxiv.org/pdf/2312.17118v5 ，pdftotext 提取，2026-11-03 抓取逐格核对）Table 1（p.8）修正为 BEVFormer (4f) R101 32.4 / 3.0、FB-Occ (16f) R50 33.5 / 10.3；同表 SparseOcc (8f) 行 34.0 / 17.3 与本表主行一致。旧值 32.2 系混入 v5 Fig.4 单场景可视化面板数（该面板原文为 "mIoU: 23.2 RayIoU: 32.2"，BEVFormer wo/ mask 的单场景示意，非基准表数据）；33.7 在 v5 仅见于 Table 4 BEVFormer 行的逐类数值，5.2 未在 v5 任何表中作为基线 FPS 出现（v1–v4 逐版本排查见 `nightshift/reports/njusparseocc-rayiou-deep-read.md` §1.2–§1.3）。帧数口径：Table 1 行标 4f / 16f / 8f（含当前帧），摘要计 "7 history frames inputs"（2026-11-03 实抓核对），本表 SparseOcc 行「7帧」为摘要口径。
 
 **底层逻辑支撑**：
 
