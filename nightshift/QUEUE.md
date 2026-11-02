@@ -16,10 +16,8 @@
 
 ### P2 质量线
 
-- [ ] [tool|P3] 新增 `tools/check-materials.mjs`：`assets/` 有素材无笔记自动检查（只新增，勿动主人 WIP）
-- [ ] [R2|扩队-d] VLM/VLA 组新入库 7 篇补卡：LLaVA、Qwen3-VL、OpenVLA、OpenDriveVLA、OneVL、DrivePI、Alpamayo-R1 → 每篇 2–3 张窄卡（评测数字注意版本与口径）
-- [ ] [R2|扩队-e] 其余新入库 4 篇补卡：UniAD、AutoVLA（ADe2e）+ COTR、MSMDFusion → 每篇 2–4 张窄卡（UniAD 注意"四套不可混用数字"，见 reports/bevplanner-deep-read.md）
-- [ ] [扩队|R2] QA round3 已收官、P0/P1 全清 → 对本次新入库 21 篇笔记补 [claim] 提炼（每篇 2–5 张窄卡，先确认同 id 不存在；无实验章节不硬立性能主张；建议从主人研究重点优先：BEV_Detection/、VLM_VLA/）
+- [ ] [R2|二轮补卡] 首轮 21 篇已有卡；以下为各班记录的"预算内未立"候选（先 ls 确认同 id 不存在）：PillarNet nuScenes test 快照（69.6/70.8/71.4 NDS @ 14/13/12 FPS，Table 1）、LSQ §3.6 负面发现卡（学到的步长不最小化量化误差）、MobileNetV3 SE/NAS/h-swish 设计卡、ShuffleNet "优于 MobileNet" Table 5 对比卡（窄口径）、AutoVLA nuScenes/Waymo 表现卡、MSMDFusion 多尺度融合 +2% mAP 卡（Table 5）、UniAD "两预测任务缺一不可"（Table 2 中间行需先补笔记摘录——若笔记无该行则不建）
+- [ ] [R3|晨报前] 若队列空：为收班晨报整理一页"值班总账摘要"（各类型产出计数 + signoff 材料就绪清单：QwT verify 报告 + omniquant-w4a4 精读 ★★★ + njusparseocc 精读 ★★），写 nightshift/reports/shift-summary.md
 
 ## 完成
 
@@ -55,3 +53,7 @@
 - [fire-0510|05:50✅] [R2|扩队-a/b/c] 新入库 11 篇补卡 **29 张**（117→146）：量化组 12（BRECQ 3/DeepCompression 3/LSQ 2/QLoRA 4）+ 骨干组 7（MobileNet 3/MobileOne 2/ShuffleNet 2）+ 检测组 10（BEVDet 3/PillarNet 2/MIT-BEVFusion 3/RCBEVDetPP 2）。60+48+78 条 evidence quote 逐字 Grep 验证，关键表格实抓逐行复核。**子代理两处主动否决无据候选**（BEVDet 稀疏查询/PillarNet SAN-GEV 笔记无对应，按铁律 4 不建）——纪律在线
 
 **fire-0510 小结：NJU falsifier 修复 + R2 扩队 29 卡（146 卡），validate OK(146)，index 重建。剩：tool、R2-d（VLM/VLA 7 篇）、R2-e（其余 4 篇）。**
+- [fire-0547|06:20✅] [R2|扩队-d/e] 剩余 11 篇补卡 **26 张**（146→172）：VLM/VLA 17（LLaVA 3/Qwen3-VL 2/OpenVLA 3/OpenDriveVLA 2/OneVL 2/DrivePI 2/Alpamayo-R1 3）+ ADe2e/其他 9（UniAD 3/AutoVLA 2/COTR 2/MSMDFusion 2）。122 条 evidence quote 逐字验证 + 7+4 篇 arXiv 实抓复核；UniAD 卡全部绑定"四套数字"版本口径，bevplanner-unidad 卡 +2 related（纯增量）；Qwen3-VL "Length-adaptive" 术语勘误（v2 实为 Length-Adaptive Sampling）卡内注明
+- [fire-0547|06:20✅] [tool] `tools/check-materials.mjs` 落地（纯 Node 内置模块，别名表覆盖 Alpamago/BRECQ/Qwen3VL/RCBEVDetPP 等本库已知映射）：53 素材目录/57 笔记/282 图盘点——①素材无笔记×3（CameraParams/KITTI/Misc）②笔记无素材×11（数学/liger 天然无图 + ADe2e 素材位置特例）③未引用图×164；exit=1 符合设计（豁免策略 → QUESTIONS #40）
+
+**fire-0547 小结：🎉 R2 扩队全清（21 篇 46 卡），check-materials 落地，validate OK(172)，index 重建。剩：R2 二轮候选卡、R3 晨报摘要。**

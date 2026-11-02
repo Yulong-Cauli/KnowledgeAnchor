@@ -64,3 +64,8 @@
 
 38. **SparseOcc「80%」勘误（#36 部分撤回）**：fix 班实抓发现 v1 同时存在 80%（§3.1，LSS 特征体素口径，与笔记句逐字对应）与 67%（§1 脚注，SemanticKITTI 前 10 序列 GT 口径）——cross 报告 §3-M7「80% 未检得」系提取遗漏，笔记句保留并补双口径注记。引用时注意分清口径。
 39. **NJU 笔记 L99/L100 遗留**：「低分辨率阶段抹除>90%」与「15帧」两处口径注仍未修（本轮授权仅 L93/L94）；Table 1 基线行产生方式（复训 or 重评测）论文无明文，建议向官方仓库提 issue 后回填主卡。
+
+## 2026-11-03 fire-0547（R2-d/e + tool 脚本）
+
+40. **check-materials 首跑结果**（`node tools/check-materials.mjs`）：53 素材目录/57 笔记/282 图，其中仅 118 图被笔记引用。①素材无笔记 ×3（CameraParams/KITTI/Misc——TODO 本就标注"不一定是论文，按需整理"）；②笔记无素材 ×11（数学×3/liger×3 天然无图、ADe2e×3 系素材位置特例 #16、LingoQA、PTQAT）；③未引用图 ×164（大量已截素材未嵌入正文）。是否清理/豁免"无图笔记"（影响 exit 码策略）由你定。
+41. **Qwen3-VL 术语勘误**：论文 v2 §3.2.7 实际术语为 **Length-Adaptive Sampling**（任务书写作 "Length-adaptive Visual Resolution"，笔记无直接引文）——建卡以实抓 arXiv 引文为据并注明；引用该机制时用 v2 术语。

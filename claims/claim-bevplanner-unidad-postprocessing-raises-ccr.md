@@ -30,7 +30,7 @@ falsifiers:
   - "发现 Table 6 的 CCR 差异来自评测实现问题（路沿栅格化分辨率、自车 yaw 估计修正、有效样本口径），修正实现后后处理不再显著推高 CCR"
   - "后处理后的轨迹在可行驶区域内（未冲出路面）却被误判为越界，说明 CCR 定义本身把合法变道/绕行误判为碰撞"
 review_due: 2026-12-02
-related: [claim-bevplanner-egomlp-parity-l2-collision, claim-bevplanner-egostatus-injection-closes-gap]
+related: [claim-bevplanner-egomlp-parity-l2-collision, claim-bevplanner-egostatus-injection-closes-gap, claim-unidad-upstream-tasks-improve-planning, claim-unidad-nlo-training-only-improves-motion]
 signoff: null
 ---
 
