@@ -4,7 +4,7 @@ title: "OpenDriveVLA 论文声称：Stage 1 层级对齐仅训 3.1 MB projector 
 type: claim
 status: asserted
 scope: "OpenDriveVLA-0.5B；四阶段训练（Stage 1 层级视觉-语言对齐 / Stage 2 指令微调 / Stage 2.5 agent-env-ego 交互建模 / Stage 3 轨迹规划）；各阶段均 1 epoch、4×H100、per-GPU batch 1；消融在 nuScenes 开环（UniAD/ST-P3 两口径的平均碰撞率与 L2）；数字为论文自报（AAAI 2026，arXiv:2503.23463v2 TABLE V / TABLE VIII）"
-tags: [end-to-end-driving, vla, opendrivevla, multi-stage-training, parameter-efficient]
+tags: [end-to-end-driving, vla, opendrivevla, multi-stage-training, parameter-efficient-finetuning]
 note: library/VLM_VLA/OpenDriveVLA.md#3-实验
 paper: "AAAI 2026, OpenDriveVLA: Towards End-to-end Autonomous Driving with Large Vision Language Action Model (arXiv:2503.23463)"
 stance: watch

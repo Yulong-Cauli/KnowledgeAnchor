@@ -4,7 +4,7 @@ title: "MSMDFusion 论文声称：单模型、无 TTA/ensemble 在 nuScenes test
 type: claim
 status: asserted
 scope: "nuScenes test set（官方评测口径）；MSMDFusion arXiv v3（arXiv:2209.03102，html/2209.03102v3）；单模型，无 Test-Time Augmentation、无模型 ensemble（§1 脚注与 §4.1.1 明示）；LiDAR-相机融合（LC）；对比范围限 Table 1 所列方法（PointPillars 至 DeepInteraction，论文发表时点）；论文自报数字"
-tags: [lidar-camera-fusion, 3d-object-detection, nuscenes, benchmark, virtual-points, msmdfusion]
+tags: [lidar-camera-fusion, 3d-detection, nuscenes, benchmark, virtual-points, msmdfusion]
 note: library/Multimodal_Fusion/MSMDFusion.md#32-nuscenes-test-3d-检测-sota-对比
 paper: "CVPR 2023, MSMDFusion: Fusing LiDAR and Camera at Multiple Scales with Multi-Depth Seeds for 3D Object Detection (arXiv:2209.03102)"
 stance: watch

@@ -4,7 +4,7 @@ title: "R4Det 声称：TJ4DRadSet 上 PDF/DGTF/IGDR 逐级叠加使 BEV mAP 从 
 type: claim
 status: asserted
 scope: "TJ4DRadSet；4D 雷达-相机（含时序）3D 检测；累计式（逐级叠加）系统消融：Baseline 45.15 / 39.86 → +PDF 46.86 (+1.71) / 41.41 → +DGTF 50.41 (+3.55) / 44.86 → +IGDR 54.07 (+3.66) / 47.29（BEV mAP / 3D mAP，据库内笔记 §3.1 转录的论文消融表）；R4Det 自报数字，尚未独立验证；消融仅在 TJ4DRadSet（nightshift/cross/4d-radar.md M4），不可与 VoD 上的消融数字相加或比较"
-tags: [4d-radar, radar-camera-fusion, r4det, bevdetection, tj4dradset, ablation]
+tags: [4d-radar, radar-camera-fusion, r4det, detection, tj4dradset, ablation]
 note: library/Classical_Detection/R4Det.md#31-模块正交增益-tj4dradset
 paper: "CVPR 2026 · R4Det: 4D Radar-Camera Fusion for High-Performance 3D Object Detection（笔记标注未开源，未记录 arXiv 号）"
 stance: watch

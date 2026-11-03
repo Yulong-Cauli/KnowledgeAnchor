@@ -4,7 +4,7 @@ title: "DrivePI 论文声称：文本头与视觉头端到端联合训练提升�
 type: claim
 status: asserted
 scope: "DrivePI 0.5B 统一模型（Qwen2.5-0.5B MLLM 底座 + 四个输出头：text / 3D occupancy / occupancy flow / action diffusion，损失权重全 1.0）；消融为表 5（OpenOcc 3D 占据与流 + nuScenes 规划；vision head = occupancy+flow+planning 三头组合，text head = QA 文本）；数字为论文自报（CVPR 2026，arXiv:2512.12799v1）"
-tags: [end-to-end-driving, mllm, drivepi, multi-task-learning, occupancy]
+tags: [end-to-end-driving, mllm, drivepi, multi-task-learning, occupancy-prediction]
 note: library/VLM_VLA/DrivePI.md#3-实验
 paper: "CVPR 2026, DrivePI: Spatial-aware 4D MLLM for Unified Autonomous Driving Understanding, Perception, Prediction and Planning (arXiv:2512.12799)"
 stance: watch

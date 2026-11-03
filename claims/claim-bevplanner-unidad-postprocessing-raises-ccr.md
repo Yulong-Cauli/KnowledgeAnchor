@@ -4,7 +4,7 @@ title: "BEV-Planner 论文声称：UniAD 轨迹后处理降低碰撞率却显著
 type: claim
 status: asserted
 scope: "nuScenes val；UniAD 官方开源权重；对比为其轨迹后处理模块（P.P.，非线性优化避开 occupancy grid）开/关两种配置；指标为 Avg L2、Avg 碰撞率、Avg CCR（Table 6）；论文自报数字"
-tags: [end-to-end-driving, open-loop, nuscenes, bev-planner, metric, curb-collision-rate, unidad]
+tags: [end-to-end-driving, open-loop, nuscenes, bev-planner, evaluation-metric, curb-collision-rate, unidad]
 note: library/ADe2e/BEV-Planner.md#4-核心结论
 paper: "CVPR 2024, Is Ego Status All You Need for Open-Loop End-to-End Autonomous Driving? (BEV-Planner, arXiv:2312.03031)"
 stance: watch

@@ -4,7 +4,7 @@ title: "OpenDriveVLA 论文声称：轨迹离散 token 自回归生成，nuScene
 type: claim
 status: asserted
 scope: "nuScenes val 开环规划（ST-P3 与 UniAD 两种评测口径；L2@1/2/3s + 平均碰撞率）；OpenDriveVLA-0.5B/3B/7B（Qwen2.5-Instruct 底座，BEVFormer+TrackQFormer+MapQFormer 视觉侧）；轨迹 3 秒 6 waypoints@0.5s 离散 token 自回归生成；数字为论文自报（AAAI 2026，arXiv:2503.23463v2 TABLE I）"
-tags: [end-to-end-driving, vla, opendrivevla, nuscenes, open-loop-planning, autoregressive]
+tags: [end-to-end-driving, vla, opendrivevla, nuscenes, open-loop, autoregressive]
 note: library/VLM_VLA/OpenDriveVLA.md#3-实验
 paper: "AAAI 2026, OpenDriveVLA: Towards End-to-end Autonomous Driving with Large Vision Language Action Model (arXiv:2503.23463)"
 stance: watch

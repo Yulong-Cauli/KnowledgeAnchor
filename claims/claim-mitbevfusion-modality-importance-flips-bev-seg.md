@@ -4,7 +4,7 @@ title: "MIT BEVFusion 声称模态重要性随任务翻转：nuScenes 检测上 
 type: claim
 status: asserted
 scope: "MIT Han Lab BEVFusion（ICRA 2023，arXiv:2205.13542，笔记按官方 HTML v3 2024-09-01 转写）的实验观察声明（论文声称，尚未独立验证）；窄卡绑定：nuScenes val、BEV 地图分割为 6 类（drivable / ped-crossing / walkway / stop line / carpark / divider）IoU 均值口径、评测区域 [-50m,50m]²（§IV-B）；分割侧：camera-only BEVFusion mean IoU 56.6 对 LiDAR-only PointPillars 43.8 / CenterPoint 48.6（Table III，8–13 点差）；检测侧对照：Table I 中 CenterPoint（L）59.6 mAP（val）对 BEVFormer（C）41.6，约 18 点差（论文表述『almost 20 mAP』）；『模态均衡』的实验含义=模态重要性不是固定的、随任务从 LiDAR 主导翻转为相机主导；本卡不主张多模态 BEVFusion 62.7 mIoU 的 SOTA 数字（归 SOTA 快照卡）"
-tags: [bevfusion-mit, modality-balance, bev-map-segmentation, nuscenes]
+tags: [bevfusion-mit, modality-balance, map-segmentation, nuscenes]
 note: library/Multimodal_Fusion/MIT-BEVFusion.md#33-bev-地图分割table-iiiiv-b
 paper: "ICRA 2023, BEVFusion: Multi-Task Multi-Sensor Fusion with Unified Bird's-Eye View Representation (arXiv:2205.13542, MIT Han Lab)"
 stance: watch

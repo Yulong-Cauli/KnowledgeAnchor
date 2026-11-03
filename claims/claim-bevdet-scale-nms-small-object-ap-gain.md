@@ -4,7 +4,7 @@ title: "BEVDet 声称经典 NMS 在 BEV 空间对小目标失效，按类别缩�
 type: claim
 status: asserted
 scope: "BEVDet（arXiv:2112.11790，笔记按 ar5iv 渲染版转写，对应 v3 2022-06-16）的方法/消融声明；口径：nuScenes val、BEVDet-Tiny、与 Table 4 D 行同配置（Table 5）；主张=问题定位（BEV 中各类目标占地固有不同、小目标占地可小于输出分辨率致 TP 与冗余框 IOU≈0、经典 NMS 失效）+补救设计（按类别缩放目标尺寸后做经典 NMS、缩放因子由验证集超参搜索、barrier 类除外）+增益（mAP 29.5→31.2，pedestrian +4.8 AP、traffic cone +7.5 AP）；不主张该增益可迁移到其他检测器或其他 NMS 实现"
-tags: [bevdet, bev, scale-nms, nms, small-object, nuscenes]
+tags: [bevdet, bev, scale-nms, nms, small-objects, nuscenes]
 note: library/BEV_Detection/BEVDet.md#23-scale-nms33
 paper: "arXiv:2112.11790, BEVDet: High-Performance Multi-Camera 3D Object Detection in Bird-Eye-View（v3 2022-06-16）"
 stance: watch

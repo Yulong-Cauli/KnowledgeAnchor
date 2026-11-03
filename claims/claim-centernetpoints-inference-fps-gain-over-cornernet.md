@@ -4,7 +4,7 @@ title: "CenterNet 论文声称：同骨干下推理速度约为 CornerNet 两倍
 type: claim
 status: asserted
 scope: "笔记 §对比分析表所载推理速度对比：CornerNet Hourglass-104 4.1 FPS vs CenterNet Hourglass-104 7.8 FPS、CenterNet DLA-34 52 FPS；笔记未注明测量硬件、输入分辨率、数据集版本及是否含翻转/多尺度增强；数字为笔记/论文自报，尚未独立验证"
-tags: [centernet, inference-speed, cornernet, fps]
+tags: [centernet, latency, cornernet, fps]
 note: library/Classical_Detection/CenterNet：Objects as Points.md#对比分析centernet-vs-cornernet
 paper: "arXiv 2019, CenterNet: Objects as Points（开源：https://github.com/xingyizhou/CenterNet）"
 stance: watch

@@ -4,7 +4,7 @@ title: "COTR 论文声称：即插即用嵌入后各基线延迟与 FLOPs 均低
 type: claim
 status: asserted
 scope: "Occ3D-nuScenes；COTR arXiv v2（arXiv:2312.01919，html/2312.01919v2）补充材料 Table 7（效率消融，单卡 RTX A6000）；对比 TPVFormer、BEVDet4D（R50 与 Swin-B 骨干，含/不含长期时序 LT）嵌入 COTR 前后；Latency 单位 s；论文自报数字。边界：表注 '† input size of 256×704, others same as Tab. 1'——无 † 的基线行沿用 Table 1 的更大输入（TPVFormer 900×1600、BEVDet4D R50 384×704、Swin-B 512×1408），而 + COTR 行均为 256×704，严格同输入对比不成立（笔记遗留观察 7 同此提示）"
-tags: [3d-occupancy, occupancy-prediction, plug-in, efficiency, latency, nuscenes, cotr]
+tags: [occupancy-prediction, plug-and-play, efficiency, latency, nuscenes, cotr]
 note: library/3D_Occupancy/COTR.md#34-表示分辨率与效率消融
 paper: "CVPR 2024, COTR: Compact Occupancy TRansformer for Vision-based 3D Occupancy Prediction (arXiv:2312.01919)"
 stance: watch

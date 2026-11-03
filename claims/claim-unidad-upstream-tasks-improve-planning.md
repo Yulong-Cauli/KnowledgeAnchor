@@ -4,7 +4,7 @@ title: "UniAD 论文声称：Track/Map/Motion/Occ 前置任务联合训练使规
 type: claim
 status: asserted
 scope: "nuScenes val；UniAD arXiv v2（arXiv:2212.10156，html/2212.10156v2）主文 Table 2 联合消融；消融训练 8 epochs（Appendix E.6 口径）；BEV 特征均来自 BEVFormer 的 BEV encoder（§2，可替换）；对比 Exp.10（仅 Plan：planner attend BEV 特征 + command embedding，无 Track/Map/Motion/Occ 分支）与 Exp.12（完整 UniAD）；指标 avg.L2（m）与 avg.Col.（%）；论文自报数字"
-tags: [end-to-end-driving, open-loop, nuscenes, planning, multi-task, unidad, bevformer]
+tags: [end-to-end-driving, open-loop, nuscenes, planning, multi-task-learning, unidad, bevformer]
 note: library/ADe2e/UniAD.md#31-联合消融
 paper: "CVPR 2023 Best Paper, Planning-oriented Autonomous Driving (UniAD, arXiv:2212.10156)"
 stance: watch

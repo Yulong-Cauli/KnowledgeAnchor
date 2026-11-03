@@ -4,7 +4,7 @@ title: "MSMDFusion 论文声称：MDU 每种子多深度（K=1→6）提升真�
 type: claim
 status: asserted
 scope: "nuScenes 训练集随机 1/4 子集（§4.3 消融口径，Following UVTR）；MSMDFusion arXiv v3（arXiv:2209.03102，html/2209.03102v3）；TransFusion-L 基线 + 多尺度融合；K=每 seed 检索的 K 近邻参考点深度数，N 固定 50 seeds/实例；recall 与 mean distance error 来自 §4.3.3 量化实验（将保留参考点当 seeds、从其余参考点取真值深度生成虚拟点，邻域=最小体素对角线 0.23m，Fig 6）；mAP/NDS 为检测指标（Table 6，nuScenes val 1/4 子集）；论文自报数字"
-tags: [lidar-camera-fusion, 3d-object-detection, virtual-points, depth-estimation, ablation, nuscenes, msmdfusion]
+tags: [lidar-camera-fusion, 3d-detection, virtual-points, depth-estimation, ablation, nuscenes, msmdfusion]
 note: library/Multimodal_Fusion/MSMDFusion.md#37-mdu-讨论多深度会不会引入噪声
 paper: "CVPR 2023, MSMDFusion: Fusing LiDAR and Camera at Multiple Scales with Multi-Depth Seeds for 3D Object Detection (arXiv:2209.03102)"
 stance: watch

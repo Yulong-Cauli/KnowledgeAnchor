@@ -4,7 +4,7 @@ title: "UniAD 论文声称：planning-oriented 五任务联合栈在 nuScenes va
 type: claim
 status: asserted
 scope: "nuScenes val；UniAD arXiv v2（arXiv:2212.10156，html/2212.10156v2）主文 Table 2 联合消融；消融训练 8 epochs（Appendix E.6 口径）；对比 Exp.0∗（MTL scheme with separate heads for each task，五任务模块全开但各自独立头）与 Exp.12（完整 UniAD，query 接口联合）；指标 minADE/minFDE/MR/IoU-f/VPQ-f/avg.L2/avg.Col.；论文自报数字"
-tags: [end-to-end-driving, open-loop, nuscenes, planning-oriented, multi-task, unidad]
+tags: [end-to-end-driving, open-loop, nuscenes, planning-oriented, multi-task-learning, unidad]
 note: library/ADe2e/UniAD.md#31-联合消融
 paper: "CVPR 2023 Best Paper, Planning-oriented Autonomous Driving (UniAD, arXiv:2212.10156)"
 stance: watch

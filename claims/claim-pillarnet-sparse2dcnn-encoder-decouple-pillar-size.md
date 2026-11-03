@@ -4,7 +4,7 @@ title: "PillarNet 声称 pillar 系精度瓶颈在弱 pillar 特征编码，用�
 type: claim
 status: asserted
 scope: "PillarNet（ECCV 2022，arXiv:2205.07403，笔记按 ar5iv 渲染版转写、推断对应 v5 2022-08-26）的方法设计+消融声明（论文声称，尚未独立验证）；口径：nuScenes val、Table 4（训练日程同 SECOND、0.075m pillar）、PillarNet-18(neckv1) 57.87 mAP / 66.16 NDS 对 †CenterPoint-PointPillars 50.26 / 60.22（行差验算 +7.61/+5.94 一致，† 为同 codebase 复现口径）；『瓶颈归因』是论文的观察性主张；精度-效率旁证：PillarNet-18 全配置 16 FPS / 59.90 / 67.39 对 CenterPoint-SECOND 8 FPS / 59.56 / 66.76（Table 4，i9 CPU + RTX 3090 桌面机口径）；不主张该增益对 Waymo、其他基线或更粗 pillar 配置同样成立（粗 pillar 配置受 cuda atomic max 全局内存操作拖慢，见笔记 §3.4）；不涉及 IoU-Aware rectification 的 +0.34% 争议数字（笔记遗留 #3，另行处理）"
-tags: [pillarnet, pillar-based, sparse-convolution, encoder, pillar-size, nuscenes]
+tags: [pillarnet, pillar-based, sparse-conv, encoder, pillar-size, nuscenes]
 note: library/BEV_Detection/PillarNet.md#22-encoder-design32
 paper: "ECCV 2022, PillarNet: Real-Time and High-Performance Pillar-based 3D Object Detection (arXiv:2205.07403)"
 stance: watch

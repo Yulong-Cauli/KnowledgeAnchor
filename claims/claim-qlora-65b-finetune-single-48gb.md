@@ -4,7 +4,7 @@ title: "QLoRA 声称：65B 模型微调显存从 >780GB 降到单卡 48GB 以内
 type: claim
 status: asserted
 scope: "LLaMA-65B；QLoRA 完整配置（NF4 存储 / BF16 计算双数据类型、FP8 量化常数 DQ、LoRA 全线性层、Paged Optimizers）；>780GB 为 16-bit 全量微调的论文估算口径；48GB 为单卡上限（33B/65B 在 24/48GB 单卡上依赖 Paged Optimizers 兜长序列显存尖峰，§4 自述 paging 很少触发、未给硬测量）；'不损运行时'的实测口径：batch size 16 时 65B paged 与常规优化器同速；论文自报，尚未独立验证"
-tags: [quantization, llm, qlora, memory, paged-optimizers, finetuning]
+tags: [quantization, llm, qlora, memory, paged-optimizers, fine-tuning]
 note: library/Quantization/QLoRA.md#1-概述
 paper: "NeurIPS 2023（arXiv:2305.14314）, QLoRA: Efficient Finetuning of Quantized LLMs（开源：https://github.com/artidoro/qlora 、https://github.com/TimDettmers/bitsandbytes）"
 stance: watch

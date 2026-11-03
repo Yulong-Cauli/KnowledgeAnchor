@@ -4,7 +4,7 @@ title: "COTR 论文声称：高分辨占用表示（200×200×16）下采样 16 
 type: claim
 status: asserted
 scope: "Occ3D-nuScenes val；COTR arXiv v2（arXiv:2312.01919，html/2312.01919v2，含补充材料）；消融基线 BEVDet4D，无 Semantic-aware Group Decoder、无长期时序（Table 5 caption 口径）；EVT 分辨率 200×200×16（C=32）经 σx=σy=4、σz=1 下采样至 50×50×16 紧凑表示，IVT 仅在紧凑表示上做 spatial cross-attention；FLOPs 口径为 Implicit View Transformation 模块（Table 5 caption）；论文自报数字。边界：Table 5 未报告 200×200×16 全分辨率的 IoU/mIoU（仅 FLOPs 402.98G），'不掉点'的可查证口径是紧凑表示 70.89/37.97 不低于表中其他表示配置"
-tags: [3d-occupancy, occupancy-prediction, compact-representation, view-transformation, nuscenes, cotr]
+tags: [occupancy-prediction, compact-representation, view-transformation, nuscenes, cotr]
 note: library/3D_Occupancy/COTR.md#34-表示分辨率与效率消融
 paper: "CVPR 2024, COTR: Compact Occupancy TRansformer for Vision-based 3D Occupancy Prediction (arXiv:2312.01919)"
 stance: watch
