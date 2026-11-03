@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KnowledgeAnchor</title>
+  <script>
+    // Set theme before first paint to avoid a flash of the wrong scheme.
+    (function () {
+      var saved = localStorage.getItem('ka-theme');
+      var theme = saved === 'light' || saved === 'dark'
+        ? saved
+        : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.dataset.theme = theme;
+    })();
+  </script>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-left">
+      <a class="brand" href="#/queue">KnowledgeAnchor</a>
+      <nav class="nav">
+        <a href="#/queue" data-nav="queue">复核队列</a>
+        <a href="#/claims" data-nav="claims">全部 Claim</a>
+        <a href="#/graph" class="nav-disabled" aria-disabled="true" title="二期实现">图谱<span class="nav-badge">二期</span></a>
+      </nav>
+    </div>
+    <div class="topbar-right">
+      <input id="search" class="search" type="search" placeholder="搜索 标题 / id / tag…" autocomplete="off" spellcheck="false">
+      <button id="theme-toggle" class="icon-btn" type="button" title="切换亮/暗主题">☾</button>
+    </div>
+  </header>
+
+  <div id="app" class="app">
+    <aside id="sidebar" class="sidebar"></aside>
+    <main id="main" class="main"></main>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
