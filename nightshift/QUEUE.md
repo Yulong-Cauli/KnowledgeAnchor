@@ -63,3 +63,10 @@
 ## ⛔ 停机注记（06:43，fire-0619 调度器）
 
 **值班工作全部完成，队列清空。** 2026-11-03 凌晨班 10 火累计：22 篇入库、claim 库 114→178、QA 三轮、cross×4、精读×3、fix-list 全清、README 重建、check-materials 落地。08:20 前触发的班次：**请勿再生成任何任务**（防灌水），直接退出即可；08:20 后的班次按提示词第 0 节进入收班晨报模式（REPORT-2026-11-03.md）。
+
+## 2026-11-04 主人指派班（00:10–03:40，已完成）
+
+- [调度|00:15✅] [web|TODO] 四项修复（tag 筛选/排序下拉/markdown 渲染/滚动条主题化）+ 图谱 v0.1（/api/graph + #/graph canvas 双模式）→ 浏览器双主题实测通过；`node tools/selftest.mjs` PASS
+- [调度|02:40✅] [tags] 382 tag 审计，机械变体归一 17 卡（含主人 small-objects 未提交修正）；近义家族未动 → QUESTIONS #43
+- [调度|03:30✅] [入库|新论文] CVPR2026/ICLR2026 三篇：SliderQuant（量化）/ Dr.Occ（占用）/ GaussianFusion（融合）→ library ×3 + 新卡 11 张（178→189）+ related +19；quote 双重核验全命中；validate OK(189) + index/viz
+- 报告：`nightshift/REPORT-2026-11-04.md`；QUESTIONS +43~47 待主人

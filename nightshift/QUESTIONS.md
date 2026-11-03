@@ -73,3 +73,11 @@
 ## 2026-11-03 fire-0619（R2 二轮 + 总账摘要）
 
 42. **两处待人工核**：① AutoVLA Table S3 两行同名 DriveTraj 是否同一方法两次提交（建卡时已避开该两行）；② ShuffleNet Table 5 对照的 MobileNet 数字来源（原论文 vs 作者复现）表内未明示——对比卡已把归因风险写进 falsifier，引用前建议回原文脚注确认。
+
+## 2026-11-04 夜班（主人指派：TODO 修复 + 图谱 v0.1 + 新论文）
+
+43. **Web UI TODO 四项修复方式请验收**（tmp_docs/TODO.md）：① tag 混乱 → tag 面板加筛选框 + 按数量/名称排序 + 默认显示前 30 可展开（382 个 tag 全量常驻不再现实）；② 排序 → 队列与全部 Claim 各加排序下拉（id/标题/状态/到期日，localStorage 记忆；队列默认仍是 review_due 升序，与 ka.mjs review 一致）；③ claim 可视化 Markdown → 证据 quote/scope/falsifiers 改走 renderMarkdown（此前多行内容被压成一行）；④ 深色滑块 → 我把"滑块"理解为滚动条（tag 列表唯一的滑块状元素），已全局换成 8px 细滚动条、主题化颜色、`scrollbar-gutter` 防挤压——**如果你指的是别的控件请指出**。另 tag 机械变体已归一 17 卡（见 #47 报告），未动的近义 tag（如 snapshot 家族、zero-shot vs zero-shot-transfer）留你裁定。
+44. **SliderQuant Table 12 疑与正文矛盾（引用前必对 PDF）**：CS/LoRA 消融表 HTML 有 4 行单元格缺失，按推断对齐得"Baseline 组合用 13.92/18.44 劣于仅 LoRA 12.73/14.45"，与正文 "using both CS and LoRA together consistently yields better results" 直接矛盾。另该论文还有 7 处数字/表号不一致，全部记录在 `library/Quantization/SliderQuant.md` 遗留与 TODO。
+45. **Dr.Occ 两处口径缝隙**：① 自报 +7.43% mIoU 与表格舍入差（43.4−36.0=7.4）有 0.01 级缝隙，且 +3.09 IoU 只能对上 Table 2 消融行（Table 1 无总体 IoU 列）；② COTR 43.1 基线系作者重训（‡），非官方权重。未开源，复现成本高。
+46. **GaussianFusion 三处原文不一致**：① §4.5 正文称初始化消融为 Table 9、表 caption 为 Table 8；② §4.4 称对 OccFusion +1.11 mIoU，表格差值 1.10；③ Waymo Table 6 未注明 val/test split。另注意同名论文 arXiv:2506.00034 与本文无关（笔记头部有区分注记）。
+47. **图谱 v0.1 范围确认**：已上线 `#/graph`（论文归属图 + 关联网络双模式，canvas 力导向，点 claim 跳详情、点笔记节点可聚焦其 claim）。未做：tag 节点、按 tag/搜索结果过滤后重渲染（现在状态/搜索/tag 筛选已联动）、verified 签署引导、移动端。二期方向按设计文档 §10 备忘，等你排优先级。
