@@ -341,6 +341,74 @@ function filterClaims(url) {
   return { rows, errors };
 }
 
+// Graph payload for the 图谱 view (design doc §10): paper notes as hub nodes
+// radiating their claims (status-colored), plus claim↔claim `related` edges.
+// Purely derived from claim frontmatter — no filesystem reads.
+function buildGraph() {
+  const { claims, errors } = loadClaims();
+  const nodes = new Map();
+  const edges = [];
+  const seenEdge = new Set();
+  const addClaimNode = (data) => {
+    nodes.set(data.id, {
+      id: data.id,
+      kind: 'claim',
+      label: data.title,
+      status: data.status,
+      stance: data.stance,
+      tags: data.tags ?? [],
+      paper: data.paper ?? null,
+      review_due: data.review_due ?? null,
+    });
+  };
+  for (const { data } of claims) {
+    addClaimNode(data);
+    if (data.note) {
+      const notePath = data.note.split('#', 2)[0];
+      const noteId = `note:${notePath}`;
+      if (!nodes.has(noteId)) {
+        nodes.set(noteId, {
+          id: noteId,
+          kind: 'note',
+          label: notePath.replace(/^library\//, '').replace(/\.md$/, ''),
+          path: notePath,
+        });
+      }
+      const edgeKey = `n|${noteId}|${data.id}`;
+      if (!seenEdge.has(edgeKey)) {
+        seenEdge.add(edgeKey);
+        edges.push({ source: noteId, target: data.id, kind: 'note' });
+      }
+    }
+  }
+  for (const { data } of claims) {
+    for (const relId of data.related ?? []) {
+      if (relId === data.id || !nodes.has(relId)) continue;
+      const key = `r|${[data.id, relId].sort().join('|')}`;
+      if (seenEdge.has(key)) continue;
+      seenEdge.add(key);
+      edges.push({ source: data.id, target: relId, kind: 'related' });
+    }
+  }
+  const list = [...nodes.values()];
+  const degree = new Map();
+  for (const edge of edges) {
+    for (const id of [edge.source, edge.target]) degree.set(id, (degree.get(id) ?? 0) + 1);
+  }
+  for (const node of list) node.degree = degree.get(node.id) ?? 0;
+  return {
+    nodes: list,
+    edges,
+    counts: {
+      claims: list.filter((n) => n.kind === 'claim').length,
+      notes: list.filter((n) => n.kind === 'note').length,
+      edgesNote: edges.filter((e) => e.kind === 'note').length,
+      edgesRelated: edges.filter((e) => e.kind === 'related').length,
+    },
+    errors,
+  };
+}
+
 function resolveNotePath(rawPath) {
   if (typeof rawPath !== 'string' || !rawPath.startsWith('library/')) return null;
   const [clean, anchor = ''] = rawPath.split('#', 2);
@@ -395,6 +463,13 @@ async function handleApi(req, res, url) {
     const { rows, errors } = filterClaims(url);
     if (errors.length) sendError(res, 500, 'claims directory failed to load', errors);
     else sendJson(res, 200, { claims: rows });
+    return;
+  }
+
+  if (method === 'GET' && pathname === '/api/graph') {
+    const graph = buildGraph();
+    if (graph.errors.length) sendError(res, 500, 'claims directory failed to load', graph.errors);
+    else sendJson(res, 200, { nodes: graph.nodes, edges: graph.edges, counts: graph.counts });
     return;
   }
 

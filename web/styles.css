@@ -38,6 +38,23 @@
 
 * { box-sizing: border-box; }
 
+/* Theme-aware scrollbars: the default dark-mode scrollbar is a wide light-grey
+   block that squeezes the tag list (tmp_docs/TODO.md #4). Thin, token-colored. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--text-muted) 45%, transparent) transparent;
+}
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--text-muted) 45%, transparent);
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover { background-color: color-mix(in srgb, var(--text-muted) 75%, transparent); }
+::-webkit-scrollbar-corner { background: transparent; }
+
 html, body {
   margin: 0;
   padding: 0;
@@ -185,7 +202,32 @@ input, textarea, select { font: inherit; color: inherit; }
 .check-row input { accent-color: var(--brand); margin: 0; }
 .check-row .n { color: var(--text-muted); font-size: 12px; margin-left: auto; }
 
-.tag-list { display: flex; flex-direction: column; gap: 2px; max-height: 320px; overflow-y: auto; overflow-x: hidden; }
+.tag-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: 320px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+  padding-right: 2px;
+}
+
+.tag-filter { width: 100%; margin-bottom: 6px; }
+
+.tag-sort { margin-bottom: 6px; }
+
+.tag-more {
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  font-size: 12px;
+  padding: 6px 8px;
+  margin: 0 -8px;
+  text-align: left;
+  border-radius: var(--radius-control);
+}
+.tag-more:hover { color: var(--text); background: var(--surface-muted); }
 
 .tag-item {
   display: flex;
@@ -216,6 +258,25 @@ input, textarea, select { font: inherit; color: inherit; }
 }
 .view-head h1 { font-size: 16px; line-height: 24px; font-weight: 600; margin: 0; }
 .view-head .sub { color: var(--text-muted); font-size: 12px; }
+
+.view-tools { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+
+.sort-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.sort-control select {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  background: var(--surface);
+  padding: 3px 6px;
+  outline: none;
+  font-size: 12px;
+}
+.sort-control select:focus { border-color: var(--brand); }
 
 .card-list { display: flex; flex-direction: column; gap: 8px; }
 
@@ -414,6 +475,74 @@ input, textarea, select { font: inherit; color: inherit; }
   padding: 6px 12px;
   border-left: 2px solid var(--border);
   color: var(--text-muted);
+}
+
+/* Markdown inside quote blocks / scope / falsifiers (tmp_docs/TODO.md #3):
+   renderMarkdown output needs tighter rhythm than a full article body. */
+.md-quote { font-size: 14px; }
+.md-quote p { margin: 0 0 6px; }
+.md-quote p:last-child, .md-quote ul:last-child, .md-quote ol:last-child, .md-quote pre:last-child { margin-bottom: 0; }
+.md-quote ul, .md-quote ol { margin: 0 0 6px; padding-left: 18px; }
+.md-quote h2, .md-quote h3 { font-size: 14px; margin: 8px 0 4px; }
+.md-compact p { margin: 0 0 4px; }
+.md-compact p:last-child, .md-compact ul:last-child, .md-compact ol:last-child { margin-bottom: 0; }
+.md-compact ul, .md-compact ol { margin: 0 0 4px; padding-left: 18px; }
+
+/* ---------------------------------------------------------------- graph -- */
+
+.graph-wrap {
+  position: relative;
+  height: calc(100vh - 150px);
+  min-height: 420px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.graph-canvas { display: block; width: 100%; height: 100%; }
+
+.graph-legend {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px;
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  font-size: 12px;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+.graph-legend .lg { display: inline-flex; align-items: center; gap: 4px; }
+.graph-legend .lg.hint { color: var(--text-muted); opacity: .75; }
+.graph-legend .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.graph-legend .sq {
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+  background: var(--surface);
+  border: 1.4px solid var(--brand);
+  transform: rotate(45deg);
+}
+
+.graph-tooltip {
+  position: absolute;
+  max-width: 280px;
+  padding: 8px 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, .12);
+  font-size: 12px;
+  line-height: 18px;
+  pointer-events: none;
+  z-index: 20;
+  word-break: break-word;
 }
 
 /* ---------------------------------------------------------------- form -- */

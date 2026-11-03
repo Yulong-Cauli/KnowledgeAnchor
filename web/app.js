@@ -136,7 +136,37 @@ const state = {
   activeTag: null,
   expandedId: null,
   detailCache: new Map(),
+  sortBy: localStorage.getItem('ka-sort-claims') ?? 'id',
+  queueSortBy: localStorage.getItem('ka-sort-queue') ?? 'due',
+  tagQuery: '',
+  tagShowAll: false,
+  tagSort: 'count',
 };
+
+const STATUS_ORDER = { asserted: 0, verified: 1, refuted: 2, stale: 3 };
+
+// Shared sorters. `due` puts missing review_due last (queue semantics, §4.2).
+const SORTERS = {
+  due: (a, b) => {
+    const dueA = a.review_due ?? '9999-99-99';
+    const dueB = b.review_due ?? '9999-99-99';
+    return dueA.localeCompare(dueB) || a.id.localeCompare(b.id);
+  },
+  id: (a, b) => a.id.localeCompare(b.id),
+  title: (a, b) => a.title.localeCompare(b.title, 'zh-Hans-CN') || a.id.localeCompare(b.id),
+  status: (a, b) => (STATUS_ORDER[a.status] ?? 9) - (STATUS_ORDER[b.status] ?? 9) || a.id.localeCompare(b.id),
+};
+
+const SORT_LABELS = {
+  due: '按到期日',
+  id: '按 id',
+  title: '按标题',
+  status: '按状态',
+};
+
+function sortRows(rows, key) {
+  return [...rows].sort(SORTERS[key] ?? SORTERS.id);
+}
 
 function statusLabel(status) {
   return { asserted: 'asserted', verified: 'verified', refuted: 'refuted', stale: 'stale' }[status] ?? status;
@@ -164,29 +194,47 @@ function tagsHtml(tags, clickable) {
     : `<span class="tag-chip">${esc(tag)}</span>`)).join('');
 }
 
-// Same queue rule and order as `node tools/ka.mjs review` (§4.2).
+// Same queue rule as `node tools/ka.mjs review` (§4.2); order is UI-selectable
+// (default keeps the canonical review_due ascending order).
 function queueRows() {
   const today = state.meta.today;
-  return state.claims
+  return sortRows(state.claims
     .filter((row) => row.status === 'asserted'
       || row.status === 'stale'
       || (row.status === 'verified' && row.review_due && row.review_due <= today))
     .filter((row) => state.statuses.has(row.status))
     .filter((row) => !state.activeTag || (row.tags ?? []).includes(state.activeTag))
-    .filter((row) => matchesQuery(row))
-    .sort((a, b) => {
-      const dueA = a.review_due ?? '9999-99-99';
-      const dueB = b.review_due ?? '9999-99-99';
-      return dueA.localeCompare(dueB) || a.id.localeCompare(b.id);
-    });
+    .filter((row) => matchesQuery(row)), state.queueSortBy);
 }
 
 function allRows() {
-  return state.claims
+  return sortRows(state.claims
     .filter((row) => state.statuses.has(row.status))
     .filter((row) => !state.activeTag || (row.tags ?? []).includes(state.activeTag))
-    .filter((row) => matchesQuery(row))
-    .sort((a, b) => a.id.localeCompare(b.id));
+    .filter((row) => matchesQuery(row)), state.sortBy);
+}
+
+function sortSelectHtml(current, keyPrefix) {
+  const options = ['due', 'id', 'title', 'status'];
+  return `<label class="sort-control">排序
+    <select id="${keyPrefix}-sort" data-sort-prefix="${keyPrefix}">
+      ${options.map((key) => `<option value="${key}" ${current === key ? 'selected' : ''}>${SORT_LABELS[key]}</option>`).join('')}
+    </select></label>`;
+}
+
+function bindSortSelect(prefix, onChange) {
+  const select = $(`#${prefix}-sort`);
+  if (!select) return;
+  select.addEventListener('change', () => {
+    if (prefix === 'queue') {
+      state.queueSortBy = select.value;
+      localStorage.setItem('ka-sort-queue', select.value);
+    } else {
+      state.sortBy = select.value;
+      localStorage.setItem('ka-sort-claims', select.value);
+    }
+    onChange();
+  });
 }
 
 function matchesQuery(row) {
@@ -212,16 +260,43 @@ async function refresh() {
 
 // --------------------------------------------------------------- sidebar --
 
+// Tag panel: 382 distinct tags over ~180 cards — search + sort + collapse
+// keep the list navigable (tmp_docs/TODO.md #1).
+const TAG_VISIBLE_DEFAULT = 30;
+
+function visibleTagRows() {
+  const q = state.tagQuery.trim().toLowerCase();
+  let rows = state.meta.tags;
+  if (q) rows = rows.filter(({ tag }) => tag.toLowerCase().includes(q));
+  if (state.tagSort === 'name') {
+    rows = [...rows].sort((a, b) => a.tag.localeCompare(b.tag, 'zh-Hans-CN'));
+  } else {
+    rows = [...rows].sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag, 'zh-Hans-CN'));
+  }
+  return rows;
+}
+
 function renderSidebar() {
   const sidebar = $('#sidebar');
   const counts = state.meta.counts;
   const statuses = ['asserted', 'verified', 'refuted', 'stale'];
-  const tagRows = state.meta.tags
+  const all = visibleTagRows();
+  const total = state.meta.tags.length;
+  const limit = state.tagShowAll || state.tagQuery.trim() ? all.length : TAG_VISIBLE_DEFAULT;
+  const shown = all.slice(0, limit);
+  const tagRows = shown
     .map(({ tag, count }) => `
       <button type="button" class="tag-item ${state.activeTag === tag ? 'active' : ''}" data-tag="${esc(tag)}">
         <span>${esc(tag)}</span><span class="n">${count}</span>
       </button>`)
     .join('');
+  const overflow = all.length - shown.length;
+  const tagFooter = all.length === 0
+    ? `<span class="field-hint">${state.tagQuery ? '没有匹配的 tag' : '暂无 tag'}</span>`
+    : `${overflow > 0
+      ? `<button type="button" class="tag-more" id="tag-more">显示全部 ${all.length} 个（还有 ${overflow} 个）</button>`
+      : (all.length > TAG_VISIBLE_DEFAULT && !state.tagQuery
+        ? '<button type="button" class="tag-more" id="tag-more">收起</button>' : '')}`;
   sidebar.classList.remove('hidden');
   sidebar.innerHTML = `
     <div class="panel">
@@ -238,10 +313,18 @@ function renderSidebar() {
         </label>`).join('')}
     </div>
     <div class="panel">
-      <p class="side-title">Tags${state.activeTag ? ` · <b>${esc(state.activeTag)}</b>` : ''}</p>
+      <p class="side-title">Tags · 共 ${total} 个${state.activeTag ? ` · <b>${esc(state.activeTag)}</b>` : ''}</p>
+      <input id="tag-filter" class="search tag-filter" type="search" placeholder="筛选 tag…" autocomplete="off" spellcheck="false" value="${esc(state.tagQuery)}">
+      <label class="sort-control tag-sort">排序
+        <select id="tag-sort">
+          <option value="count" ${state.tagSort !== 'name' ? 'selected' : ''}>按数量</option>
+          <option value="name" ${state.tagSort === 'name' ? 'selected' : ''}>按名称</option>
+        </select>
+      </label>
       <div class="tag-list">
         ${state.activeTag ? '<button type="button" class="tag-item" data-tag-clear="1">清除 tag 筛选</button>' : ''}
-        ${tagRows || '<span class="field-hint">暂无 tag</span>'}
+        ${tagRows}
+        ${tagFooter}
       </div>
     </div>`;
 
@@ -258,6 +341,27 @@ function renderSidebar() {
       render();
     });
   });
+  const tagFilter = $('#tag-filter');
+  tagFilter.addEventListener('input', () => {
+    state.tagQuery = tagFilter.value;
+    // Re-render the sidebar; then restore focus and caret in the filter box.
+    const query = state.tagQuery;
+    renderSidebar();
+    const nextFilter = $('#tag-filter');
+    nextFilter.focus();
+    nextFilter.setSelectionRange(query.length, query.length);
+  });
+  $('#tag-sort').addEventListener('change', (event) => {
+    state.tagSort = event.target.value;
+    renderSidebar();
+  });
+  const more = $('#tag-more');
+  if (more) {
+    more.addEventListener('click', () => {
+      state.tagShowAll = !state.tagShowAll;
+      renderSidebar();
+    });
+  }
 }
 
 // ----------------------------------------------------------------- queue --
@@ -275,10 +379,12 @@ async function renderQueue() {
   $('#main').innerHTML = `
     <div class="view-head">
       <h1>复核队列</h1>
-      <span class="sub">${rows.length} 张 · 按 review_due 升序</span>
+      <span class="sub">${rows.length} 张 · ${state.queueSortBy === 'due' ? '按 review_due 升序（与 ka.mjs review 一致）' : SORT_LABELS[state.queueSortBy]}</span>
+      <span class="view-tools">${sortSelectHtml(state.queueSortBy, 'queue')}</span>
     </div>
     ${listHtml}`;
 
+  bindSortSelect('queue', renderMain);
   bindQueueEvents();
   if (expandedId) {
     const card = state.claims.find((row) => row.id === expandedId);
@@ -336,7 +442,7 @@ async function fillExpandedQuote(id, relPath) {
     const target = $(`[data-expanded="${CSS.escape(id)}"] .expanded-body`);
     if (!target) return;
     target.innerHTML = first
-      ? `<blockquote class="quote-block">${inlineMd(first.quote)}</blockquote>
+      ? `<blockquote class="quote-block md md-quote">${renderMarkdown(first.quote)}</blockquote>
          <span class="locator">${esc(first.locator)} · ${esc(first.source.replace(/^library\//, ''))}</span>`
       : '<span class="field-hint">此卡没有证据条目。</span>';
   } catch {
@@ -380,7 +486,8 @@ function renderClaims() {
   $('#main').innerHTML = `
     <div class="view-head">
       <h1>全部 Claim</h1>
-      <span class="sub">${rows.length} 张 · 按 id 排序</span>
+      <span class="sub">${rows.length} 张 · ${SORT_LABELS[state.sortBy]}</span>
+      <span class="view-tools">${sortSelectHtml(state.sortBy, 'claims')}</span>
     </div>
     ${rows.length === 0
       ? '<div class="empty-state">没有匹配的 claim。</div>'
@@ -398,6 +505,7 @@ function renderClaims() {
           </div>`).join('')}
         </div>`}`;
 
+  bindSortSelect('claims', renderMain);
   $('#main').querySelectorAll('.card.clickable').forEach((cardEl) => {
     cardEl.addEventListener('click', (event) => {
       if (event.target.closest('.tag-btn')) return;
@@ -422,7 +530,7 @@ function bindTagButtons() {
 function evidenceItemHtml(item) {
   return `
     <div class="evidence-item">
-      <blockquote class="quote-block">${inlineMd(item.quote)}</blockquote>
+      <blockquote class="quote-block md md-quote">${renderMarkdown(item.quote)}</blockquote>
       <div><span class="locator">${esc(item.locator)}</span></div>
       <div><span class="locator">${esc(item.source)}</span> · <span class="badge badge-stance">${esc(item.relation)}</span></div>
     </div>`;
@@ -463,12 +571,12 @@ async function renderDetail(id) {
               <div><button type="button" class="btn btn-sm" id="note-toggle">展开笔记</button></div>
               <div id="note-panel" class="note-panel" hidden></div>
             </div>` : ''}
-          <div class="meta-item"><div class="label">scope</div><div>${esc(card.scope)}</div></div>
+          <div class="meta-item"><div class="label">scope</div><div class="md md-compact">${renderMarkdown(card.scope)}</div></div>
         </div>
         <p class="section-title">证据</p>
         ${(card.evidence ?? []).map((item) => evidenceItemHtml(item)).join('')}
         <p class="section-title">Falsifiers</p>
-        <ol class="falsifier-list">${(card.falsifiers ?? []).map((item) => `<li>${inlineMd(item)}</li>`).join('')}</ol>
+        <ol class="falsifier-list">${(card.falsifiers ?? []).map((item) => `<li><div class="md md-compact">${renderMarkdown(item)}</div></li>`).join('')}</ol>
         ${(card.related?.length) ? `
           <p class="section-title">关联 claim</p>
           <div class="chip-row">${card.related.map((relId) => `<a class="chip" href="#/claim/${encodeURIComponent(relId)}">${esc(relId)}</a>`).join('')}</div>` : ''}
@@ -838,15 +946,526 @@ function renderNew() {
   });
 }
 
+// ----------------------------------------------------------------- graph --
+// 图谱 v0.1 (design doc §10): force-directed canvas. "hubs" mode = paper notes
+// radiating their claims (status-colored); "related" mode = claim↔claim network.
+
+let graphRuntime = null; // kept across re-renders of the same view so filter tweaks don't reset the layout
+let graphMode = 'hubs';
+
+function cssVar(name) {
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
+
+const STATUS_VARS = { asserted: '--c-asserted', verified: '--c-verified', refuted: '--c-refuted', stale: '--c-stale' };
+
+function statusColor(status) {
+  return cssVar(STATUS_VARS[status] ?? '--c-stale') || '#888';
+}
+
+function renderGraph() {
+  const host = $('#main');
+  if (graphRuntime && host.contains(graphRuntime.canvas)) {
+    graphRuntime.refilter();
+    return;
+  }
+  graphRuntime = null;
+  host.innerHTML = '<div class="empty-state">图谱加载中…</div>';
+
+  api('/api/graph').then((data) => {
+    // Route may have changed while fetching.
+    const hash = location.hash || '#/queue';
+    if (hash !== '#/graph' || !host.isConnected) return;
+    buildGraphView(data);
+  }).catch((error) => {
+    if ((location.hash || '#/queue') === '#/graph') {
+      host.innerHTML = `<div class="empty-state">图谱加载失败：${esc(error.message)}</div>`;
+    }
+  });
+}
+
+function buildGraphView(data) {
+  const host = $('#main');
+  if (graphRuntime?.onWindowUp) window.removeEventListener('mouseup', graphRuntime.onWindowUp);
+  const noteById = new Map(data.nodes.filter((n) => n.kind === 'note').map((n) => [n.id, n]));
+  const claimById = new Map(data.nodes.filter((n) => n.kind === 'claim').map((n) => [n.id, n]));
+
+  host.innerHTML = `
+    <div class="view-head">
+      <h1>图谱</h1>
+      <span class="sub" id="graph-sub"></span>
+      <span class="view-tools">
+        <label class="sort-control">视图
+          <select id="graph-mode">
+            <option value="hubs" ${graphMode === 'hubs' ? 'selected' : ''}>论文归属图</option>
+            <option value="related" ${graphMode === 'related' ? 'selected' : ''}>关联网络</option>
+          </select>
+        </label>
+        <button type="button" class="btn btn-sm" id="graph-relayout">重新布局</button>
+      </span>
+    </div>
+    <div class="graph-wrap">
+      <canvas id="graph-canvas" class="graph-canvas"></canvas>
+      <div class="graph-legend">
+        <span class="lg"><i class="dot" style="background:var(--c-asserted)"></i>asserted</span>
+        <span class="lg"><i class="dot" style="background:var(--c-verified)"></i>verified</span>
+        <span class="lg"><i class="dot" style="background:var(--c-refuted)"></i>refuted</span>
+        <span class="lg"><i class="dot" style="background:var(--c-stale)"></i>stale</span>
+        <span class="lg"><i class="sq"></i>笔记（论文）</span>
+        <span class="lg hint">拖拽平移 · 滚轮缩放 · 点节点跳详情</span>
+      </div>
+      <div class="graph-tooltip" id="graph-tooltip" hidden></div>
+    </div>`;
+
+  const canvas = $('#graph-canvas');
+  const wrap = canvas.parentElement;
+  const tooltip = $('#graph-tooltip');
+  const ctx = canvas.getContext('2d');
+  let mode = graphMode;
+
+  // ---- simulation state (positions survive filter changes) ----
+  const pos = new Map(); // id -> {x, y, vx, vy}
+  const ensurePos = (id, x, y) => {
+    if (!pos.has(id)) pos.set(id, { x: x + (Math.random() - 0.5) * 40, y: y + (Math.random() - 0.5) * 40, vx: 0, vy: 0 });
+    return pos.get(id);
+  };
+  let alpha = 0;            // simulation heat
+  let raf = 0;
+  let view = { zoom: 1, panX: 0, panY: 0, autoFit: true };
+  let hoverId = null;
+  let focusNote = null;     // sticky highlight after clicking a note node
+  let dragNode = null;
+  let panning = null;
+  let mouse = { x: 0, y: 0, inside: false };
+
+  let nodes = [];           // active nodes [{...meta, x, y, vx, vy, r, deg}]
+  let edges = [];           // active edges
+  let neighbors = new Map();
+  const claimIds = new Set();
+
+  const resize = () => {
+    const rect = wrap.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = Math.max(1, Math.round(rect.width * dpr));
+    canvas.height = Math.max(1, Math.round(rect.height * dpr));
+    canvas.style.width = `${rect.width}px`;
+    canvas.style.height = `${rect.height}px`;
+    kick(0.08);
+  };
+  const resizeObserver = new ResizeObserver(resize);
+  resizeObserver.observe(wrap);
+
+  // ---- filtering ----
+  function refilter() {
+    const q = state.q.trim().toLowerCase();
+    const claimVisible = (n) => state.statuses.has(n.status)
+      && (!state.activeTag || n.tags.includes(state.activeTag))
+      && (!q || String(`${n.label} ${n.id}`).toLowerCase().includes(q));
+
+    const activeClaims = [...claimById.values()].filter(claimVisible);
+    const noteHasVisible = new Map();
+    for (const note of noteById.values()) noteHasVisible.set(note.id, false);
+    const claimsOfNote = new Map();
+    const nextEdges = [];
+    neighbors = new Map();
+    const bump = (a, b) => {
+      if (!neighbors.has(a)) neighbors.set(a, new Set());
+      neighbors.get(a).add(b);
+    };
+
+    if (mode === 'hubs') {
+      const visibleSet = new Set(activeClaims.map((c) => c.id));
+      for (const claim of activeClaims) {
+        const notePath = claimIdNote.get(claim.id);
+        if (notePath) {
+          if (!claimsOfNote.has(notePath)) claimsOfNote.set(notePath, []);
+          claimsOfNote.get(notePath).push(claim.id);
+          noteHasVisible.set(notePath, true);
+          nextEdges.push({ source: notePath, target: claim.id, kind: 'note' });
+          bump(notePath, claim.id); bump(claim.id, notePath);
+        }
+      }
+      for (const e of data.edges) {
+        if (e.kind !== 'related') continue;
+        if (!claimById.has(e.source) || !claimById.has(e.target)) continue;
+        if (!visibleSet.has(e.source) || !visibleSet.has(e.target)) continue;
+        nextEdges.push(e);
+        bump(e.source, e.target); bump(e.target, e.source);
+      }
+      const activeNotes = [...noteById.values()].filter((n) => noteHasVisible.get(n.id) || n.id === focusNote);
+      set_active([...activeNotes, ...activeClaims], nextEdges);
+    } else {
+      const linked = new Set();
+      for (const e of data.edges) {
+        if (e.kind !== 'related') continue;
+        if (!claimById.has(e.source) || !claimById.has(e.target)) continue;
+        linked.add(e.source); linked.add(e.target);
+      }
+      const active = activeClaims.filter((c) => linked.has(c.id));
+      const activeSet = new Set(active.map((c) => c.id));
+      for (const e of data.edges) {
+        if (e.kind !== 'related') continue;
+        if (activeSet.has(e.source) && activeSet.has(e.target)) {
+          nextEdges.push(e);
+          bump(e.source, e.target); bump(e.target, e.source);
+        }
+      }
+      set_active(active, nextEdges);
+    }
+    $('#graph-sub').textContent = `显示 ${nodes.length} 节点 · ${edges.length} 边（全库 ${data.counts.claims} claim · ${data.counts.notes} 笔记 · related ${data.counts.edgesRelated} 条）`;
+    kick(0.45);
+  }
+
+  // note path per claim id (claims may lack a note)
+  const claimIdNote = new Map();
+  for (const e of data.edges) {
+    if (e.kind === 'note') {
+      const claim = claimById.get(e.target);
+      if (claim) claimIdNote.set(claim.id, e.source);
+    }
+  }
+
+  function set_active(activeNodes, activeEdges) {
+    const deg = new Map();
+    for (const e of activeEdges) {
+      deg.set(e.source, (deg.get(e.source) ?? 0) + 1);
+      deg.set(e.target, (deg.get(e.target) ?? 0) + 1);
+    }
+    const w = canvas.clientWidth || 900;
+    const h = canvas.clientHeight || 500;
+    const noteIds = activeNodes.filter((n) => n.kind === 'note').map((n) => n.id);
+    const R = Math.max(120, Math.min(560, 62 * Math.sqrt(Math.max(1, noteIds.length))));
+    const placed = new Map();
+    noteIds.forEach((id, i) => {
+      const a = (i / Math.max(1, noteIds.length)) * Math.PI * 2;
+      placed.set(id, { x: Math.cos(a) * R, y: Math.sin(a) * R });
+    });
+    nodes = activeNodes.map((meta) => {
+      let seed;
+      if (placed.has(meta.id)) seed = placed.get(meta.id);
+      else {
+        const noteId = claimIdNote.get(meta.id);
+        const anchor = noteId && placed.get(noteId);
+        seed = anchor
+          ? { x: anchor.x + (Math.random() - 0.5) * 90, y: anchor.y + (Math.random() - 0.5) * 90 }
+          : { x: (Math.random() - 0.5) * w * 0.8, y: (Math.random() - 0.5) * h * 0.8 };
+      }
+      const p = ensurePos(meta.id, seed.x, seed.y);
+      const d = deg.get(meta.id) ?? 0;
+      return { ...meta, ...p, deg: d, r: meta.kind === 'note' ? 6 : 3.5 + Math.min(d, 10) * 0.55 };
+    });
+    edges = activeEdges;
+    nodeById = new Map(nodes.map((n) => [n.id, n]));
+  }
+
+  let nodeById = new Map();
+
+  // ---- simulation ----
+  function tick() {
+    const n = nodes.length;
+    const repulsion = mode === 'related' ? 2600 : 3400;
+    for (let i = 0; i < n; i += 1) {
+      const a = nodes[i];
+      for (let j = i + 1; j < n; j += 1) {
+        const b = nodes[j];
+        let dx = a.x - b.x; let dy = a.y - b.y;
+        let d2 = dx * dx + dy * dy;
+        if (d2 < 1) { dx = Math.random() - 0.5; dy = Math.random() - 0.5; d2 = 1; }
+        if (d2 > 640000) continue; // cutoff: far pairs don't push
+        const f = repulsion / d2;
+        const d = Math.sqrt(d2);
+        const fx = (dx / d) * f; const fy = (dy / d) * f;
+        a.vx += fx; a.vy += fy;
+        b.vx -= fx; b.vy -= fy;
+      }
+    }
+    for (const e of edges) {
+      const a = nodeById.get(e.source);
+      const b = nodeById.get(e.target);
+      if (!a || !b) continue;
+      const target = e.kind === 'note' ? 110 : 150;
+      const k = e.kind === 'note' ? 0.045 : 0.02;
+      const dx = b.x - a.x; const dy = b.y - a.y;
+      const d = Math.sqrt(dx * dx + dy * dy) || 1;
+      const f = (d - target) * k;
+      const fx = (dx / d) * f; const fy = (dy / d) * f;
+      a.vx += fx; a.vy += fy;
+      b.vx -= fx; b.vy -= fy;
+    }
+    for (const node of nodes) {
+      node.vx += -node.x * 0.0035;
+      node.vy += -node.y * 0.0035;
+      if (dragNode === node.id) { node.vx = 0; node.vy = 0; continue; }
+      node.vx *= 0.82; node.vy *= 0.82;
+      node.x += node.vx * alpha;
+      node.y += node.vy * alpha;
+      const p = pos.get(node.id);
+      if (p) { p.x = node.x; p.y = node.y; p.vx = node.vx; p.vy = node.vy; }
+    }
+    alpha *= 0.985;
+    if (alpha < 0.02) alpha = 0;
+  }
+
+  function draw() {
+    const dpr = window.devicePixelRatio || 1;
+    const w = canvas.clientWidth;
+    const h = canvas.clientHeight;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    // auto-fit while untouched
+    if (view.autoFit && nodes.length) {
+      let minX = Infinity; let minY = Infinity; let maxX = -Infinity; let maxY = -Infinity;
+      for (const node of nodes) {
+        if (node.x < minX) minX = node.x; if (node.x > maxX) maxX = node.x;
+        if (node.y < minY) minY = node.y; if (node.y > maxY) maxY = node.y;
+      }
+      const bw = Math.max(50, maxX - minX); const bh = Math.max(50, maxY - minY);
+      const z = Math.min(2.2, Math.max(0.25, Math.min((w - 80) / bw, (h - 80) / bh)));
+      view.zoom = view.zoom * 0.9 + z * 0.1;
+      view.panX = view.panX * 0.9 + (-(minX + maxX) / 2) * view.zoom * 0.1;
+      view.panY = view.panY * 0.9 + (-(minY + maxY) / 2) * view.zoom * 0.1;
+    }
+
+    ctx.translate(w / 2 + view.panX, h / 2 + view.panY);
+    ctx.scale(view.zoom, view.zoom);
+
+    const focusSet = new Set();
+    if (hoverId) focusSet.add(hoverId);
+    if (focusNote) focusSet.add(focusNote);
+    const highlight = (id) => (hoverId || focusNote) && focusSet.has(id);
+    const isNeighbor = (id) => (hoverId || focusNote) && neighbors.get(hoverId ?? focusNote)?.has(id);
+    const dimming = Boolean(hoverId || focusNote);
+
+    // edges
+    for (const e of edges) {
+      const a = pos.get(e.source); const b = pos.get(e.target);
+      if (!a || !b) continue;
+      const activeEdge = (hoverId || focusNote) && (e.source === (hoverId ?? focusNote) || e.target === (hoverId ?? focusNote));
+      ctx.globalAlpha = dimming ? (activeEdge ? 0.9 : 0.08) : (e.kind === 'related' ? 0.55 : 0.4);
+      ctx.strokeStyle = e.kind === 'related' ? cssVar('--brand') : cssVar('--border') || '#8888';
+      ctx.lineWidth = activeEdge ? 1.8 : (e.kind === 'related' ? 1.2 : 1);
+      ctx.beginPath();
+      ctx.moveTo(a.x, a.y);
+      ctx.lineTo(b.x, b.y);
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+
+    // nodes
+    ctx.font = '11px var(--font-ui, sans-serif)';
+    const showLabels = view.zoom >= 1.9;
+    for (const node of nodes) {
+      const dim = dimming && !highlight(node.id) && !isNeighbor(node.id);
+      ctx.globalAlpha = dim ? 0.15 : 1;
+      if (node.kind === 'note') {
+        const s = node.r + 4;
+        ctx.fillStyle = cssVar('--surface');
+        ctx.strokeStyle = cssVar('--brand');
+        ctx.lineWidth = 1.4;
+        ctx.beginPath();
+        ctx.moveTo(node.x, node.y - s);
+        ctx.lineTo(node.x + s, node.y);
+        ctx.lineTo(node.x, node.y + s);
+        ctx.lineTo(node.x - s, node.y);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+      } else {
+        ctx.fillStyle = statusColor(node.status);
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, node.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      const label = node.kind === 'note' ? node.label : node.title ?? node.label;
+      const wantLabel = node.kind === 'note' || showLabels || node.id === hoverId || (dimming && isNeighbor(node.id));
+      if (wantLabel) {
+        ctx.globalAlpha = dim ? 0.2 : (node.kind === 'note' ? 0.95 : 0.85);
+        ctx.fillStyle = cssVar('--text-muted');
+        ctx.textAlign = 'center';
+        const text = label.length > 26 ? `${label.slice(0, 25)}…` : label;
+        ctx.fillText(text, node.x, node.y + node.r + (node.kind === 'note' ? 16 : 11));
+      }
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function loop() {
+    raf = 0;
+    if (alpha > 0) tick();
+    draw();
+    if (alpha > 0) kick(0);
+  }
+
+  function kick(initialAlpha) {
+    if (initialAlpha > alpha) alpha = initialAlpha;
+    if (!raf) raf = requestAnimationFrame(loop);
+  }
+  function pause() {
+    if (raf) cancelAnimationFrame(raf);
+    raf = 0;
+    alpha = 0;
+  }
+
+  // ---- interaction ----
+  const toWorld = (event) => {
+    const rect = canvas.getBoundingClientRect();
+    const sx = event.clientX - rect.left - (rect.width / 2 + view.panX);
+    const sy = event.clientY - rect.top - (rect.height / 2 + view.panY);
+    return { x: sx / view.zoom, y: sy / view.zoom };
+  };
+  function pick(event) {
+    const { x, y } = toWorld(event);
+    let best = null; let bestD = Infinity;
+    for (const node of nodes) {
+      const d = Math.hypot(node.x - x, node.y - y);
+      const hit = node.r + (node.kind === 'note' ? 6 : 5);
+      if (d < hit && d < bestD) { best = node; bestD = d; }
+    }
+    return best;
+  }
+
+  canvas.addEventListener('mousemove', (event) => {
+    mouse = { x: event.clientX, y: event.clientY, inside: true };
+    if (dragNode) {
+      const node = nodes.find((n) => n.id === dragNode);
+      if (node) {
+        const w = toWorld(event);
+        node.x = w.x; node.y = w.y;
+        const p = pos.get(node.id);
+        if (p) { p.x = w.x; p.y = w.y; }
+        kick(0.3);
+      }
+      return;
+    }
+    if (panning) {
+      view.panX = panning.panX + (event.clientX - panning.x);
+      view.panY = panning.panY + (event.clientY - panning.y);
+      view.autoFit = false;
+      kick(0);
+      return;
+    }
+    const hit = pick(event);
+    const changed = (hit?.id ?? null) !== hoverId;
+    hoverId = hit?.id ?? null;
+    if (hoverId) {
+      const node = hit;
+      const lines = node.kind === 'note'
+        ? [`<b>${esc(node.label)}</b>`, `<span class="field-hint">笔记 · ${node.deg} 条边</span>`]
+        : [`<b>${esc(node.label)}</b>`,
+          `<span class="badge badge-status-${esc(node.status)}">${esc(node.status)}</span> <span class="badge badge-stance">${esc(node.stance)}</span>`,
+          node.tags?.length ? `<span class="field-hint">${esc(node.tags.join(' · '))}</span>` : ''];
+      tooltip.innerHTML = lines.filter(Boolean).join('<br>');
+      tooltip.hidden = false;
+      const rect = wrap.getBoundingClientRect();
+      const tx = Math.min(event.clientX - rect.left + 14, rect.width - 280);
+      const ty = Math.min(event.clientY - rect.top + 14, rect.height - 90);
+      tooltip.style.left = `${Math.max(8, tx)}px`;
+      tooltip.style.top = `${Math.max(8, ty)}px`;
+      canvas.style.cursor = 'pointer';
+    } else {
+      tooltip.hidden = true;
+      canvas.style.cursor = 'default';
+    }
+    if (changed) kick(0);
+  });
+  canvas.addEventListener('mouseleave', () => {
+    mouse.inside = false;
+    hoverId = null;
+    tooltip.hidden = true;
+    kick(0);
+  });
+  let downXY = null; // to distinguish a click from a drag
+  canvas.addEventListener('mousedown', (event) => {
+    downXY = { x: event.clientX, y: event.clientY };
+    const hit = pick(event);
+    if (hit) {
+      dragNode = hit.id;
+      view.autoFit = false;
+    } else {
+      panning = { x: event.clientX, y: event.clientY, panX: view.panX, panY: view.panY };
+    }
+    kick(0.15);
+  });
+  const onWindowUp = (event) => {
+    if (dragNode) {
+      dragNode = null;
+      kick(0.2);
+      return;
+    }
+    if (panning) {
+      const moved = Math.hypot(event.clientX - panning.x, event.clientY - panning.y);
+      panning = null;
+      if (moved < 4) {
+        // plain click on background: clear sticky focus
+        if (focusNote) { focusNote = null; kick(0.2); }
+      }
+    }
+  };
+  window.addEventListener('mouseup', onWindowUp);
+  canvas.addEventListener('click', (event) => {
+    if (event.target !== canvas) return;
+    // ignore the click that ends a node drag / pan
+    if (downXY && Math.hypot(event.clientX - downXY.x, event.clientY - downXY.y) > 4) return;
+    const hit = pick(event);
+    if (!hit) return;
+    if (hit.kind === 'claim') {
+      location.hash = `#/claim/${encodeURIComponent(hit.id)}`;
+    } else {
+      focusNote = focusNote === hit.id ? null : hit.id;
+      kick(0.2);
+    }
+  });
+  canvas.addEventListener('wheel', (event) => {
+    event.preventDefault();
+    const rect = canvas.getBoundingClientRect();
+    const mx = event.clientX - rect.left - rect.width / 2;
+    const my = event.clientY - rect.top - rect.height / 2;
+    const factor = event.deltaY < 0 ? 1.12 : 1 / 1.12;
+    const next = Math.min(6, Math.max(0.2, view.zoom * factor));
+    const applied = next / view.zoom;
+    view.panX = mx - (mx - view.panX) * applied;
+    view.panY = my - (my - view.panY) * applied;
+    view.zoom = next;
+    view.autoFit = false;
+    kick(0);
+  }, { passive: false });
+
+  $('#graph-mode').addEventListener('change', (event) => {
+    mode = event.target.value;
+    graphMode = mode;
+    focusNote = null;
+    refilter();
+  });
+  $('#graph-relayout').addEventListener('click', () => {
+    pos.clear();
+    view = { zoom: 1, panX: 0, panY: 0, autoFit: true };
+    refilter();
+  });
+
+  graphRuntime = {
+    canvas,
+    pause,
+    refilter,
+    onWindowUp,
+  };
+  resize();
+  refilter();
+}
+
 // ---------------------------------------------------------------- router --
 
 function renderMain() {
+  graphRuntime?.pause();
   const hash = location.hash || '#/queue';
   if (hash.startsWith('#/claim/')) {
     const id = decodeURIComponent(hash.slice('#/claim/'.length));
     renderDetail(id);
   } else if (hash === '#/new') {
     renderNew();
+  } else if (hash === '#/graph') {
+    renderGraph();
   } else if (hash === '#/claims') {
     renderClaims();
   } else {
@@ -854,7 +1473,7 @@ function renderMain() {
   }
   const navName = hash.startsWith('#/claim/') || hash === '#/new'
     ? 'claims'
-    : (hash === '#/claims' ? 'claims' : 'queue');
+    : (hash === '#/graph' ? 'graph' : (hash === '#/claims' ? 'claims' : 'queue'));
   document.querySelectorAll('.nav a[data-nav]').forEach((a) => {
     a.classList.toggle('active', a.dataset.nav === navName);
   });
@@ -863,8 +1482,8 @@ function renderMain() {
 function render() {
   if (!state.loaded) return;
   const hash = location.hash || '#/queue';
-  if (hash === '#/claims' || hash.startsWith('#/claim/') || hash === '#/new') {
-    if (hash === '#/claims') renderSidebar();
+  if (hash === '#/claims' || hash === '#/graph' || hash.startsWith('#/claim/') || hash === '#/new') {
+    if (hash === '#/claims' || hash === '#/graph') renderSidebar();
   } else {
     renderSidebar();
   }
