@@ -62,7 +62,7 @@ signoff: null
 
 笔记声称（尚未独立验证）：由于框内点全为正样本（见 [anchor-free formulation 卡](claim-fcos-anchorfree-pixelwise-formulation.md)），远离中心的边缘位置产生低质量预测框；FCOS 增加 center-ness 分支预测“位置离几何中心的程度”（0~1，sqrt(min/max) 公式，BCE 训练），推理时最终得分 = 分类置信度 × center-ness，使低质量边缘框得分变低、在 NMS 中被过滤，从而缓解精度损失。
 
-限定：笔记未载 AP 数字与”有无 center-ness”消融表，故本卡只主张机制路径（低质量框 → 得分压低 → NMS 过滤），不主张任何具体涨点幅度。2026-11-05 原文补核：打分相乘与 NMS 过滤两句均逐字命中；论文 Table 6 在 RPN 设置下有 w/o center-ness 消融（AR100 48.0 vs 52.8，AR 口径非 AP）；§3.2 还明确把”只用中心部分当正样本”列为 center-ness 的替代方案，并自报两者结合（投稿后）效果更好——即 center-ness 与中心采样是互补关系，不是二选一。
+限定：笔记未载 AP 数字与“有无 center-ness”消融表，故本卡只主张机制路径（低质量框 → 得分压低 → NMS 过滤），不主张任何具体涨点幅度。2026-11-05 原文补核：打分相乘与 NMS 过滤两句均逐字命中；论文 Table 6 在 RPN 设置下有 w/o center-ness 消融（AR100 48.0 vs 52.8，AR 口径非 AP）；§3.2 还明确把“只用中心部分当正样本”列为 center-ness 的替代方案，并自报两者结合（投稿后）效果更好——即 center-ness 与中心采样是互补关系，不是二选一。
 
 ## 待验证
 
@@ -79,3 +79,4 @@ signoff: null
 ## 核查记录
 
 - 2026-11-05（02 任务书 P1-B7a 整理班）：表达整理 + 论文侧核查，数字未改写。四条笔记 quote Grep 逐字命中；新增 5 条 arXiv 1904.01355v5 原文 evidence（打分句、NMS 过滤句、sqrt/BCE 句、替代方案讨论句、Table 6 两行）；falsifier 1 闭合；falsifier 2 补 RPN AR100 锚点（48.0/52.8，AR 口径）；补 center-ness 与中心采样互补的原文线索。id/status/stance/review_due/signoff 未动。
+- 2026-11-05（P3 深核·批二独立复审）：修正本批引入的 2 处 ”…” 成对引号误排为 “…”；独立实抓 arXiv 1904.01355v5 二次复核：笔记 quote（含单引号 YAML 公式行）与 6 条 arXiv evidence 全部命中（NMS 过滤句/sqrt 句按披露的跨行连字符还原约定命中）。id/status/stance/review_due/signoff 未动。

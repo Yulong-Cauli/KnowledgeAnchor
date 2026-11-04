@@ -21,7 +21,7 @@ falsifiers:
   - "同范围复现（主张侧）：在 nuScenes val 同口径（统一指标实现、0.1m 网格碰撞率）复现中，Ego-MLP 的 L2-Avg 或 Colli-Avg 显著差于 UniAD/VAD 同表配置（例如高出 2 倍以上——预设判据，无既有统计锚点），而非持平"
   - "原文核查与配置核查：发现 Ego-MLP 的持平依赖历史轨迹 GT 等标签泄露（论文声称已通过修复 AD-MLP issue #4 去除），或其输入实际包含 ego status 之外的未来信息"
 review_due: 2026-12-02
-related: [claim-bevplanner-egostatus-injection-closes-gap, claim-bevplanner-unidad-postprocessing-raises-ccr]
+related: [claim-bevplanner-egostatus-injection-closes-gap, claim-bevplanner-unidad-postprocessing-raises-ccr, claim-bevplanner-ego-velocity-dominates-planning, claim-bevplanner-nuscenes-straight-driving-imbalance]
 signoff: null
 ---
 
@@ -63,3 +63,4 @@ signoff: null
 
 - 2026-11-02（建卡，commit c3ecdd4）：数字自 arXiv HTML v2 实抓。
 - 2026-11-05（02 任务书 P1-B3a 批）：表达整理，数字与 quote 未改写。2 条 evidence Grep 逐字命中笔记；同表基线行逐行核对一致；正文按样板结构重排，"持平仅限旧指标 + 统一实现前提"两个限定从理解段提升为范围节主体；新增"on par 无显著性检验"与防泄露配置未核对两条未排除因素；falsifier 加分层标注并标记预设判据；枢纽依存关系显式保留。id/status/stance/review_due/signoff 未动。
+- 2026-11-05（P3 深核·批二独立复审）：related 补齐 claim-bevplanner-ego-velocity-dominates-planning 与 claim-bevplanner-nuscenes-straight-driving-imbalance（四张机制卡 related 均单向指向本卡，按 related 双向约定对齐正文「被四卡 related」表述，枢纽依存关系不变）。2 条 evidence quote 与同表基线行独立复核命中。id/status/stance/review_due/signoff 未动。

@@ -3,7 +3,7 @@ id: claim-cornernet-corner-pooling-directional-maxsum
 title: "CornerNet 论文声称：角点池化用右→左与下→上两条方向性 max-pooling 路径相加，为缺乏局部特征的角点聚合边缘证据"
 type: claim
 status: asserted
-scope: "设计层面主张：CornerNet 预测模块内的角点池化结构（以左上角池化为例，该模块用作预测模块中改进残差块的第一部分）；依据笔记转述；2026-11-05 实抓 arXiv 1808.01244v2 补核：池化实现（两组方向性 max-pool 相加）与"替换改进残差块第一个 3×3 卷积"均在原文命中，且原文 Table 1 自报有/无角点池化消融（MS COCO validation 36.5→38.4，+2.0，笔记未载）；结构与动机为论文陈述，消融数字为论文自报，复现侧尚未独立验证"
+scope: "设计层面主张：CornerNet 预测模块内的角点池化结构（以左上角池化为例，该模块用作预测模块中改进残差块的第一部分）；依据笔记转述；2026-11-05 实抓 arXiv 1808.01244v2 补核：池化实现（两组方向性 max-pool 相加）与「替换改进残差块第一个 3×3 卷积」均在原文命中，且原文 Table 1 自报有/无角点池化消融（MS COCO validation 36.5→38.4，+2.0，笔记未载）；结构与动机为论文陈述，消融数字为论文自报，复现侧尚未独立验证"
 tags: [object-detection, corner-pooling, keypoint, cornernet, eccv2018]
 note: library/Classical_Detection/CornerNet.md#corner-pooling-角点池化
 paper: "ECCV 2018, CornerNet: Detecting Objects as Paired Keypoints（代码 https://github.com/princeton-vl/CornerNet，笔记头部出处）"
@@ -66,3 +66,4 @@ signoff: null
 ## 核查记录
 
 - 2026-11-05（02 任务书 P1-B7a 整理班）：表达整理 + 论文侧核查，数字未改写。三条笔记 quote Grep 逐字命中；新增 4 条 arXiv 1808.01244v2 原文 evidence（§3.4 动机句/实现句、§3.3 替换句、Table 1 消融行）；笔记"未载消融"的限定保留但补论文 Table 1 自报锚点（36.5→38.4）入 falsifier；笔记的方向性表述（右→左/下→上）与论文 (0,j)-(i,j)/(i,0)-(i,j) 两组 max-pool 是同一对路径的两种读法，已记录。代码侧核查仍未做。id/status/stance/review_due/signoff 未动。
+- 2026-11-05（P3 深核·批二独立复审）：scope 内两处 ASCII 双引号未转义、破坏严格 YAML 解析（PyYAML 报错），改为「」；独立实抓 1808.01244v2 二次复核：3 条笔记 quote 与 4 条 arXiv evidence 全部逐字命中（含 Table 1 消融行）。id/status/stance/review_due/signoff/evidence 未动。
