@@ -50,13 +50,13 @@
 
 ### P3 检查批（P1+P2 全清后；全量深核不晚于 07:00 开始，否则程序全检+抽样并如实注明覆盖范围）
 
-- [ ] 程序全检（调度班亲跑）：① frontmatter 受保护行 diff 为空 ② 改动卡清单与 diff 文件清单对账 ③ quote Grep library/ 全检
-- [ ] 子代理深核（新代理）：PASS/FIXED/ISSUED；命题漂移/scope 扩大/推断归作者/历史引文/falsifier 越界/下一步空洞化重点抓
+- [x] 程序全检（调度班亲跑）✅：冻结字段 0 变更（138 卡）/ 文件清单守恒 / 662 条 quote 归一化全检 0 真问题
+- [x] 子代理深核（风险抽样 32/138≈23%，如实注明）：批一 PASS16/FIXED0（六处命题级修正独立复算成立）；批二 PASS10/FIXED6/ISSUED0（AR_L 误标等，3409d85）
 
 ### P4 收尾批
 
-- [ ] `ka.mjs validate` → `selftest.mjs` → `git diff --check` → `ka.mjs index`
-- [ ] `tmp_docs/03-Claim卡片内容改进实施结果.md`（任务书第 6 节交付清单，含 P3 QA 计数与覆盖范围）→ commit
+- [x] validate OK(191) / selftest PASS / git diff --check 干净 / index 重建（不入库）
+- [x] `tmp_docs/03-Claim卡片内容改进实施结果.md` 已交付（commit 532a072；总账：改动138/保留53/待决 #48-95；P3 覆盖如实注明 23% 抽样）
 
 ## 完成
 
