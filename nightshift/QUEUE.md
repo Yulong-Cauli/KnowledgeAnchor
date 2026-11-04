@@ -34,7 +34,7 @@
 
 ### P1 主题批（每批 8–16 卡，2 并发子代理；样板定调后解锁）
 
-- [ ] 批1 mismatch/历史事件卡（*-note-table-mismatch + 带「待主人裁定/笔记已修正」附注卡；红线 4 历史引文规则适用）——B1 在跑
+- [x] 批1 mismatch/历史事件卡——B1 ✅ 改动11/保留1/待决6组（commit b975b62，#53-57）
 - [ ] 批2 量化主线 = B2a✅（改动6/保留11/待决0，commit 93879f5）+ B2b 在跑（omniquant/pdquant/qdbev/repqvit/sliderquant/qlora 18 卡）
 - [ ] 批3 bevplanner 机制系 + VLA（VLM_VLA 7 篇）
 - [ ] 批4 检测/融合（BEV_Detection/Multimodal_Fusion/RadarDistill…）
