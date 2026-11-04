@@ -112,3 +112,6 @@
 77. **RadarOcc Table 1 跨框架对比是否另立独立性能卡**：涉及新建卡授权，B4c 未擅自增卡（cfar 卡已留待决标记）。
 78. **nightshift/cross/4d-radar.md M5/§6.4 过时**：仍称"RadarOcc 笔记无实验章节"，但笔记 §3 已于 11-03 授权补写——建议加时点注记或更新。
 79. **GaussianFusion 笔记 PDF/ar5iv 交叉核对待做**：笔记为 HTML v1 单源抓取；B4c 已重抓 HTML 复核全命中，PDF 交叉核对低成本待并入后续班次。
+80. **NJU-SparseOcc 笔记 §2.1 剪枝条与原文实现不符（需授权修笔记+铁律3同步）**：笔记写"硬过滤仅保留 s>τ 的 Token"；arXiv v5 实抓（2026-11-05）原文为 "In our implementation, we simply keep voxels with top-k occupancy scores"（k=32000 最优，Fig.8(a)），阈值法仅是并列可替换方案（Fig.8(b)）；且原文顺序为"每层先 2×/轴上采样、再估分剪枝"。两张卡已加历史注记，笔记修正后可升级「笔记已修正」附注。
+81. **NJU-SparseOcc 笔记 §3「底层逻辑支撑」系笔记综合**："解码器低分辨率阶段物理抹除 >90% 背景节点"与"O(L^3)→O(N_active)"原文均无对应句（原文仅 §1 数据集统计句 + Fig.7 "discards over 90%" 定性句）。建议笔记标注为整理者综合。
+82. **NJU-SparseOcc 笔记 §2.2 MGSS 细化 + 消融未录**："96 个点"与"按掩码概率密度加权"为笔记添加（原文仅 randomly select within mask）；论文 Table 3 MT/交叉注意力消融四行（dense CA 28.7/16.2 vs +Mask-guided 29.2/24.0）笔记未录，建议补录。
