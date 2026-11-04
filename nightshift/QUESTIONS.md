@@ -103,3 +103,4 @@
 68. **Ali 正文-附录融合轮数张力**：正文 §4.1 "another 9 epochs" vs 附录 B.1（PointPillars 12 epochs；CenterPoint/TransFusion 6 epochs 且冻结 LiDAR 流）。two-stage 卡已注张力；需二次实抓 + 官方仓库 configs 对照后才能并列两口径。
 69. **BEVDet Table 5 消融配置未明示**：原文仅 "We adopt BEVDet-Tiny in Tab. 1"，无增强配置表述；bevdet-scale-nms 卡"与 Table 4 D 行同配置"已标整理者推断。需查官方仓库 NMS 消融 configs。
 70. **library 建议（B4a，未动）**：① Ali-BEVFusion.md 可补摘要级鲁棒性结果一行（模拟 LiDAR 故障 +15.7%–28.9% mAP，abs 页 2026-11-05 实抓）+ 骨干名订正（见 #67）；② 4 张 Ali 卡 paper 字段"论文全名笔记未载"已过时（笔记头部 11-03 已回填），待解冻处理。
+71. **RCBEVDet 系卡内 drafts 路径统一**：卡 5/7/8 内「待人工核对」引用的 nightshift/drafts/RCBEVDetPP.md 旧路径仍有效，且 library/Multimodal_Fusion/RCBEVDetPP.md 入库版已可对照（B4b 抽查 §3.5/§3.7 一致）——是否统一改指 library 版待裁定（表达统一，不影响证据）。
