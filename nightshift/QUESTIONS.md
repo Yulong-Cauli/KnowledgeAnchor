@@ -94,3 +94,6 @@
 55. **四张 falsifier 已触发卡存废**：centernetpoints-note-citation-artifacts / sparseocc-note-conversational-residue / emc2-note-table-mismatch / omniquant-note-table-mismatch——对应笔记修复均已执行、falsifier 触发条件已满足；改写/删除/转 stale 请逐卡处置（B1 已做历史分层，status 未动）。
 56. **OmniQuant 实验 1 口径备选**：11-03 修正采用「统一 7B g128 + 补 RTN 1.9e3」方案；「换用 13B 逐通道列原值（6.8e4/5.5e3/13.21）」备选未采用——是否并列呈现待裁定。
 57. **笔记小问题**：① HGSFusion 笔记 paper 字段缺英文原题与 arXiv 号（卡已注明）；② EMC2 旧 LoGoNet 82.92 疑源自笔记相邻 VFF 行（整理者线索，未验证，可选注记）。
+58. **Alpamayo-R1 TABLE 9/10 二次实抓待办**：2026-11-05 B3b 重抓 arXiv 2511.00088v2 时工具在 §6.2 截断未达 TABLE 9/10；alpamayo-r1-coc 与 alpamayo-r1-rl 两卡的外部线性化行 quote 现依据=入库时逐格脚本核验+班内 Grep 对笔记命中。建议补抓一次并把结果记入两卡核查记录。
+59. **Alpamayo-R1 0.5B 底座型号**：笔记仅记 "uses a smaller backbone"，全文未见 0.5B 具体底座（抓取截断在 §6.2）；卡 scope 已改"未载"。待后续完整抓取补核，不凭记忆回填。
+60. **AutoVLA Table S3 DriveTraj 两行（#42 补充证据）**：B3b 实抓确认两行（7.4957/7.2787）存在且均低于 AutoVLA——即便两行合并也不改「Overall 第 5 / Spotlight 第一」结论。是否向作者/榜方求证由主人定。

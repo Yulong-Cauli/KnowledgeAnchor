@@ -31,7 +31,7 @@ evidence:
     relation: supports
 falsifiers:
   - "复现 RL 后训练中，仅 reasoning 奖励不再劣化 ADE 与一致性（TABLE 9 行 2 的反例不成立），或双奖励的 ADE/一致性增益不显著"
-  - "发现 Reasoning Grading 与 Consistency Score 由 LRM critic 评出，critic 换型/换 prompt 后 +45%/+37% 不复现（评测依赖 critic 主观分）"
+  - "换 LRM critic（DeepSeek-R1/Cosmos-Reason 换型）或换评分 prompt 后，Reasoning Grading 的 +45% 不复现——该分由 critic 主观评出（Consistency Score 为 meta-action 双轴 0/1 判定的比率，不依赖 critic，其增益归上一条 falsifier 检验）"
   - "加入 safety 奖励后 Close Encounter Rate 不降到 3.7 或推理分明显回落（论文称不损害推理质量）"
 review_due: 2026-12-03
 related: [claim-alpamayo-r1-coc-reasoning-beats-trajonly-hard-set, claim-alpamayo-r1-10b-physicalai-av-public-snapshot]
@@ -44,7 +44,7 @@ signoff: null
 
 三条必须记住的限定：
 1. RL 读数全部基于 0.5B 模型（§6.3 自述），10B 发布模型的对应数字另见表 10。
-2. Reasoning Grading / Consistency Score 由 LRM critic（DeepSeek-R1、Cosmos-Reason 等）评定——是模型评模型的相对指标，非人工或客观指标。
+2. Reasoning Grading 由 LRM critic（DeepSeek-R1、Cosmos-Reason 等）评定——是模型评模型的相对指标，非人工或客观指标；Reasoning–Action Consistency Score 则是推理陈述与 meta-action 双轴一致的 0/1 判定（笔记 §5.3.2），不依赖 critic 主观评分。
 3. 评测在内部数据与内部仿真上，公开不可复现；Abstract 的 45%/37% 即出自本表。
 
 ## 待验证
@@ -57,3 +57,7 @@ signoff: null
 
 成立：驾驶 VLA 的 RL 后训练必须包含推理-动作一致性奖励项，可作为通用 recipe。
 不成立：增益依赖特定 critic 与内部数据，奖励设计需逐团队自行调参验证。
+
+## 核查记录
+
+- 2026-11-05 表达整理（P1-B3b 班）：把「Reasoning Grading / Consistency Score 由 LRM critic 评定」更正为仅 Reasoning Grading 由 LRM critic 评定——笔记 §5.3.2 记 Consistency Score 为「推理陈述与 meta-action 双轴一致则 r_consistency=1，否则 0」的 0/1 判定；falsifier 第 2 条同步拆分。数字未改写。

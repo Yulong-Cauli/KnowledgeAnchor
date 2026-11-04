@@ -30,7 +30,7 @@ evidence:
     quote: "we experiment with a version of the OpenVLA model that is pretrained with a smaller robot data mixture (the same OpenX dataset mixture as Octo) and has a slightly smaller architecture which only uses a SigLIP [79] vision backbone instead of the fused DinoSigLIP encoder."
     relation: supports
 falsifiers:
-  - "在最终发布配置（DinoSigLIP 7B、970k 混合预训练）上复现：LoRA r=32 成功率显著低于全参微调（差值超出双方 StdErr），『匹配』不成立"
+  - "跨配置迁移检查（本条不判原命题伪——原主张 scope 是 §5.3 简化版模型——只判外推到最终发布模型失效）：在最终发布配置（DinoSigLIP 7B、970k 混合预训练）上复现，LoRA r=32 成功率显著低于全参微调（差值超出双方 StdErr）"
   - "同任务复现中 LoRA 所需 VRAM/时长远高于 59.7 GB / 10-15 小时（如 batch 16 口径不可复制）"
   - "发现 1.4% 参数的算法（97.6M）与 r=32 全线性层的理论参数量不符，或 LoRA rank 对性能影响并非『可忽略』"
 review_due: 2026-12-03
@@ -54,3 +54,7 @@ signoff: null
 
 成立：实验室单卡即可把 OpenVLA 适配到新任务，VLA 微调门槛与 LLM 的 LoRA 生态对齐。
 不成立：需 8×A100 全参微调，落地成本按 8 倍重估。
+
+## 核查记录
+
+- 2026-11-05 表达整理（P1-B3b 班）：falsifier 第 1 条标注为跨配置迁移检查（原主张 scope 为 §5.3 简化版模型，发布配置复现属外推检验而非原范围反证）。数字未改写。

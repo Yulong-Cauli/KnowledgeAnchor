@@ -71,7 +71,7 @@ evidence:
     relation: supports
 falsifiers:
   - "Waymo leaderboard 同期或后续复核显示 AutoVLA 的 RFS Overall 高于 Poutine（7.9860）/HMVLM（7.7367）/UniPlan（7.6925）/DiffusionLTF（7.5919）任一档，即 Overall 并非第 5（或所录 17 行名次口径有误）"
-  - "nuScenes 复评或论文勘误显示 AutoVLA (w/ CoT) 的 UniAD 口径 avg.Col. 低于 OpenDriveVLA-3B 的 0.30%，或 avg.L2 0.70 优于其 0.67 的表述有误"
+  - "nuScenes 复评或论文勘误显示 AutoVLA (w/ CoT) 的 UniAD 口径 avg.Col. 低于 OpenDriveVLA-3B 的 0.30%，或 avg.L2 实际优于 OpenDriveVLA-3B 的 0.67（本卡「两项均劣于」的表述不成立）"
   - "NAVSIM 复现中 Post-RFT PDMS ≥ TrajHF 的 93.95，或 Best-of-N 在无 oracle 打分器的在线设定下仍达 92.12"
   - "查得论文其他版本（v1/v2）或 NeurIPS camera-ready 中三张表数字与上述不一致"
 review_due: 2026-12-03
@@ -83,7 +83,7 @@ signoff: null
 
 这张卡是 AutoVLA 的"表现定位"诚实注记卡：论文 §1 自称 "superior performance across various benchmarks"，但三张表的实际相对位置是 competitive / 部分指标第一，笔记 ⚠ 已做事实核对，本卡把核对结论钉成可证伪主张：
 
-1. **NAVSIM（Table 1）**：Post-RFT 89.11 在表中列第 4（TrajHF 93.95 / Centaur 92.10 / Hydra-MDP 91.26 都更高）；Best-of-N 92.12 也不是第一，且依赖 oracle 打分器从 6 个候选里选优（§4.2），不能当在线能力引用。RFT 自身带来的 80.54→89.11 增益是另一码事，见 related RFT 专卡。
+1. **NAVSIM（Table 1）**：Post-RFT 89.11 在表中非 AutoVLA 方法里列第 4（高于它的只有 TrajHF 93.95 / Centaur 92.10 / Hydra-MDP 91.26；表中另一更高行 Best-of-N 92.12 是 AutoVLA 自身，若按全部行计名次则列第 5）；Best-of-N 92.12 也不是第一，且依赖 oracle 打分器从 6 个候选里选优（§4.2），不能当在线能力引用。RFT 自身带来的 80.54→89.11 增益是另一码事，见 related RFT 专卡。
 2. **nuScenes（Table S2）**：UniAD 协议口径（1/2/3s 分列不平均）下 AutoVLA (w/ CoT) avg.L2 0.70 m 好于 UniAD 的 1.03、与碰撞率 0.31% 持平，但两项都劣于 OpenDriveVLA-3B（0.67 / 0.30）；ST-P3 口径下劣于 VAD 与 EMMA（L2）。结论：nuScenes 上无一项全面领先。
 3. **Waymo（Table S3）**：截至 2025-05-22 的挑战榜所录 17 行中，RFS Overall 7.5566 列第 5（低于 Poutine/HMVLM/UniPlan/DiffusionLTF），论文最响的卖点是 RFS Spotlight 6.9436 为所录最高——论文自己用的措辞也是 "ranks highly" + "top score in the RFS Spotlight metric"，而非 Overall 第一。
 
@@ -101,3 +101,8 @@ signoff: null
 
 成立：AutoVLA 的正确引用姿势是"competitive + RFT 效率卖点 + Waymo Spotlight 榜内第一"，任何"SOTA VLA 驾驶模型"的笼统说法都不成立；做 VLA 驾驶选型对比时应逐基准逐口径引用（NAVSIM/nuScenes 双协议/Waymo 榜）。
 不成立：三表中任一基准 AutoVLA 实为榜首（或名次核对有误），则笔记 ⚠ 与本卡的"非榜首"定位需反转，"superior performance" 的论文自述反而成立，本卡作废并需审计 related 两卡的表述边界。
+
+## 核查记录
+
+- 2026-11-05 表达整理（P1-B3b 班）：修正 falsifier 第 2 条的反向措辞（原句「avg.L2 0.70 优于其 0.67 的表述有误」的语义与本卡「两项均劣于」的主张方向相反）；正文「列第 4」限定为「非 AutoVLA 方法中列第 4」（表中 Best-of-N 92.12 为 AutoVLA 自身行）。除该措辞外数字未改写。
+- 2026-11-05 实抓复核 https://arxiv.org/html/2506.13757v3 ：五条外部 quote（Appendix F.3 两句、§4.2 一句、Table S3 / Table S2 线性化行）逐字命中；Table S3 确为 17 行、AutoVLA RFS Overall 7.5566 列第 5（高于 Poutine 7.9860 / HMVLM 7.7367 / UniPlan 7.6925 / DiffusionLTF 7.5919 四行）、两行同名 DriveTraj（7.4957 / 7.2787）在案且均低于 AutoVLA，名次结论维持。

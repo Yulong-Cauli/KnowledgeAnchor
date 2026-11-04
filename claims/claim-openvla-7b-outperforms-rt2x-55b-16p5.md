@@ -40,7 +40,7 @@ signoff: null
 
 三条必须记住的限定：
 1. 这是自报对比：RT-2-X 闭源、由 OpenVLA 作者执行评测；其 Bridge 评测依赖「取次优动作」的 workaround（Appendix C，论文称与 OpenX 报告中 RT-2-X 开发者做法相同）。
-2. 分平台看：Google Robot 上只是 "comparably"，16.5% 主要由 BridgeData V2 差距贡献。
+2. 分平台看：Google Robot 上只是 "comparably"，16.5% 主要由 BridgeData V2 差距贡献（整理者推断，非论文原句——论文只给分平台定性结论；逐任务明细 Table 4/6 未逐行核对）。
 3. RT-2-X 在语义泛化类任务上仍更强（§5.1 原文承认），「超越」不覆盖所有任务类别。
 
 谱系：OpenVLA 的 Prismatic 基座用 LLaVA 1.5 数据混合微调（§3.1），与本库 LLaVA 卡同谱系。
@@ -55,3 +55,7 @@ signoff: null
 
 成立：开源 7B VLA 可作为机器人操作研究的默认底座，闭源大规模 VLA 的必要性下降。
 不成立：优势依赖评测执行方与数据清洗口径，选型时需自建 A/B 复测再定。
+
+## 核查记录
+
+- 2026-11-05 表达整理（P1-B3b 班）：正文第 2 条「16.5% 主要由 BridgeData V2 差距贡献」标注为整理者推断（依据：论文 §5.1 分平台定性句 comparably / significantly outperforms，明细表未转录）。数字未改写。

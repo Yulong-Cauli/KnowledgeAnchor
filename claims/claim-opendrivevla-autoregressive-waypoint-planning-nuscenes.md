@@ -30,7 +30,7 @@ evidence:
     quote: "OpenDriveVLA-3B (Ours) 0.14 0.30 0.55 0.33 0.02 0.07 0.22 0.10 0.19 0.58 1.24 0.67 0.02 0.18 0.70 0.30 Qwen2.5-3B Visual"
     relation: supports
 falsifiers:
-  - "同 nuScenes val、同 ST-P3/UniAD 口径复现中，OpenDriveVLA-3B/7B 平均 L2 显著高于 0.33m/0.66m 或平均碰撞率高于表中自报（0.10%/0.25% UniAD 口径）"
+  - "同 nuScenes val、同 ST-P3/UniAD 口径复现中，OpenDriveVLA-3B/7B 平均 L2 显著高于 0.33m/0.66m 或平均碰撞率高于表中自报（UniAD 口径 3B/7B 为 0.30%/0.25%；ST-P3 口径 3B/7B 均为 0.10%）"
   - "按 BEV-Planner 的 CCR 等更严口径重评，领先消失或反转（论文自述仅开环评测、且 nuScenes 开环可能高估稳健性）"
   - "发现 TABLE I 中对比行的口径不可比（如部分基线无 ego status / 输入模态不同），best-in-class 声称不成立"
 review_due: 2026-12-03
@@ -43,7 +43,7 @@ signoff: null
 论文声称（尚未独立验证）：OpenDriveVLA 把 ego 未来轨迹（3 秒、6 个 waypoints、0.5s 间隔）token 化为离散文本 token，用 LLM 自回归解码，在 nuScenes 开环规划上 ST-P3 口径 3B/7B 平均 L2 0.33m、UniAD 口径 7B 平均 L2 0.66m、0.5B 平均碰撞率低至 0.09%（ST-P3）/0.26%（UniAD），自称 "state-of-the-art ... across both settings"（TABLE I caption 另限定为 "best-in-class results among open-source models"）。
 
 三个必须记住的限定：
-1. 仅开环：Abstract 的 SOTA 只覆盖 nuScenes 开环规划与驾驶 VQA；论文 §VIII-D2/D3 自述开环"may lead to overly optimistic conclusions"、闭环是 future work。本库 BEV-Planner 系列卡已证明 nuScenes 开环指标可被 ego status 与直行分布主导——OpenDriveVLA 自己的消融（TABLE IV）也显示 ego state 作用关键，两者互为印证。
+1. 仅开环：Abstract 的 SOTA 只覆盖 nuScenes 开环规划与驾驶 VQA；论文 §VIII-D2/D3 自述开环"may lead to overly optimistic conclusions"、闭环是 future work。本库 BEV-Planner 系列 claim（status: asserted，均为论文声称、尚未独立验证）报告 nuScenes 开环指标可被 ego status 与直行分布主导——OpenDriveVLA 自己的消融（TABLE IV）也显示 ego state 作用关键，两者互为印证（related 关联不等于支持）。
 2. 规模不单调：Nu-X 上 0.5B（CIDEr 32.3）优于 7B（26.2），TABLE I 内三档互有胜负，勿写「越大越好」。
 3. 推理延迟 1.36–1.85 s/样本（TABLE IX，A100 BF16），论文自认是高速场景部署瓶颈（自回归解码的代价）。
 
@@ -57,3 +57,7 @@ signoff: null
 
 成立：自回归 token 化是小参数量（0.5B 级）开环规划的可行路线，可与 VAD 类 VA 模型同台比较。
 不成立：领先依赖对比行口径差异，则驾驶 VLA 选型需回到统一实现下的重测。
+
+## 核查记录
+
+- 2026-11-05 表达整理（P1-B3b 班）：falsifier 第 1 条碰撞率锚点按 TABLE I 实际行更正口径错位（原「0.10%/0.25% UniAD 口径」：UniAD 口径 3B/7B 实为 0.30%/0.25%，0.10% 是 ST-P3 口径值）；正文「BEV-Planner 系列卡已证明」降格为 asserted 口径（引用规则：尚未独立验证不得写成事实）。
