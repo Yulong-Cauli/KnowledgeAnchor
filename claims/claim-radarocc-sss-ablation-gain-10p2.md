@@ -64,3 +64,8 @@ signoff: null
 ---
 
 2026-11-03 消融核查：见 claim-radarocc-sss-ablation-gain-10p2（本卡即该核查产出；Table 2 全表及 DBD/SFE/RWA 补充消融已转录至笔记 §3 实验）。
+
+## 核查记录
+
+- 2026-11-03（建卡时）：arXiv v4 PDF（pdftotext -layout）+ HTML v4 双源实抓，§5.3 句与 Table 2 行逐字核对，正文四条限定的引文当时完成；笔记 §3.3 转录行同日入库。
+- 2026-11-05（02 任务书整理班）：复核性重抓 https://arxiv.org/html/2405.14014v4 ——§5.3「We conduct this experiment (row (c) in Tab. 2)…」句逐字命中（句内括号处空格为 LaTeXML 链接边界渲染伪迹，与 PDF 文本层同句一致）；正文限定 3「论文取 250 的理由是一半指标最优 + 推理更快」在附录 C.1 原文核实（"achieves the best results in half of all metrics…Additionally, the inference speed at Nr = 250 is relatively higher compared to configurations with larger values"——「推理更快」系相对更大 Nr 而言）；1 条笔记 quote Grep 逐字命中。数字与命题未动。id/status/stance/review_due/signoff 未动。

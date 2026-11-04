@@ -3,7 +3,7 @@ id: claim-hgsfusion-rhgm-dsm-superadditive-roi-gain
 title: "HGSFusion 自报：VoD 消融中 RHGM 与 DSM 同时启用的 RoI AP 增益（73.27 → 79.46，+6.19）大于两模块单独增益之和（+1.56 与 +1.18）"
 type: claim
 status: asserted
-scope: "VoD（笔记 §4.2 未单独标注数据集，按 §4 上下文推定为 VoD，需回原文核对）；HGSFusion 管线内模块消融（论文 Table 3，据库内笔记转录）；基线为 R+C 无 RHGM/DSM 行（RoI AP 73.27）；指标 RoI AP，笔记未定义口径（cross 文档 M1）；自报数字，尚未独立验证；「大于单独增益之和」为笔记表格数字的直接算术比较，非笔记原文措辞"
+scope: "VoD validation set（2026-11-05 实抓 arXiv:2412.11489v1 核对：Table 3 caption「Ablation study results of proposed components on the validation set of VoD dataset」，原卡按笔记上下文的推定获原文确认）；HGSFusion 管线内模块消融（论文 Table 3，2026-11-05 实抓六行与笔记转录逐格一致）；基线为 R+C 无 RHGM/DSM 行（RoI AP 73.27）；指标 RoI AP，笔记未定义口径（cross 文档 M1）；自报数字，尚未独立验证；「大于单独增益之和」为笔记表格数字的直接算术比较，非笔记原文措辞"
 tags: [4d-radar, radar-camera-fusion, hgsfusion, vod, ablation, roi-ap]
 note: library/Multimodal_Fusion/HGSFusion.md#42-模块消融实验-table-3
 paper: "AAAI 2025 · HGSFusion（带混合生成与同步的雷达-相机融合 3D 目标检测；笔记未记录英文原题与 arXiv 号；开源：https://github.com/garfield-cpp/HGSFusion）"
@@ -20,6 +20,10 @@ evidence:
   - source: library/Multimodal_Fusion/HGSFusion.md
     locator: "§4.2 / Table 3 分析"
     quote: "**分析**：RHGM 对性能的提升（+1.56% RoI AP）证明了点云增广的有效性；DSM 的引入（+1.18% RoI AP）证明了同步机制的价值。两者结合实现了最大的增益（+6.19% RoI AP）。"
+    relation: supports
+  - source: https://arxiv.org/html/2412.11489v1
+    locator: "Table 3 caption（数据集定位；空白归一化后核对）；URL+抓取日期 2026-11-05"
+    quote: "Table 3: Ablation study results of proposed components on the validation set of VoD dataset."
     relation: supports
 falsifiers:
   - "复现消融：RHGM+DSM 联合增益 ≈ 单独增益之和（+2.74 上下）或低于其中某单模块增益，无可加性协同"
@@ -40,7 +44,7 @@ signoff: null
 
 ## 待验证
 
-- 回 HGSFusion 原文核对 Table 3 六行数字与各行模块组合的精确定义。
+- 回 HGSFusion 原文核对 Table 3 六行数字与各行模块组合的精确定义。——2026-11-05 部分完成：六行数字与数据集（VoD validation set）已对照 arXiv v1 核对一致；单模块行的组合方式（RHGM-only = R+C + RHGM 等）由表头 ✓ 组合直接读出，公式级模块定义仍待代码/正文方法节确认。
 - 复现：同基线分别训练 +RHGM、+DSM、+both（同 schedule、多种子），检验联合增益是否稳定大于单独增益之和。
 - 确认消融各行除目标模块外配置完全一致（训练轮数、增广、NMS 阈值等）。
 
@@ -48,3 +52,8 @@ signoff: null
 
 成立：点云增密与模态同步应联合设计、联合评估；单模块消融的线性外推会低估联合收益，自研融合管线可把「生成点 + 同步加权」作为一个整体设计点。
 不成立：增益主要由单一模块贡献或严格可加，「协同」叙事不成立，两模块可按需独立取舍，选型成本更低。
+
+## 核查记录
+
+- 建卡（日期未记录）：数字据笔记转录，数据集为推定，无原文核对记录。
+- 2026-11-05（02 任务书整理班）：实抓 https://arxiv.org/html/2412.11489v1 ——Table 3 六行（EAA AP/RoI AP）与笔记转录逐格一致；caption 证实数据集为 VoD validation set（原推定升级为原文确认），caption 句补入 evidence；「待验证」第一条标记部分完成。数字未改写。id/status/stance/review_due/signoff 未动。

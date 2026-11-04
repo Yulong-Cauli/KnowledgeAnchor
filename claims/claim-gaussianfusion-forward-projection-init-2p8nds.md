@@ -22,6 +22,7 @@ evidence:
     quote: "| Forward Projection | 74.0 | 71.7 |"
     relation: supports
 falsifiers:
+  - "原文核查：对照 PDF/ar5iv 复核该表（HTML 内 caption 称 Table 8、§4.5 正文称 Table 9）四行数值与 §4.5 增量句；PDF 中真实表号或数值与本卡所引不符（笔记与原句均为单源 HTML v1 抓取，未交叉核对）"
   - "复现消融中 forward projection ≤ random initialization，或增量显著小于 +2.8 NDS"
   - "复现发现 +2.8 主要来自初始化以外的耦合差异（如不同学习率/训练时长），控制变量后增量消失"
 review_due: 2027-02-02
@@ -44,3 +45,8 @@ signoff: null
 
 成立：3DGS 感知方法的初始化应作为标准消融维度，GaussianFormer 系（含库内关注的占用线）的改进空间先看初始化。
 不成立：+2.8 是与训练配置耦合的产物，初始化策略收益存疑。
+
+## 核查记录
+
+- 2026-11-04（建卡时）：数字自 arXiv HTML v1 实抓，quote 与验算（74.0−71.2=2.8）当时完成；§4.5 正文称 Table 9 vs caption Table 8 的内部编号矛盾在案。
+- 2026-11-05（02 任务书整理班）：表达复核，数字未改写；2 条笔记 quote Grep 逐字命中；重抓 https://arxiv.org/html/2607.00746v1 复核 §4.5 增量句逐字命中（句中「v.s」为原论文错拼的 math 元素 alttext，按笔记既定引句约定取 alttext 形态）；falsifiers 补「原文核查」条（PDF 表号/数值交叉核对缺口）。id/status/stance/review_due/signoff 未动。

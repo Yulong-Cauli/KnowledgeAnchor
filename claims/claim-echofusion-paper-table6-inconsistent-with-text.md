@@ -22,11 +22,11 @@ evidence:
     quote: " C    RT     RA       RP     L   Overall       0 - 50m      50 - 100m    Overall       0 - 50m       50 - 100m"
     relation: supports
   - source: https://arxiv.org/pdf/2307.16532v2
-    locator: "Table 6 第 6 数据行（仅第 5 个 ✓ 落在 L 列 = LiDAR only）/ p.9；URL+抓取日期 2026-11-03"
+    locator: "Table 6 模态区第 5 数据行（仅第 5 个 ✓ 落在 L 列 = LiDAR only）/ p.9；URL+抓取日期 2026-11-03（2026-11-05 本班实抓 v2 PDF 复核逐字命中并校正行序计数：模态区数据行 C=1/RT=2/RA=3/RP=4/L=5/C+RT=6…，原 locator「第 6 数据行」系把表头计入所致，行识别本身无误）"
     quote: "                             ✓   84.47±0.15    86.92±0.61   91.91±0.13   86.07±0.44    88.55±0.79    93.17±0.10"
     relation: supports
   - source: https://arxiv.org/pdf/2307.16532v2
-    locator: "Table 6 第 7 数据行（第 1、2 个 ✓ 落在 C、RT 列 = C+RT）/ p.9；URL+抓取日期 2026-11-03"
+    locator: "Table 6 模态区第 6 数据行（第 1、2 个 ✓ 落在 C、RT 列 = C+RT）/ p.9；URL+抓取日期 2026-11-03（2026-11-05 本班实抓复核逐字命中）"
     quote: " ✓    ✓                          84.92±0.98    87.56±1.58   91.06±1.18   88.86±0.62    92.81±1.37    94.81±0.52"
     relation: supports
   - source: https://arxiv.org/html/2307.16532v1
@@ -66,3 +66,8 @@ signoff: null
 
 成立：引用 EchoFusion 时不得转述「BEV AP 仅比 LiDAR 低 0.03」这句正文；对比 LiDAR 的数字一律回 Table 6 原行（RT+C 84.92 vs L 84.47，RT+C 实际略高 0.45），并提示该文正文数字需对表复核后再引用。相关既有卡（3d-ap-below-lidar、rt-vs-ra-noise、rt-vs-rp-radial、note-table-mismatch）均以 Table 6 原表数字为准，不受此句影响。
 不成立：找到正文与表格一致的版本，说明该笔误已在某版本修正，本卡按 falsifier 转 stale 并注明版本。
+
+## 核查记录
+
+- 2026-11-03（建卡时）：arXiv v2 HTML + PDF 两源实抓，§5.4 句与 Table 6 行逐字核对；v1 同句复核；QUESTIONS #4 在案记录确认。
+- 2026-11-05（02 任务书整理班）：复核性实抓 https://arxiv.org/html/2307.16532v2 ，「only 0.03 less」句再次逐字命中（数字未改写）；QUESTIONS.md #4 quote Grep 逐字命中。命题、边界说明与 falsifiers 未动。id/status/stance/review_due/signoff 未动。

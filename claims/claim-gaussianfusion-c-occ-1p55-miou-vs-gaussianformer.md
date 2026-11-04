@@ -22,6 +22,7 @@ evidence:
     quote: "| GaussianFusion-C | 43,296 | 20.65 | 105 ms |"
     relation: supports
 falsifiers:
+  - "原文核查：重新抓取 arXiv（或对照 PDF/ar5iv）发现 §4.4 增量句或 Table 7 两行数字与本卡所引不符（笔记与原句均为单源 HTML v1 抓取，未与 PDF/ar5iv 交叉核对）"
   - "同设置复现 GaussianFormer mIoU ≥ 20.65，或 GaussianFusion-C ≤ 19.10"
   - "复现的高斯数比（43,296/140,000 ≈ 31%）或延迟比（475/105 ≈ 4.5×）明显偏离论文口径（如延迟在同级 GPU 上 > 2×）"
 review_due: 2027-02-02
@@ -47,3 +48,8 @@ signoff: null
 
 成立：初始化策略本身是高斯感知的主要收益来源（与 G3 消融一致），相机占用的高斯路线具备效率优势。
 不成立：+1.55 依赖对比实现的次优配置，高斯路线回到与 GaussianFormer 打平的水平。
+
+## 核查记录
+
+- 2026-11-04（建卡时）：数字自 arXiv HTML v1 实抓，quote 与算术验算（1.55 / 30.9% / 4.52×）当时完成。
+- 2026-11-05（02 任务书整理班）：表达复核，数字未改写；2 条笔记 quote Grep 逐字命中；重抓 https://arxiv.org/html/2607.00746v1 复核 §4.4 增量句逐字命中（「Table 7 .」处空格为链接边界渲染伪迹）；falsifiers 补「原文核查」条（对应笔记单源 HTML 抓取、未与 PDF/ar5iv 交叉核对的缺口）。id/status/stance/review_due/signoff 未动。

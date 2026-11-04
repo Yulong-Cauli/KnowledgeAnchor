@@ -22,6 +22,7 @@ evidence:
     quote: "| | 400×400 | 0.252m | 20560 M | 72.7 |"
     relation: supports
 falsifiers:
+  - "原文核查：重新抓取 arXiv（或对照 PDF/ar5iv）发现 Table 1 六行（尤其 BEVFusion 400×400 行 72.7/20560 M 与 GaussianFusion 100×100 行 73.1/3576 M）或 §1 表述与本卡所引不符（笔记与原句均为单源 HTML v1 抓取，未与 PDF/ar5iv 交叉核对）"
   - "同配置重训 BEVFusion@400×400 复现 NDS ≥ 73.1（反超 GaussianFusion@100×100）"
   - "复现的显存曲线明显偏离（如 BEVFusion@400×400 实际 < 10GB，说明 20560 M 是特定 batch/实现口径）"
 review_due: 2027-02-02
@@ -44,3 +45,8 @@ signoff: null
 
 成立：部署侧可放弃高分辨率 BEV 网格换连续表示省显存（5.7×），对边缘/多任务并发的场景有直接价值。
 不成立：分辨率扫描是配置不对等的产物，BEV 网格在同等显存下仍可打平，连续表示的优势收缩到训练侧。
+
+## 核查记录
+
+- 2026-11-04（建卡时）：数字自 arXiv HTML v1 实抓，quote 当时完成；BEVFusion 各档是否同配置重训未注明（笔记遗留）在案。
+- 2026-11-05（02 任务书整理班）：表达复核，数字未改写；2 条笔记 quote Grep 逐字命中；重抓 https://arxiv.org/html/2607.00746v1 复核 §1 表述句逐字命中（「Table 1 .」处空格为链接边界渲染伪迹）；falsifiers 补「原文核查」条（单源 HTML 抓取、未与 PDF/ar5iv 交叉核对的缺口）。id/status/stance/review_due/signoff 未动。

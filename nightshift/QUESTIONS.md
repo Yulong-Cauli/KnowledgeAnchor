@@ -104,3 +104,11 @@
 69. **BEVDet Table 5 消融配置未明示**：原文仅 "We adopt BEVDet-Tiny in Tab. 1"，无增强配置表述；bevdet-scale-nms 卡"与 Table 4 D 行同配置"已标整理者推断。需查官方仓库 NMS 消融 configs。
 70. **library 建议（B4a，未动）**：① Ali-BEVFusion.md 可补摘要级鲁棒性结果一行（模拟 LiDAR 故障 +15.7%–28.9% mAP，abs 页 2026-11-05 实抓）+ 骨干名订正（见 #67）；② 4 张 Ali 卡 paper 字段"论文全名笔记未载"已过时（笔记头部 11-03 已回填），待解冻处理。
 71. **RCBEVDet 系卡内 drafts 路径统一**：卡 5/7/8 内「待人工核对」引用的 nightshift/drafts/RCBEVDetPP.md 旧路径仍有效，且 library/Multimodal_Fusion/RCBEVDetPP.md 入库版已可对照（B4b 抽查 §3.5/§3.7 一致）——是否统一改指 library 版待裁定（表达统一，不影响证据）。
+72. **HGSFusion 笔记 §4.4 未标数据集**：实为 TJ4DRadSet test set（B4c 对 arXiv:2412.11489v1 Table 5 caption 逐字核实，dark 卡已修正）；笔记需按 §4.1 既有注记格式补注——需授权。
+73. **HGSFusion Table 7 数据集 caption 未标**（附录表）：推定 VoD（上下文推测），需查 AAAI camera-ready 或官方代码。
+74. **HGSFusion 光照子集划分标准（亮度阈值）与 3D mAP 类别覆盖**：原文未查得，dark 卡已标待核。
+75. **EchoFusion PAA 剩余面**：arXiv v2 正文+附录 12 张表已枚举无 PAA 专项消融；NeurIPS OpenReview 补充材料与官方仓库未查（paa 卡待验证第 1 条部分完成）。
+76. **EchoFusion Table 6「±」统计口径**：论文只说 "mean and variance"，未定义具体形式；rt-vs-ra/rp 卡已注明。
+77. **RadarOcc Table 1 跨框架对比是否另立独立性能卡**：涉及新建卡授权，B4c 未擅自增卡（cfar 卡已留待决标记）。
+78. **nightshift/cross/4d-radar.md M5/§6.4 过时**：仍称"RadarOcc 笔记无实验章节"，但笔记 §3 已于 11-03 授权补写——建议加时点注记或更新。
+79. **GaussianFusion 笔记 PDF/ar5iv 交叉核对待做**：笔记为 HTML v1 单源抓取；B4c 已重抓 HTML 复核全命中，PDF 交叉核对低成本待并入后续班次。
