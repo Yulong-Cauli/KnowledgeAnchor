@@ -99,3 +99,7 @@
 60. **AutoVLA Table S3 DriveTraj 两行（#42 补充证据）**：B3b 实抓确认两行（7.4957/7.2787）存在且均低于 AutoVLA——即便两行合并也不改「Overall 第 5 / Spotlight 第一」结论。是否向作者/榜方求证由主人定。
 65. **LLaVA arXiv 两界面摘要文本分歧**：abs 页元数据摘要含 "In this paper, " 前缀、论文 HTML v2 摘要不含（2026-11-05 两次独立实抓互斥确认）。笔记 quote 与 HTML v2 一致、本身无错；但今后按 abs 页核对会误报不匹配。建议 LLaVA 笔记头部核验块加注记——library 本班只读，需授权。
 66. **DrivePI 表 1 基线输入模态构成未载**：FB-Occ/F-Occ/CascadeFlow/ALOcc-Flow-3D 等是否用 LiDAR 笔记未逐行记载；卡内已标「整理者推断、尚未验证」并列入 falsifier 核查对象，完成需逐篇查各基线原文。
+67. **Ali-BEVFusion 骨干名出入（需二次实抓）**：笔记与 2 卡 quote 作 CB-Swin-Tiny；2026-11-05 单次实抓 ar5iv 2205.13790 三处作 "Dual-Swin-Tiny [liang2021cbnetv2]"，全文未检得 "CB-Swin-Tiny"。按规则未检得需班内二次实抓复核才能改——待二次实抓（ar5iv+PDF、v1/v2 版本史）后修笔记并按铁律 3 同步卡内引用。
+68. **Ali 正文-附录融合轮数张力**：正文 §4.1 "another 9 epochs" vs 附录 B.1（PointPillars 12 epochs；CenterPoint/TransFusion 6 epochs 且冻结 LiDAR 流）。two-stage 卡已注张力；需二次实抓 + 官方仓库 configs 对照后才能并列两口径。
+69. **BEVDet Table 5 消融配置未明示**：原文仅 "We adopt BEVDet-Tiny in Tab. 1"，无增强配置表述；bevdet-scale-nms 卡"与 Table 4 D 行同配置"已标整理者推断。需查官方仓库 NMS 消融 configs。
+70. **library 建议（B4a，未动）**：① Ali-BEVFusion.md 可补摘要级鲁棒性结果一行（模拟 LiDAR 故障 +15.7%–28.9% mAP，abs 页 2026-11-05 实抓）+ 骨干名订正（见 #67）；② 4 张 Ali 卡 paper 字段"论文全名笔记未载"已过时（笔记头部 11-03 已回填），待解冻处理。

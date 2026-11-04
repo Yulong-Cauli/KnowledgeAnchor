@@ -30,11 +30,11 @@ evidence:
     quote: "However, when K increases to 10, the model’s performance drops because the extra noise diminishes the benefits of correctly generated virtual points."
     relation: supports
 falsifiers:
-  - "复现 §4.3.3 量化实验：K=1→6 期间 mean distance error 相对增幅 >10%，或真实点 recall 提升不足 10 个百分点——'召回大升而误差不显著升'不成立"
+  - "复现 §4.3.3 量化实验：K=1→6 期间 mean distance error 相对增幅 >10%，或真实点 recall 提升不足 10 个百分点——'召回大升而误差不显著升'不成立（两阈值系本卡预设的复现判定线，无原文/基线锚点，待定）"
   - "复现 Table 6：K=6 的 mAP/NDS 不高于 K=1（65.86/68.24），或 K=10 稳定不低于 K=6（噪声回落结论不成立）"
   - "固定算力（NVPF 对齐 16K）把 K=1 的 seeds 加到与 K=6 同虚拟点量级仍不敌 K=6——增益来自点数而非多深度"
 review_due: 2026-12-03
-related: [claim-msmdfusion-nuscenes-test-sota-single-model]
+related: [claim-msmdfusion-nuscenes-test-sota-single-model, claim-msmdfusion-multiscale-fusion-gain]
 signoff: null
 ---
 
@@ -47,6 +47,7 @@ signoff: null
 口径与边界：
 1. Fig 6 的逐 K recall/mean error 数值（recall 49.93/66.27/75.96/90.14/94.26，mean error 2.46/2.53/2.52/2.45/2.74）系笔记入库时目视抄录、无原文数值表可对版——本卡核心数字不依赖它们，只引用 Fig 6 的定性结论原句与 Table 6 行内数字；引用图内数值时以图为凭。
 2. 消融在 nuScenes 1/4 训练子集（§4.3 口径）上做，非全量训练；Table 1 的 71.5/74.0（姊妹卡）不可与本卡 66.93/68.93 直接比较（数据规模不同）。
+3. 同值锚点防误读（本班整理者注）：本卡 Table 6 的 K=6 行（66.93/68.93）与多尺度卡（claim-msmdfusion-multiscale-fusion-gain）Table 5 的 #8 行是同一完整配置（全尺度交互 + K=6）的同一结果——本卡"K=1→6 的增益（+1.07 mAP）"与该卡"多尺度相对最佳单尺度的增益（+1.42 mAP）"是同一配置对两个不同对照（K=1 单深度行 / #2 仅 C2 行）的两个分解，不可相加成"总增益"，也不能互证。
 
 ## 待验证
 
@@ -57,3 +58,7 @@ signoff: null
 
 成立（目前只是论文声称，尚未独立验证）：LiDAR-相机融合的虚拟点生成应把预算花在"每 seed 多深度"而非"多种子"上；为 MVP/BEVFusion 系的 seeds 策略调参给出明确方向。
 不成立：则多深度的召回收益伴随误差增长（或检测增益来自点数），"深度质量>数量"的叙事被削弱，MDU 相对 MVP 的改进需重新归因于深度感知语义调制部分。
+
+## 核查记录
+
+- 2026-11-05（02 任务书整理班 P1-B4a）：本卡 5 条 evidence quote 逐字 Grep 验证命中笔记现状文本；falsifier 1 的 >10%/10pp 阈值补"预设待定"标注（sample-notes §1：无锚点阈值标待定）；related 补 claim-msmdfusion-multiscale-fusion-gain（与该卡 related 已含本卡，此前单向，现双向）；正文补同值锚点防误读注（K=6 行 = Table 5 #8 行，两卡增益不可相加）。表达整理，数字未改写。

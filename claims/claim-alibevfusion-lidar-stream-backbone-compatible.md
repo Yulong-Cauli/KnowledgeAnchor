@@ -24,7 +24,7 @@ evidence:
 falsifiers:
   - "官方仓库的 LiDAR 流配置/代码实际只支持其中一种骨干，切换 PointPillars / CenterPoint / TransFusion 需要大改融合模块以外的结构，则'兼容'口径远窄于论文表述"
   - "论文原文实验未覆盖所列三种骨干中任意一种、或实验设置与笔记流程描述不符（实测支撑弱于声称）"
-  - "论文原文无该兼容性表述（笔记为网页转贴、行尾残留 9999 等抓取痕迹，§2 存在转述失真可能）"
+  - "论文原文无该兼容性表述（笔记原为网页转贴，行尾残留已于 2026-11-03 清理、正文文字未改——见笔记排版注记；转贴非原文，转述失真可能仍在；2026-11-05 单次实抓 ar5iv 已检得三种骨干句，见待验证，待二次实抓复核）"
 review_due: 2026-12-02
 related: [claim-alibevfusion-dynamic-fusion-se-channel-attention, claim-alibevfusion-camera-stream-lidar-independent-bev, claim-alibevfusion-two-stage-9epoch-joint-fusion-training]
 signoff: null
@@ -40,8 +40,12 @@ signoff: null
 
 - 读官方仓库 configs / README：确认 PointPillars、CenterPoint、TransFusion 三种 LiDAR 流配置是否齐全、能否直接训练。
 - 找论文原文实验表：哪些骨干有实测结果，兼容性声称的实测覆盖多大。
-- 笔记为网页转贴（行尾残留 9999 等抓取痕迹），quote 已避开残留段，仍需逐字对原文。
+- 论文原文核对：2026-11-05 单次实抓 ar5iv 2205.13790（经摘要模型转述，未逐字对原始 HTML）：§3.2 有 "In practice, we adopt three popular methods, PointPillars, CenterPoint and TransFusion as our LiDAR stream"，三种骨干名与笔记 §2 一致；论文措辞是"采用三种作为 LiDAR 流"，笔记"兼容多种…如"为转述措辞，实测覆盖仍需查实验表。单次实抓待二次复核。笔记历史残留编号已于 2026-11-03 清理（见笔记排版注记）。
 
 ## 若成立 / 不成立意味着什么
 
-成立：已有 LiDAR 检测器可低成本接入该融合框架（保留原骨干，只加相机流与融合模块），对存量模型升级友好；可与 MIT 版"固定 Swin-T 图像骨干 + VoxelNet LiDAR 骨干"的用法对照（`nightshift/drafts/MIT-BEVFusion.md` §2.4）。不成立：骨干兼容只是宣传口径、实际接入成本高，选型时按"单骨干融合框架"评估。
+成立：已有 LiDAR 检测器可低成本接入该融合框架（保留原骨干，只加相机流与融合模块），对存量模型升级友好；可与 MIT 版"固定 Swin-T 图像骨干 + VoxelNet LiDAR 骨干"的用法对照（`library/Multimodal_Fusion/MIT-BEVFusion.md` §2.4）。不成立：骨干兼容只是宣传口径、实际接入成本高，选型时按"单骨干融合框架"评估。
+
+## 核查记录
+
+- 2026-11-05（02 任务书整理班 P1-B4a）：本卡 3 条 evidence quote 逐字 Grep 验证命中笔记现状文本；falsifier"抓取痕迹"表述按笔记排版注记（2026-11-03 清理）更新；MIT 版笔记引用路径由 nightshift/drafts/ 更新为 library/Multimodal_Fusion/；实抓 ar5iv 三种骨干句记入待验证（单次实抓，未据此改写证据）。表达整理，数字未改写。

@@ -31,10 +31,10 @@ evidence:
     relation: supports
 falsifiers:
   - "nuScenes 官方 test 榜单上 MSMDFusion 提交记录的 mAP/NDS 低于 71.5/74.0，或低于 Table 1 任一所列方法"
-  - "按官方配置（ResNet50+FPN、448×800、两阶段 20+6 epochs、无 TTA/ensemble）复现得不到 71.5/74.0（偏差 >0.5）"
+  - "按官方配置（ResNet50+FPN、448×800、两阶段 20+6 epochs、无 TTA/ensemble）复现得不到 71.5/74.0（偏差 >0.5；该容差系本卡预设、无原文锚点，待定）"
   - "发现 Table 1 竞品数字引用了过旧版本或非最优配置（如 BEVFusion [16] 有更高官方数字未被引用），'surpasses all'不成立"
 review_due: 2026-12-03
-related: [claim-msmdfusion-multidepth-unprojection-no-noise]
+related: [claim-msmdfusion-multidepth-unprojection-no-noise, claim-msmdfusion-multiscale-fusion-gain]
 signoff: null
 ---
 
@@ -55,3 +55,7 @@ signoff: null
 
 成立（目前只是论文声称，尚未独立验证）：nuScenes test 榜在 CVPR 2023 时点的 LC 融合 SOTA 基准线为 71.5/74.0（单模型口径）；库内后续融合方法笔记（RCBEVDet、HGSFusion 等）对比时有了一条单模型锚点。
 不成立：则该 SOTA 主张依赖特定对比口径（竞品数字低引或配置差异），本卡降级为"论文自报数字"，榜单核对结果回填。
+
+## 核查记录
+
+- 2026-11-05（02 任务书整理班 P1-B4a）：本卡 5 条 evidence quote 逐字 Grep 验证命中笔记现状文本；related 补 claim-msmdfusion-multiscale-fusion-gain（与该卡 related 已含本卡，此前单向，现双向）；falsifier 2 的 0.5 容差补"预设待定"标注。类别边界（C.V. 低于两竞品、Bike +3.5）、效率背景（16k 虚拟点 vs 2M/5M、FPS 2.1 vs 8.4）与笔记 Table 1/Table 3 核对一致。表达整理，数字未改写。
