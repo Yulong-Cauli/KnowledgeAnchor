@@ -3,7 +3,7 @@ id: claim-drivepi-unified-text-vision-joint-gains
 title: "DrivePI 论文声称：文本头与视觉头端到端联合训练提升感知/预测/规划——较 vision-only RayIoU +1.8、mAVE −0.18、规划 L2 −0.52"
 type: claim
 status: asserted
-scope: "DrivePI 0.5B 统一模型（Qwen2.5-0.5B MLLM 底座 + 四个输出头：text / 3D occupancy / occupancy flow / action diffusion，损失权重全 1.0）；消融为表 5（OpenOcc 3D 占据与流 + nuScenes 规划；vision head = occupancy+flow+planning 三头组合，text head = QA 文本）；数字为论文自报（CVPR 2026，arXiv:2512.12799v1）"
+scope: "DrivePI 0.5B 统一模型（Qwen2.5-0.5B MLLM 底座 + 四个输出头：text / 3D occupancy / occupancy flow / action diffusion，损失权重全 1.0）；消融为表 5（OpenOcc 3D 占据与流 + nuScenes 规划；vision head = occupancy+flow+planning 三头组合，text head = QA 文本）；数字为论文自报（CVPR 2026，arXiv:2512.12799v1），尚未独立验证"
 tags: [end-to-end-driving, mllm, drivepi, multi-task-learning, occupancy-prediction]
 note: library/VLM_VLA/DrivePI.md#3-实验
 paper: "CVPR 2026, DrivePI: Spatial-aware 4D MLLM for Unified Autonomous Driving Understanding, Perception, Prediction and Planning (arXiv:2512.12799)"
@@ -30,9 +30,9 @@ evidence:
     quote: "the unified model ( III ) increases RayIoU by 1.8%, reduces mAVE by 0.18, and decreases L2 error by 0.52"
     relation: supports
 falsifiers:
-  - "同配置复现中统一模型（text+vision 头）不优于 vision-only（RayIoU/mAVE/L2 三项均无显著改进）"
-  - "给 vision-only 配置补齐训练量（epochs/数据）后差距消失，即增益来自训练量而非跨任务知识注入"
-  - "反向实验（去掉 QA 文本数据、只加文本头占位）同样涨点，说明增益与语言监督无关"
+  - "同范围复现（主张侧）：同配置复现中统一模型（text+vision 头）不优于 vision-only（RayIoU/mAVE/L2 三项均无显著改进）"
+  - "同范围复现（对照侧，训练量对照）：给 vision-only 配置补齐训练量（epochs/数据）后差距消失，即增益来自训练量而非跨任务知识注入"
+  - "机制辨别（反向实验）：去掉 QA 文本数据、只加文本头占位同样涨点，说明增益与语言监督无关（作者归因机制被削弱，但不推翻联合训练有效的经验结果）"
 review_due: 2026-12-03
 related: [claim-drivepi-05b-nuscenes-qa-60p7-snapshot, claim-opendrivevla-autoregressive-waypoint-planning-nuscenes]
 signoff: null
@@ -46,11 +46,17 @@ signoff: null
 
 ## 待验证
 
-- 复现表 5 的 I/II/III 三配置（训练/评测代码已开源，README 2026-03-21 声明；checkpoints 与数据集截至 2026-11-02 未发布，需按论文数据引擎自建）。
-- 补训练量对照：vision-only 延长训练至收敛，看 +1.8 RayIoU 是否仍在。
-- 检查规划 L2 1.02→0.50 的评测设定（无 ego status，表 2 caption 声明默认不用 ego status 以避免 shortcut learning）。
+当前 stance：watch；原卡未记录立场依据，按未记录处理。
+
+- 同范围复现（主张侧）：复现表 5 的 I/II/III 三配置（训练/评测代码已开源，README 2026-03-21 声明；checkpoints 与数据集截至 2026-11-02 未发布，需按论文数据引擎自建）——观察 RayIoU/mAVE/L2 三项是否重现 +1.8/−0.18/−0.52。
+- 同范围复现（对照侧）：补训练量对照：vision-only 延长训练至收敛，看 +1.8 RayIoU 是否仍在；差距消失则增益归因改写为训练量。
+- 原文核查：检查规划 L2 1.02→0.50 的评测设定（无 ego status，表 2 caption 声明默认不用 ego status 以避免 shortcut learning）。
 
 ## 若成立 / 不成立意味着什么
 
 成立：单一 MLLM 统一「理解+感知+预测+规划」在 0.5B 量级可行，多任务语言监督对空间任务有净收益。
 不成立：增益是训练量假象，则统一框架的价值只剩接口统一，性能上不如专用 VA 模型堆叠。
+
+## 核查记录
+
+- 2026-11-05（02 任务书整理班 P1-B3c）：表达整理，数字未改写。5 条 evidence 全部 Grep 逐字命中来源（4 条 library 笔记 + 1 条 arXiv HTML v1；后者另于 2026-11-05 实抓复核命中）；falsifiers 补分层标注，第 3 条注明「机制削弱不推翻经验结果」的区分；scope 末补「尚未独立验证」；待验证补立场记录、检查分类与各结果含义。id/status/stance/review_due/signoff 未动。

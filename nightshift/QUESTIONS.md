@@ -97,3 +97,5 @@
 58. **Alpamayo-R1 TABLE 9/10 二次实抓待办**：2026-11-05 B3b 重抓 arXiv 2511.00088v2 时工具在 §6.2 截断未达 TABLE 9/10；alpamayo-r1-coc 与 alpamayo-r1-rl 两卡的外部线性化行 quote 现依据=入库时逐格脚本核验+班内 Grep 对笔记命中。建议补抓一次并把结果记入两卡核查记录。
 59. **Alpamayo-R1 0.5B 底座型号**：笔记仅记 "uses a smaller backbone"，全文未见 0.5B 具体底座（抓取截断在 §6.2）；卡 scope 已改"未载"。待后续完整抓取补核，不凭记忆回填。
 60. **AutoVLA Table S3 DriveTraj 两行（#42 补充证据）**：B3b 实抓确认两行（7.4957/7.2787）存在且均低于 AutoVLA——即便两行合并也不改「Overall 第 5 / Spotlight 第一」结论。是否向作者/榜方求证由主人定。
+65. **LLaVA arXiv 两界面摘要文本分歧**：abs 页元数据摘要含 "In this paper, " 前缀、论文 HTML v2 摘要不含（2026-11-05 两次独立实抓互斥确认）。笔记 quote 与 HTML v2 一致、本身无错；但今后按 abs 页核对会误报不匹配。建议 LLaVA 笔记头部核验块加注记——library 本班只读，需授权。
+66. **DrivePI 表 1 基线输入模态构成未载**：FB-Occ/F-Occ/CascadeFlow/ALOcc-Flow-3D 等是否用 LiDAR 笔记未逐行记载；卡内已标「整理者推断、尚未验证」并列入 falsifier 核查对象，完成需逐篇查各基线原文。
