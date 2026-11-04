@@ -26,10 +26,11 @@
 ### P0 样板批（调度班亲自深核，不派子代理）
 
 - [x] 盘点 + 基线 commit 记录（见上节；191 卡 signoff null 抽查 gaussianfusion 确认）
-- [ ] 样板1 `claim-gaussianfusion-val-2p6nds-over-bevfusion`（实验结果；外部数字需实抓核查才可改写）
-- [ ] 样板2 `claim-bevplanner-ego-velocity-dominates-planning`（机制/行为观察；结论约束回原配置）
-- [ ] 样板3 `claim-qlora-nf4-info-theoretic-optimal-datatype`（理论主张；公式符号须对照原文）
-- [ ] 三样板通过任务书阶段 A.5 桌面检查 → `nightshift/reports/sample-notes.md` → QUEUE 写「P1 解锁」
+- [x] 样板1 `claim-gaussianfusion-val-2p6nds-over-bevfusion`（实验结果）：scope 移对照行细节、falsifier 分层（原文核查/复现/对照口径）、新增归因缺口分析 + 阶梯对照下一步；10→4 条 evidence（新增 2 条笔记 Table 2 行），全部逐字命中
+- [x] 样板2 `claim-bevplanner-ego-velocity-dominates-planning`（机制/行为）："若成立"段从 nuScenes 开环模型约束回 VAD-Base、跨模型移迁移任务；新增"输出敏感性 vs 感知弱化"两解释分层 + 2×2 机制检查；引用 11-02 精读报告为历史材料
+- [x] 样板3 `claim-qlora-nf4-info-theoretic-optimal-datatype`（理论）：实抓原文 alttext 实锤 2^k+1/2^{k−1} 读法与 Eq.4 全式；实抓 bnb main 实现硬编码表逐字节一致 + 公式复算命中 1.1e-7；发现 Eq.4 字面网格不命中（0.108 vs 0.0796）→ 待决 #48；新增 af4/2306.06965 最优性争议线索
+- [x] 三样板通过任务书阶段 A.5 桌面检查（记录见 sample-notes.md §4）→ `nightshift/reports/sample-notes.md` 已定稿
+- **P1 解锁（01:10 fire-0035）**。P0 三计数：改动 3 / 保留 0 / 待决 1（#48）。validate OK(191)，commit 38232f3。
 
 ### P1 主题批（每批 8–16 卡，2 并发子代理；样板定调后解锁）
 
