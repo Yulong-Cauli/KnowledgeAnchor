@@ -1,6 +1,6 @@
 # nightshift 规则（所有调度班次与子代理必读）
 
-> **2026-11-03 班前主人授权更新**：本班开放 `library/` 直写与两项指定建卡；AI Infra 立卡**仍未授权**。
+> **2026-11-05 班前主人授权更新（02 任务书整理班，automation-4801da75）**：本班执行 `tmp_docs/02-Claim卡片内容改进实施任务.md`。**`library/` 本班只读**（下方 2026-11-03 直写授权本班不适用）；`templates/claim.md` 与 `web/app.js`（NEW_CARD_BODY 及阶段 C 字段显示说明）在 P0 样板定稿后授权修改（web 改前必须 Read ca81104 后现状）；允许实抓外部原文核对出处，**「未检得/出处未命中」不构成改写依据，须班内二次实抓复核**；拆卡仅限有准确来源、能独立成立的主张（新卡 asserted + related 双向关联，旧卡 id/命题不动）。本班为**改写班**，红线核心是防改坏：全库 191 卡 status 保持 asserted，id/文件名/stance/review_due/signoff 一律不动；改写前基线 commit `ca81104` 已记录于 QUEUE.md（P3 复审输入）。下方「你可以」第 3 条 library 直写与「新建卡仅两项」为 11-03 班条款，本班作废。
 
 ## 你可以
 
