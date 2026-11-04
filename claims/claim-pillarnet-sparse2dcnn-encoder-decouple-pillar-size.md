@@ -54,7 +54,7 @@ falsifiers:
   - "官方实现中 encoder stage 不可拆卸、pillar size 与输出特征图尺寸仍耦合（无法按笔记 §1.2 所述『0.075×8m 时移除 1x/2x/4x stage』操作）"
   - "论文正式发表版（ECCV）对 Table 4 两行数字或瓶颈归因表述有实质修改"
 review_due: 2026-12-03
-related: [claim-pillarnet-od-diou-decouple-orientation-regression]
+related: [claim-pillarnet-od-diou-decouple-orientation-regression, claim-pillarnet-nuscenes-test-714nds-realtime-fps]
 signoff: null
 ---
 
@@ -70,5 +70,9 @@ signoff: null
 
 ## 若成立 / 不成立意味着什么
 
-成立：pillar 路线的精度天花板主要由 encoder 深度决定而非 pillar 表征本身，车载部署选型时"细 pillar + 稀疏 2D CNN encoder"可作为 voxel 系的低算力替代，pillar size 可按算力预算拆卸 stage 调节。
+成立：同配置复现出约 +7.6 mAP / +5.9 NDS，则论文『精度差距主要来自弱 pillar 特征编码』的瓶颈归因在该对比范围（nuScenes val、同 codebase CenterPoint-PointPillars 基线）内得到支持；『pillar 路线的精度天花板主要由 encoder 深度决定』是超出该单基线消融的概括、『细 pillar + 稀疏 2D CNN encoder 可作 voxel 系低算力替代』是跨基线迁移假设，两者均尚未验证；pillar size 拆卸 stage 换速度属 Table 6 自报口径，待复现。
 不成立：增益主要来自训练配方/其他组件而非 encoder，或 pillar size 仍与特征图尺寸耦合，则该设计主张降级，选型回退到 voxel 系或 SECOND 类 3D 稀疏卷积方案。
+
+## 核查记录
+
+- 2026-11-05（02 任务书整理班 P1-B4e 补批）：7 条 library 侧 evidence quote 逐字 Grep 验证命中笔记现状文本；2 条 ar5iv Table 4 quote 重新实抓复核逐字命中（整行数值同抓同验；行差 57.87−50.26=+7.61、66.16−60.22=+5.94 复算一致）；arXiv abs 摘要 quote 重新实抓复核逐字命中（该句前实抓渲染为 "dubbed this http URL proposed PillarNet consists of..."，locator『URL 占位符后的句子片段』与实抓一致）。related 补 test 快照卡（此前单向）；『若成立』段按证据边界改写：原写法把『pillar 路线精度天花板由 encoder 深度决定』与『可作 voxel 系低算力替代』写成复现成立即得，超出单基线消融支持范围，现分别标注为概括与迁移假设。表达整理，数字未改写。

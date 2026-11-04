@@ -47,7 +47,7 @@ evidence:
     relation: supports
 falsifiers:
   - "nuScenes 官方 test 评测服务器或第三方复现中，任一变体 NDS 低于自报值（vgg 69.6 / 18 70.8 / 34 71.4）或 mAP 低于 63.3/65.0/66.0"
-  - "同硬件口径（i9 CPU + RTX 3090 桌面机、官方开源实现 github.com/agent-sgs/PillarNet）实测任一变体 FPS 明显低于 14/13/12（如 <10 FPS），或 FPS 口径实为其他硬件"
+  - "同硬件口径（i9 CPU + RTX 3090 桌面机、官方开源实现 github.com/agent-sgs/PillarNet）实测任一变体 FPS 明显低于 14/13/12（如 <10 FPS——示例阈值无原文锚点，预设待定），或 FPS 口径实为其他硬件"
   - "查得 2022-03-07 前已发表的 LiDAR-only 非集成方法在 nuScenes test 上 NDS ≥ 71.4，推翻'超过全部已发表同类方法'的快照声明"
 review_due: 2026-12-03
 related: [claim-pillarnet-sparse2dcnn-encoder-decouple-pillar-size, claim-pillarnet-od-diou-decouple-orientation-regression]
@@ -74,3 +74,7 @@ signoff: null
 
 成立：pillar-based（纯 2D 卷积）路线在 2022 年中可以达到与 voxel-based 二阶段方法相当或更高的 nuScenes test 精度、同时保持桌面机实时速度，可作为"LiDAR-only 实时检测"选型里的低成本基线快照（须带时间与硬件口径）。
 不成立：精度或速度数字依赖特定口径（TTA、桌面 GPU、快照时点），选型时应回退到 CenterPoint 系 voxel 方法或按目标硬件重测；"pillar 系追平 voxel 系"的叙事需重新审视。
+
+## 核查记录
+
+- 2026-11-05（02 任务书整理班 P1-B4e 补批）：6 条 library 侧 evidence quote 逐字 Grep 验证命中笔记现状文本；3 条 ar5iv quote 重新实抓复核逐字命中（Table 1 三行整行数值同抓同验）；arXiv abs 页确认 "last revised 26 Aug 2022 (this version, v5)"，标题 v5 2022-08-26 时间锚成立。falsifier 2 的 "<10 FPS" 示例阈值补"预设待定"标注（sample-notes §1：无锚点阈值标待定）。表达整理，数字未改写。
