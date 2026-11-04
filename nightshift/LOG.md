@@ -77,3 +77,11 @@
 06:43 | fire-0619 | R2 二轮 6 卡 + 总账摘要，2 任务 | 产出 shift-summary.md + 6 新卡（172→178）| validate OK(178) + index 重建 | 2 并发无限流，≈6.8M token；队列清空写停机注记，剩余班次零消耗待机待 08:20 晨报
 00:10–02:40 | 主人指派班 | Web UI TODO×4 修复 + 图谱 v0.1（serve /api/graph + #/graph canvas 力导向双模式）+ 浏览器冒烟双主题 | 产出 web/×3 + serve.mjs + selftest PASS | validate OK(178) | tag 审计后归一 17 卡（主人的 small-objects 修正一并入库）
 02:40–03:30 | 主人指派班 | 新论文 CVPR2026/ICLR2026 三篇并行精读（SliderQuant/Dr.Occ/GaussianFusion，3 子代理实抓 HTML）| 产出 3 草稿 565 行 | quote 抽查 6/6 + 补查 8/8 逐字命中 | 03:30 入库 3 笔记 + 11 新卡（178→189）+ related 19 条 | validate OK(189) + index + viz | 报告 REPORT-2026-11-04.md，QUESTIONS +43~47
+
+## 2026-11-05 fire-0035（00:35 值机，02 任务书整理班）
+
+- 00:35 第 0 步：LOCK 无，QUEUE 有 11-03 遗留 ⛔ 注记（00:15/00:30 两班按第 0 步零消耗退出）→ 判定旧周期已闭（REPORT-2026-11-03/04 已出），备份 QUEUE-2026-11-03.md，重置队列；RULES.md 顶部加 2026-11-05 注记（library 只读、templates/web 授权、防改坏红线）
+- 基线：ca8110482be471227d8df0f79bcfbd439b02e1e8，191 卡全 asserted/watch、signoff 全 null；主人 WIP 仅 tmp_docs/TODO.md 未跟踪
+- 00:44–01:05 P0：三样板调度班亲自深核改写（gaussianfusion：scope 瘦身+falsifier 分层+归因缺口；bevplanner-ego-velocity：约束回 VAD-Base+两解释分层+2×2 检查；qlora-nf4：实抓 alttext 实锤 2^k+1/2^{k-1} 读法与 Eq.4 全式、bnb main 硬编码表逐字节一致+公式复算 1.1e-7、Eq.4 字面网格不命中 0.108 vs 0.0796 → 待决 #48、af4/2306.06965 线索）。A.5 桌面检查 PASS×3 → sample-notes.md 定稿。validate OK(191)，commit 38232f3 + 0c6d48b
+- 01:05 P1 分批编码：14 批 191/191 全覆盖（B1 历史 12/B2a 17/B2b 18/B3a 9/B3b 11/B3c 9/B4a 13/B4b 17/B4c 14/B4d 8/B5 20/B6 9/B7a 16/B7b 15）
+- 01:08 P1 派发 B1+B2a（2 并发后台）；同时 P2 对齐批：templates/claim.md + web/app.js NEW_CARD_BODY 换七节样板结构 + 阶段 C 字段显示说明（存储键不动），selftest PASS，commit 2055b51

@@ -45,8 +45,8 @@
 
 ### P2 对齐批（样板定稿后）
 
-- [ ] templates/claim.md 正文提示与样板同步（保持必填证据规则与签署占位约定）
-- [ ] web/app.js NEW_CARD_BODY（约 841 行）+ 阶段 C 字段显示说明（改前 Read ca81104 后现状）
+- [x] templates/claim.md 正文提示换七节样板结构（commit 2055b51）
+- [x] web/app.js NEW_CARD_BODY 同步 + 阶段 C 字段显示说明（status/stance/scope/quote/falsifiers/related/signoff 加 hint，存储键不动）；selftest PASS
 
 ### P3 检查批（P1+P2 全清后；全量深核不晚于 07:00 开始，否则程序全检+抽样并如实注明覆盖范围）
 
