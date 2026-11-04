@@ -10,15 +10,15 @@ paper: "arXiv 2019, CenterNet: Objects as Points（开源：https://github.com/x
 stance: watch
 evidence:
   - source: library/Classical_Detection/CenterNet：Objects as Points.md
-    locator: "§对比分析：CenterNet vs. CornerNet / C 后处理的极简主义 / CornerNet 条目"
+    locator: "§对比分析：CenterNet vs. CornerNet / C 后处理的极简主义 / CornerNet 条目（2026-11-03 F23 修正前历史记录；现笔记同位置句尾已无「17」）"
     quote: "仍可能产生重叠的检测结果，通常需要 Soft-NMS 来进一步清理 17。"
     relation: supports
   - source: library/Classical_Detection/CenterNet：Objects as Points.md
-    locator: "§对比分析：CenterNet vs. CornerNet / C 后处理的极简主义 / CenterNet 条目"
+    locator: "§对比分析：CenterNet vs. CornerNet / C 后处理的极简主义 / CenterNet 条目（2026-11-03 F23 修正前历史记录；现笔记同位置句尾已无「18181818」）"
     quote: "这使得 CenterNet 成为真正的 **End-to-End（端到端）** 检测器，无需后处理 18181818。"
     relation: supports
   - source: library/Classical_Detection/CenterNet：Objects as Points.md
-    locator: "§潜在局限性 Center Collision / 实际影响"
+    locator: "§潜在局限性 Center Collision / 实际影响（2026-11-03 F23 修正前历史记录；现笔记同位置句尾已无「20」）"
     quote: "因此，这个理论缺陷在实际应用中几乎可以忽略不计 20。"
     relation: supports
 falsifiers:
@@ -29,23 +29,33 @@ related: [claim-centernetpoints-heatmap-peaks-replace-nms, claim-centernetpoints
 signoff: null
 ---
 
-## 我的理解
+## 这条主张是什么意思
 
-> 笔记已修正（2026-11-03，本班获 library/ 直写授权后执行）：三处孤立引用编号（17 / 18181818 / 20）已按 fix-list F23 删除，正文文字未改；本卡 evidence quote 所指的残留字符已不存在，quote 保留作为历史记录（修复前行文）。本卡 status 不动（铁律 3），是否按 falsifier「已修复改写或删除」由主人处置。
+本卡是笔记质量记录（asserted，未经用户复核处置）：CenterNet 笔记正文曾有三处网页复制残留的孤立引用编号（17 / 18181818 / 20），QA round2 逐字复核 evidence quote 时（2026-11-02）发现。三处均为孤立数字，不影响笔记中任何数字与结论的数值内容，也不在任何已立 claim 的 evidence quote 内。
 
-QA round2 逐字复核 evidence quote 时发现，笔记正文有三处网页复制残留的引用编号：
+## 当前状态与历史记录
+
+**当前状态（2026-11-03 已修复）**：三处残留已按 fix-list F23 删除（当班获 library/ 直写授权后执行），正文文字未改；2026-11-05 本班 Grep 复核，「清理 17」「后处理 18」「忽略不计 20」在笔记中均 0 命中。修复不影响任何既有卡证据：[claim-centernetpoints-heatmap-peaks-replace-nms](claim-centernetpoints-heatmap-peaks-replace-nms.md) 的 quote 止于"作用。"、[claim-centernetpoints-center-collision-rare-on-coco](claim-centernetpoints-center-collision-rare-on-coco.md) 的 quote 止于"（约 20%）。"，两处锚点 2026-11-05 复核仍在笔记中。
+
+**历史记录（修复前行文，即本卡 evidence 三条 quote 所指原文，现笔记已无此残留）**：
 
 1. "通常需要 Soft-NMS 来进一步清理 17。"——句尾 "17" 是脚注编号残留（语义止于"清理"）。
 2. "无需后处理 18181818。"——"18181818" 是同一脚注编号（[18]）重复四次的残留。
 3. "几乎可以忽略不计 20。"——句尾 "20" 是脚注编号残留。
 
-三处均为孤立数字，不影响笔记中任何数字与结论的数值内容；也不在任何已立 claim 的 evidence quote 内（[claim-centernetpoints-heatmap-peaks-replace-nms](claim-centernetpoints-heatmap-peaks-replace-nms.md) 的 quote 止于"作用。"，[claim-centernetpoints-center-collision-rare-on-coco](claim-centernetpoints-center-collision-rare-on-coco.md) 的 quote 止于"（约 20%）。"）。Agent 不得修改 library/，故立本卡记录，待用户修复笔记后按 falsifier 处理。CenterNet 笔记其余部分经本次复审未发现数字类转抄错误。
+CenterNet 笔记其余部分经 round2 复审未发现数字类转抄错误。
 
-## 待验证
+## 证据支持到哪里
 
-- 无需外部验证（残留字符直接读笔记即可确认）；修复动作需用户同意（涉及 library/）。
+无需外部验证：残留字符直接读笔记即可确认（evidence 三条为修复前笔记逐字引文，locator 已标注历史记录）。修复动作已于 2026-11-03 由获授权班次执行，非本卡代行。
 
-## 若成立 / 不成立意味着什么
+## 待决事项（登记）
 
-成立：用户修复笔记时删除三处残留；在此之前引用该笔记时忽略句尾孤立编号，不做任何解读。
-不成立：编号系有意保留的引用标记，则笔记需补注 [17]/[18]/[20] 的出处列表，本卡改写为记录该引用约定。
+- 本卡 status 不动（铁律 3）。falsifier 2 的触发条件（「笔记经用户同意修复后三处孤立数字消失」）已于 2026-11-03 满足——本卡按已修复改写、删除还是转 stale，由主人裁定。
+- falsifier 1（编号系有意保留的引用标记）随残留删除已无事实载体；若主人认定库内笔记存在引用编号约定，另立记录。
+
+## 核查记录
+
+- 2026-11-02：QA round2 逐字复核时发现三处残留，立本卡。
+- 2026-11-03：笔记修复（fix-list F23），残留删除、正文文字未改。
+- 2026-11-05：本班表达整理与历史/当前分层（数字未改写）；Grep 复核三处残留 0 命中、两条关联卡 quote 锚点仍在。

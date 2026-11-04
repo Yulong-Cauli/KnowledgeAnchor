@@ -89,3 +89,8 @@
 50. **PTQAT 出处出入**：笔记与卡写 "ICCV 2025"，但 arXiv:2508.10557 abs 页 Comments 为 "8 pages, Accepted by ICCVW 2025"（Workshop，2026-11-05 实抓）。需核 CVF/OpenReview 归属；paper 字段冻结未改。
 51. **MQBench paper 字段刷新授权**：4 张卡 paper 字段含"笔记未记录完整论文标题"，但笔记头部已于 2026-11-03 回填完整标题（arXiv:2111.03759）。是否允许后续班次刷新 paper 字段请主人裁定（不影响卡主张）。
 52. **QD-BEV 笔记两处缺口**：① §3.1 Table 1 表头 ar5iv 渲染为 "Quantized Module" 无位宽标注（两次实抓确认），W4A6 归属需对 PDF 原表核实；② 笔记 Table 1 未转录四模块同时量化行（ar5iv：NDS 0.246/0.369/0.224、mAP 0.145/0.228/0.075）。卡内已标"待核/笔记未转录"。
+53. **PD-Quant Table 1 数据集与校准张数未确认**：笔记 11-03 重建已给验证集 top-1 口径（caption 原文），但 Table 1 的数据集与校准张数论文 caption 未直接写明（Table 2 的 ImageNet/1024 张不能默认套用）。pdquant-pd-metric 卡 scope 已如实标缺口；完成需读论文 §4.1 实验设置原文（B2b 批未抓，避免超范围）。
+54. **EchoFusion 笔记 §3.2/3.3 修正请求**：笔记与论文 Table 6/S4 逐格不一致（B1 批 2026-11-05 复抓 v2 HTML 交叉核对），至今未修正；所依据论文版本未查明。library 本班只读——请授权或指示修正方向。
+55. **四张 falsifier 已触发卡存废**：centernetpoints-note-citation-artifacts / sparseocc-note-conversational-residue / emc2-note-table-mismatch / omniquant-note-table-mismatch——对应笔记修复均已执行、falsifier 触发条件已满足；改写/删除/转 stale 请逐卡处置（B1 已做历史分层，status 未动）。
+56. **OmniQuant 实验 1 口径备选**：11-03 修正采用「统一 7B g128 + 补 RTN 1.9e3」方案；「换用 13B 逐通道列原值（6.8e4/5.5e3/13.21）」备选未采用——是否并列呈现待裁定。
+57. **笔记小问题**：① HGSFusion 笔记 paper 字段缺英文原题与 arXiv 号（卡已注明）；② EMC2 旧 LoGoNet 82.92 疑源自笔记相邻 VFF 行（整理者线索，未验证，可选注记）。
