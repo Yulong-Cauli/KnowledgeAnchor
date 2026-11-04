@@ -799,7 +799,7 @@ function bindEditPanel(card) {
     row.innerHTML = `
       <div class="row-head span-2"><span class="idx">可推翻条件</span>
         <button type="button" class="btn-remove" title="删除此条">✕</button></div>
-      <div class="field span-2"><textarea class="fals-text" rows="2"></textarea></div>`;
+      <div class="field span-2"><label>在限定条件内，会使我撤回主张的结果</label><textarea class="fals-text" rows="2"></textarea></div>`;
     row.querySelector('.btn-remove').addEventListener('click', () => row.remove());
     list.appendChild(row);
   });
@@ -839,17 +839,29 @@ function bindEditPanel(card) {
 // ------------------------------------------------------------------ new --
 
 const NEW_CARD_BODY = [
-  '## 我的理解',
+  '## 这条主张是什么意思',
   '',
-  '用几句话说明这条主张具体在说什么，以及它依赖哪些前提。',
+  '用两三句话说明：研究者在解决什么问题、主张发生了什么、为什么值得理解。asserted 卡明确说明尚未独立验证。',
   '',
-  '## 待验证',
+  '## 证据支持到哪里',
   '',
-  '- 列出可以独立完成的检查：复现哪个数字、跑哪个仓库、对照哪个基线。',
+  '说明哪条引文/表格/实验记录支持哪一部分；区分论文报告与独立验证，写出仍缺失的证据。',
   '',
-  '## 若成立 / 不成立意味着什么',
+  '## 可能的解释与未排除的因素',
   '',
-  '说明这条 claim 的成立与否会怎样影响后续选型、实验或方案。',
+  '区分作者解释、已有验证与自己的推测（标注依据与推断跨度）；理论卡可改为"假设与推导"。',
+  '',
+  '## 适用范围与迁移限制',
+  '',
+  '解释 scope 中真正影响结论的条件；迁移到其他项目时还需验证哪些变化。',
+  '',
+  '## 当前立场与下一步',
+  '',
+  '给一个优先执行的最小检查：要区分什么、改变和固定什么、观察什么；不同结果分别如何改变判断。',
+  '',
+  '## 核查记录',
+  '',
+  '按日期记录实际完成的核对与未解决事项；没有记录时不虚构。',
 ].join('\n');
 
 function addDaysLocal(dateStr, days) {
@@ -868,7 +880,7 @@ function renderNew() {
   $('#main').innerHTML = `
     <a class="back-link" href="#/claims">← 返回列表</a>
     <div class="detail-col" style="max-width:860px">
-      <div class="edit-head"><h2>起草新 Claim</h2><span class="field-hint">创建即 status: asserted · signoff: null</span></div>
+      <div class="edit-head"><h2>起草新 Claim</h2><span class="field-hint">创建即 status: asserted（尚未独立验证）· signoff: null（验证签署由用户本人填写，网页与 Agent 均不代签）</span></div>
       <div id="form-errors"></div>
       <form id="new-form" class="form-grid" autocomplete="off">
         <div class="field">
@@ -881,14 +893,17 @@ function renderNew() {
           <div class="field"><label>当前立场（stance）</label>
             <select id="n-stance">
               ${['adopt', 'trial', 'watch', 'avoid'].map((s) => `<option value="${s}" ${s === 'watch' ? 'selected' : ''}>${esc(STANCE_LABELS[s])}</option>`).join('')}
-            </select></div>
+            </select>
+            <span class="field-hint">adopt 采用 / trial 试验 / watch 关注 / avoid 避免；不替代验证状态，也不越过 verified 的高风险使用门槛</span></div>
           <div class="field"><label>下次处理日期（不代表验证通过）</label><input id="n-due" type="date" value="${esc(defaultDue)}"></div>
         </div>
         <div class="field-row">
           <div class="field"><label>tags（逗号分隔）</label><input id="n-tags" spellcheck="false"></div>
-          <div class="field"><label>related claim（逗号分隔 id）</label><input id="n-related" spellcheck="false"></div>
+          <div class="field"><label>related claim（逗号分隔 id）</label><input id="n-related" spellcheck="false">
+            <span class="field-hint">有关联的其他 claim；关联不等于支持</span></div>
         </div>
-        <div class="field"><label>scope（数据集 / 模型 / 硬件 / 条件）</label><textarea id="n-scope" rows="2"></textarea></div>
+        <div class="field"><label>scope（主张成立所限定的条件）</label><textarea id="n-scope" rows="2"></textarea>
+          <span class="field-hint">推荐顺序：数据集与 split → 模型/配置 → 比较基线 → 指标口径；只写与主张有关的条件</span></div>
         <div class="field-row">
           <div class="field"><label>论文出处（paper）</label><input id="n-paper" spellcheck="false"></div>
           <div class="field"><label>note（library/…md#锚点）</label><input id="n-note" spellcheck="false"></div>
@@ -945,7 +960,8 @@ function renderNew() {
       <div class="field"><label>与主张的关系</label>
         <select class="ev-relation"><option value="supports">supports</option><option value="contradicts">contradicts</option></select></div>
       <div class="field"><label>章节 / 页码（locator）</label><input class="ev-locator" placeholder="§X / p.N" spellcheck="false"></div>
-      <div class="field"><label>逐字原文（quote）</label><textarea class="ev-quote" rows="2"></textarea></div>`;
+      <div class="field"><label>逐字原文（quote）</label><textarea class="ev-quote" rows="2"></textarea>
+        <span class="field-hint">只写逐字原文；翻译/概括/表格重排放正文并明确标记</span></div>`;
     row.querySelector('.btn-remove').addEventListener('click', () => row.remove());
     list.appendChild(row);
   };
@@ -956,7 +972,7 @@ function renderNew() {
     row.innerHTML = `
       <div class="row-head span-2"><span class="idx">可推翻条件</span>
         <button type="button" class="btn-remove" title="删除此条">✕</button></div>
-      <div class="field span-2"><textarea class="fals-text" rows="2"></textarea></div>`;
+      <div class="field span-2"><label>在限定条件内，会使我撤回主张的结果</label><textarea class="fals-text" rows="2"></textarea></div>`;
     row.querySelector('.btn-remove').addEventListener('click', () => row.remove());
     list.appendChild(row);
   };
