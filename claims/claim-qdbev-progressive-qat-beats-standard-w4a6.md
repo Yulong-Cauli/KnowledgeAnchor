@@ -39,7 +39,7 @@ signoff: null
 论文声称（asserted，尚未独立验证）：BEVFormer-Base 在 W4A6 下，标准一次性全网 QAT 仅 NDS 0.224（相对 FP32 0.517 下降 56.7%、mAP 0.071），而按 Backbone→Neck→Encoder→Decoder 四阶段渐进 QAT 达 NDS 0.485（下降 6.2%、mAP 0.376），两者相差 0.261 NDS——训练稳定性是分阶段策略的核心收益。
 
 必须记住的限定：
-1. **差距主要体现在 Base**。据 ar5iv HTML 版论文 Table 3（抓取 2026-11-02，未对照 PDF）：Tiny 为标准 0.326 vs 渐进 0.348（差 0.022）、Small 为 0.421 vs 0.467（差 0.046）。小模型上标准 QAT 本来就不崩，收益随模型增大而放大；选型时不能把 0.261 的差距套到所有规模。
+1. **差距主要体现在 Base**。据 ar5iv HTML 版论文 Table 3（抓取 2026-11-02；2026-11-05 复抓再核一致，表题原文 "Comparsion between progressive and standard QAT with W4A6" 确认 W4A6 且 "Comparsion" 为原文拼写；未对照 PDF）：Tiny 为标准 0.326 vs 渐进 0.348（差 0.022）、Small 为 0.421 vs 0.467（差 0.046）。小模型上标准 QAT 本来就不崩，收益随模型增大而放大；选型时不能把 0.261 的差距套到所有规模。
 2. 笔记只列了 Base 行；每阶段 epoch 数 N_i 未注明，训练成本（约 4 倍 QAT 轮次）未在笔记中量化，部署评估需补。
 3. 这是「渐进式 vs 标准」的消融，不含蒸馏项；完整方法的数字见 [QD-BEV-T 卡](claim-qdbev-tiny-w4a6-nds-surpasses-fp32.md)。
 
@@ -56,3 +56,7 @@ signoff: null
 
 成立：大模型（Base 级）BEV 感知做 sub-8-bit QAT 时应采用分模块渐进引入，否则 QAT 训练不稳定；顺序按模块敏感度（见 [敏感度卡](claim-qdbev-encoder-backbone-quantization-bottleneck.md)）设计。
 不成立：差距主要靠训练技巧或仅在特定规模出现，直接用调好参的标准 QAT + 蒸馏即可，省去多阶段流程。
+
+## 核查记录
+
+- 2026-11-05（P1-B2a 量化主线经典组）：evidence 四条 quote 对笔记逐字机械核对命中；复抓 ar5iv 再核 Table 3 三对数字（Base 0.224/0.485、Tiny 0.326/0.348、Small 0.421/0.467）与表题（含 W4A6 字样）一致。仅补核查日期与表题信息，数字与命题未改。

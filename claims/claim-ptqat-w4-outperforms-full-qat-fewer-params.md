@@ -26,8 +26,8 @@ evidence:
     quote: "|               | **PTQAT**  | **18.7M** (-73%)       | **44493s**      | **38.6** | **49.1** |"
     relation: supports
   - source: https://arxiv.org/abs/2508.10557
-    locator: "Table 1（nuScenes val, W4）"
-    quote: "SparseBEV：QAT Only 44.6M / 15658s / mAP 43.6 / NDS 54.3；PTQAT 32.7M / 13849s / mAP 44.6 / NDS 55.2。BEVFormer：QAT Only 69.0M / 47268s / 38.0 / 48.8；PTQAT 18.7M / 44493s / 38.6 / 49.1"
+    locator: "Abstract（abs 页摘要原句，2026-11-05 实抓核对；Table 1 数字另于同日对 arXiv HTML v1/v2 复抓对账一致，见正文核查记录）"
+    quote: "fine-tuning the layers with smaller output discrepancies before and after quantization, rather than those with larger discrepancies, actually leads to greater improvements"
     relation: supports
 falsifiers:
   - "同配置复现（nuScenes val、W4、A100）中 PTQAT 的 mAP 或 NDS 低于同 bit 全参数 QAT"
@@ -40,9 +40,13 @@ signoff: null
 
 ## 我的理解
 
-W4 下纯 PTQ 会雪崩（SparseBEV mAP 45.4 → 30.5，BEVFormer 41.6 → 23.2）。PTQAT 只解冻 PTQ 预检查中输出 MSE 小于阈值 θ 的层（"fine-tuning the layers with smaller output discrepancies before and after quantization, rather than those with larger discrepancies, actually leads to greater improvements"，arXiv 原文），结果是双向占优：SparseBEV 训 32.7M（全 QAT 44.6M 的约 74%），mAP/NDS 44.6/55.2 高于全 QAT 的 43.6/54.3；BEVFormer 训 18.7M（约 27%），38.6/49.1 高于 38.0/48.8。
+W4 下纯 PTQ 会雪崩（SparseBEV mAP 45.4 → 30.5，BEVFormer 41.6 → 23.2）。PTQAT 只解冻 PTQ 预检查中输出 MSE 小于阈值 θ 的层（"fine-tuning the layers with smaller output discrepancies before and after quantization, rather than those with larger discrepancies, actually leads to greater improvements"，arXiv abs 页摘要原句，2026-11-05 实抓核对），结果是双向占优：SparseBEV 训 32.7M（全 QAT 44.6M 的约 74%），mAP/NDS 44.6/55.2 高于全 QAT 的 43.6/54.3；BEVFormer 训 18.7M（约 27%），38.6/49.1 高于 38.0/48.8。
 
-该主张只覆盖"参数更少且精度不低于"这一条，不含训练耗时对比（PTQAT 略省时但同量级），也不含 W8 与部署结论（见 [W8A8 部署卡](claim-ptqat-w8a8-tensorrt-accuracy-recovery.md)）。已对照 arXiv:2508.10557 v1 Table 1，数字与笔记一致；笔记未注明评测 split，arXiv 明确为 val set。
+该主张只覆盖"参数更少且精度不低于"这一条，不含训练耗时对比（PTQAT 略省时但同量级），也不含 W8 与部署结论（见 [W8A8 部署卡](claim-ptqat-w8a8-tensorrt-accuracy-recovery.md)）。已对照 arXiv:2508.10557 Table 1：2026-11-05 复抓 HTML v1 与 v2，两版数字互为一致且与笔记一致；Table 1 表题含 "nuScences val set"（拼写照抄），确认评测 split 为 val（笔记未注明 split）。
+
+## 核查记录
+
+- 2026-11-05（P1-B2a 量化主线经典组）：evidence 四条笔记 quote 逐字机械核对命中。原第 5 条 evidence 以 abs 页为 source 却标 Table 1 locator（实抓证实 abs 页无任何表格数字），且 quote 为中文数字摘录——已改为 abs 页摘要原句（当日实抓核对），Table 1 数字对账移入正文记录（HTML v1/v2 复抓一致）。命题与数字未改。
 
 ## 待验证
 

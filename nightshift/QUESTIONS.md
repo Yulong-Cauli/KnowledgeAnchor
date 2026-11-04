@@ -85,3 +85,7 @@
 ## 2026-11-05 凌晨班（02 任务书样板整理）
 
 48. **QLoRA 论文构造描述与官方实现不等价（判"论文算错"还是"简化描述"需读 PDF）**：① 论文 §3 散文/Eq.4 描述的构造（2^k+1 分位数、格点 p=i/(2^k+1)、相邻均值 q_i=½(Q(i/(2^k+1))+Q((i+1)/(2^k+1)))）按字面复算**不产生** Appendix E 的 16 码点（首位正值 0.108 vs 0.0796），且网格端点 p=0/1 处构造退化（±∞）；② 官方 bitsandbytes 实现（main 分支 2026-11-05 实抓）实际用 offset=0.9677083 的两条等距概率格直接取 ppf 值再归一化，复算命中 16 值（max|err|≈1.1e-7），硬编码表与 Appendix E 逐字节一致；③ 符号读法已实锤（HTML alttext）：散文 "2k+1" 实为 2^k+1、"2k−1/2k−1+1" 实为 2^{k−1}/2^{k−1}+1。待你/后续核查：读 arXiv v1 PDF 的 Eq.4 排版确认构造意图，裁定"论文描述有误/只是简化、offset 是实现细节"，然后决定 claim-qlora-nf4 卡"假设与推导"节的表述是否再收紧。另 bnb 代码 af4 分支注释引 arXiv:2306.06965（"NF4 Isn't Information Theoretically Optimal"）——最优性争议线索已登记卡内，未读原文。
+49. **BRECQ 会议出处仅 GitHub 自述**：ICLR 2021 的唯一依据是官方仓库自述；arXiv abs 页无 Comments 会议标注，OpenReview 未核对（2026-11-05 B2a 批实抓确认）。笔记头部 caveat 在案；建议补抓 OpenReview 或主人裁定。
+50. **PTQAT 出处出入**：笔记与卡写 "ICCV 2025"，但 arXiv:2508.10557 abs 页 Comments 为 "8 pages, Accepted by ICCVW 2025"（Workshop，2026-11-05 实抓）。需核 CVF/OpenReview 归属；paper 字段冻结未改。
+51. **MQBench paper 字段刷新授权**：4 张卡 paper 字段含"笔记未记录完整论文标题"，但笔记头部已于 2026-11-03 回填完整标题（arXiv:2111.03759）。是否允许后续班次刷新 paper 字段请主人裁定（不影响卡主张）。
+52. **QD-BEV 笔记两处缺口**：① §3.1 Table 1 表头 ar5iv 渲染为 "Quantized Module" 无位宽标注（两次实抓确认），W4A6 归属需对 PDF 原表核实；② 笔记 Table 1 未转录四模块同时量化行（ar5iv：NDS 0.246/0.369/0.224、mAP 0.145/0.228/0.075）。卡内已标"待核/笔记未转录"。

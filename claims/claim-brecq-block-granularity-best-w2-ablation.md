@@ -27,7 +27,7 @@ evidence:
     relation: supports
 falsifiers:
   - "同设置（W2、激活不量化、首末层 8-bit、ImageNet）复现中 block 粒度不再最优：layer-wise ≥ block-wise，或 net-wise 不崩（明显 >54.15 / 40.76）"
-  - "对照 arXiv HTML（arxiv.org/html/2102.05426v2，2026-11-03 已抓取核对 Table 4；Table 1 待同样逐格核对）发现 Table 1 数字与笔记不一致"
+  - "对照 arXiv HTML（arxiv.org/html/2102.05426v2，2026-11-03 已抓取核对 Table 4，2026-11-05 复抓逐格核对 Table 1 两行与表题 'Ablation study.' 一致）发现 Table 1 数字与笔记不一致"
   - "外推到本消融未覆盖的配置（ViT、检测、W4 等）时 block 粒度处处劣于 layer-wise，削弱『重建粒度是 PTQ 核心超参』的方法学含义（不推翻本卡限定的 Table 1 主张）"
 review_due: 2026-12-03
 related: [claim-brecq-w4a4-comparable-qat-1024-images, claim-brecq-w2a4-first-usable-level, claim-pdquant-beats-brecq-qdrop-lowbit]
@@ -45,7 +45,11 @@ signoff: null
 3. 机理解释（off-diagonal loss 集中在块内）是作者推断（"We think"），不是被证明的定理；被证明的是 Theorem 3.1 的二阶误差输出空间变换。
 4. 本卡是 BRECQ 建模谱系（QDrop、PD-Quant 等 block 重建后继）的立论基础：见 [PD-Quant 对比卡](claim-pdquant-beats-brecq-qdrop-lowbit.md)——那张卡比较的是低比特 PTQ 方法精度，本卡只锚 BRECQ 自己 Table 1 的粒度消融，主张不同、数字不重叠。
 
-原文复核：arXiv HTML（https://arxiv.org/html/2102.05426v2 ）2026-11-03 实抓，Table 4 各行与 §4.3 结论句逐字核对一致（Table 1 本次未逐格重抓，falsifier 2 兜底）。
+原文复核：arXiv HTML（https://arxiv.org/html/2102.05426v2 ）2026-11-03 实抓，Table 4 各行与 §4.3 结论句逐字核对一致（Table 1 已于 2026-11-05 复抓逐格核对一致，falsifier 2 兜底条款保留）。
+
+## 核查记录
+
+- 2026-11-05（P1-B2a 量化主线经典组）：evidence 四条 quote 对笔记逐字机械核对命中；复抓 arXiv HTML v2 逐格核对 Table 1 两行（ResNet-18 65.19/66.39/66.01/54.15，MobileNetV2 52.13/59.67/54.23/40.76）与表题 "Ablation study." 一致，原 falsifier 2 的"Table 1 待核对"待办关闭。命题与数字未改。
 
 ## 待验证
 

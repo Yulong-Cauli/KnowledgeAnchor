@@ -21,9 +21,9 @@ evidence:
     locator: "§3.3 / Table 5"
     quote: "| **PTQAT (W8A8)**      | **38.0** | **50.3** | 31      | **503M**     |"
     relation: supports
-  - source: https://arxiv.org/abs/2508.10557
-    locator: "Table 5（BEVDepth4D, TensorRT）"
-    quote: "FP16: mAP 40.8, NDS 52.2, 18 FPS, 860M；NVIDIA PTQ: 32.4 / 44.1 / 35 FPS / 607M；PTQAT (W8A8): 38.0 / 50.3 / 31 FPS / 503M"
+  - source: https://arxiv.org/html/2508.10557v1
+    locator: "§4.3 正文结果句片段（2026-11-05 实抓核对；Table 5 数字另于同日对 HTML v1/v2 复抓对账一致，见正文核查记录）"
+    quote: "nearly twice that of its FP16 counterpart while reducing GPU memory usage by over 40%."
     relation: supports
 falsifiers:
   - "复现中 PTQAT 引擎的 FPS 显著低于 NVIDIA 官方 PTQ 引擎，或显存高于官方 PTQ"
@@ -36,9 +36,13 @@ signoff: null
 
 ## 我的理解
 
-W8A8 下相对 FP16 基线（40.8 / 52.2 / 18 FPS / 860M）：NVIDIA 官方 PTQ 拿到 35 FPS / 607M 但精度崩到 32.4 / 44.1；PTQAT 引擎为 38.0 / 50.3 / 31 FPS / 503M——速度约为 FP16 的 1.7 倍、显存省约 42%，精度恢复到官方 PTQ 与 FP16 差距的约 77%（mAP）与 82%（NDS）。该主张的前提是笔记 §2.3 所述"只用均匀对称量化、不用自定义算子"，这也是"可无缝编译"的根据。
+W8A8 下相对 FP16 基线（40.8 / 52.2 / 18 FPS / 860M）：NVIDIA 官方 PTQ 拿到 35 FPS / 607M 但精度崩到 32.4 / 44.1；PTQAT 引擎为 38.0 / 50.3 / 31 FPS / 503M——速度约为 FP16 的 1.7 倍、显存省约 42%，精度恢复到官方 PTQ 与 FP16 差距的约 67%（mAP：(38.0−32.4)/(40.8−32.4)=5.6/8.4）与约 77%（NDS：(50.3−44.1)/(52.2−44.1)=6.2/8.1）。该主张的前提是笔记 §2.3 所述"只用均匀对称量化、不用自定义算子"，这也是"可无缝编译"的根据。
 
-注意：此表模型是 BEVDepth4D（消融基座），不是 Table 1 的 SparseBEV/BEVFormer；FPS 数字依赖具体 TensorRT/GPU 环境，笔记未注明测试硬件。
+注意：此表模型是 BEVDepth4D（消融基座），不是 Table 1 的 SparseBEV/BEVFormer；FPS 数字依赖具体 TensorRT/GPU 环境，笔记未注明测试硬件。Table 5 数字已于 2026-11-05 对 arXiv HTML v1/v2 复抓对账，两版互为一致且与笔记一致。
+
+## 核查记录
+
+- 2026-11-05（P1-B2a 量化主线经典组）：evidence 三条笔记 quote 逐字机械核对命中。原第 4 条 evidence 的 source（abs 页）经实抓证实不含 Table 5，且 quote 为中文数字摘录——已改为 HTML v1 §4.3 正文原句片段（当日实抓核对）。另改正正文恢复率算术：mAP 应为约 67%（原写 77%）、NDS 约 77%（原写 82%）；主张、Table 5 数字与 falsifiers 未改。
 
 ## 待验证
 

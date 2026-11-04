@@ -36,7 +36,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（asserted，尚未独立验证）：激活压到 4-bit 后（W2A4），既有 PTQ 方法（ZeroQ / LAPQ / AdaQuant，部分为 BRECQ 作者复现，标 *）精度全部崩到 0.05–0.21（对照全精度 71.08–78.36），而 BRECQ 达到 53.34–73.56——论文据此自称首次把 PTQ 的 2W4A 精度推到"可用水平"（usable level）。这是摘要贡献 3（"quantize weights to INT2 without significant accuracy loss for the first time"）在激活 4-bit 设置下的证据。
+论文声称（asserted，尚未独立验证）：激活压到 4-bit 后（W2A4），既有 PTQ 方法（ZeroQ / LAPQ / AdaQuant，部分为 BRECQ 作者复现，标 *）精度全部崩到 0.05–0.21（对照全精度 71.08–78.36），而 BRECQ 达到 53.34–70.29——论文据此自称首次把 PTQ 的 2W4A 精度推到"可用水平"（usable level）。这是摘要贡献 3（"quantize weights to INT2 without significant accuracy loss for the first time"）在激活 4-bit 设置下的证据。
 
 必须记住的口径限定：
 
@@ -55,3 +55,7 @@ signoff: null
 
 成立：权重 2-bit / 激活 4-bit 的 PTQ 从此有可用起点，块重建 + FIM 平方梯度加权是关键组件；极低比特压缩选型先试 BRECQ 系。
 不成立：W2A4 可用性依赖 BRECQ 自报的对比表，基线崩塌系复现或口径工件，极低比特 PTQ 选型回到 QAT 或混合精度路线。
+
+## 核查记录
+
+- 2026-11-05（P1-B2a 量化主线经典组）：evidence 四条 quote 对笔记逐字机械核对命中；发现正文 W2A4 BRECQ 区间上界误写为 73.56（该值属 Table 3 的 4/4 行 MnasNet），改为 2/4 行实际的 70.29（53.34–70.29），其余数字与命题未改。
