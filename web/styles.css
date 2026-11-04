@@ -681,6 +681,47 @@ body.drawer-open { overflow: hidden; }
 /* Read-only detail has no editor column; keep the article a readable width. */
 .detail-grid.single { grid-template-columns: minmax(0, 900px); }
 
+[hidden] { display: none !important; }
+.main, .detail-col, .reader-article, .related-notes { min-width: 0; }
+.source-link, .md a { color: var(--brand); text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
+.review-tabs, .material-filters, .reader-source { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 12px 0; }
+.material-filters select { background: var(--surface); border: 1px solid var(--border); padding: 7px; border-radius: 6px; max-width: 100%; }
+.material-list { display: grid; gap: 12px; }
+.material-card { display: block; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-card); padding: 18px; min-width: 0; }
+.material-card:hover, .related-card:hover { border-color: var(--brand); }
+.material-card h3, .related-card h3 { font-size: 16px; line-height: 1.6; margin: 8px 0; }
+.search-snippet { line-height: 1.7; color: var(--text-muted); margin-bottom: 0; overflow-wrap: anywhere; }
+mark { color: var(--text); background: color-mix(in srgb, var(--c-asserted) 25%, transparent); }
+.reader-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(240px, 300px); gap: 20px; align-items: start; }
+.reader-source { border-bottom: 1px solid var(--border); padding-bottom: 14px; }
+.related-notes h2 { font-size: 17px; }
+.related-card { display: block; border-top: 1px solid var(--border); padding: 16px 0; }
+.scope-preview { font-size: 13px; line-height: 1.6; color: var(--text-muted); white-space: normal; overflow-wrap: anywhere; }
+.note-toc { padding: 10px 0 18px; }
+.note-toc summary { cursor: pointer; color: var(--brand); }
+.note-toc a { display: block; margin: 8px 0; line-height: 1.6; }
+.md { overflow-wrap: anywhere; }
+.md h1, .md h2, .md h3, .md h4, .md h5, .md h6 { scroll-margin-top: 90px; line-height: 1.5; }
+.md h1 { font-size: 26px; } .md h4, .md h5, .md h6 { font-size: 16px; }
+.md img { max-width: 100%; height: auto; display: block; margin: 16px auto; cursor: zoom-in; }
+.table-scroll, .math-scroll { overflow-x: auto; max-width: 100%; margin: 16px 0; -webkit-overflow-scrolling: touch; }
+.md table { border-collapse: collapse; width: max-content; min-width: 100%; font-size: 13px; }
+.md td, .md th { padding: 8px 12px; border: 1px solid var(--border); white-space: nowrap; }
+.md th { background: var(--surface-muted); text-align: left; }
+.md .katex-display { margin: 10px 0; }
+.math-scroll .katex-display { width: max-content; min-width: 100%; }
+.md p:has(.katex), .md li:has(.katex) { overflow-x: auto; overflow-y: hidden; padding-block: 3px; }
+#refresh-data { width: auto; min-width: 42px; white-space: nowrap; }
+.disabled-link { color: var(--text-muted); }
+.image-dialog { max-width: 95vw; max-height: 95vh; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); color: var(--text); overflow: auto; }
+.image-dialog::backdrop { background: rgba(0,0,0,.75); }
+.image-dialog img { display: block; max-width: none; margin-top: 10px; }
+.image-dialog button { position: sticky; top: 0; }
+.discard-dialog { max-width: min(440px, 92vw); padding: 24px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); color: var(--text); }
+.discard-dialog::backdrop { background: rgba(0,0,0,.55); }
+.discard-dialog h2 { font-size: 18px; }
+@media (max-width: 1100px) { .reader-layout { grid-template-columns: minmax(0, 1fr); } }
+
 .readonly-hint { margin-top: 6px; }
 
 @media (max-width: 720px) {
@@ -720,6 +761,10 @@ body.drawer-open { overflow: hidden; }
     border-top: 1px solid var(--border);
   }
   .nav a { padding: 12px 16px; font-size: 13px; }
+  .topbar-right { gap: 4px; }
+  #new-link { font-size: 12px; padding: 6px 7px; }
+  #refresh-data { padding: 0 6px; min-width: 30px; }
+  .nav a { padding: 12px 8px; }
   .nav a[data-nav="graph"] { display: none; }
 
   /* Search collapses behind a topbar button; 16px avoids iOS focus zoom. */

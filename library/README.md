@@ -1,10 +1,10 @@
 # KnowledgeAnchor · library
 
-本人的论文阅读笔记（仓库的 **L1 来源层**：从论文、教材、博客等来源整理的知识，统一表示「尚未由我独立验证」）。信任等级与 claim 体系见仓库根 [README](../README.md) 与 [AGENTS.md](../AGENTS.md)。
+本人的论文、基础知识与实验技巧笔记（仓库的 **L1 来源层**：从文献与个人项目经验整理的知识，统一表示「尚未由我独立验证」）。信任等级与 claim 体系见仓库根 [README](../README.md) 与 [AGENTS.md](../AGENTS.md)。
 
 论文笔记统一以「出处会议（期刊）/ 是否开源 / 关键词」三行开头；教材与数学/通用笔记以「**类型：**」一行开头（见文末「笔记约定」）。正文以公式推导 + 直觉解释为主，关键数字与表格带章节 locator。
 
-> 篇数统计截至 2026-11-03，共 **57** 篇笔记。
+> 篇数统计截至 2026-11-04，共 **61** 篇笔记。
 
 ## 📂 目录结构
 
@@ -12,15 +12,16 @@
 | --- | --- | --- |
 | [`Classical_Detection/`](Classical_Detection) | 经典 2D 检测、点云 3D 检测、4D 雷达检测 | 9 |
 | [`BEV_Detection/`](BEV_Detection) | 多相机 BEV 3D 目标检测框架 | 2 |
-| [`Multimodal_Fusion/`](Multimodal_Fusion) | 多传感器 / 雷达-相机 / 相机-LiDAR 融合 | 8 |
-| [`3D_Occupancy/`](3D_Occupancy) | 3D 语义占用预测 | 6 |
+| [`Multimodal_Fusion/`](Multimodal_Fusion) | 多传感器 / 雷达-相机 / 相机-LiDAR 融合 | 9 |
+| [`3D_Occupancy/`](3D_Occupancy) | 3D 语义占用预测 | 7 |
 | [`ADe2e/`](ADe2e) | 端到端自动驾驶（UniAD 系与开环评测批判） | 3 |
 | [`VLM_VLA/`](VLM_VLA) | 视觉语言模型（VLM）与视觉-语言-动作模型（VLA） | 7 |
 | [`QA dataset/`](QA%20dataset) | 驾驶 VQA 评测基准 | 1 |
 | [`Efficient_Backbone/`](Efficient_Backbone) | 轻量级 / 移动端骨干网络 | 3 |
-| [`Quantization/`](Quantization) | 模型量化与压缩 | 12 |
+| [`Quantization/`](Quantization) | 模型量化与压缩 | 13 |
 | [`AI Infra/`](AI%20Infra) | Liger-Kernel PR 技术复盘（非论文笔记） | 3 |
 | [`Math_and_Notes/`](Math_and_Notes) | 数学与通用笔记 | 3 |
+| [`Experiment_Notes/`](Experiment_Notes) | 个人实验技巧、实验设计与项目诊断复盘 | 1 |
 | [`assets/`](assets) | 论文插图与表格截图，按论文名分目录（53 个子目录） | — |
 
 ## 经典检测
@@ -156,6 +157,14 @@
 | [融合线性 KL 散度算子](AI%20Infra/liger-pr1423-1476-fused-kl.md) | PR [#1423](https://github.com/linkedin/Liger-Kernel/pull/1423) + [#1476](https://github.com/linkedin/Liger-Kernel/pull/1476) | FusedLinearKLDivLoss Triton 内核 + dispatcher 注册 |
 | [DeepSeek-V3 支持](AI%20Infra/liger-pr1424-deepseek-v3.md) | PR [#1424](https://github.com/linkedin/Liger-Kernel/pull/1424) | 模型支持 PR（lce_forward + monkey patch、显存/吞吐基准、零评审合入） |
 | [DeepSeek-V2 支持](AI%20Infra/liger-pr1501-deepseek-v2.md) | PR [#1501](https://github.com/linkedin/Liger-Kernel/pull/1501) | 模型支持 PR（无基准数据变体、`LigerExperts` 命名兼容链跨版本排障） |
+
+## 实验技巧与项目复盘
+
+本人项目中沉淀的实验设计、训练调试与诊断技巧。每篇保留机制解释、适用条件和原始证据，区分项目实测、理论推导与尚待验证的解释；可检验的项目主张由对应 claim 单独维护状态。
+
+| 笔记 | 来源项目 | 主题 |
+| --- | --- | --- |
+| [拟合诊断中的 Batch、归一化与采样](Experiment_Notes/拟合诊断中的Batch与归一化.md) | BEV-Planner / K-Radar | 梯度 batch、BN 统计范围、时序采样、更新预算与拟合诊断 |
 
 ## 数学与通用笔记
 

@@ -263,15 +263,16 @@ function walk(dir) {
   return files;
 }
 
-export function loadClaims() {
+export function loadClaims(root = ROOT) {
+  const claimsDir = path.join(root, 'claims');
   const errors = [];
   const claims = [];
-  if (!fs.existsSync(CLAIMS_DIR)) {
+  if (!fs.existsSync(claimsDir)) {
     return { claims, errors: ['claims/ does not exist'] };
   }
-  const files = walk(CLAIMS_DIR).filter((file) => file.endsWith('.md'));
+  const files = walk(claimsDir).filter((file) => file.endsWith('.md'));
   for (const file of files) {
-    const rel = path.relative(ROOT, file).split(path.sep).join('/');
+    const rel = path.relative(root, file).split(path.sep).join('/');
     try {
       const data = parseFrontmatter(fs.readFileSync(file, 'utf8'));
       claims.push({ file, rel, data });
@@ -283,15 +284,16 @@ export function loadClaims() {
 }
 
 // Same as loadClaims but keeps raw field capture and body for the serializer.
-export function loadClaimsFull() {
+export function loadClaimsFull(root = ROOT) {
+  const claimsDir = path.join(root, 'claims');
   const errors = [];
   const claims = [];
-  if (!fs.existsSync(CLAIMS_DIR)) {
+  if (!fs.existsSync(claimsDir)) {
     return { claims, errors: ['claims/ does not exist'] };
   }
-  const files = walk(CLAIMS_DIR).filter((file) => file.endsWith('.md'));
+  const files = walk(claimsDir).filter((file) => file.endsWith('.md'));
   for (const file of files) {
-    const rel = path.relative(ROOT, file).split(path.sep).join('/');
+    const rel = path.relative(root, file).split(path.sep).join('/');
     try {
       const text = fs.readFileSync(file, 'utf8');
       const parsed = parseClaimFile(text);
@@ -316,22 +318,32 @@ function isDate(value) {
   );
 }
 
-function checkRepoPath(value, label, errors) {
+function checkRepoPath(value, label, errors, root) {
   if (typeof value !== 'string') return;
-  const isLibrary = value.startsWith('library/');
-  const isClaim = value.startsWith('claims/');
-  if (!isLibrary && !isClaim) return;
-  const clean = value.split('#')[0];
-  const abs = path.resolve(ROOT, clean);
-  const base = isLibrary ? path.resolve(LIBRARY_DIR) : path.resolve(CLAIMS_DIR);
+  if (/^https?:\/\/\S+$/i.test(value)) return;
+  let clean;
+  try { clean = decodeURIComponent(value.split('#')[0]); }
+  catch { errors.push(`${label}: invalid path encoding`); return; }
+  const layer = clean.split('/')[0];
+  if (!['library', 'claims', 'nightshift'].includes(layer) || /[\\\x00-\x1f:]/.test(clean)) {
+    errors.push(`${label}: expected a repository source path or http(s) URL`);
+    return;
+  }
+  const abs = path.resolve(root, clean);
+  const base = path.resolve(root, layer);
   if (abs !== base && !abs.startsWith(`${base}${path.sep}`)) {
     errors.push(`${label}: path escapes its layer: ${clean}`);
     return;
   }
-  if (!fs.existsSync(abs)) errors.push(`${label}: file not found: ${clean}`);
+  if (!fs.existsSync(abs) || !fs.statSync(abs).isFile()) errors.push(`${label}: file not found: ${clean}`);
+  else {
+    const real = fs.realpathSync(abs);
+    const realBase = fs.realpathSync(base);
+    if (!real.startsWith(`${realBase}${path.sep}`)) errors.push(`${label}: source escapes its layer`);
+  }
 }
 
-export function validateClaims(claims) {
+export function validateClaims(claims, root = ROOT) {
   const errors = [];
   const ids = new Set();
   for (const claim of claims) {
@@ -342,9 +354,12 @@ export function validateClaims(claims) {
     }
     const required = ['id', 'title', 'type', 'status', 'scope', 'stance', 'evidence', 'falsifiers'];
     for (const key of required) {
-      if (data[key] === undefined || data[key] === null || data[key] === '') {
+      if (data[key] === undefined || data[key] === null || (typeof data[key] === 'string' && !data[key].trim())) {
         errors.push(`${rel}: missing ${key}`);
       }
+    }
+    for (const key of ['title', 'scope']) {
+      if (typeof data[key] !== 'string') errors.push(`${rel}: ${key} must be text`);
     }
     if (data.type !== 'claim') errors.push(`${rel}: type must be "claim"`);
     const id = typeof data.id === 'string' ? data.id : '';
@@ -367,25 +382,29 @@ export function validateClaims(claims) {
     } else {
       data.evidence.forEach((item, index) => {
         for (const key of ['source', 'locator', 'quote', 'relation']) {
-          if (!item?.[key]) errors.push(`${rel}: evidence[${index}].${key} is required`);
+          if (typeof item?.[key] !== 'string' || !item[key].trim()) errors.push(`${rel}: evidence[${index}].${key} must be non-blank text`);
         }
         if (!RELATIONS.has(item?.relation)) {
           errors.push(`${rel}: evidence[${index}].relation must be supports or contradicts`);
         }
-        checkRepoPath(item?.source, `${rel}: evidence[${index}].source`, errors);
+        checkRepoPath(item?.source, `${rel}: evidence[${index}].source`, errors, root);
       });
     }
     if (!Array.isArray(data.falsifiers) || data.falsifiers.length === 0) {
       errors.push(`${rel}: falsifiers must be a non-empty array`);
+    } else if (data.falsifiers.some((v) => typeof v !== 'string' || !v.trim())) {
+      errors.push(`${rel}: falsifiers entries must be non-blank text`);
     }
     if (data.tags !== undefined && !Array.isArray(data.tags)) {
       errors.push(`${rel}: tags must be an array`);
+    } else if (Array.isArray(data.tags) && data.tags.some((v) => typeof v !== 'string')) {
+      errors.push(`${rel}: tags entries must be text`);
     }
     if (data.note !== undefined) {
       if (typeof data.note !== 'string' || !data.note.startsWith('library/')) {
         errors.push(`${rel}: note must start with library/`);
       } else {
-        checkRepoPath(data.note, `${rel}: note`, errors);
+        checkRepoPath(data.note, `${rel}: note`, errors, root);
       }
     }
     if (data.review_due !== undefined && !isDate(data.review_due)) {
@@ -408,6 +427,8 @@ export function validateClaims(claims) {
     }
     if (data.related !== undefined && !Array.isArray(data.related)) {
       errors.push(`${rel}: related must be an array`);
+    } else if (Array.isArray(data.related) && data.related.some((v) => typeof v !== 'string' || !v.trim())) {
+      errors.push(`${rel}: related entries must be non-blank ids`);
     }
   }
   for (const claim of claims) {
@@ -422,8 +443,9 @@ export function validateClaims(claims) {
 
 // ---------------------------------------------------------------- index --
 
-export function buildIndex(claims) {
-  fs.mkdirSync(INDEX_DIR, { recursive: true });
+export function buildIndex(claims, root = ROOT) {
+  const indexDir = path.join(root, 'index');
+  fs.mkdirSync(indexDir, { recursive: true });
   const rows = claims
     .map(({ rel, data }) => ({
       id: data.id,
@@ -438,9 +460,15 @@ export function buildIndex(claims) {
       path: rel,
     }))
     .sort((a, b) => a.id.localeCompare(b.id));
-  const output = path.join(INDEX_DIR, 'claims.jsonl');
-  fs.writeFileSync(output, `${rows.map((row) => JSON.stringify(row)).join('\n')}\n`, 'utf8');
-  console.log(`wrote ${rows.length} claim(s) to ${path.relative(ROOT, output)}`);
+  const output = path.join(indexDir, 'claims.jsonl');
+  const temporary = `${output}.tmp`;
+  try {
+    fs.writeFileSync(temporary, `${rows.map((row) => JSON.stringify(row)).join('\n')}\n`, 'utf8');
+    fs.renameSync(temporary, output);
+  } finally {
+    fs.rmSync(temporary, { force: true });
+  }
+  console.log(`wrote ${rows.length} claim(s) to ${path.relative(root, output)}`);
   return rows;
 }
 

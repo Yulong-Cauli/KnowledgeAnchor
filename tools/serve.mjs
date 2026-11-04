@@ -8,23 +8,23 @@
 import fs from 'node:fs';
 import http from 'node:http';
 import path from 'node:path';
+import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import {
-  CLAIMS_DIR,
   CLAIM_ID,
-  LIBRARY_DIR,
   MAX_ID_LENGTH,
-  ROOT,
-  STANCES,
-  buildIndex,
-  loadClaims,
-  loadClaimsFull,
+  ROOT as DEFAULT_ROOT,
+  buildIndex as indexAt,
+  loadClaims as loadAt,
+  loadClaimsFull as loadFullAt,
   serializeClaim,
   todayString,
-  validateClaims,
+  validateClaims as validateAt,
 } from './ka-lib.mjs';
+import { addDays, reviewCounts } from '../web/review.mjs';
+import { listNotes, searchCorpus, resolveResource, relatedClaims, claimSearchText } from './materials.mjs';
 
-const WEB_DIR = path.join(ROOT, 'web');
+const WEB_DIR = path.join(DEFAULT_ROOT, 'web');
 const REVIEW_INTERVAL_DAYS = 90;
 const DEFAULT_HOST = '127.0.0.1';
 const DEFAULT_PORT = 4780;
@@ -68,11 +68,16 @@ function parseArgs(argv) {
   return args;
 }
 
-function addDays(dateStr, days) {
-  const [year, month, day] = dateStr.split('-').map(Number);
-  const date = new Date(Date.UTC(year, month - 1, day + days));
-  return date.toISOString().slice(0, 10);
-}
+// Inject only the data root/clock for isolated HTTP tests; production uses this repo.
+export function createKnowledgeServer({ root = DEFAULT_ROOT, readonly = false, today = todayString } = {}) {
+const ROOT = path.resolve(root);
+const CLAIMS_DIR = path.join(ROOT, 'claims');
+const args = { readonly };
+const loadClaims = () => loadAt(ROOT);
+const loadClaimsFull = () => loadFullAt(ROOT);
+const validateClaims = (claims) => validateAt(claims, ROOT);
+const buildIndex = (claims) => indexAt(claims, ROOT);
+const versionOf = (text) => crypto.createHash('sha256').update(text).digest('hex');
 
 function summaryOf(data, rel) {
   return {
@@ -90,7 +95,7 @@ function summaryOf(data, rel) {
 }
 
 function fullCardOf(claim) {
-  return { ...claim.data, body: claim.body, path: claim.rel };
+  return { ...claim.data, body: claim.body, path: claim.rel, version: versionOf(claim.text ?? serializeClaim(claim)) };
 }
 
 // All write actions funnel through here (§9): a future auth layer only has
@@ -108,6 +113,7 @@ function handleWrite(actor, action, payload) {
     case 'create': return writeCreate(claims, payload);
     case 'reviewed': return writeReviewed(claims, payload);
     case 'postpone': return writePostpone(claims, payload);
+    case 'today': return writeEdit(claims, { id: payload.id, patch: { review_due: today() } });
     default: return { status: 400, body: { error: `unknown write action "${action}"` } };
   }
 }
@@ -127,8 +133,8 @@ function normalizeStringList(value) {
   const seen = new Set();
   const items = [];
   for (const entry of value) {
-    const text = String(entry ?? '').trim();
-    if (!text || seen.has(text)) continue;
+    const text = typeof entry === 'string' ? entry.trim() : entry;
+    if (seen.has(text)) continue;
     seen.add(text);
     items.push(text);
   }
@@ -149,7 +155,7 @@ function applyPatch(card, patch) {
   for (const [key, value] of Object.entries(patch)) {
     if (key === 'body') continue;
     if (key === 'evidence') data.evidence = normalizeEvidence(value);
-    else if (key === 'falsifiers') data.falsifiers = Array.isArray(value) ? value.map(String) : value;
+    else if (key === 'falsifiers') data.falsifiers = value;
     else if (key === 'tags' || key === 'related') data[key] = normalizeStringList(value);
     else if ((key === 'note' || key === 'review_due') && (value === '' || value === null)) delete data[key];
     else data[key] = value;
@@ -163,26 +169,47 @@ function validateWholeSet(claims, targetRel, newData) {
   const hypothetical = claims.map((claim) =>
     claim.rel === targetRel ? { file: claim.file, rel: claim.rel, data: newData } : { file: claim.file, rel: claim.rel, data: claim.data }
   );
+  if (!claims.some((claim) => claim.rel === targetRel)) {
+    hypothetical.push({ file: path.join(ROOT, targetRel), rel: targetRel, data: newData });
+  }
   return validateClaims(hypothetical);
 }
 
 // Atomic write + index rebuild. Runs inside the write queue.
-function commitClaim(card) {
-  const content = serializeClaim(card);
-  const target = path.join(CLAIMS_DIR, `${card.data.id}.md`);
-  const tmp = path.join(CLAIMS_DIR, `.${card.data.id}.tmp`);
-  fs.writeFileSync(tmp, content, 'utf8');
-  fs.renameSync(tmp, target);
-  buildIndex(loadClaims().claims);
+function commitClaim(card, creating = false) {
+  let content;
+  try { content = serializeClaim(card); }
+  catch (error) { throw Object.assign(new Error(`无法保存：${error.message}`), { statusCode: 400 }); }
+  const target = card.file ?? path.join(CLAIMS_DIR, `${card.data.id}.md`);
+  const tmp = `${target}.${crypto.randomUUID()}.tmp`;
+  try {
+    fs.writeFileSync(tmp, content, { encoding: 'utf8', flag: 'wx' });
+    if (creating) fs.linkSync(tmp, target); // fails atomically if a file appeared
+    else {
+      if (card.text !== undefined && fs.readFileSync(target, 'utf8') !== card.text) {
+        throw Object.assign(new Error('文件已被其他编辑器修改，请重新读取后合并。'), { statusCode: 409 });
+      }
+      fs.renameSync(tmp, target);
+    }
+  } finally { fs.rmSync(tmp, { force: true }); }
+  card.text = content;
+  try {
+    const loaded = loadClaims();
+    if (loaded.errors.length) throw new Error(loaded.errors.join('; '));
+    buildIndex(loaded.claims);
+  } catch (error) {
+    throw Object.assign(new Error(`卡片已写入，但索引重建失败：${error.message}。请运行 node tools/ka.mjs index；不要重复创建。`), { statusCode: 500 });
+  }
   return content;
 }
 
-function writeEdit(claims, { id, patch }) {
+function writeEdit(claims, { id, patch, version }) {
   const card = claims.find((claim) => claim.data.id === id);
   if (!card) return { status: 404, body: { error: `claim not found: ${id}` } };
   if (card.data.status !== 'asserted') {
     return { status: 403, body: { error: `claim ${id} is ${card.data.status} and read-only` } };
   }
+  if (version && version !== versionOf(card.text)) return { status: 409, body: { error: '文件已被其他编辑器修改，请重新读取后合并；当前输入已保留。' } };
   const patchError = applyPatch(card, patch);
   if (patchError) return patchError;
   const validationErrors = validateWholeSet(claims, card.rel, card.data);
@@ -204,30 +231,29 @@ function writeCreate(claims, payload) {
   if (claims.some((claim) => claim.data.id === id)) {
     return { status: 409, body: { error: `claim id already exists: ${id}` } };
   }
+  if (fs.existsSync(path.join(CLAIMS_DIR, `${id}.md`))) return { status: 409, body: { error: `目标文件已存在：${id}.md` } };
   const data = {
     id,
-    title: String(payload.title ?? ''),
+    title: payload.title ?? '',
     type: 'claim',
     status: 'asserted',
-    scope: String(payload.scope ?? ''),
+    scope: payload.scope ?? '',
     tags: normalizeStringList(payload.tags ?? []),
-    stance: STANCES.has(payload.stance) ? payload.stance : 'watch',
+    stance: payload.stance ?? 'watch',
     evidence: normalizeEvidence(payload.evidence ?? []),
-    falsifiers: Array.isArray(payload.falsifiers) ? payload.falsifiers.map(String) : [],
+    falsifiers: payload.falsifiers ?? [],
     signoff: null,
   };
-  if (typeof payload.note === 'string' && payload.note.trim()) data.note = payload.note.trim();
+  if (payload.note !== undefined && payload.note !== '') data.note = typeof payload.note === 'string' ? payload.note.trim() : payload.note;
   if (typeof payload.paper === 'string' && payload.paper.trim()) data.paper = payload.paper.trim();
-  data.review_due = typeof payload.review_due === 'string' && payload.review_due.trim()
-    ? payload.review_due.trim()
-    : addDays(todayString(), REVIEW_INTERVAL_DAYS);
-  if (Array.isArray(payload.related)) data.related = normalizeStringList(payload.related);
+  if (payload.review_due !== '' && payload.review_due !== null) data.review_due = payload.review_due ?? addDays(today(), REVIEW_INTERVAL_DAYS);
+  if (payload.related !== undefined) data.related = normalizeStringList(payload.related);
   const card = { data, body: String(payload.body ?? ''), fields: new Map(), tail: undefined };
   const validationErrors = validateWholeSet(claims, `claims/${id}.md`, data);
   if (validationErrors.length) {
     return { status: 400, body: { error: 'validation failed, nothing written', details: validationErrors } };
   }
-  commitClaim(card);
+  commitClaim(card, true);
   return { status: 201, body: { ...data, body: card.body, path: `claims/${id}.md` } };
 }
 
@@ -237,7 +263,9 @@ function writeReviewed(claims, { id }) {
   if (card.data.status !== 'asserted') {
     return { status: 403, body: { error: `claim ${id} is ${card.data.status} and read-only` } };
   }
-  card.data = { ...card.data, review_due: addDays(todayString(), REVIEW_INTERVAL_DAYS) };
+  card.data = { ...card.data, review_due: addDays(today(), REVIEW_INTERVAL_DAYS) };
+  const errors = validateWholeSet(claims, card.rel, card.data);
+  if (errors.length) return { status: 400, body: { error: 'validation failed, nothing written', details: errors } };
   commitClaim(card);
   return { status: 200, body: fullCardOf(card) };
 }
@@ -252,7 +280,9 @@ function writePostpone(claims, { id, days }) {
   if (!Number.isInteger(count) || count < 1 || count > 365) {
     return { status: 400, body: { error: 'days must be an integer between 1 and 365' } };
   }
-  card.data = { ...card.data, review_due: addDays(todayString(), count) };
+  card.data = { ...card.data, review_due: addDays(today(), count) };
+  const errors = validateWholeSet(claims, card.rel, card.data);
+  if (errors.length) return { status: 400, body: { error: 'validation failed, nothing written', details: errors } };
   commitClaim(card);
   return { status: 200, body: fullCardOf(card) };
 }
@@ -291,7 +321,9 @@ function readJsonBody(req) {
         return;
       }
       try {
-        resolve(JSON.parse(Buffer.concat(chunks).toString('utf8')));
+        const body = JSON.parse(Buffer.concat(chunks).toString('utf8'));
+        if (!body || typeof body !== 'object' || Array.isArray(body)) throw new Error('expected an object');
+        resolve(body);
       } catch {
         reject(Object.assign(new Error('request body is not valid JSON'), { statusCode: 400 }));
       }
@@ -304,36 +336,32 @@ function getMeta() {
   const { claims, errors } = loadClaims();
   const counts = { asserted: 0, verified: 0, refuted: 0, stale: 0 };
   const tagCounts = new Map();
-  const today = todayString();
-  let queue = 0;
+  const currentDay = today();
   for (const { data } of claims) {
     counts[data.status] = (counts[data.status] ?? 0) + 1;
-    if (data.status === 'asserted' || data.status === 'stale') queue += 1;
-    else if (data.status === 'verified' && data.review_due && data.review_due <= today) queue += 1;
     for (const tag of data.tags ?? []) tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
   }
   const tags = [...tagCounts.entries()]
     .map(([tag, count]) => ({ tag, count }))
     .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag));
-  return { today, total: claims.length, counts, tags, queue, errors, readonly: args.readonly };
+  const reviews = reviewCounts(claims.map((c) => c.data), currentDay);
+  return { today: currentDay, total: claims.length, counts, tags, queue: reviews.today, reviews, errors, readonly: args.readonly };
 }
 
 function filterClaims(url) {
-  const { claims, errors } = loadClaims();
+  const { claims, errors } = loadClaimsFull();
   const params = url.searchParams;
   const statuses = (params.get('status') ?? '').split(',').map((s) => s.trim()).filter(Boolean);
   const stances = (params.get('stance') ?? '').split(',').map((s) => s.trim()).filter(Boolean);
   const tag = (params.get('tag') ?? '').trim();
   const q = (params.get('q') ?? '').trim().toLowerCase();
   const sort = params.get('sort') ?? 'id';
-  let rows = claims.map(({ rel, data }) => summaryOf(data, rel));
+  let rows = claims.map((c) => ({ ...summaryOf(c.data, c.rel), search_text: claimSearchText(c) }));
   if (statuses.length) rows = rows.filter((row) => statuses.includes(row.status));
   if (stances.length) rows = rows.filter((row) => stances.includes(row.stance));
   if (tag) rows = rows.filter((row) => (row.tags ?? []).includes(tag));
   if (q) {
-    rows = rows.filter((row) =>
-      [row.id, row.title, ...(row.tags ?? [])].some((field) => String(field).toLowerCase().includes(q))
-    );
+    rows = rows.filter((row) => q.split(/\s+/u).every((word) => row.search_text.toLowerCase().includes(word)));
   }
   if (sort === 'due') {
     rows.sort((a, b) => {
@@ -415,31 +443,25 @@ function buildGraph() {
   };
 }
 
-function resolveNotePath(rawPath) {
-  if (typeof rawPath !== 'string' || !rawPath.startsWith('library/')) return null;
-  const [clean, anchor = ''] = rawPath.split('#', 2);
-  const abs = path.resolve(ROOT, clean);
-  const base = path.resolve(LIBRARY_DIR);
-  if (abs !== base && !abs.startsWith(`${base}${path.sep}`)) return null;
-  if (!fs.existsSync(abs) || !fs.statSync(abs).isFile()) return null;
-  if (fs.realpathSync(abs) !== abs) return null; // no symlink escapes
-  return { abs, anchor, rel: clean };
-}
-
 const MIME_TYPES = new Map([
   ['.html', 'text/html; charset=utf-8'],
   ['.js', 'text/javascript; charset=utf-8'],
+  ['.mjs', 'text/javascript; charset=utf-8'],
   ['.css', 'text/css; charset=utf-8'],
   ['.json', 'application/json; charset=utf-8'],
   ['.webmanifest', 'application/manifest+json; charset=utf-8'],
   ['.svg', 'image/svg+xml'],
   ['.png', 'image/png'],
+  ['.jpg', 'image/jpeg'], ['.jpeg', 'image/jpeg'], ['.gif', 'image/gif'],
+  ['.webp', 'image/webp'], ['.avif', 'image/avif'], ['.bmp', 'image/bmp'],
+  ['.pdf', 'application/pdf'], ['.md', 'text/plain; charset=utf-8'],
+  ['.woff2', 'font/woff2'], ['.woff', 'font/woff'], ['.ttf', 'font/ttf'],
   ['.ico', 'image/x-icon'],
 ]);
 
 function serveStatic(res, urlPath) {
   const rel = urlPath === '/' ? 'index.html' : urlPath.replace(/^\/+/, '');
-  const abs = path.resolve(WEB_DIR, rel);
+  const abs = path.resolve(WEB_DIR, decodeURIComponent(rel));
   if (abs !== WEB_DIR && !abs.startsWith(`${WEB_DIR}${path.sep}`)) {
     sendError(res, 404, 'not found');
     return;
@@ -448,6 +470,7 @@ function serveStatic(res, urlPath) {
     sendError(res, 404, 'not found');
     return;
   }
+  if (!fs.realpathSync(abs).startsWith(`${fs.realpathSync(WEB_DIR)}${path.sep}`)) { sendError(res, 404, 'not found'); return; }
   const type = MIME_TYPES.get(path.extname(abs)) ?? 'application/octet-stream';
   res.writeHead(200, { 'content-type': type, 'cache-control': 'no-store' });
   res.end(fs.readFileSync(abs));
@@ -458,6 +481,23 @@ function serveStatic(res, urlPath) {
 async function handleApi(req, res, url) {
   const { pathname } = url;
   const method = req.method;
+  if (method === 'GET' && (pathname === '/api/materials' || pathname === '/api/search')) {
+    const notes = listNotes(ROOT);
+    const { claims, errors } = loadClaimsFull();
+    if (errors.length) { sendError(res, 500, 'claims directory failed to load', errors); return; }
+    const results = searchCorpus(notes, claims, url.searchParams.get('q') ?? '');
+    sendJson(res, 200, { ...results, categories: [...new Set(notes.map((n) => n.category))] });
+    return;
+  }
+  if (method === 'GET' && pathname === '/api/resource') {
+    const resolved = resolveResource(ROOT, url.searchParams.get('path'), ['library', 'claims', 'nightshift']);
+    if (!resolved) { sendError(res, 404, 'resource not found in allowed directories'); return; }
+    res.writeHead(200, { 'content-type': MIME_TYPES.get(path.extname(resolved.abs).toLowerCase()) ?? 'application/octet-stream',
+      'cache-control': 'no-store', 'x-content-type-options': 'nosniff',
+      'content-security-policy': "sandbox; default-src 'none'; style-src 'unsafe-inline'" });
+    res.end(fs.readFileSync(resolved.abs));
+    return;
+  }
 
   if (method === 'GET' && pathname === '/api/meta') {
     const meta = getMeta();
@@ -498,14 +538,16 @@ async function handleApi(req, res, url) {
   }
 
   if (method === 'GET' && pathname === '/api/note') {
-    const resolved = resolveNotePath(url.searchParams.get('path') ?? '');
-    if (!resolved) {
+    const resolved = resolveResource(ROOT, url.searchParams.get('path') ?? '');
+    if (!resolved || !resolved.rel.startsWith('library/') || !resolved.rel.endsWith('.md')) {
       sendError(res, 404, 'note not found under library/');
       return;
     }
     try {
       const content = fs.readFileSync(resolved.abs, 'utf8');
-      sendJson(res, 200, { path: resolved.rel, anchor: resolved.anchor, content });
+      const { claims, errors } = loadClaims();
+      if (errors.length) { sendError(res, 500, 'claims directory failed to load', errors); return; }
+      sendJson(res, 200, { path: resolved.rel, anchor: resolved.anchor, content, related: relatedClaims(claims, resolved.rel) });
     } catch (error) {
       sendError(res, 500, `failed to read note: ${error.message}`);
     }
@@ -515,7 +557,7 @@ async function handleApi(req, res, url) {
   if (method === 'PUT' && claimMatch) {
     const id = decodeURIComponent(claimMatch[1]);
     const body = await readJsonBody(req);
-    const result = handleWrite(body.actor, 'edit', { id, patch: body.patch });
+    const result = handleWrite(body.actor, 'edit', { id, patch: body.patch, version: body.version });
     sendJson(res, result.status, result.body);
     return;
   }
@@ -527,7 +569,7 @@ async function handleApi(req, res, url) {
     return;
   }
 
-  const actionMatch = pathname.match(/^\/api\/claims\/([^/]+)\/(reviewed|postpone)$/);
+  const actionMatch = pathname.match(/^\/api\/claims\/([^/]+)\/(reviewed|postpone|today)$/);
   if (actionMatch && method === 'POST') {
     const id = decodeURIComponent(actionMatch[1]);
     const action = actionMatch[2];
@@ -541,7 +583,7 @@ async function handleApi(req, res, url) {
 }
 
 // All write requests serialize through this promise chain: one file write at
-// a time, so concurrent UI actions or manual edits never interleave halfway.
+// a time within this server. External editors use a best-effort version check.
 let writeQueue = Promise.resolve();
 function enqueueWrite(task) {
   const result = writeQueue.then(task);
@@ -549,17 +591,21 @@ function enqueueWrite(task) {
   return result;
 }
 
-const args = parseArgs(process.argv);
-
 const server = http.createServer(async (req, res) => {
-  const url = new URL(req.url, `http://${req.headers.host ?? 'localhost'}`);
   try {
+    const url = new URL(req.url, `http://${req.headers.host ?? 'localhost'}`);
+    res.setHeader('x-content-type-options', 'nosniff');
+    if (!url.pathname.startsWith('/api/resource')) res.setHeader('content-security-policy',
+      "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' https: http:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'");
     if (url.pathname.startsWith('/api/')) {
       if (args.readonly && req.method !== 'GET' && req.method !== 'HEAD') {
         sendError(res, 403, 'this server is read-only');
         return;
       }
       if (req.method === 'PUT' || req.method === 'POST') {
+        if (req.headers['sec-fetch-site'] === 'cross-site' || (req.headers.origin && new URL(req.headers.origin).host !== req.headers.host)) {
+          sendError(res, 403, 'cross-origin writes are not allowed'); return;
+        }
         await enqueueWrite(() => handleApi(req, res, url));
       } else {
         await handleApi(req, res, url);
@@ -579,9 +625,15 @@ const server = http.createServer(async (req, res) => {
     }
   }
 });
+return server;
+}
 
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+const args = parseArgs(process.argv);
+const server = createKnowledgeServer(args);
 server.listen(args.port, args.host, () => {
   console.log(`KnowledgeAnchor web UI: http://${args.host}:${args.port}/`);
   console.log(`mode: ${args.readonly ? 'read-only' : 'read-write'}`);
   console.log(`review interval: ${REVIEW_INTERVAL_DAYS} days`);
 });
+}

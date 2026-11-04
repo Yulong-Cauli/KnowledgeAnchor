@@ -22,20 +22,24 @@
     })();
   </script>
   <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/vendor/katex/katex.min.css">
 </head>
 <body>
   <header class="topbar">
     <div class="topbar-left">
-      <a class="brand" href="#/queue"><span class="brand-full">KnowledgeAnchor</span><span class="brand-short">KA</span></a>
+      <a class="brand" href="#/materials"><span class="brand-full">KnowledgeAnchor</span><span class="brand-short">KA</span></a>
       <nav class="nav">
-        <a href="#/queue" data-nav="queue">复核队列</a>
+        <a href="#/materials" data-nav="materials">资料</a>
+        <a href="#/queue" data-nav="queue">今日复核</a>
         <a href="#/claims" data-nav="claims">全部 Claim</a>
         <a href="#/graph" data-nav="graph">图谱</a>
       </nav>
     </div>
     <div class="topbar-right">
       <button id="search-toggle" class="icon-btn mobile-only" type="button" aria-label="搜索" aria-expanded="false">搜索</button>
-      <input id="search" class="search" type="search" placeholder="搜索 标题 / id / tag…" autocomplete="off" spellcheck="false">
+      <input id="search" class="search" type="search" placeholder="全文搜索，空格分隔多个关键词…" autocomplete="off" spellcheck="false" aria-label="全文搜索">
+      <button id="refresh-data" class="icon-btn" type="button" title="重新读取文件">刷新</button>
+      <a id="new-link" href="#/new" class="btn btn-sm" hidden>新建 claim</a>
       <button id="filter-toggle" class="icon-btn mobile-only" type="button" aria-label="筛选">筛选</button>
       <button id="theme-toggle" class="icon-btn" type="button" title="切换亮/暗主题">☾</button>
     </div>
@@ -50,6 +54,8 @@
 
   <div id="toast" class="toast" hidden></div>
 
-  <script src="/app.js"></script>
+  <script src="/vendor/markdown-it/markdown-it.min.js"></script>
+  <script src="/vendor/katex/katex.min.js"></script>
+  <script type="module" src="/app.js"></script>
 </body>
 </html>
