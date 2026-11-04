@@ -50,9 +50,9 @@ evidence:
     quote: "3.2% more accurate on ImageNet classification while reducing latency by 20% compared to MobileNetV2"
     relation: supports
 falsifiers:
-  - "同一训练配方复现：V2（224/1.0）相对 V1 未能同时提升 top-1（72.0 vs 70.6）并降低 MAdds（300M vs 569M 口径）"
-  - "V3-Large 复现 top-1 显著低于 75.2，或其 MAdds 既非 Table 3 的 219M 也非附录 Table 9 的 217M（差距远超舍入）；V3 论文内部 Table 3 vs Table 9 另有 67.4/67.5、39/39.8 两处出入（笔记遗留问题 3）"
-  - "权威版本核对推翻 verify 班 2026-11-03 裁定：V2/V3 出版版摘要实为 abs 页口径（15%/4.6%），则本卡按 PDF 口径引用的 3.2%/20%、6.6% 失效"
+  - "〔同范围复现〕同一训练配方复现：V2（224/1.0）相对 V1 未能同时提升 top-1（72.0 vs 70.6）并降低 MAdds（300M vs 569M 口径）"
+  - "〔同范围复现〕V3-Large 复现 top-1 显著低于 75.2，或其 MAdds 既非 Table 3 的 219M 也非附录 Table 9 的 217M（差距远超舍入）；V3 论文内部 Table 3 vs Table 9 另有 67.4/67.5、39/39.8 两处出入（笔记遗留问题 3）"
+  - "〔原文核查〕权威版本核对推翻 verify 班 2026-11-03 裁定：V2/V3 出版版摘要实为 abs 页口径（15%/4.6%），则本卡按 PDF 口径引用的 3.2%/20%、6.6% 失效"
 review_due: 2026-12-03
 related: [claim-mobilenet-dsc-8to9x-compute-reduction, claim-mobilenetv2-inverted-residual-linear-bottleneck, claim-mobileone-efficient-arch-sota-accuracy-latency]
 signoff: null
@@ -60,7 +60,7 @@ signoff: null
 
 ## 我的理解
 
-论文各自声称（尚未独立验证）：在 224 输入、width 1.0 的同点上，ImageNet top-1 / Mult-Adds 沿 V1→V2→V3 为 70.6%/569M → 72.0%/300M → 75.2%/219M（P-1 时延 64→51ms，按 V2/V3 各自 Table 口径）。V3 摘要百分点采用 PDF 口径：V3-Large 比 V2 +3.2 点、时延 −20%；V3-Small 对可比延迟 V2 +6.6%（arXiv v5 PDF 与 CVF camera-ready 一致；arXiv abs 页的 15%/4.6% 是脱节元数据，verify 班 2026-11-03 已裁定，见笔记遗留问题 1/2）。
+论文各自声称（尚未独立验证）：在 224 输入、width 1.0 的同点上，ImageNet top-1 / Mult-Adds 沿 V1→V2→V3 为 70.6%/569M → 72.0%/300M → 75.2%/219M（P-1 时延 64→51ms——两数均出自 V3 Table 3 的 V2 1.0 行与 V3-Large 行；V2 自家 Table 4 的 Pixel-1 CPU 为 75ms，属另一测量批次，不可混入本序列）。V3 摘要百分点采用 PDF 口径：V3-Large 比 V2 +3.2 点、时延 −20%；V3-Small 对可比延迟 V2 +6.6%（arXiv v5 PDF 与 CVF camera-ready 一致；arXiv abs 页的 15%/4.6% 是脱节元数据，verify 班 2026-11-03 已裁定，见笔记遗留问题 1/2）。
 
 三条引用纪律（本卡已按此执行）：
 1. **MAdds 跨论文口径差**：同一 V1-224 模型在 V1 Table 6 记 569M、在 V2 Table 4 记 575M——引用任一数字必须带表号，不得混用得出「V2 虚报」或「V3 口径漂移」类结论。
@@ -77,3 +77,7 @@ signoff: null
 
 成立：三代演进可作为「同预算下精度-开销逐年改善」的引用锚点；MobileOne 等后续工作 Table 9 转录的同套数字（V2 72.0/300M/0.98ms、V3-L 75.2/219/1.09ms）与之相容。
 不成立：演进叙事要按复现口径重写，引用 V3 时优先附录 Table 9 或第三方复测数字。
+
+## 核查记录
+
+- 2026-11-05（P1-B6 表达整理班）：本卡 7 条 library 笔记引句经 grep -F 逐字验证全部命中（MobileNet.md，含遗留问题 2 裁定注记与遗留问题 8 口径差条目）；3 条 ar5iv 句为卡内已注 2026-11-03 抓取记录，本轮未重抓。口径澄清一处：正文「P-1 时延 64→51ms」原注「按 V2/V3 各自 Table 口径」易误读为 64 出自 V2 Table 4——该表 V2 行 CPU 为 75ms；64/51 两数均出自 V3 Table 3，已改为如实标注。论文数字未改写；falsifiers 补分层标注（同范围复现/原文核查）。

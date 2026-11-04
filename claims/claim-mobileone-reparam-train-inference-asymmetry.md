@@ -38,9 +38,9 @@ evidence:
     quote: "without 69.6 74.6 77.2"
     relation: supports
 falsifiers:
-  - "同配方复现中移除重参数化分支不掉点甚至涨点（方向与 Table 5 相反），或三个变体差值显著小于 +1.8/+1.3/+0.9 点"
-  - "折叠后单路模型与训练期多分支模型在相同输入下输出超出数值容差（卷积+BN 线性折叠 / 分支求和的等价变换失败）"
-  - "arXiv 新版本或勘误更改 Table 5 数字或「At inference ... no branches」表述"
+  - "〔同范围复现（主张侧）〕同配方复现中移除重参数化分支不掉点甚至涨点（方向与 Table 5 相反），或三个变体差值显著小于 +1.8/+1.3/+0.9 点"
+  - "〔机制核对（等价性）〕折叠后单路模型与训练期多分支模型在相同输入下输出超出数值容差（卷积+BN 线性折叠 / 分支求和的等价变换失败）"
+  - "〔原文核查〕arXiv 新版本或勘误更改 Table 5 数字或「At inference ... no branches」表述"
 review_due: 2026-12-03
 related: [claim-mobileone-efficient-arch-sota-accuracy-latency]
 signoff: null
@@ -62,3 +62,7 @@ signoff: null
 
 成立：训练期过参数化换推理期无分支直筒，是移动端「白拿精度」的可用配方；推理侧只需实现单路卷积，利于图优化与量化。
 不成立：收益若依赖特定训练配方（论文 Table 8 的退火权重衰减等），换框架/换配方时增益可能消失，须按 falsifier 复核。
+
+## 核查记录
+
+- 2026-11-05（P1-B6 表达整理班）：本卡 5 条 library 笔记引句经 grep -F 逐字验证全部命中（MobileOne.md §1/§2.3）；3 条 ar5iv 句为卡内已注 2026-11-03 抓取记录，本轮未重抓。内容审阅未发现问题：结构重参数化与 trivial over-parameterization（k=1–5）两层训练/推理不对称分开表述，Table 5 with 行与 Table 9 主表自洽已注明；仅补 falsifiers 分层标注，论文数字未改写。

@@ -62,9 +62,9 @@ evidence:
     quote: "Then, we replace the first 1\\times 1 layer with pointwise group convolution followed by a channel shuffle operation, to form a ShuffleNet unit"
     relation: supports
 falsifiers:
-  - "复现 ResNeXt（cardinality=32）残差单元的乘加分布：pointwise 卷积占比远低于 93.4%（动机量级不成立）"
-  - "复现中去掉 channel shuffle 不造成组间信息隔离的精度损失（Table 3 的 Δerr. 方向反转或≈0），或 shuffle 增益不随 g 增大而增大"
-  - "ShuffleNet unit 实测 FLOPs 与 hw(2cm/g+9m) 明显不符（如 g 对计算量无影响）"
+  - "〔同范围复现（动机量级）〕复现 ResNeXt（cardinality=32）残差单元的乘加分布：pointwise 卷积占比远低于 93.4%（动机量级不成立）"
+  - "〔同范围复现（主张侧）〕复现中去掉 channel shuffle 不造成组间信息隔离的精度损失（Table 3 的 Δerr. 方向反转或≈0），或 shuffle 增益不随 g 增大而增大"
+  - "〔机制核对（公式）〕ShuffleNet unit 实测 FLOPs 与 hw(2cm/g+9m) 明显不符（如 g 对计算量无影响）"
 review_due: 2026-12-03
 related: [claim-shufflenet-group-number-accuracy-overhead-tradeoff]
 signoff: null
@@ -86,3 +86,7 @@ signoff: null
 
 成立：在通道数受限的小模型上，「组卷积 pointwise + 通道重排」是降低 1×1 开销的可用组件；后续 ShuffleNetV2、通道混洗类设计均沿此线。
 不成立：组间信息隔离的论证或 93.4% 动机被推翻，则 shuffle 的必要性存疑，小模型 1×1 降本要改走深度可分离（MobileNet 线）或其他路线。
+
+## 核查记录
+
+- 2026-11-05（P1-B6 表达整理班）：本卡 10 条 library 笔记引句经 grep -F 逐字验证全部命中（ShuffleNet.md §1–§3.3，其中 93.4% 一条为笔记中文转写句，按笔记原样逐字引用且卡内已标「笔记照抄原文数字」，对应 ar5iv 英文原句另在 evidence 中）；3 条 ar5iv 句为卡内已注 2026-11-03 抓取记录，本轮未重抓。内容审阅未发现问题：动机量级（93.4%）/机制（reshape-转置-展平）/消融（Table 3 六设置 Δ1.3–5.8）三层分开，`library/assets/ShuffleNet/` 素材错位 caveat 已在卡内；仅补 falsifiers 分层标注，论文数字未改写。

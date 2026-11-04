@@ -58,11 +58,11 @@ evidence:
     quote: "models with group convolutions ( g>1 ) consistently perform better than the counterparts without pointwise group convolutions ( g=1 )"
     relation: supports
 falsifiers:
-  - "复现中 g 增大时精度单调改善、无饱和/回落（如 ShuffleNet 0.5× 上 g=8 稳定反超 g=4 且差距随规模扩大）"
-  - "g=1（无 pointwise 组卷积）复现优于任一 g>1 档（组卷积收益不成立）"
-  - "实测延迟随理论 FLOPs 近似同比例变化（每 4× 理论缩减得到接近 4× 实测加速），或 g=3/g=4/g=8 在 ARM 上实测延迟无显著差——访存瓶颈论失效"
+  - "〔同范围复现（主张侧·精度）〕复现中 g 增大时精度单调改善、无饱和/回落（如 ShuffleNet 0.5× 上 g=8 稳定反超 g=4 且差距随规模扩大）"
+  - "〔同范围复现（主张侧·组卷积收益）〕g=1（无 pointwise 组卷积）复现优于任一 g>1 档（组卷积收益不成立）"
+  - "〔机制核对（访存开销）〕实测延迟随理论 FLOPs 近似同比例变化（每 4× 理论缩减得到接近 4× 实测加速），或 g=3/g=4/g=8 在 ARM 上实测延迟无显著差——访存瓶颈论失效"
 review_due: 2026-12-03
-related: [claim-shufflenet-pointwise-group-conv-channel-shuffle]
+related: [claim-shufflenet-pointwise-group-conv-channel-shuffle, claim-shufflenet-beats-mobilenet-table5-g3]
 signoff: null
 ---
 
@@ -72,7 +72,7 @@ signoff: null
 
 开销一侧（§4.5）：g=4/g=8 精度虽好但当时实现效率低，经验折中是 g=3；更一般的规律是「每 4× 理论复杂度缩减 ≈ 2.6× 实测加速」（内存访问与其它开销吃掉其余），Table 8 给出 Snapdragon 820 单线程实测（如 0.5×(g=3) 38M FLOPs → 15.2ms vs AlexNet 720M → 184.0ms）。
 
-边界：本卡不主张「ShuffleNet 全面优于 MobileNet」（Table 5 对比属另一主张，未立卡）；实测数字仅覆盖论文自报的 Snapdragon 820 平台，不外推到其他硬件。
+边界：本卡不主张「ShuffleNet 全面优于 MobileNet」（Table 5 对比属另一主张，见 related 卡 claim-shufflenet-beats-mobilenet-table5-g3——其窄口径仅绑 g=3 三对，且对照侧训练配方差异风险在案）；实测数字仅覆盖论文自报的 Snapdragon 820 平台，不外推到其他硬件。
 
 ## 待验证
 
@@ -84,3 +84,7 @@ signoff: null
 
 成立：小模型选组卷积时 g 不宜盲取最大——按论文口径 g=3 附近是精度/实测时延折中；任何理论 FLOPs 对比都要打折换算实测。
 不成立：若现代实现已消除访存瓶颈（理论≈实测），组数选择回归纯精度考量，论文的 g=3 经验值只在其历史实现内有效。
+
+## 核查记录
+
+- 2026-11-05（P1-B6 表达整理班）：本卡 9 条 library 笔记引句经 grep -F 逐字验证全部命中（ShuffleNet.md §3.2/§2.4/§2.3/§3.7，含 ∼2.6× 原字符）；3 条 ar5iv 句为卡内已注 2026-11-03 抓取记录，本轮未重抓。修正过时表述：正文边界处「Table 5 对比属另一主张，未立卡」——该对比已另立卡 claim-shufflenet-beats-mobilenet-table5-g3（本批同组卡），已改引卡 id 并在 related 补双向关联。论文数字未改写；falsifiers 补分层标注（同范围复现/机制核对）。

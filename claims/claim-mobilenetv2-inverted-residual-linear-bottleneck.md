@@ -42,9 +42,9 @@ evidence:
     quote: "The new result reported in this paper is that the shortcut connecting bottleneck perform better than shortcuts connecting the expanded layers"
     relation: supports
 falsifiers:
-  - "同预算同训练配方复现中，shortcut 接扩张层（经典残差式）反超 shortcut 接 bottleneck 的精度"
-  - "bottleneck 处保留 ReLU 等非线性不掉点甚至涨点，或去掉线性瓶颈精度不变（与「低维非线性破坏信息」相悖）"
-  - "按 V2 Table 2 结构复现的单块 MAdds 与公式 hw·d′·t(d′+k²+d″) 明显不符（如扩张段计算被忽略）"
+  - "〔同范围复现（主张侧+对照式）〕同预算同训练配方复现中，shortcut 接扩张层（经典残差式）反超 shortcut 接 bottleneck 的精度"
+  - "〔同范围复现（主张侧）〕bottleneck 处保留 ReLU 等非线性不掉点甚至涨点，或去掉线性瓶颈精度不变（与「低维非线性破坏信息」相悖）"
+  - "〔机制核对（公式）〕按 V2 Table 2 结构复现的单块 MAdds 与公式 hw·d′·t(d′+k²+d″) 明显不符（如扩张段计算被忽略）"
 review_due: 2026-12-03
 related: [claim-mobilenet-dsc-8to9x-compute-reduction, claim-mobilenet-series-accuracy-latency-progression]
 signoff: null
@@ -68,3 +68,7 @@ signoff: null
 
 成立：倒残差+线性瓶颈可作为移动端/端侧块设计的默认起点；后续 V3、EfficientNet 等继承该块。
 不成立：V2 相对 V1 的提升要归因到别的因素（如缩放策略或训练配方），块设计主张降级。
+
+## 核查记录
+
+- 2026-11-05（P1-B6 表达整理班）：本卡 6 条 library 笔记引句经 grep -F 逐字验证全部命中（MobileNet.md §2.2/§3.2）；2 条 ar5iv 句为卡内已注 2026-11-03 抓取记录，本轮未重抓。内容审阅未发现问题：设计动机（§3.2 论证）、消融自报（§6.4 两句）、内存收益（§5.1/Table 3）三层分开，作者解释与卡片推断未混，t=6 仅作设计描述不背消融；仅补 falsifiers 分层标注，论文数字未改写。

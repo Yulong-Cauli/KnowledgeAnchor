@@ -54,9 +54,9 @@ evidence:
     quote: Therefore, we simply reuse the same MnasNet-A1 [ 43 ] as our initial Large mobile model, and then apply NetAdapt [ 48 ] and other optimizations on top of it
     relation: supports
 falsifiers:
-  - "论文正式版 / 其他 arXiv 版本中 SE 瓶颈比例不是'固定为扩张层通道数的 1/4'（如沿用 MnasNet 的相对比例），或 Table 1/Table 2 的 SE 列与该表述矛盾"
-  - "V3-Large / V3-Small 的规格表（Table 1/2 NL 列）显示 h-swish 在模型前半段也被启用，与 §5.2 'only use at the second half' 矛盾"
-  - "查得 V3-Large 结构并非来自 MnasNet-A1 种子 + NetAdapt（如全部重新搜索），或 Small 档未修改奖励权重 w（仍为 -0.07）"
+  - "〔原文核查〕论文正式版 / 其他 arXiv 版本中 SE 瓶颈比例不是'固定为扩张层通道数的 1/4'（如沿用 MnasNet 的相对比例），或 Table 1/Table 2 的 SE 列与该表述矛盾"
+  - "〔原文核查〕V3-Large / V3-Small 的规格表（Table 1/2 NL 列）显示 h-swish 在模型前半段也被启用，与 §5.2 'only use at the second half' 矛盾"
+  - "〔原文核查〕查得 V3-Large 结构并非来自 MnasNet-A1 种子 + NetAdapt（如全部重新搜索），或 Small 档未修改奖励权重 w（仍为 -0.07）"
 review_due: 2026-12-03
 related: [claim-mobilenet-series-accuracy-latency-progression]
 signoff: null
@@ -83,3 +83,7 @@ signoff: null
 
 成立：V3 的方法论 = "复用/微调 NAS 种子 + 少量部署导向手工改造"，后续做移动端骨干可以按此拆解借鉴——NAS 只负责宏观骨架，SE 比例、激活函数摆放这类局部决策用手工规则即可；引用 V3 结构时须区分"搜出来的"与"改出来的"。
 不成立：V3 结构构成与论文表述不符（如 SE 比例或激活摆放记错），则依赖该结构复现 V3 的工作全部需重查，本库相关演进叙事需修正。
+
+## 核查记录
+
+- 2026-11-05（P1-B6 表达整理班）：本卡 8 条 library 笔记引句经 grep -F 逐字验证全部命中（MobileNet.md §2.3 各节）；3 条 ar5iv 句为卡内已注 2026-11-03 抓取记录，本轮未重抓。内容审阅未发现问题：搜出来的（NAS/NetAdapt + Large 复用 MnasNet-A1、Small 改 w=-0.15）与改出来的（SE 1/4、h-swish 后半段）分开，「无精度差/无时延成本」标为论文自报定性结论；scope 已声明这是设计描述主张而非精度/速度主张，故 falsifiers 三条均属原文核查层。仅补分层标注，论文数字未改写。

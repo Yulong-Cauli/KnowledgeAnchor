@@ -54,9 +54,9 @@ evidence:
     quote: "attains top-1 accuracy of 79.3% with a latency of 70.76ms, while MobileOne-S4 attains 79.4% with a latency of only 1.86ms"
     relation: supports
 falsifiers:
-  - "第三方在同一 iPhone12/CoreML round-trip 协议下复测：同延迟档内存在精度更高的模型，或 MobileOne 变体实测延迟显著高于 Table 9（如 S1 明显高于 0.89ms；注意 round-trip 取 min 的口径与其他论文 mean/median 口径不可直接混比）"
-  - "MobileFormer 79.3%/70.76ms 数字在其原始论文无法核实，或该变体使用了更大输入分辨率/蒸馏等不对等设置（38× 为 70.76/1.86 换算，且该变体未列于 MobileOne Table 9——表内可比的 Mobileformer-96 为 72.8@16.95ms，约 9.1×）"
-  - "论文勘误或新版本更改 Table 9 关键行（S1 75.9/0.89、S4 79.4/1.86）"
+  - "〔同范围复现（主张侧+对照侧）〕第三方在同一 iPhone12/CoreML round-trip 协议下复测：同延迟档内存在精度更高的模型，或 MobileOne 变体实测延迟显著高于 Table 9（如 S1 明显高于 0.89ms；注意 round-trip 取 min 的口径与其他论文 mean/median 口径不可直接混比）"
+  - "〔原文核查（对照侧）〕MobileFormer 79.3%/70.76ms 数字在其原始论文无法核实，或该变体使用了更大输入分辨率/蒸馏等不对等设置（38× 为 70.76/1.86 换算，且该变体未列于 MobileOne Table 9——表内可比的 Mobileformer-96 为 72.8@16.95ms，约 9.1×）"
+  - "〔原文核查〕论文勘误或新版本更改 Table 9 关键行（S1 75.9/0.89、S4 79.4/1.86）"
 review_due: 2026-12-03
 related: [claim-mobileone-reparam-train-inference-asymmetry, claim-mobilenet-series-accuracy-latency-progression]
 signoff: null
@@ -80,3 +80,7 @@ signoff: null
 
 成立：端侧分类骨干选型可在 <2ms 档优先试 MobileOne 变体（推理图无分支，利于部署与量化）；引用其「SOTA」必须带上「高效架构集合内 + 该延迟协议」两个限定。
 不成立：SOTA 依赖对比集选择或延迟测量口径（取 min vs mean、ANE vs CPU），选型回到 MobileNetV2/V3、MNASNet 等基线同等对待，按实测重排。
+
+## 核查记录
+
+- 2026-11-05（P1-B6 表达整理班）：本卡 6 条 library 笔记引句经 grep -F 逐字验证全部命中（MobileOne.md，含 MNASNet-A1 Table 9=75.2 / Table 14=75.8 双口径 ⚠ 注记）；5 条 ar5iv 句为卡内已注 2026-11-03 抓取记录，本轮未重抓。内容审阅未发现问题：SOTA 的两个限定（高效架构集合内 + 该延迟协议）、38× 换算来源与 MobileFormer 变体未列于 Table 9、取 min 口径均已在 scope/falsifiers 在案；仅补 falsifiers 分层标注，论文数字未改写。

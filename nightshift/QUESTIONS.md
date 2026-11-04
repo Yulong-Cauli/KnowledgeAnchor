@@ -120,3 +120,6 @@
 85. **R4Det 笔记两处注记建议（未动）**：① §3.2 帧距条目出自补充材料 Table 9（非主文）；② §3.1「正交叠加」句系笔记作者解读（原文明言 "chained ablation study"，全文无 orthogonal）。
 86. **library/Classical_Detection/R4Det.pdf 非论文原文**：系笔记自身 Typora 导出 PDF（3 页含笔记头部），放论文旁易误当原文——处置（改名/移位/保留）待主人。
 87. **R4Det/SGDet3D 两源数字差**：R4Det Table 2 中 SGDet3D 行 59.75/77.42 vs SGDet3D 笔记自报 59.49/77.11（差 0.26/0.31）——根因需核 SGDet3D 原文 split/IoU 口径，超本班范围（卡内已作比较警示）。
+88. **ShuffleNet 笔记 §3.1 末句「所有模型设置完全一致（§4）」指代不明**：B6 核对（Table 5 MobileNet 行=V1 自报值 + Table 7 reported≠reimplemented）指向指"评测协议"而非"训练设置"；需实抓原文 §4 定措辞后修笔记。
+89. **shufflenet-group 卡原子性裁量**：「g 权衡」与「每 4× 理论→2.6× 实测」证据不同源（Table 2 vs Table 8）可拆；B6 判断保留合一（2.6× 是"g=3 折中"的机制桥）。如裁定拆卡，证据已齐（§4.5 引句在案）。
+90. **24 条 ar5iv 引句未班内重抓**（11-03 抓取日期在案、与笔记互证一致）：如需再验由后续班次安排。
