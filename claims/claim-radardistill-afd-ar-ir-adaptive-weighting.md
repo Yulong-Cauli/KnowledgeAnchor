@@ -3,7 +3,7 @@ id: claim-radardistill-afd-ar-ir-adaptive-weighting
 title: "RadarDistill 声称 AFD 按特征符号划分 AR/IR 区域并以 ρ=N_AR/N_IR 自适应降权 IR，蒸馏中抑制雷达噪声假阳性"
 type: claim
 status: asserted
-scope: "方法结构与公式主张（笔记 §AFD，对应论文公式 (5)–(8)）；掩码/区域定义与权重公式已对照 arXiv:2403.05061v3 公式 (5)(7)(8) 核实与笔记一致（掩码阈值即 0，作用在通道求和后的激活上，2026-11-02 抓取）；笔记未记录 AFD 单独消融数字；README 的 activation intensity 超过预定义阈值表述与原文一致（阈值=0）；消融与实现仍未独立验证"
+scope: "方法结构与公式主张（笔记 §AFD，对应论文公式 (5)–(8)）；掩码/区域定义与权重公式已对照 arXiv:2403.05061v3 公式 (5)(7)(8) 核实与笔记一致（掩码阈值即 0，作用在通道求和后的激活上，2026-11-02 抓取）；AR/IR 面积失衡与 IR 降权动机句已按原文补核（2026-11-05 抓取）；笔记未记录 AFD 单独消融数字；README 的 activation intensity 超过预定义阈值表述与原文一致（阈值=0）；消融与实现仍未独立验证"
 tags: [knowledge-distillation, activation-based, radar, lidar, false-positive-suppression, cvpr2024, radardistill]
 note: "library/Multimodal_Fusion/RadarDistill.md#afd-基于激活的特征蒸馏--区分该学和该闭嘴"
 paper: "CVPR 2024, RadarDistill: Boosting Radar-based Object Detection Performance via Knowledge Distillation from LiDAR Features (arXiv:2403.05061)"
@@ -37,6 +37,10 @@ evidence:
     locator: "§3.3 公式 (8) 下方 ρ 解释（跨行连字符已还原；pdftotext -layout 提取，抓取 2026-11-02）"
     quote: "The weight associated with IR is determined proportionally by ρ, representing the ratio of pixel count for AR to that for IR."
     relation: supports
+  - source: https://arxiv.org/pdf/2403.05061v3
+    locator: "§3.3 AFD 动机句（跨行连字符已还原；pdftotext -layout 提取，抓取 2026-11-05）"
+    quote: "Due to the sparsity of LiDAR data, the AR area is typically much smaller than the IR area. To prevent the model from overly focusing on knowledge distillation within IR, we scale the loss terms associated with AR and IR based on their relative area ratios."
+    relation: supports
 falsifiers:
   - "对照 arXiv:2403.05061 公式 (5)–(8)：掩码不是按特征值符号取 0/1，或 AR/IR 定义与笔记不符（如 AR 不是双方均激活、IR 不是仅雷达激活），或 IR 权重并非 ρ×β 且 ρ≠N_AR/N_IR"
   - "复现消融：去掉 ρ 缩放或整个 AFD 后，nuScenes 假阳性指标不升、mAP 不降，则该机制无效"
@@ -48,7 +52,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（尚未独立验证）：AFD 解决两个问题——雷达「有用的太少、没用的太多」。做法：按特征值符号生成掩码（>0 记 1），AR = LiDAR 与 Radar 均激活（真物体，权重 α 拉近教师特征），IR = 仅 Radar 激活（噪声/幻觉，按 ρ×β 缩放后压向 0），其余背景权重 0；其中 ρ = N_AR/N_IR（AR 像素数除以 IR 像素数），因 AR 面积小、IR 面积大，ρ 远小于 1，等价于自动调低 IR 的 Loss 权重，防止背景 Loss 淹没物体区域。
+论文声称（尚未独立验证）：AFD 解决两个问题——雷达「有用的太少、没用的太多」。做法：按特征值符号生成掩码（>0 记 1），AR = LiDAR 与 Radar 均激活（真物体，权重 α 拉近教师特征），IR = 仅 Radar 激活（噪声/幻觉，按 ρ×β 缩放后压向 0），其余背景权重 0；其中 ρ = N_AR/N_IR（AR 像素数除以 IR 像素数），因 AR 面积小、IR 面积大，ρ 远小于 1，等价于自动调低 IR 的 Loss 权重，防止背景 Loss 淹没物体区域（面积失衡→按相对面积比缩放损失的动机为论文自述，2026-11-05 已对照原文核实，见 evidence 动机句）。
 
 两个必须记住的口径问题：
 1. 已核对（2026-11-02，arXiv v3 公式 (5)）：掩码阈值就是 0，且作用在**沿通道求和后的激活** $F=\sum_c F_c$ 上（再取 >0）；README 的「activation intensity exceeds a predefined threshold」与此一致，笔记「特征值>0」的写法正确但省略了通道求和这一步。
@@ -57,6 +61,7 @@ signoff: null
 ## 待验证
 
 - 已核对（2026-11-02）：arXiv v3 公式 (5)(7)(8) 的掩码定义、AR/IR 划分与 ρ=N_AR/N_IR 均与笔记一致（见 evidence）；α/β 的具体取值原文未给，仍待查开源 cfg。
+- 已核对（2026-11-05，B4d 整理班复核）：本卡全部 evidence quote 重验通过——笔记 3 条逐字命中；arXiv v3 公式 (5)(7)(8) 与 ρ 解释句重抓逐字命中（公式编号与 2026-11-02 记录一致）；README Abstract 句重抓逐字命中；并新增论文 AFD 动机句（AR 面积远小于 IR、按相对面积比缩放）为「自适应降权」提供论文自述动机。
 - 消融复现：去 ρ 缩放、去整个 AFD，比较 nuScenes 假阳性（FP/FP per frame 类指标）与 mAP。
 
 ## 若成立 / 不成立意味着什么

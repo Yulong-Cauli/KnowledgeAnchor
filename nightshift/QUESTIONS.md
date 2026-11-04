@@ -115,3 +115,8 @@
 80. **NJU-SparseOcc 笔记 §2.1 剪枝条与原文实现不符（需授权修笔记+铁律3同步）**：笔记写"硬过滤仅保留 s>τ 的 Token"；arXiv v5 实抓（2026-11-05）原文为 "In our implementation, we simply keep voxels with top-k occupancy scores"（k=32000 最优，Fig.8(a)），阈值法仅是并列可替换方案（Fig.8(b)）；且原文顺序为"每层先 2×/轴上采样、再估分剪枝"。两张卡已加历史注记，笔记修正后可升级「笔记已修正」附注。
 81. **NJU-SparseOcc 笔记 §3「底层逻辑支撑」系笔记综合**："解码器低分辨率阶段物理抹除 >90% 背景节点"与"O(L^3)→O(N_active)"原文均无对应句（原文仅 §1 数据集统计句 + Fig.7 "discards over 90%" 定性句）。建议笔记标注为整理者综合。
 82. **NJU-SparseOcc 笔记 §2.2 MGSS 细化 + 消融未录**："96 个点"与"按掩码概率密度加权"为笔记添加（原文仅 randomly select within mask）；论文 Table 3 MT/交叉注意力消融四行（dense CA 28.7/16.2 vs +Mask-guided 29.2/24.0）笔记未录，建议补录。
+83. **R4Det arXiv 号可回填（需授权）**：B4d 实抓确认 arXiv 2603.11566（v2，Table 1/4 与 CVF 一致；公式编号不同、页数差异，版本关系未深查）；代码仍无链接（"未开源"对代码成立）。建议笔记头部与 paper 字段刷新留后续班次。（勘误：本班派发背景曾称 PDF=Probability of Driving Freespace，经 B4d 对照 CVF 原文核实系错误背景——原文作 Panoramic Depth Fusion，卡/笔记现有表述正确。）
+84. **R4Det §4.4 疑似笔误**：正文 "As shown in Table 1" 所指实为 Table 4（Table 1 首行是 PointPillars）；卡内已标整理者观察，是否向作者求证由主人定。
+85. **R4Det 笔记两处注记建议（未动）**：① §3.2 帧距条目出自补充材料 Table 9（非主文）；② §3.1「正交叠加」句系笔记作者解读（原文明言 "chained ablation study"，全文无 orthogonal）。
+86. **library/Classical_Detection/R4Det.pdf 非论文原文**：系笔记自身 Typora 导出 PDF（3 页含笔记头部），放论文旁易误当原文——处置（改名/移位/保留）待主人。
+87. **R4Det/SGDet3D 两源数字差**：R4Det Table 2 中 SGDet3D 行 59.75/77.42 vs SGDet3D 笔记自报 59.49/77.11（差 0.26/0.31）——根因需核 SGDet3D 原文 split/IoU 口径，超本班范围（卡内已作比较警示）。
