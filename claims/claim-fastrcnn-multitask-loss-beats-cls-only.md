@@ -22,8 +22,8 @@ evidence:
     quote: "对于 S, M, L 三个模型，**多任务训练**都比**仅训练分类要好。"
     relation: supports
 falsifiers:
-  - "论文 Table 6（或同设置复现）中任一 S/M/L 模型的多任务训练 mAP ≤ 仅分类损失训练"
-  - "同设置复现中 stage-wise（先练分类、固定参数后再练回归）系统性优于多任务联合训练"
+  - "〔原文核查 / 同范围复现（主张侧+对照侧）〕论文 Table 6（或同设置复现）中任一 S/M/L 模型的多任务训练 mAP ≤ 仅分类损失训练"
+  - "〔机制辨别（不构成本卡原命题反证，仅削弱「联合」的必要性解读）〕同设置复现中 stage-wise（先练分类、固定参数后再练回归）系统性优于多任务联合训练——这推翻的是「联合训练本身带来收益」的强解读，不推翻「多任务 > 仅分类」的消融结论"
 review_due: 2026-12-02
 related: [claim-fastrcnn-roipooling-arbitrary-to-fixed-feature]
 signoff: null
@@ -45,3 +45,7 @@ signoff: null
 
 成立：分类与框回归可共享表征联合优化，无需分阶段训练或独立 SVM 分类器，这是检测头“一个损失、两个分支”设计的依据。
 不成立：联合训练仅在某类 backbone 或某些数据集上占优，则选型时需按模型规模分开评估；笔记结论需按论文 Table 6 修订。
+
+## 核查记录
+
+- 2026-11-05（P1-B7b 零散组）：本卡 3 条 library 笔记引句经 grep -F 逐字验证全部命中（`library/Classical_Detection/Fast R-CNN 和 Faster R-CNN .md`：损失函数公式、单阶段训练句、消融实验一 Table 6 结论句）；论文原文（Table 6）本轮未实抓，S/M/L 数字仍按笔记转述口径（笔记仅载结论、未载具体数字，卡内已声明）。内容审阅未发现命题、scope 或推断归属问题；falsifiers 补分层标注，原第 2 条 stage-wise 对照显式标为机制辨别性质（stage-wise 优于多任务并不构成「多任务 > 仅分类」的反证），未删内容、论文数字未改写。

@@ -26,8 +26,8 @@ evidence:
     quote: "共享特征不仅实现了更高效的计算，不用算两次卷积；而且提升了精度。这是因为检测器微调后的特征反过来也优化了 RPN 生成 Proposal 的质量。"
     relation: supports
 falsifiers:
-  - "同数据集同评测口径复现：共享卷积特征（4 步交替训练）的 mAP ≤ 不共享、独立训练两个网络的设置（笔记载 58.7% → 59.9%）"
-  - "论文 Table 2 对应数字与笔记不符（共享与不共享的差距方向相反或不存在）"
+  - "〔同范围复现（主张侧+对照侧）〕同数据集同评测口径复现：共享卷积特征（4 步交替训练）的 mAP ≤ 不共享、独立训练两个网络的设置（笔记载 58.7% → 59.9%）"
+  - "〔原文核查〕论文 Table 2 对应数字与笔记不符（共享与不共享的差距方向相反或不存在）"
 review_due: 2026-12-02
 related: [claim-fastrcnn-two-stage-beats-one-stage]
 signoff: null
@@ -49,3 +49,7 @@ signoff: null
 
 成立：候选框生成与检测应共享主干特征并交替/联合训练，这是后续一揽子两阶段检测器（FPN、Mask R-CNN 等）的默认训练方式。
 不成立：共享仅省算力不涨点甚至掉点，则 proposal 质量与检测性能的耦合假设存疑，方案里应把 proposal 网络当作可独立调优的模块（见 [两阶段对比卡](claim-fastrcnn-two-stage-beats-one-stage.md)）。
+
+## 核查记录
+
+- 2026-11-05（P1-B7b 零散组）：本卡 4 条 library 笔记引句经 grep -F 逐字验证全部命中（`library/Classical_Detection/Fast R-CNN 和 Faster R-CNN .md`：§Faster R-CNN/问题句、消融实验一「不共享 58.7%」「共享 59.9%」两句与结论句）；Table 2 编号、4 步交替训练表述与笔记一致。内容审阅未发现问题：mAP 数字按笔记所载写入 scope、未标注数据集的缺口已声明、机制解释（检测器微调反哺 RPN）归笔记/论文而非整理者；论文原文（Table 2）本轮未实抓，仅补 falsifiers 分层标注，论文数字未改写。

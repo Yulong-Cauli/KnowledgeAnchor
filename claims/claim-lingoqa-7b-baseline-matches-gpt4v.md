@@ -26,11 +26,11 @@ evidence:
     quote: "1. **微调的 7B 开源模型 ≈ 零样本 GPT-4V**（60.8 vs 59.6）——在这个基准上，领域数据微调追平了 frontier 模型；"
     relation: supports
 falsifiers:
-  - "在同一评测集与同一裁判下复现，微调基线显著低于零样本 GPT-4V（差距超出 1.2 分的排序噪声，如 >5 分），'追平'不成立"
-  - "换裁判口径（人工评分或第三方 judge）后排序反转：GPT-4V 高于微调基线，说明 60.8 vs 59.6 依赖 Lingo-Judge 这一把尺子"
-  - "人类 5 帧分数显著低于 96.6 或模型分数显著追上人类（差距 <<35.8），推翻'远低于人类'的另一半"
+  - "〔同范围复现（主张侧+对照侧）〕在同一评测集与同一裁判下复现，微调基线显著低于零样本 GPT-4V（差距超出 1.2 分的排序噪声，如 >5 分），'追平'不成立"
+  - "〔机制辨别（裁判口径敏感性）〕换裁判口径（人工评分或第三方 judge）后排序反转：GPT-4V 高于微调基线，说明 60.8 vs 59.6 依赖 Lingo-Judge 这一把尺子"
+  - "〔原文核查 / 同范围复现〕人类 5 帧分数显著低于 96.6 或模型分数显著追上人类（差距 <<35.8），推翻'远低于人类'的另一半"
 review_due: 2026-12-02
-related: [claim-lingoqa-lingo-judge-spearman-0950]
+related: [claim-lingoqa-lingo-judge-spearman-0950, claim-lingoqa-late-fusion-beats-early-mid]
 signoff: null
 ---
 
@@ -53,3 +53,7 @@ signoff: null
 
 成立：在驾驶 QA 这类垂直基准上，领域数据微调的中型开源模型可以替代昂贵的零样本 frontier 模型做评测与迭代；选型时垂直微调路线优先。
 不成立：若 60.8 vs 59.6 依赖同源裁判，则"追平 frontier"是基准伪影，垂直微调的价值需在其他基准（DriveLM、NuScenesQA）上另行验证。
+
+## 核查记录
+
+- 2026-11-05（P1-B7b 零散组）：本卡 4 条 library 笔记引句经 grep -F 逐字验证全部命中（`library/QA dataset/LingoQA.md`：§5.2 分数梯子表人类/基线/GPT-4V 三行、结论第 1 条）；scope 中 1000 条（100 场景/500 题/每题 2 参考）、基线架构（CLIP 224 squash + Q-Former + Vicuna-1.5-7B，late fusion，两阶段微调）、BLEU 6.30 vs 15.00 等细节均与笔记 §3.5/§4.2/§4.4/§5.4 一致。内容审阅未发现问题：三条限定（裁判同源循环、零样本 vs 微调口径、纯文本下界 38.8）覆盖了主要替代解释，数字均锚定笔记表格；LingoQA 论文原文本轮未实抓，仅补 falsifiers 分层标注，论文数字未改写。

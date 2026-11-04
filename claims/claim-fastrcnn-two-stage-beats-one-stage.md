@@ -26,8 +26,8 @@ evidence:
     quote: "两阶段方法比单阶段高出 **4.8%**。"
     relation: supports
 falsifiers:
-  - "同设置复现中，移除 proposal 步骤的单阶段密集预测 mAP ≥ 两阶段 Faster R-CNN（笔记载 53.9% vs 58.7%）"
-  - "复现中两阶段优势显著小于 4.8 个百分点，或论文 Table 10 数字与笔记不符"
+  - "〔同范围复现（主张侧+对照侧）〕同设置复现中，移除 proposal 步骤的单阶段密集预测 mAP ≥ 两阶段 Faster R-CNN（笔记载 53.9% vs 58.7%）"
+  - "〔同范围复现（效应量）/ 原文核查〕复现中两阶段优势显著小于 4.8 个百分点（效应阈值按复现方差定，未预设），或论文 Table 10 数字与笔记不符"
 review_due: 2026-12-02
 related: [claim-fastrcnn-rpn-shared-features-raise-map]
 signoff: null
@@ -49,3 +49,7 @@ signoff: null
 
 成立：在同等特征与训练条件下，“先提议再检测”的级联结构本身（而非算力）带来精度收益，评估单阶段方案时需控制这一混杂因素（见 [RPN 共享特征卡](claim-fastrcnn-rpn-shared-features-raise-map.md)）。
 不成立：精度差距主要来自训练配置差异而非提议步骤本身，则“级联过滤”归因存疑，两阶段选型理由应回到计算效率而非精度。
+
+## 核查记录
+
+- 2026-11-05（P1-B7b 零散组）：本卡 4 条 library 笔记引句经 grep -F 逐字验证全部命中（`library/Classical_Detection/Fast R-CNN 和 Faster R-CNN .md`：§Faster R-CNN/消融实验五 One-Stage 设置句、Two-Stage/One-Stage 两个数字句、「高出 4.8%」结论句）；Table 10 编号与笔记一致，「4.8%」按 58.7−53.9 读作 4.8 个百分点（笔记平写「4.8%」，卡内已按数字差核读）。内容审阅未发现问题：归因（级联过滤）明确归笔记/论文，正文限定「不主张两阶段在任何时代都优于单阶段」；论文原文（Table 10）本轮未实抓，仅补 falsifiers 分层标注并把效应阈值标为未预设，论文数字未改写。

@@ -22,9 +22,9 @@ evidence:
     quote: "正是通过这种“**切分网格 -> 局部取最大**”的机制，RoI Pooling 成功地把任意尺寸的候选框都变成了固定大小的特征向量，从而实现了 Fast R-CNN 的端到端训练。"
     relation: supports
 falsifiers:
-  - "按“网格划分→子窗口最大池化→逐通道独立”实现 RoI Pooling，仍无法对任意 h×w 的 RoI 稳定输出固定 H×W（如 7×7）特征"
-  - "整图单次前向 + RoI Pooling 的架构无法端到端单阶段训练，仍必须像 R-CNN 那样对每个候选框单独卷积或分阶段/SVM 训练"
-  - "与论文原文对照发现机制描述有误（例如并非逐通道独立、并非子窗口内取最大值）"
+  - "〔机制核对（实现/构造）〕按“网格划分→子窗口最大池化→逐通道独立”实现 RoI Pooling，仍无法对任意 h×w 的 RoI 稳定输出固定 H×W（如 7×7）特征"
+  - "〔机制核对（架构）〕整图单次前向 + RoI Pooling 的架构无法端到端单阶段训练，仍必须像 R-CNN 那样对每个候选框单独卷积或分阶段/SVM 训练"
+  - "〔原文核查〕与论文原文对照发现机制描述有误（例如并非逐通道独立、并非子窗口内取最大值）"
 review_due: 2026-12-02
 related: [claim-fastrcnn-multitask-loss-beats-cls-only]
 signoff: null
@@ -46,3 +46,7 @@ signoff: null
 
 成立：两阶段检测器“共享卷积 + 固定尺寸 RoI 特征头”的范式成立，是后续 Faster R-CNN、Mask R-CNN 等 RoIAlign 类设计的直接前提（见 [多任务损失卡](claim-fastrcnn-multitask-loss-beats-cls-only.md)）。
 不成立：机制描述有误则笔记该节需要修订；若 RoI Pooling 不能稳定输出固定尺寸特征，则固定尺寸头的设计依赖其他机制，引用时需回查论文原文。
+
+## 核查记录
+
+- 2026-11-05（P1-B7b 零散组）：本卡 3 条 library 笔记引句经 grep -F 逐字验证全部命中（`library/Classical_Detection/Fast R-CNN 和 Faster R-CNN .md`：§方法/整体架构两句、RoI Pooling 机制小结句）；scope 中示例参数（输出 7×7、VGG16 步长 16、512 通道逐通道独立）均在笔记同节找到对应原文。机制卡内容审阅未发现问题：机制路径与示例参数分层、无精度数字主张、作者叙事与整理者推断未混；论文原文与开源实现本轮未实抓，仅补 falsifiers 分层标注，论文数字未改写。
