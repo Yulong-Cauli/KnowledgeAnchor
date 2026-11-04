@@ -2,7 +2,9 @@
 // KnowledgeAnchor local web UI server (tmp_docs/ka-web-ui-design.md §3).
 // Zero-dependency node:http. The filesystem stays the single source of truth:
 // every request re-reads claims/, every write goes through handleWrite().
-//   Usage: node tools/serve.mjs [--port 4780] [--host 127.0.0.1]
+//   Usage: node tools/serve.mjs [--port 4780] [--host 127.0.0.1] [--readonly]
+//   --readonly serves the same UI but rejects every write (PUT/POST) with 403.
+//   Use it for the phone-facing instance so a tailnet device can only read.
 import fs from 'node:fs';
 import http from 'node:http';
 import path from 'node:path';
@@ -34,11 +36,15 @@ const EDITABLE_FIELDS = new Set([
 // ------------------------------------------------------------- helpers --
 
 function parseArgs(argv) {
-  const args = { host: DEFAULT_HOST, port: DEFAULT_PORT };
+  const args = { host: DEFAULT_HOST, port: DEFAULT_PORT, readonly: false };
   for (let i = 2; i < argv.length; i += 1) {
     const arg = argv[i];
     const eq = arg.indexOf('=');
     const [rawKey, inlineValue] = eq === -1 ? [arg, null] : [arg.slice(0, eq), arg.slice(eq + 1)];
+    if (rawKey === '--readonly' || rawKey === '--read-only') {
+      args.readonly = true;
+      continue;
+    }
     if (rawKey !== '--port' && rawKey !== '--host') {
       console.error(`ERROR: unknown option "${arg}"`);
       process.exit(2);
@@ -309,7 +315,7 @@ function getMeta() {
   const tags = [...tagCounts.entries()]
     .map(([tag, count]) => ({ tag, count }))
     .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag));
-  return { today, total: claims.length, counts, tags, queue, errors };
+  return { today, total: claims.length, counts, tags, queue, errors, readonly: args.readonly };
 }
 
 function filterClaims(url) {
@@ -425,6 +431,7 @@ const MIME_TYPES = new Map([
   ['.js', 'text/javascript; charset=utf-8'],
   ['.css', 'text/css; charset=utf-8'],
   ['.json', 'application/json; charset=utf-8'],
+  ['.webmanifest', 'application/manifest+json; charset=utf-8'],
   ['.svg', 'image/svg+xml'],
   ['.png', 'image/png'],
   ['.ico', 'image/x-icon'],
@@ -548,6 +555,10 @@ const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host ?? 'localhost'}`);
   try {
     if (url.pathname.startsWith('/api/')) {
+      if (args.readonly && req.method !== 'GET' && req.method !== 'HEAD') {
+        sendError(res, 403, 'this server is read-only');
+        return;
+      }
       if (req.method === 'PUT' || req.method === 'POST') {
         await enqueueWrite(() => handleApi(req, res, url));
       } else {
@@ -571,5 +582,6 @@ const server = http.createServer(async (req, res) => {
 
 server.listen(args.port, args.host, () => {
   console.log(`KnowledgeAnchor web UI: http://${args.host}:${args.port}/`);
+  console.log(`mode: ${args.readonly ? 'read-only' : 'read-write'}`);
   console.log(`review interval: ${REVIEW_INTERVAL_DAYS} days`);
 });

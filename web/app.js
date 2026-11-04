@@ -123,6 +123,8 @@ function applyTheme(theme) {
   document.documentElement.dataset.theme = theme;
   localStorage.setItem('ka-theme', theme);
   $('#theme-toggle').textContent = theme === 'dark' ? '☀' : '☾';
+  const meta = $('#theme-color-meta');
+  if (meta) meta.setAttribute('content', theme === 'dark' ? '#171717' : '#F7F7F8');
 }
 
 // ----------------------------------------------------------------- state --
@@ -131,6 +133,7 @@ const state = {
   meta: null,
   claims: [],
   loaded: false,
+  readonly: false,
   q: '',
   statuses: new Set(['asserted', 'verified', 'refuted', 'stale']),
   activeTag: null,
@@ -249,6 +252,7 @@ function matchesQuery(row) {
 async function loadData() {
   const [meta, claimsBody] = await Promise.all([api('/api/meta'), api('/api/claims')]);
   state.meta = meta;
+  state.readonly = Boolean(meta.readonly);
   state.claims = claimsBody.claims;
   state.loaded = true;
 }
@@ -256,6 +260,41 @@ async function loadData() {
 async function refresh() {
   await loadData();
   render();
+}
+
+// ------------------------------------------------------------- mobile UI --
+
+// ≤720px: the sidebar becomes an off-canvas filter drawer and search collapses
+// behind a topbar button (web/styles.css). Desktop keeps the original layout.
+const MOBILE_QUERY = window.matchMedia('(max-width: 720px)');
+
+function isMobile() {
+  return MOBILE_QUERY.matches;
+}
+
+function openDrawer() {
+  if (!isMobile()) return;
+  $('#sidebar').classList.add('open');
+  $('#drawer-overlay').hidden = false;
+  document.body.classList.add('drawer-open');
+}
+
+function closeDrawer() {
+  $('#sidebar').classList.remove('open');
+  $('#drawer-overlay').hidden = true;
+  document.body.classList.remove('drawer-open');
+}
+
+function toggleDrawer() {
+  if ($('#sidebar').classList.contains('open')) closeDrawer();
+  else openDrawer();
+}
+
+function setSearchOpen(open) {
+  $('.topbar').classList.toggle('search-open', open);
+  document.body.classList.toggle('search-open', open);
+  $('#search-toggle').setAttribute('aria-expanded', String(open));
+  if (open) $('#search').focus();
 }
 
 // --------------------------------------------------------------- sidebar --
@@ -302,6 +341,7 @@ function renderSidebar() {
     <div class="panel">
       <p class="side-title">待复核</p>
       <div class="queue-count">${state.meta.queue}<span class="unit">张</span></div>
+      ${state.readonly ? '<p class="field-hint readonly-hint">只读模式 · 可浏览，不可编辑</p>' : ''}
     </div>
     <div class="panel">
       <p class="side-title">状态</p>
@@ -339,6 +379,7 @@ function renderSidebar() {
     btn.addEventListener('click', () => {
       state.activeTag = btn.dataset.tagClear ? null : btn.dataset.tag;
       render();
+      if (isMobile()) closeDrawer();
     });
   });
   const tagFilter = $('#tag-filter');
@@ -394,6 +435,12 @@ async function renderQueue() {
 
 function queueCardHtml(row, expanded, today) {
   const due = dueLabel(row.review_due, today);
+  const actions = [
+    !state.readonly && `<button type="button" class="btn btn-primary btn-sm" data-act="reviewed" data-id="${esc(row.id)}">标记已复核</button>`,
+    !state.readonly && `<button type="button" class="btn btn-sm" data-act="edit" data-id="${esc(row.id)}">编辑</button>`,
+    `<button type="button" class="btn btn-sm" data-act="detail" data-id="${esc(row.id)}">打开详情</button>`,
+    !state.readonly && `<button type="button" class="btn btn-sm" data-act="postpone" data-id="${esc(row.id)}">顺延 30 天</button>`,
+  ].filter(Boolean).join('');
   return `
     <div class="card" data-id="${esc(row.id)}">
       <div class="card-row">
@@ -407,12 +454,7 @@ function queueCardHtml(row, expanded, today) {
       ${expanded ? `
         <div class="card-expanded" data-expanded="${esc(row.id)}">
           <div class="expanded-body"><span class="field-hint">加载证据…</span></div>
-          <div class="card-actions">
-            <button type="button" class="btn btn-primary btn-sm" data-act="reviewed" data-id="${esc(row.id)}">标记已复核</button>
-            <button type="button" class="btn btn-sm" data-act="edit" data-id="${esc(row.id)}">编辑</button>
-            <button type="button" class="btn btn-sm" data-act="detail" data-id="${esc(row.id)}">打开详情</button>
-            <button type="button" class="btn btn-sm" data-act="postpone" data-id="${esc(row.id)}">顺延 30 天</button>
-          </div>
+          <div class="card-actions">${actions}</div>
         </div>` : ''}
     </div>`;
 }
@@ -550,20 +592,23 @@ async function renderDetail(id) {
     return;
   }
   state.detailCache.set(id, card);
-  const editable = card.status === 'asserted';
+  const editable = !state.readonly && card.status === 'asserted';
+  const showEditor = !state.readonly;
   const today = state.meta.today;
 
   $('#main').innerHTML = `
     <a class="back-link" href="#/claims">← 返回列表</a>
-    <div class="detail-grid">
+    <div class="detail-grid${showEditor ? '' : ' single'}">
       <div class="detail-col">
         <span class="mono" style="color:var(--text-muted)">${esc(card.id)}</span>
         <h1 class="detail-title">${esc(card.title)}</h1>
         <div class="chip-row">${badgeHtml(card.status)} ${stanceBadgeHtml(card.stance)}
+          ${state.readonly ? '<span class="badge badge-stance">只读</span>' : ''}
           ${dueLabel(card.review_due, today) ? `<span class="due">${esc(dueLabel(card.review_due, today))}</span>` : ''}
         </div>
         <div class="meta-block">
           ${card.paper ? `<div class="meta-item"><div class="label">paper</div><div>${esc(card.paper)}</div></div>` : ''}
+          ${card.tags?.length ? `<div class="meta-item"><div class="label">tags</div><div class="chip-row">${tagsHtml(card.tags)}</div></div>` : ''}
           ${card.note ? `
             <div class="meta-item">
               <div class="label">来源笔记</div>
@@ -583,6 +628,7 @@ async function renderDetail(id) {
         <p class="section-title">正文</p>
         <div class="md">${renderMarkdown(card.body)}</div>
       </div>
+      ${showEditor ? `
       <div class="detail-col" id="edit-col">${editable
         ? editPanelHtml(card)
         : `<div class="edit-head"><h2>编辑</h2></div>
@@ -590,7 +636,7 @@ async function renderDetail(id) {
              <span>此卡为 ${esc(card.status)}，不可在界面编辑。</span>
              <span class="field-hint">如需修改，请直接编辑 markdown 文件；签署 verified 只能由用户本人在文件中完成。</span>
            </div>`}
-      </div>
+      </div>` : ''}
     </div>`;
 
   bindNoteToggle(card);
@@ -800,6 +846,10 @@ function addDaysLocal(dateStr, days) {
 }
 
 function renderNew() {
+  if (state.readonly) {
+    $('#main').innerHTML = '<div class="empty-state">只读模式，无法新建 claim。<br>请在桌面端可写实例中操作。</div>';
+    return;
+  }
   const sidebar = $('#sidebar');
   sidebar.classList.add('hidden');
   const defaultDue = addDaysLocal(state.meta.today, 90);
@@ -1459,13 +1509,21 @@ function buildGraphView(data) {
 function renderMain() {
   graphRuntime?.pause();
   const hash = location.hash || '#/queue';
+  const isDetailView = hash.startsWith('#/claim/') || hash === '#/new';
+  document.body.classList.toggle('detail-view', isDetailView);
+  if (isDetailView) closeDrawer();
   if (hash.startsWith('#/claim/')) {
     const id = decodeURIComponent(hash.slice('#/claim/'.length));
     renderDetail(id);
   } else if (hash === '#/new') {
     renderNew();
   } else if (hash === '#/graph') {
-    renderGraph();
+    if (isMobile()) {
+      // The force layout and canvas interactions are desktop-only for now.
+      $('#main').innerHTML = '<div class="empty-state">图谱视图暂未适配移动端。<br>请在桌面端查看。</div>';
+    } else {
+      renderGraph();
+    }
   } else if (hash === '#/claims') {
     renderClaims();
   } else {
@@ -1495,6 +1553,24 @@ async function init() {
   $('#theme-toggle').addEventListener('click', () => {
     applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
   });
+  $('#search-toggle').addEventListener('click', () => {
+    setSearchOpen(!$('.topbar').classList.contains('search-open'));
+  });
+  $('#filter-toggle').addEventListener('click', toggleDrawer);
+  $('#drawer-overlay').addEventListener('click', closeDrawer);
+  $('.topbar').addEventListener('click', (event) => {
+    if (event.target.closest('.nav a, .brand')) setSearchOpen(false);
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      closeDrawer();
+      setSearchOpen(false);
+    }
+  });
+  MOBILE_QUERY.addEventListener('change', () => {
+    closeDrawer();
+    setSearchOpen(false);
+  });
   $('#search').addEventListener('input', (event) => {
     state.q = event.target.value;
     const hash = location.hash || '#/queue';
@@ -1506,6 +1582,8 @@ async function init() {
   });
   window.addEventListener('hashchange', () => {
     state.expandedId = null;
+    closeDrawer();
+    setSearchOpen(false);
     render();
   });
   try {

@@ -2,7 +2,14 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#F7F7F8" id="theme-color-meta">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="KnowledgeAnchor">
+  <link rel="apple-touch-icon" href="/icon-180.png">
+  <link rel="icon" type="image/png" href="/icon-192.png">
+  <link rel="manifest" href="/manifest.webmanifest">
   <title>KnowledgeAnchor</title>
   <script>
     // Set theme before first paint to avoid a flash of the wrong scheme.
@@ -19,7 +26,7 @@
 <body>
   <header class="topbar">
     <div class="topbar-left">
-      <a class="brand" href="#/queue">KnowledgeAnchor</a>
+      <a class="brand" href="#/queue"><span class="brand-full">KnowledgeAnchor</span><span class="brand-short">KA</span></a>
       <nav class="nav">
         <a href="#/queue" data-nav="queue">复核队列</a>
         <a href="#/claims" data-nav="claims">全部 Claim</a>
@@ -27,10 +34,14 @@
       </nav>
     </div>
     <div class="topbar-right">
+      <button id="search-toggle" class="icon-btn mobile-only" type="button" aria-label="搜索" aria-expanded="false">搜索</button>
       <input id="search" class="search" type="search" placeholder="搜索 标题 / id / tag…" autocomplete="off" spellcheck="false">
+      <button id="filter-toggle" class="icon-btn mobile-only" type="button" aria-label="筛选">筛选</button>
       <button id="theme-toggle" class="icon-btn" type="button" title="切换亮/暗主题">☾</button>
     </div>
   </header>
+
+  <div id="drawer-overlay" class="drawer-overlay" hidden></div>
 
   <div id="app" class="app">
     <aside id="sidebar" class="sidebar"></aside>
