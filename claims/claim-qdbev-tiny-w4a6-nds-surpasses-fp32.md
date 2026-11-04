@@ -26,9 +26,9 @@ evidence:
     quote: "On the nuScenes datasets, the 4-bit weight and 6-bit activation quantized QD-BEV-Tiny model achieves 37.2% NDS with only 15.8 MB model size"
     relation: supports
 falsifiers:
-  - "官方开源实现（https://github.com/Niko-zyf/QD-BEV）复现中 QD-BEV-T W4A6 NDS ≤ 0.354，未反超 FP32 基线"
-  - "W4A6 模型实际存储并非约 8 倍压缩（如打包后 >20 MB），或压缩口径与基线不一致（含/不含 EMA 权重、buffer、检测头）"
-  - "反超幅度（NDS +0.018、mAP +0.002）在训练随机性范围内，多种子复现中排序翻转；或 FP32 基线数字与 BEVFormer 官方复现不符"
+  - "同范围复现（主张侧）：官方开源实现（https://github.com/Niko-zyf/QD-BEV）复现中 QD-BEV-T W4A6 NDS ≤ 0.354，未反超 FP32 基线"
+  - "同范围口径核查：W4A6 模型实际存储并非约 8 倍压缩（如打包后 >20 MB），或压缩口径与基线不一致（含/不含 EMA 权重、buffer、检测头）"
+  - "同范围复现（对照侧/统计稳定性）：反超幅度（NDS +0.018、mAP +0.002）在训练随机性范围内，多种子复现中排序翻转；或 FP32 基线数字与 BEVFormer 官方复现不符"
 review_due: 2026-12-02
 related: [claim-qdbev-progressive-qat-beats-standard-w4a6]
 signoff: null
@@ -54,5 +54,9 @@ signoff: null
 
 ## 若成立 / 不成立意味着什么
 
-成立：W4A6 + 渐进 QAT + 视点引导蒸馏可让 BEV 感知模型以约 8 倍存储压缩保持甚至小幅超过 FP32 精度，是 BEV 部署量化的候选路线（配合 [渐进式卡](claim-qdbev-progressive-qat-beats-standard-w4a6.md)评估训练成本）。
-不成立：反超或 8 倍压缩依赖自报口径，量化收益退回「精度换体积」，选型需重算精度-压缩权衡。
+成立：nuScenes 上 QD-BEV-T（W4A6 + 渐进 QAT + 视点引导蒸馏）以约 8 倍存储压缩自报小幅反超 FP32 BEVFormer-T，是该配置下 BEV 部署量化的候选路线（配合 [渐进式卡](claim-qdbev-progressive-qat-beats-standard-w4a6.md)评估训练成本）。其他模型/数据集上能否复现是跨条件迁移检查，不能由本卡直接外推。
+不成立：反超或 8 倍压缩依赖自报口径，该配置量化收益退回「精度换体积」，选型需重算精度-压缩权衡。
+
+## 核查记录
+
+- 2026-11-05（02 任务书整理班 P1-B2b）：3 条笔记 quote Grep 逐字命中笔记当前版；arXiv 摘要引文抓取日期在案（2026-11-02）未重抓（其 source 本为 arXiv 页，不指向笔记）。本轮为表达整理：falsifiers 补分层标注、成立/不成立段约束回 scope 配置；数字未改写。

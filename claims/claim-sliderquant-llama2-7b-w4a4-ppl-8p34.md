@@ -18,9 +18,9 @@ evidence:
     quote: "As the number of samples increases, performance gradually improves, reaching the perplexity of 8.34|11.10 on Wikitext2|C4 with 128 samples"
     relation: supports
 falsifiers:
-  - "官方开源实现（https://github.com/deep-optimization/SliderQuant）同校准设置复现 Llama2-7B W4A4 WikiText2 PPL 明显高于 8.34（如 > 9.5）"
-  - "同设置下 CBQ（12.73）或 OmniQuant（14.26）官方实现被复现到与 SliderQuant 差距 < 0.5 PPL 或反超"
-  - "复现发现 8.34 依赖正文未写明的额外技巧（如更高精度分组、更大校准集或更久训练）"
+  - "同范围复现（主张侧）：官方开源实现（https://github.com/deep-optimization/SliderQuant）同校准设置复现 Llama2-7B W4A4 WikiText2 PPL 明显高于 8.34（预设阈值如 > 9.5，待定）"
+  - "同范围复现（对照侧）：同设置下 CBQ（12.73）或 OmniQuant（14.26）官方实现被复现到与 SliderQuant 差距 < 0.5 PPL（预设阈值，待定）或反超"
+  - "同范围口径核查（主张侧）：复现发现 8.34 依赖正文未写明的额外技巧（如更高精度分组、更大校准集或更久训练）"
 review_due: 2027-02-02
 related: [claim-omniquant-w4a4-llama7b-zeroshot-5265, claim-omniquant-w2a16g128-llama7b-ppl-beats-gptq-awq]
 signoff: null
@@ -44,5 +44,9 @@ signoff: null
 
 ## 若成立 / 不成立意味着什么
 
-成立：逐层敏感性是滑窗设计的有效维度，W4A4 全量化在 PTQ 成本内可用；量化选型时 SliderQuant 进入 trial 候选，与 [OmniQuant](claim-omniquant-w4a4-llama7b-zeroshot-5265.md) 同表对比（14.26 vs 8.34）。
+成立：Llama2-7B W4A4 这一格上逐层敏感性驱动的滑窗设计自报大幅领先（PTQ 成本内该设置可用），量化选型时 SliderQuant 进入 trial 候选，与 [OmniQuant](claim-omniquant-w4a4-llama7b-zeroshot-5265.md) 同表对比（14.26 vs 8.34）；推广到"W4A4 全量化普遍可用"属研究启发（尚未验证，见限定 2 的 W4A16 反差）。
 不成立：8.34 依赖自报协议或对照口径，滑窗自适应增益回落到 <1 PPL 量级，量化主线继续以 OmniQuant/PD-Quant 为基准。
+
+## 核查记录
+
+- 2026-11-05（02 任务书整理班 P1-B2b）：1 条笔记 quote Grep 逐字命中笔记当前版；1 条 arXiv HTML 引文抓取日期在案（2026-11-04）。Table 12 疑似矛盾（QUESTIONS #44 在案）按批内约定避开，卡内限定 3 已保留警示。本轮为表达整理：falsifiers 补分层标注（阈值标注为预设待定）、成立段约束回 Llama2-7B W4A4 并把普遍可用推论标为研究启发；数字未改写。

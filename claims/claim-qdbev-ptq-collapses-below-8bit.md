@@ -30,9 +30,9 @@ evidence:
     quote: "**分析**：当位宽低于 8-bit 后，PTQ 性能崩塌。**4-bit 下模型近乎失效**，必须引入 QAT 和蒸馏。"
     relation: supports
 falsifiers:
-  - "官方实现复现中 W4A6 PTQ NDS 明显高于 0.226（如 ≥0.4）或 W4A4 不失效（mAP 不为 ~0）"
-  - "加入常规 PTQ 手段（逐通道 scale、clip 搜索、偏差校正，或 RepQ-ViT 式激活重参数化）后 BEV 模型 sub-8-bit PTQ 保持可用精度，即崩塌并非位宽本身所致"
-  - "同设置下 W8A8 复现值低于 0.487 达 2 个点以上，说明实现口径与论文不一致，崩塌曲线不可比"
+  - "同范围复现（主张侧）：官方实现复现中 W4A6 PTQ NDS 明显高于 0.226（预设阈值如 ≥0.4，无原文锚点，待定）或 W4A4 不失效（mAP 不为 ~0）"
+  - "机制辨别（不充当原主张反证）：加入常规 PTQ 手段（逐通道 scale、clip 搜索、偏差校正，或 RepQ-ViT 式激活重参数化）后 BEV 模型 sub-8-bit PTQ 保持可用精度——改进 PTQ 有效说明崩塌并非位宽本身所致，但不推翻「朴素对称线性 PTQ 崩塌」这一原主张"
+  - "同范围复现（口径校准）：同设置下 W8A8 复现值低于 0.487 达 2 个点以上（预设阈值待定），说明实现口径与论文不一致，崩塌曲线不可比"
 review_due: 2026-12-02
 related: [claim-repqvit-w4a4-imagenet-leads-ptq-baselines, claim-omniquant-w4a4-llama7b-zeroshot-5265]
 signoff: null
@@ -57,5 +57,9 @@ signoff: null
 
 ## 若成立 / 不成立意味着什么
 
-成立：BEV 感知模型部署到 sub-8-bit 时不能只靠 PTQ，QAT/蒸馏是必选项，选型应按此预算工程量。
-不成立：崩塌是特定校准/实现口径的产物，低比特部署可先试改进 PTQ（更便宜），再考虑 QAT。
+成立：BEVFormer-Base 在 nuScenes sub-8-bit 下朴素对称线性 PTQ 不可用，该配置部署需预算 QAT/蒸馏工程量。其他 BEV 模型或更强 PTQ 方法是否同样崩塌是跨条件/机制检查（见 falsifier 2），不能由本卡直接外推。
+不成立：崩塌是特定校准/实现口径的产物，该场景低比特部署可先试改进 PTQ（更便宜），再考虑 QAT。
+
+## 核查记录
+
+- 2026-11-05（02 任务书整理班 P1-B2b）：5 条笔记 quote Grep 逐字命中笔记当前版（Table 2 未在已知笔记问题清单内）。本轮为表达整理：falsifiers 补分层标注（阈值标注为预设待定）、成立/不成立段约束回 scope 配置；数字未改写。

@@ -18,8 +18,8 @@ evidence:
     quote: "Llama-7B 上 SliderQuant 用 32 样本（8.71/11.19）优于 OmniQuant 用 256 样本（11.41/14.90）；Llama2-7B 上 SliderQuant+ 用 32 样本（5.83/7.85）优于 DuQuant 用 256 样本（6.23/7.88）。"
     relation: supports
 falsifiers:
-  - "同设置复现中 32 样本的 SliderQuant/SliderQuant+ 精度崩溃（PPL > 15）或不超过 256 样本的 OmniQuant/DuQuant"
-  - "复现发现对比对象的 256 样本数字未按其官方最佳配置运行（如 epochs/学习率不同）导致对比失真"
+  - "同范围复现（主张侧）：同设置复现中 32 样本的 SliderQuant/SliderQuant+ 精度崩溃（预设阈值如 PPL > 15，待定）或不超过 256 样本的 OmniQuant/DuQuant"
+  - "同范围复现（对照侧口径）：复现发现对比对象的 256 样本数字未按其官方最佳配置运行（如 epochs/学习率不同）导致对比失真"
 review_due: 2027-02-02
 related: [claim-sliderquant-llama2-7b-w4a4-ppl-8p34, claim-omniquant-w4a4-llama7b-zeroshot-5265]
 signoff: null
@@ -38,5 +38,9 @@ signoff: null
 
 ## 若成立 / 不成立意味着什么
 
-成立：PTQ 校准成本可以压到 32 条样本级别，私有数据/端侧场景的量化门槛显著降低。
-不成立：32 样本优势是特定校准域或对照配置的产物，校准规模仍是主要敏感因子。
+成立：W4A4 下 Llama-7B/Llama2-7B 两设置中，SliderQuant/SliderQuant+ 把校准样本压到 32 条仍优于对照方法 256 条——"PTQ 校准成本可压到 32 条级别"有了具体实例；私有数据/端侧场景量化门槛显著降低的推广属研究启发（尚未验证，其他方法/模型/校准域是迁移检查）。
+不成立：32 样本优势是该两设置、特定校准域或对照配置的产物，校准规模仍是主要敏感因子。
+
+## 核查记录
+
+- 2026-11-05（02 任务书整理班 P1-B2b）：1 条笔记 quote + 1 条 arXiv HTML 引文（抓取日期在案 2026-11-04）核对；笔记 quote Grep 逐字命中。本轮为表达整理：falsifiers 补分层标注（阈值标注为预设待定）、成立/不成立段约束回两设置范围并把场景推广标为研究启发；数字未改写。

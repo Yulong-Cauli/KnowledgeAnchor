@@ -42,9 +42,9 @@ evidence:
     quote: "LET + LWC                        12.87              52.65"
     relation: supports
 falsifiers:
-  - "按官方实现复现四个变体（SmoothQuant / LET / SmoothQuant+LWC / LET+LWC）时，LET+LWC 的平均 PPL 高于 16.97 或 15.80 任一单组件变体，即组合无协同"
-  - "改用 WikiText2 单项 PPL 或 C4 单项 PPL（非平均口径）复算后排序反转，即结论依赖平均口径"
-  - "在非 LLaMA 模型（OPT / Falcon）或更小模型上 LET+LWC 组合不再优于单组件，即协同只在 LLaMA-7B 成立"
+  - "同范围复现（主张侧）：按官方实现复现四个变体（SmoothQuant / LET / SmoothQuant+LWC / LET+LWC）时，LET+LWC 的平均 PPL 高于 16.97 或 15.80 任一单组件变体，即组合无协同"
+  - "口径核查（同范围）：改用 WikiText2 单项 PPL 或 C4 单项 PPL（非平均口径）复算后排序反转，即结论依赖平均口径"
+  - "跨条件迁移（不充当原范围反证）：在非 LLaMA 模型（OPT / Falcon）或更小模型上 LET+LWC 组合不再优于单组件，说明协同不跨模型成立，但不直接证伪本卡 LLaMA-7B 范围内的主张"
 review_due: 2026-12-02
 related: [claim-omniquant-w4a4-llama7b-zeroshot-5265]
 signoff: null
@@ -70,5 +70,9 @@ PDF 引文为 pdftotext -layout 提取（仅去行首空白）。原始笔记见
 
 ## 若成立 / 不成立意味着什么
 
-成立：W4A4 场景下 LWC 与 LET 需同时启用才能拿到最优精度，落地配置不能只取其一（与 [W4A4 主表卡](claim-omniquant-w4a4-llama7b-zeroshot-5265.md) 联合构成选型依据）。
+成立：LLaMA-7B W4A4、同校准预算下 LET+LWC 同时启用优于任一单组件，该场景落地配置不能只取其一（与 [W4A4 主表卡](claim-omniquant-w4a4-llama7b-zeroshot-5265.md) 联合构成选型依据）。其他模型规模/家族是否同样需要组合，属跨条件迁移检查（见 falsifier 3），不能由本卡直接外推。
 不成立：组合增益是特定初始化/超参的产物，可按模块单独启用以降低优化成本，LET+LWC 协同主张撤回。
+
+## 核查记录
+
+- 2026-11-05（02 任务书整理班 P1-B2b）：4 条笔记 quote Grep 逐字命中笔记当前版（实验 3 表未被 11-03 修正触及）；PDF 引文抓取日期在案（2026-11-02）未重抓。本轮为表达整理：falsifiers 补分层标注、成立段约束回 scope 配置；数字未改写。

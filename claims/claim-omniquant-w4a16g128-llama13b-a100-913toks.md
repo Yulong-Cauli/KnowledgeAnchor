@@ -26,9 +26,9 @@ evidence:
     quote: "FP    12.6G 14.4G 69.2 24.3G 27.1G 52.5 60.6G 66.1G 23.9 OOM -       -"
     relation: supports
 falsifiers:
-  - "复现中 LLaMA-13B W4A16g128 的量化权重显存显著高于 7.0 GB，或 512-token 生成吞吐显著低于 91.3 tokens/s"
-  - "推理需要额外算子或结构改动（LET/LWC 参数融合的零成本推理不成立），或量化权重无法被 MLC-LLM 直接加载"
-  - "加速效果依赖特定 MLC-LLM 版本/内核，换用其他推理引擎（TensorRT-LLM / vLLM / llama.cpp）后相对 FP16 的加速比显著缩水（论文口径约 1.74 倍）"
+  - "同范围复现（主张侧）：复现中 LLaMA-13B W4A16g128 的量化权重显存显著高于 7.0 GB，或 512-token 生成吞吐显著低于 91.3 tokens/s"
+  - "同范围复现（主张侧，部署前提）：推理需要额外算子或结构改动（LET/LWC 参数融合的零成本推理不成立），或量化权重无法被 MLC-LLM 直接加载"
+  - "跨条件迁移（不充当原范围反证）：加速效果依赖特定 MLC-LLM 版本/内核，换用其他推理引擎（TensorRT-LLM / vLLM / llama.cpp）后相对 FP16 的加速比显著缩水（论文口径约 1.74 倍），但不直接证伪本卡 MLC-LLM/A100 范围内的主张"
 review_due: 2026-12-02
 related: [claim-omniquant-w4a4-llama7b-zeroshot-5265, claim-qwt-r2-gate-nonregression]
 signoff: null
@@ -55,5 +55,10 @@ PDF 引文为 pdftotext -layout 提取（仅去行首空白）。原始笔记见
 
 ## 若成立 / 不成立意味着什么
 
-成立：参数融合式 PTQ 在真实推理栈零开销兑现显存与吞吐收益，单卡/边缘 LLM 部署选型可引用（按约 1.74 倍而非 >2 倍报告收益；精度侧见 [W4A4 主表卡](claim-omniquant-w4a4-llama7b-zeroshot-5265.md)）。
-不成立：加速依赖论文自报口径或 MLC-LLM 特定实现，部署收益需按实际栈重新实测后再进方案。
+成立：LLaMA-13B W4A16g128 + MLC-LLM / A100-80G 场景下，参数融合式 PTQ 零开销兑现显存与吞吐收益，该配置的部署选型可引用（按约 1.74 倍而非 >2 倍报告收益；精度侧见 [W4A4 主表卡](claim-omniquant-w4a4-llama7b-zeroshot-5265.md)）。换推理引擎或批大小 >1、长上下文负载下的收益是跨条件迁移检查（见 falsifier 3），不能由本卡直接外推。
+不成立：该场景加速依赖论文自报口径或 MLC-LLM 特定实现，部署收益需按实际栈重新实测后再进方案。
+
+## 核查记录
+
+- 2026-11-03：笔记实验 4 FP16 基线行修正后本卡同步更新（见顶部修订注记）。
+- 2026-11-05（02 任务书整理班 P1-B2b）：2 条笔记 quote Grep 逐字命中笔记当前版；PDF 引文抓取日期在案（2026-11-02）未重抓。本轮为表达整理：falsifiers 补分层标注、成立/不成立段约束回 scope 配置；数字未改写。

@@ -42,10 +42,10 @@ evidence:
     quote: "We employ a calibration dataset consisting of 128 randomly selected 2048-token segments from WikiText2 (Merity et al., 2016)."
     relation: supports
 falsifiers:
-  - "官方开源实现同校准设置复现中，LLaMA-1-7B W4A4 六任务零样本平均准确率显著低于 52.65%（如差距 > 2 个点）"
-  - "同设置复现中 SmoothQuant (38.41%)、LLM-QAT (41.27)、LLM-QAT+SQ (46.43) 或 OS+ (48.43) 追平（差距 < 1 个点）或反超 OmniQuant"
-  - "评测任务清单或 lm-eval-harness 版本不同导致排序变化；或换用非 WikiText2 域校准数据后平均准确率大幅下降（论文 Table A10 仅验证校准域变化下 PPL 方差 0.0006–0.17，未报告零样本准确率的校准域方差）"
-  - "W4A4 的 per-token 激活量化在目标推理引擎上无可行实现，导致该精度数字无法转化为部署收益"
+  - "同范围复现（主张侧）：官方开源实现同校准设置复现中，LLaMA-1-7B W4A4 六任务零样本平均准确率显著低于 52.65%（预设阈值如差距 > 2 个点，无原文锚点，待定）"
+  - "同范围复现（对照侧）：同设置复现中 SmoothQuant (38.41%)、LLM-QAT (41.27)、LLM-QAT+SQ (46.43) 或 OS+ (48.43) 追平（预设阈值如差距 < 1 个点，待定）或反超 OmniQuant"
+  - "口径与校准域敏感性（scope 条件变化，迁移性检查，不充当原文数字核对）：评测任务清单或 lm-eval-harness 版本不同导致排序变化；或换用非 WikiText2 域校准数据后平均准确率大幅下降（论文 Table A10 仅验证校准域变化下 PPL 方差 0.0006–0.17，未报告零样本准确率的校准域方差）"
+  - "部署前提检查（不充当精度主张反证）：W4A4 的 per-token 激活量化在目标推理引擎上无可行实现，导致该精度数字无法转化为部署收益"
 review_due: 2026-12-02
 related: [claim-omniquant-let-lwc-ablation-w4a4-best, claim-omniquant-w2a16g128-llama7b-ppl-beats-gptq-awq, claim-qwt-r2-gate-nonregression, claim-repqvit-w4a4-imagenet-leads-ptq-baselines]
 signoff: null
@@ -71,5 +71,9 @@ PDF 引文为 pdftotext -layout 提取（仅去行首空白）。原始笔记见
 
 ## 若成立 / 不成立意味着什么
 
-成立：W4A4 全量化的激活瓶颈可在 PTQ 成本内用 LET+LWC 解决且优于 QAT，为激活量化路线提供选型依据（部署侧需先确认硬件支持，见 [部署卡](claim-omniquant-w4a16g128-llama13b-a100-913toks.md)）。
-不成立：52.65% 依赖自报协议或特定校准域，W4A4 选型回退到 W4A16 + W8A8，或等待 4-bit 激活硬件支持成熟。
+成立：LLaMA-1-7B W4A4、六任务零样本口径下，激活瓶颈可在 PTQ 成本内用 LET+LWC 解决且自报优于 QAT 基线，为该场景的激活量化路线提供选型参考（部署侧需先确认硬件支持，见 [部署卡](claim-omniquant-w4a16g128-llama13b-a100-913toks.md)）。其他模型规模/任务清单/校准域上的泛化属迁移性检查（见 falsifier 3），不能由本卡直接外推。
+不成立：52.65% 依赖自报协议或特定校准域，该场景 W4A4 选型回退到 W4A16 + W8A8，或等待 4-bit 激活硬件支持成熟。
+
+## 核查记录
+
+- 2026-11-05（02 任务书整理班 P1-B2b）：4 条笔记 quote Grep 逐字命中笔记当前版（实验 2 表未被 11-03 修正触及）；PDF 引文抓取日期在案（2026-11-02）未重抓。本轮为表达整理：falsifiers 补分层标注（复现阈值标注为预设待定）、成立/不成立段约束回 scope 配置；数字未改写。

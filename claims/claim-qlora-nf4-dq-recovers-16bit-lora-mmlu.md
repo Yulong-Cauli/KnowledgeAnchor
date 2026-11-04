@@ -26,9 +26,9 @@ evidence:
     quote: "Despite this evidence, we did not establish that QLoRA can match full 16-bit finetuning performance at 33B and 65B scales."
     relation: supports
 falsifiers:
-  - "同配置复现（QLoRA 官方码、LLaMA 同规模）NF4+DQ 的 MMLU 平均低于 BF16 LoRA 超出正常方差（如 53.1 vs 53.0 的擦线反转且差距 >0.5）"
-  - "FP4 与 16-bit 的差距明显不是约 1 点（如 ≥2 点或无差距），位宽-数据类型结论失真"
-  - "补做 33B/65B 全量 16-bit 微调基线后发现 QLoRA 明显低于全量微调（论文自认未建该基线，此为留白处的直接证伪路径）"
+  - "同范围复现（主张侧）：同配置复现（QLoRA 官方码、LLaMA 同规模）NF4+DQ 的 MMLU 平均低于 BF16 LoRA 超出正常方差（预设阈值如擦线反转且差距 >0.5，待定）"
+  - "同范围复现（主张侧，FP4 分支）：FP4 与 16-bit 的差距明显不是约 1 点（预设阈值如 ≥2 点或无差距，待定），位宽-数据类型结论失真"
+  - "相邻命题检查（不充当本卡反证）：补做 33B/65B 全量 16-bit 微调基线后 QLoRA 明显低于全量微调——它检验的是「匹配全量微调」这一相邻命题（论文 §8 自认未建该基线），结果不直接证伪本卡「恢复 16-bit LoRA 性能」，但差距悬殊会削弱该主张的实际意义"
 review_due: 2026-12-03
 related: [claim-qlora-nf4-info-theoretic-optimal-datatype, claim-qlora-65b-finetune-single-48gb, claim-qlora-guanaco-99p3-of-chatgpt-vicuna]
 signoff: null
@@ -53,5 +53,9 @@ signoff: null
 
 ## 若成立 / 不成立意味着什么
 
-成立：4-bit NF4+DQ 底座 + 全线性层 LoRA 是 LLM 微调的默认省钱配置（同预算下优先加参数、降精度，§4 Summary 的资源分配取向）。
-不成立：无损恢复依赖论文自报的擦线均值或未建基线的对照，微调显存预算按 16-bit LoRA 或量化后全量微调重估。
+成立：LLaMA 7B–65B、MMLU 口径下，4-bit NF4+DQ 底座 + 全线性层 LoRA 自报恢复 16-bit LoRA 性能，论文据此提出"同预算下优先加参数、降精度"的资源分配取向（§4 Summary）；推广为 LLM 微调默认省钱配置属研究启发（尚未验证，其他模型家族/任务是跨条件迁移检查）。
+不成立：无损恢复依赖论文自报的擦线均值或未建基线的对照，该场景微调显存预算按 16-bit LoRA 或量化后全量微调重估。
+
+## 核查记录
+
+- 2026-11-05（02 任务书整理班 P1-B2b）：4 条笔记 quote Grep 逐字命中笔记当前版（Table 4 两行转录 2026-11-03 已对 arXiv v1 HTML 实抓核对，见卡内限定 4）。本轮为表达整理：falsifiers 补分层标注并把全量微调基线条重定位为相邻命题检查（阈值标注为预设待定）、成立段约束回 LLaMA/MMLU 范围并把默认配置推断标为研究启发；数字未改写。

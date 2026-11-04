@@ -18,8 +18,8 @@ evidence:
     quote: "the gain against its corresponding single time baseline is marginal"
     relation: supports
 falsifiers:
-  - "同计算预算下把固定滑窗重复优化次数加到与 SliderQuant 相当，Llama2-7B W4A4 差距缩小到 < 0.5 PPL 或追平"
-  - "第三方复现中重复优化的增益达到与自适应滑窗同量级（≥ 1.5 PPL），归因反转"
+  - "同范围机制辨别：同计算预算下把固定滑窗重复优化次数加到与 SliderQuant 相当，Llama2-7B W4A4 差距缩小到 < 0.5 PPL（预设阈值，待定）或追平"
+  - "同范围复现（归因反转）：第三方复现中重复优化的增益达到与自适应滑窗同量级（预设阈值 ≥ 1.5 PPL，接近论文报告下限 1.54），归因反转"
 review_due: 2027-02-02
 related: [claim-sliderquant-llama2-7b-w4a4-ppl-8p34, claim-sliderquant-first-last-layer-most-sensitive]
 signoff: null
@@ -41,5 +41,9 @@ signoff: null
 
 ## 若成立 / 不成立意味着什么
 
-成立：滑窗的"按敏感性分配优化预算"是本质增益来源，序列量化框架设计应转向结构先验而非单纯加算力。
-不成立：收益主要是重复优化的算力效应，自适应设计溢价 <1 PPL，SliderQuant 相对 CBQ 类方法无本质优势。
+成立：Llama2-7B / Qwen2.5-14B W4A4 下，滑窗的"按敏感性分配优化预算"是相对固定滑窗 + 重复优化的主要增益来源（论文归因口径）；"序列量化框架设计应转向结构先验而非单纯加算力"的设计推论属研究启发（尚未验证，其他框架/模型是迁移检查）。
+不成立：该两模型上收益主要是重复优化的算力效应，自适应设计溢价 <1 PPL，SliderQuant 相对 CBQ 类方法无本质优势。
+
+## 核查记录
+
+- 2026-11-05（02 任务书整理班 P1-B2b）：2 条 arXiv HTML 引文抓取日期在案（2026-11-04），scope 中 Table P 数字与笔记遗留问题清单核对无冲突（未引用 6.42× speedup）。本轮为表达整理：falsifiers 补分层标注（阈值标注为预设待定）、成立段区分论文归因与设计推论并标研究启发；数字未改写。

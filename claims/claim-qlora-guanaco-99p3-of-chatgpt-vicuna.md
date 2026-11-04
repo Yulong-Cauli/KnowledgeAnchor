@@ -34,9 +34,9 @@ evidence:
     quote: "When compared to GPT-4, Guanaco 65B and 33B have an expected win probability of 30%, based on Elo rating from human annotators system-level pairwise comparisons - the highest reported to date."
     relation: supports
 falsifiers:
-  - "独立评估（不同 judge、不同 prompt 集、或人工评注）中 Guanaco 65B 相对 ChatGPT 明显低于 99.3%（如 <90%）或不再高于其他开源模型"
-  - "复现 GPT-4 评估时 CI 重叠导致的排名不稳定被放大（99.3%±4.4 的区间内 ChatGPT/开源模型排序翻转频繁），'outperforms all previous openly released models' 不稳"
-  - "GPT-4 自评偏高与顺序偏差校正后（双序平均、人类评注口径）Guanaco 排名显著下滑"
+  - "跨条件迁移（换评估口径，不充当原范围反证）：独立评估（不同 judge、不同 prompt 集、或人工评注）中 Guanaco 65B 相对 ChatGPT 明显低于 99.3%（预设阈值如 <90%，待定）或不再高于其他开源模型——评估口径变化检验外部效度，不直接证伪本卡 GPT-4 judge 口径内的自报主张"
+  - "同范围复现（统计稳定性）：复现 GPT-4 评估时 CI 重叠导致的排名不稳定被放大（99.3%±4.4 的区间内 ChatGPT/开源模型排序翻转频繁），'outperforms all previous openly released models' 不稳"
+  - "同范围口径检查（论文自荐方法）：GPT-4 自评偏高与顺序偏差校正后（双序平均、人类评注口径）Guanaco 排名显著下滑"
 review_due: 2026-12-03
 related: [claim-qlora-nf4-dq-recovers-16bit-lora-mmlu, claim-qlora-65b-finetune-single-48gb]
 signoff: null
@@ -61,5 +61,9 @@ signoff: null
 
 ## 若成立 / 不成立意味着什么
 
-成立：单卡 24 小时、纯开源数据即可把开源 LLM 微调到接近 ChatGPT 的对话水平，QLoRA 成为低成本 chatbot 微调的默认管线。
+成立：Guanaco 65B（LLaMA-65B + QLoRA + OASST1 变体）在 GPT-4 judge 的 Vicuna 口径下自报接近 ChatGPT，支持"单卡 24 小时、纯开源数据可产出接近 ChatGPT 的对话模型"这一候选路线；QLoRA 成为低成本 chatbot 微调默认管线的推断仍属研究启发（尚未验证，其他开源 LLM/数据组合是跨条件迁移检查）。
 不成立：99.3% 依赖 GPT-4 自报评估的口径（顺序效应、宽 CI），Guanaco 实际排位低于声明，评估方法学（GPT-4 judge）需配人工评注与双序校正后才可信。
+
+## 核查记录
+
+- 2026-11-05（02 任务书整理班 P1-B2b）：6 条笔记 quote Grep 逐字命中笔记当前版。本轮为表达整理：falsifiers 补分层标注（阈值标注为预设待定）、成立段约束回 Guanaco 65B 具体 config 并把"默认管线"推断标为研究启发；数字未改写。

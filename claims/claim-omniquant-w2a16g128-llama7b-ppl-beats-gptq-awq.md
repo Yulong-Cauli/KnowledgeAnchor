@@ -34,10 +34,10 @@ evidence:
     quote: "OmniQuant            9.72       7.93       7.12     5.95     11.06       8.26      6.55"
     relation: supports
 falsifiers:
-  - "官方开源实现同校准设置（128 段 WikiText2、40 epochs）复现中，LLaMA-1-7B W2A16g128 的 OmniQuant WikiText2 PPL 显著高于 9.72，或与 GPTQ (44.01) 的差距消失/反转"
-  - "复现中 GPTQ 或 AWQ 在 W2A16g128 下达到可用精度（如 PPL < 15），推翻基线失效的对比前提"
-  - "笔记表头所指场景（LLaMA-1-13B 逐通道 W2A16，camera-ready Table 1 为 OmniQuant 13.21 vs GPTQ 5.5e3）复现中 OmniQuant 不再显著优于 GPTQ，则 2-bit 极限场景可用的强解读不成立"
-  - "证实校准集与评测集（WikiText2）同语料带来的乐观偏差大到改变方法排序"
+  - "同范围复现（主张侧）：官方开源实现同校准设置（128 段 WikiText2、40 epochs）复现中，LLaMA-1-7B W2A16g128 的 OmniQuant WikiText2 PPL 显著高于 9.72，或与 GPTQ (44.01) 的差距消失/反转"
+  - "同范围复现（对照侧）：复现中 GPTQ 或 AWQ 在 W2A16g128 下达到可用精度（预设阈值如 PPL < 15，无原文锚点，待定），推翻基线失效的对比前提"
+  - "跨条件迁移（不充当原范围反证）：笔记表头所指场景（LLaMA-1-13B 逐通道 W2A16，camera-ready Table 1 为 OmniQuant 13.21 vs GPTQ 5.5e3）复现中 OmniQuant 不再显著优于 GPTQ，则 2-bit 极限场景可用的强解读不成立，但不直接证伪本卡 LLaMA-1-7B W2A16g128 范围内的主张"
+  - "口径检查（同范围）：证实校准集与评测集（WikiText2）同语料带来的乐观偏差大到改变方法排序"
 review_due: 2026-12-02
 related: [claim-omniquant-w4a4-llama7b-zeroshot-5265, claim-qwt-r2-gate-nonregression]
 signoff: null
@@ -64,5 +64,10 @@ PDF 引文为 pdftotext -layout 提取（仅去行首空白）。原始笔记见
 
 ## 若成立 / 不成立意味着什么
 
-成立：2-bit weight-only 量化中「可学习量化参数」路线相对 GPTQ/AWQ 有数量级优势，极端压缩选型可依赖（需先确认 scope 中同源校准风险不改变结论）。
-不成立：2-bit 优势依赖论文自报口径或同源校准，选型回退到 3/4-bit 分组量化 + GPTQ/AWQ 方案。
+成立：LLaMA-1-7B W2A16g128、同校准设置下，可学习量化参数路线（OmniQuant）相对 GPTQ/AWQ 有数量级优势，该场景的极端压缩选型可参考（需先确认 scope 中同源校准风险不改变结论）。其他模型或其他 2-bit 设置是否同样占优，属跨条件迁移检查（见 falsifier 3），不能由本卡直接外推。
+不成立：LLaMA-1-7B W2A16g128 的优势依赖论文自报口径或同源校准，该场景选型回退到 3/4-bit 分组量化 + GPTQ/AWQ 方案。
+
+## 核查记录
+
+- 2026-11-03：笔记实验 1 表头归因修正后本卡同步更新（见顶部修订注记）。
+- 2026-11-05（02 任务书整理班 P1-B2b）：3 条笔记 quote Grep 逐字命中笔记当前版；PDF 引文抓取日期在案（2026-11-02）未重抓。本轮为表达整理：falsifiers 补分层标注（对照侧复现阈值标注为预设待定）、成立/不成立段约束回 scope 配置；数字未改写。
