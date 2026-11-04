@@ -61,6 +61,7 @@ signoff: null
 ## 待验证
 
 - 已核对（2026-11-02）：arXiv v3 正文 σ/λ1/λ2/γ/δ 五个数与笔记一致（见 evidence）。
+- 已核对（2026-11-05，B4d 整理班复核）：本卡全部 evidence quote 重验通过——笔记 5 条、arXiv v3 σ 句（§3.4）与 λ1/λ2、γ/δ 句（§4.1 Implementation details）重抓逐字命中，无内容改动。
 - 查开源仓库 cfgs/radar_distill/*.yaml 中对应 loss 权重默认值是否与论文一致。
 - 复现时按此配置训练一次，确认能对齐 README 自报的 20.5 / 43.7（关联主卡）。
 

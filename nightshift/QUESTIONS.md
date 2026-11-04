@@ -125,3 +125,6 @@
 90. **24 条 ar5iv 引句未班内重抓**（11-03 抓取日期在案、与笔记互证一致）：如需再验由后续班次安排。
 91. **VQ-Map 笔记三处建议（需授权）**：① §4.2「73.4 IoU」应补「Argoverse 仅评 Drivable 单类」限定（论文 §4 原句 + Table 2 列结构实证，vqmap-argoverse 卡已按此修正）；② §4.1 表只抄 6 类中 4 类、9 行对比方法中 3 行，且 camera-only 原注与阈值口径未录；③ §4.4 宜加「Table 5 时间列为训练 GPU hours」注。
 92. **EMC2 参照卡 2 条 arXiv evidence 无抓取日期**：locator 未带日期不合新规范；大概率 2026-11-03（卡内修订注记所述核对轮），留主人/后续班次定。
+93. **CornerNet 4.1 FPS 同机与否不可判**：OAP Table 2 caption 用斜体标示"转引自原论文"的 FPS，pdftotext 丢失斜体信息（centernetpoints-fps 卡 scope/falsifier 已留残留子项）；闭合需目检 PDF。
+94. **代码侧核查未做（4 卡 falsifier 保留）**：CenterNet 全仓库 NMS 存在性排查（只核了 decode.py）；CenterNet 三输出头无 embedding 仓库核对；princeton-vl/CornerNet pooling/AE 实现；tianzhi0549/FCOS 默认配置是否开中心采样。
+95. **经典检测笔记四处建议（需授权）**：① Objects as Points §潜在局限性 20.0% 转述为"漏检率"，原文口径是 Faster-RCNN 15 anchors @0.5 IoU 的 anchor 放置不足漏检率；② FCOS §预测头 仍把 Center-ness 列在分类塔输出下（v5 已改，消歧只在图注补注）；③ Keypoint Triplets §消融未载 CCP-only 行（38.3）与 MS-COCO validation 口径；④ CornerNet.md 未载任何实验数字（含 Table 1 消融 36.5→38.4）。

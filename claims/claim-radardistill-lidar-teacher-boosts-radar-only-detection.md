@@ -58,6 +58,7 @@ signoff: null
 
 - 用官方仓库（OpenPCDet 底座，`cfgs/radar_distill/radar_distill_train.yaml` / `radar_distill_val.yaml`）在 nuScenes 复现 20.5 / 43.7（注意论文口径是 testset，第三方一般报 val，两者不可直接混比）。
 - 已核对（2026-11-02）：README Model Zoo 与 arXiv v3 Table 1（testset）一致；剩余待核：教师骨干配置、评测脚本与 * 无 TTA 口径对第三方复现的影响。
+- 已核对（2026-11-05，B4d 整理班复核）：本卡全部 evidence quote 重验通过——笔记 1 条、README Abstract/架构说明/Model Zoo 行、arXiv v3 Table 1 两行与 caption 重抓逐字命中，无内容改动。
 - 检查推理配置确认不含 LiDAR 分支输入。
 
 ## 若成立 / 不成立意味着什么

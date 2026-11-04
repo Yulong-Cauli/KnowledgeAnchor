@@ -61,6 +61,7 @@ signoff: null
 ## 待验证
 
 - 已核对（2026-11-02）：arXiv v3 方法节 CMA 三件套（Down=DCN+ConvNeXt V2 / Up=转置卷积 / Aggregation=concat+1×1 conv）与 l1/l2 进入 AFD 两级蒸馏均与笔记一致（见 evidence）。
+- 已核对（2026-11-05，B4d 整理班复核）：本卡全部 evidence quote 重验通过——笔记 3 条、README Abstract 句、arXiv v3 三条结构句与公式 (10) 重抓逐字命中，无内容改动。
 - 复现消融：去 l1 监督、或把 CMA 换成朴素 BEV 对齐，比较 nuScenes 指标与收敛曲线。
 
 ## 若成立 / 不成立意味着什么

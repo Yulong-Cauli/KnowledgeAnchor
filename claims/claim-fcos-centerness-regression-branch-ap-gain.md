@@ -3,7 +3,7 @@ id: claim-fcos-centerness-regression-branch-ap-gain
 title: "FCOS 笔记图注声称：将 center-ness 从分类分支移到回归分支后 AP 进一步提升"
 type: claim
 status: asserted
-scope: "FCOS（ICCV 2019）center-ness 的挂载位置设计（分类分支 vs 回归分支）；依据仅为笔记 Figure2 处图注，笔记未载 AP 数字、未注明“后续实验”出处，证据强度为四张 FCOS 卡中最弱，尚未独立验证"
+scope: "FCOS（ICCV 2019）center-ness 的挂载位置设计（分类分支 vs 回归分支）；主张层级为笔记图注转述：笔记未载 AP 数字，数字出处已于 2026-11-03 定位（见下方附注），但数字是否补入 evidence 待主人定夺，本卡 evidence 仍以笔记 quote 为准；复现侧尚未独立验证"
 tags: [fcos, anchor-free, detection, centerness, ablation]
 note: library/Classical_Detection/FCOS.md#architecture
 paper: "ICCV 2019, FCOS: Fully Convolutional One-Stage Object Detection（开源：https://github.com/tianzhi0549/FCOS）"
@@ -14,8 +14,8 @@ evidence:
     quote: "注意：关于 Center-ness 的归属问题，后续实验证明，将其移到回归分支后，AP 进一步提升"
     relation: supports
 falsifiers:
-  - "复现中 center-ness 放在分类分支与回归分支 AP 相当或分类分支更高"
-  - "该图注所指的“后续实验”无法在 FCOS 原文、扩展版或官方仓库中找到出处（图注可能为笔记作者的转述）"
+  - "原文核查（已完成，未触发，2026-11-05）：图注所指出处无法找到——已闭合：FCOS arXiv v5 §3.3 脚注 2 明言 AP 可提升（2026-11-03 实抓），2026-11-05 复核 ICCV camera-ready PDF（arXiv 1904.01355v5）Table 3 同样命中 '+ ctr. on reg.' 行 37.1→37.4（minival、R-50-FPN，caption 定义 'ctr. on reg.': moving the center-ness branch to the regression branch）"
+  - "同范围复现：复现中 center-ness 放在分类分支与回归分支 AP 相当或分类分支更高（对照论文自报锚点 37.1→37.4，minival、R-50-FPN）"
 review_due: 2026-12-02
 related: [claim-fcos-centerness-suppresses-low-quality]
 signoff: null
@@ -31,10 +31,14 @@ signoff: null
 
 ## 待验证
 
-- 在 FCOS 原论文及官方仓库 / 后续版本中找到该结论的原始出处与具体数字，补进 evidence。
-- 复现 center-ness 挂载位置（分类分支 vs 回归分支）的消融。
+- 已核对（2026-11-03 定位，2026-11-05 复核）：出处已在原文找到（v5 §3.3 脚注 2 + camera-ready Table 3 'ctr. on reg.' 行 37.1→37.4）；数字是否补进 evidence 按附注留待主人定夺，本卡 evidence 不动。
+- 复现 center-ness 挂载位置（分类分支 vs 回归分支）的消融，对齐 Table 3 的 minival、R-50-FPN 口径（同范围复现）。
 
 ## 若成立 / 不成立意味着什么
 
 成立：实现 FCOS 类检测器时应把 center-ness 放在回归分支——它本质上是回归质量的度量而非分类信号。
 不成立：该图注属笔记作者转述偏差或结论不可复现，则在卡片内追加标注降级处理（不删除文件、不动 signoff）。
+
+## 核查记录
+
+- 2026-11-05（02 任务书 P1-B7a 整理班）：表达整理，数字未改写。笔记 quote Grep 逐字命中；evidence 按 2026-11-03 附注约定保持笔记 quote 原样（数字补入待主人定夺）；falsifier 1（出处核查）标记闭合并补 2026-11-05 camera-ready PDF Table 3 复核记录；falsifier 2 补锚点口径；scope 改为反映「出处已定位、数字补入待定」现状。id/status/stance/review_due/signoff 未动。

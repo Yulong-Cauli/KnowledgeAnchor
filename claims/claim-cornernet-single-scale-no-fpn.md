@@ -3,7 +3,7 @@ id: claim-cornernet-single-scale-no-fpn
 title: "CornerNet 论文声称：不使用特征金字塔，仅用骨干（两个堆叠、深 104 层的 Hourglass）最后一层输出做单尺度预测"
 type: claim
 status: asserted
-scope: "设计层面主张：预测只取网络最后一层输出，无 FPN/多尺度融合；骨干为两个堆叠 Hourglass 模块、深度 104 层；依据笔记转述；笔记未载性能数字，尚未独立验证"
+scope: "设计层面主张：预测只取网络最后一层输出，无 FPN/多尺度融合；骨干为两个堆叠 Hourglass 模块、深度 104 层；依据笔记转述；2026-11-05 实抓 arXiv 1808.01244v2 补核：'depth of the hourglass network is 104' + 'only use the features from the last layer of the whole network to make predictions' 与第二个 hourglass 模块级联句均在原文命中；笔记未载性能数字，复现/代码侧尚未独立验证"
 tags: [object-detection, hourglass, no-fpn, cornernet, eccv2018]
 note: library/Classical_Detection/CornerNet.md#architecture
 paper: "ECCV 2018, CornerNet: Detecting Objects as Paired Keypoints（代码 https://github.com/princeton-vl/CornerNet，笔记头部出处）"
@@ -17,10 +17,18 @@ evidence:
     locator: "§Architecture"
     quote: "**无多尺度特征**：与许多其他检测器不同，CornerNet 不使用特征金字塔（FPN）来检测不同大小的物体，而是仅使用网络最后一层的输出进行预测。"
     relation: supports
+  - source: https://arxiv.org/pdf/1808.01244
+    locator: "§3.5 Hourglass Network（深度 104 + 仅用最后一层特征；arXiv PDF v2，pdftotext 提取，跨行连字符已还原，抓取 2026-11-05）"
+    quote: "The depth of the hourglass network is 104. Unlike many other state-of-the-art detectors, we only use the features from the last layer of the whole network to make predictions."
+    relation: supports
+  - source: https://arxiv.org/pdf/1808.01244
+    locator: "§3.5 Hourglass Network（两个 Hourglass 模块级联；pdftotext 提取，抓取 2026-11-05）"
+    quote: "We then merge them by element-wise addition followed by a ReLU and a residual block with 256 channels, which is then used as the input to the second hourglass module."
+    relation: supports
 falsifiers:
-  - "princeton-vl/CornerNet 实现显示预测头接在多个尺度上（存在 FPN 类结构或中间 Hourglass 输出也参与预测）"
-  - "骨干结构不符：非两个堆叠 Hourglass，或总深度与 104 层明显不符"
-  - "复现显示不加多尺度特征就无法按笔记所述流程检测不同大小的物体，说明'仅最后一层输出'的转述不完整"
+  - "原文核查（已完成，未触发，2026-11-05）：骨干结构或预测层级与笔记不符——已实抓 arXiv 1808.01244v2，深度 104、仅用最后一层特征做预测、第二个 hourglass 模块级联均命中，此分支闭合"
+  - "代码核查：princeton-vl/CornerNet 实现显示预测头接在多个尺度上（存在 FPN 类结构或中间 Hourglass 输出也参与预测）"
+  - "同范围复现：复现显示不加多尺度特征就无法按笔记所述流程检测不同大小的物体，说明'仅最后一层输出'的转述不完整"
 review_due: 2026-12-02
 related: [claim-cornernet-paired-keypoints-anchor-free, claim-cornernet-corner-pooling-directional-maxsum, claim-cornernet-associative-embedding-pull-push, claim-centernetpoints-inference-fps-gain-over-cornernet]
 signoff: null
@@ -36,10 +44,15 @@ signoff: null
 
 ## 待验证
 
-- 读 princeton-vl/CornerNet 模型定义：核对 Hourglass 堆叠数（2）、总深度（104）、预测头仅接在最后一层输出上。
-- 对照原论文网络配置，确认笔记转述一致；补记评测数据集版本（笔记未载）。
+- 已核对（2026-11-05，论文侧）：深度 104、仅最后一层输出预测、两个 Hourglass 模块级联均与 arXiv v2 原文一致，见 evidence。
+- 读 princeton-vl/CornerNet 模型定义：核对 Hourglass 堆叠数（2）、预测头仅接在最后一层输出上——代码侧仍未查，falsifier 2 保留。
+- 补记评测数据集版本（笔记未载；论文主结果在 MS COCO test-dev，未在笔记展开，暂不立卡）。
 
 ## 若成立 / 不成立意味着什么
 
 成立："强单尺度骨干、不用 FPN"是无锚框关键点路线的一个明确设计选项，与 FPN 类检测器对比时有清晰的结构差异点。
 不成立：笔记转述与实现不符，需修订笔记并复核本卡。
+
+## 核查记录
+
+- 2026-11-05（02 任务书 P1-B7a 整理班）：表达整理 + 论文侧核查，数字未改写。两条笔记 quote Grep 逐字命中；新增 2 条 arXiv 1808.01244v2 原文 evidence（§3.5 深度 104 + 仅最后一层预测句、第二 hourglass 模块级联句）；结构类 falsifier 拆为原文核查（已闭合）/ 代码核查（保留）；保留 2026-11-03 修订注记与 F28 同步记录。id/status/stance/review_due/signoff 未动。
