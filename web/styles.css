@@ -547,6 +547,44 @@ input, textarea, select { font: inherit; color: inherit; }
   word-break: break-word;
 }
 
+.graph-focus-chip {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  max-width: min(420px, 55%);
+  padding: 5px 6px 5px 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  font-size: 12px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  pointer-events: auto;
+  z-index: 20;
+}
+.graph-focus-chip[hidden] { display: none; }
+.graph-focus-chip .fc-close {
+  border: none;
+  background: none;
+  padding: 0 4px;
+  font: inherit;
+  line-height: 1;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.graph-focus-chip .fc-close:hover { color: var(--text); }
+
+.graph-legend .ring {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1.3px dashed var(--text-muted);
+  display: inline-block;
+}
+
 /* ---------------------------------------------------------------- form -- */
 
 .edit-head {

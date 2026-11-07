@@ -1068,6 +1068,7 @@ function renderGraph() {
 function buildGraphView(data) {
   const host = $('#main');
   if (graphRuntime?.onWindowUp) window.removeEventListener('mouseup', graphRuntime.onWindowUp);
+  if (graphRuntime?.onKeyDown) window.removeEventListener('keydown', graphRuntime.onKeyDown);
   const noteById = new Map(data.nodes.filter((n) => n.kind === 'note').map((n) => [n.id, n]));
   const claimById = new Map(data.nodes.filter((n) => n.kind === 'claim').map((n) => [n.id, n]));
 
@@ -1080,9 +1081,11 @@ function buildGraphView(data) {
           <select id="graph-mode">
             <option value="hubs" ${graphMode === 'hubs' ? 'selected' : ''}>论文归属图</option>
             <option value="related" ${graphMode === 'related' ? 'selected' : ''}>关联网络</option>
+            <option value="topics" ${graphMode === 'topics' ? 'selected' : ''}>主题版图</option>
           </select>
         </label>
         <button type="button" class="btn btn-sm" id="graph-relayout">重新布局</button>
+        <button type="button" class="btn btn-sm" id="graph-export">导出 PNG</button>
       </span>
     </div>
     <div class="graph-wrap">
@@ -1093,7 +1096,12 @@ function buildGraphView(data) {
         <span class="lg"><i class="dot" style="background:var(--c-refuted)"></i>refuted</span>
         <span class="lg"><i class="dot" style="background:var(--c-stale)"></i>stale</span>
         <span class="lg"><i class="sq"></i>笔记（论文）</span>
-        <span class="lg hint">拖拽平移 · 滚轮缩放 · 点节点跳详情</span>
+        <span class="lg"><i class="ring"></i>已到复核日</span>
+        <span class="lg hint">拖拽平移 · 滚轮缩放 · 右键聚焦 · 双击笔记打开</span>
+      </div>
+      <div class="graph-focus-chip" id="graph-focus-chip" hidden>
+        <span id="graph-focus-label"></span>
+        <button type="button" class="fc-close" id="graph-focus-close" aria-label="退出聚焦">×</button>
       </div>
       <div class="graph-tooltip" id="graph-tooltip" hidden></div>
     </div>`;
@@ -1112,9 +1120,15 @@ function buildGraphView(data) {
   };
   let alpha = 0;            // simulation heat
   let raf = 0;
-  let view = { zoom: 1, panX: 0, panY: 0, autoFit: true };
+  let animUntil = 0;        // keep redrawing until this timestamp (pulse rings etc.)
+  let view = { zoom: 1, panX: 0, panY: 0, autoFit: true, target: null };
   let hoverId = null;
-  let focusNote = null;     // sticky highlight after clicking a note node
+  let focusId = null;       // sticky focus on any node (click note / right-click)
+  let lastQ = null;         // search keyword the locate logic last ran for
+  let pulseSet = new Map(); // id -> pulse start timestamp
+  let topicCentroids = null;   // mode === 'topics': Map<topic, {x, y}>
+  let topicCounts = new Map(); // mode === 'topics': Map<topic, claim count>
+  let topicOfClaim = new Map(); // mode === 'topics': claim id -> topic
   let dragNode = null;
   let panning = null;
   let mouse = { x: 0, y: 0, inside: false };
@@ -1153,6 +1167,8 @@ function buildGraphView(data) {
       if (!neighbors.has(a)) neighbors.set(a, new Set());
       neighbors.get(a).add(b);
     };
+    topicCentroids = null; topicCounts = new Map(); topicOfClaim = new Map();
+    let visibleClaims = activeClaims; // claims passing filters, before per-mode cuts
 
     if (mode === 'hubs') {
       const visibleSet = new Set(activeClaims.map((c) => c.id));
@@ -1173,8 +1189,42 @@ function buildGraphView(data) {
         nextEdges.push(e);
         bump(e.source, e.target); bump(e.target, e.source);
       }
-      const activeNotes = [...noteById.values()].filter((n) => noteHasVisible.get(n.id) || n.id === focusNote);
+      const activeNotes = [...noteById.values()].filter((n) => noteHasVisible.get(n.id) || n.id === focusId);
       set_active([...activeNotes, ...activeClaims], nextEdges);
+    } else if (mode === 'topics') {
+      // claims grouped by the note's top-level library directory; note nodes not drawn
+      const topicClaims = new Map();
+      for (const claim of activeClaims) {
+        const noteId = claimIdNote.get(claim.id);
+        const note = noteId ? noteById.get(noteId) : null;
+        const seg = note ? ((note.path ?? note.id.slice(5)).split('/')[1] ?? '').replace(/\.md$/, '') : '';
+        const topic = seg || '（无笔记）';
+        topicOfClaim.set(claim.id, topic);
+        if (!topicClaims.has(topic)) topicClaims.set(topic, []);
+        topicClaims.get(topic).push(claim.id);
+      }
+      const topicNames = [...topicClaims.keys()]
+        .sort((a, b) => topicClaims.get(b).length - topicClaims.get(a).length || a.localeCompare(b));
+      const Rc = Math.max(200, Math.min(720, 90 * Math.sqrt(Math.max(1, activeClaims.length))));
+      topicCentroids = new Map();
+      topicNames.forEach((topic, i) => {
+        const a = -Math.PI / 2 + (i / Math.max(1, topicNames.length)) * Math.PI * 2;
+        topicCentroids.set(topic, { x: Math.cos(a) * Rc, y: Math.sin(a) * Rc });
+      });
+      topicCounts = new Map([...topicClaims].map(([topic, ids]) => [topic, ids.length]));
+      const seeds = new Map();
+      for (const claim of activeClaims) {
+        const c = topicCentroids.get(topicOfClaim.get(claim.id));
+        seeds.set(claim.id, { x: c.x + (Math.random() - 0.5) * 120, y: c.y + (Math.random() - 0.5) * 120 });
+      }
+      const visibleSet = new Set(activeClaims.map((c) => c.id));
+      for (const e of data.edges) {
+        if (e.kind !== 'related') continue;
+        if (!visibleSet.has(e.source) || !visibleSet.has(e.target)) continue;
+        nextEdges.push(e);
+        bump(e.source, e.target); bump(e.target, e.source);
+      }
+      set_active(activeClaims, nextEdges, seeds);
     } else {
       const linked = new Set();
       for (const e of data.edges) {
@@ -1183,6 +1233,7 @@ function buildGraphView(data) {
         linked.add(e.source); linked.add(e.target);
       }
       const active = activeClaims.filter((c) => linked.has(c.id));
+      visibleClaims = active;
       const activeSet = new Set(active.map((c) => c.id));
       for (const e of data.edges) {
         if (e.kind !== 'related') continue;
@@ -1193,7 +1244,25 @@ function buildGraphView(data) {
       }
       set_active(active, nextEdges);
     }
-    $('#graph-sub').textContent = `显示 ${nodes.length} 节点 · ${edges.length} 边（全库 ${data.counts.claims} claim · ${data.counts.notes} 笔记 · related ${data.counts.edgesRelated} 条）`;
+    $('#graph-sub').textContent = mode === 'topics'
+      ? `显示 ${nodes.length} claim · ${edges.length} related 边 · ${topicCounts.size} 个主题`
+      : `显示 ${nodes.length} 节点 · ${edges.length} 边（全库 ${data.counts.claims} claim · ${data.counts.notes} 笔记 · related ${data.counts.edgesRelated} 条）`;
+    // a focused node that got filtered out must not leave a lingering ring
+    if (focusId && !nodeById.has(focusId)) focusId = null;
+    updateFocusChip();
+    // search locate: only when the keyword itself changed (not on checkbox/tag tweaks)
+    const qNow = state.q.trim();
+    if (qNow !== lastQ) {
+      lastQ = qNow;
+      pulseSet.clear();
+      if (qNow && visibleClaims.length > 0 && visibleClaims.length <= 5) {
+        flyToNodes(new Set(visibleClaims.map((c) => c.id)));
+        const t0 = performance.now();
+        for (const c of visibleClaims) pulseSet.set(c.id, t0);
+        animUntil = t0 + 1600;
+        kick(0);
+      }
+    }
     kick(0.45);
   }
 
@@ -1206,7 +1275,7 @@ function buildGraphView(data) {
     }
   }
 
-  function set_active(activeNodes, activeEdges) {
+  function set_active(activeNodes, activeEdges, seedById = null) {
     const deg = new Map();
     for (const e of activeEdges) {
       deg.set(e.source, (deg.get(e.source) ?? 0) + 1);
@@ -1223,7 +1292,8 @@ function buildGraphView(data) {
     });
     nodes = activeNodes.map((meta) => {
       let seed;
-      if (placed.has(meta.id)) seed = placed.get(meta.id);
+      if (seedById?.has(meta.id)) seed = seedById.get(meta.id);
+      else if (placed.has(meta.id)) seed = placed.get(meta.id);
       else {
         const noteId = claimIdNote.get(meta.id);
         const anchor = noteId && placed.get(noteId);
@@ -1241,10 +1311,43 @@ function buildGraphView(data) {
 
   let nodeById = new Map();
 
+  const chip = $('#graph-focus-chip');
+  const chipLabel = $('#graph-focus-label');
+  const updateFocusChip = () => {
+    const node = focusId ? nodeById.get(focusId) : null;
+    if (!node) { chip.hidden = true; return; }
+    const label = node.label ?? node.id;
+    chipLabel.textContent = `聚焦中：${label.length > 20 ? `${label.slice(0, 20)}…` : label} · Esc 退出`;
+    chip.hidden = false;
+  };
+
+  // ease the camera so the given nodes fill the viewport (search locate)
+  function flyToNodes(idSet, { minZoom = 1.2, maxZoom = 2.4 } = {}) {
+    const pts = [];
+    for (const id of idSet) {
+      const n = nodeById.get(id);
+      if (n) pts.push(n);
+    }
+    if (!pts.length) return;
+    let minX = Infinity; let minY = Infinity; let maxX = -Infinity; let maxY = -Infinity;
+    for (const n of pts) {
+      if (n.x < minX) minX = n.x; if (n.x > maxX) maxX = n.x;
+      if (n.y < minY) minY = n.y; if (n.y > maxY) maxY = n.y;
+    }
+    const w = canvas.clientWidth || 900;
+    const h = canvas.clientHeight || 500;
+    const bw = Math.max(50, maxX - minX);
+    const bh = Math.max(50, maxY - minY);
+    const z = Math.min(maxZoom, Math.max(minZoom, Math.min((w - 80) / bw, (h - 80) / bh)));
+    view.target = { zoom: z, panX: (-(minX + maxX) / 2) * z, panY: (-(minY + maxY) / 2) * z };
+    view.autoFit = false;
+    kick(0);
+  }
+
   // ---- simulation ----
   function tick() {
     const n = nodes.length;
-    const repulsion = mode === 'related' ? 2600 : 3400;
+    const repulsion = mode === 'hubs' ? 3400 : 2600;
     for (let i = 0; i < n; i += 1) {
       const a = nodes[i];
       for (let j = i + 1; j < n; j += 1) {
@@ -1274,8 +1377,14 @@ function buildGraphView(data) {
       b.vx -= fx; b.vy -= fy;
     }
     for (const node of nodes) {
-      node.vx += -node.x * 0.0035;
-      node.vy += -node.y * 0.0035;
+      const anchor = mode === 'topics' ? topicCentroids?.get(topicOfClaim.get(node.id)) : null;
+      if (anchor) {
+        node.vx += (anchor.x - node.x) * 0.01;
+        node.vy += (anchor.y - node.y) * 0.01;
+      } else {
+        node.vx += -node.x * 0.0035;
+        node.vy += -node.y * 0.0035;
+      }
       if (dragNode === node.id) { node.vx = 0; node.vy = 0; continue; }
       node.vx *= 0.82; node.vy *= 0.82;
       node.x += node.vx * alpha;
@@ -1309,21 +1418,31 @@ function buildGraphView(data) {
       view.panY = view.panY * 0.9 + (-(minY + maxY) / 2) * view.zoom * 0.1;
     }
 
+    // ease toward an explicit camera target (fly-to from search locate); human input clears it
+    if (!view.autoFit && view.target) {
+      const t = view.target;
+      view.zoom = view.zoom * 0.85 + t.zoom * 0.15;
+      view.panX = view.panX * 0.85 + t.panX * 0.15;
+      view.panY = view.panY * 0.85 + t.panY * 0.15;
+      if (Math.abs(view.zoom - t.zoom) < 0.01 && Math.hypot(view.panX - t.panX, view.panY - t.panY) < 2) view.target = null;
+      else kick(0); // not settled yet: keep redrawing
+    }
+
     ctx.translate(w / 2 + view.panX, h / 2 + view.panY);
     ctx.scale(view.zoom, view.zoom);
 
     const focusSet = new Set();
     if (hoverId) focusSet.add(hoverId);
-    if (focusNote) focusSet.add(focusNote);
-    const highlight = (id) => (hoverId || focusNote) && focusSet.has(id);
-    const isNeighbor = (id) => (hoverId || focusNote) && neighbors.get(hoverId ?? focusNote)?.has(id);
-    const dimming = Boolean(hoverId || focusNote);
+    if (focusId) focusSet.add(focusId);
+    const highlight = (id) => (hoverId || focusId) && focusSet.has(id);
+    const isNeighbor = (id) => (hoverId || focusId) && neighbors.get(hoverId ?? focusId)?.has(id);
+    const dimming = Boolean(hoverId || focusId);
 
     // edges
     for (const e of edges) {
       const a = pos.get(e.source); const b = pos.get(e.target);
       if (!a || !b) continue;
-      const activeEdge = (hoverId || focusNote) && (e.source === (hoverId ?? focusNote) || e.target === (hoverId ?? focusNote));
+      const activeEdge = (hoverId || focusId) && (e.source === (hoverId ?? focusId) || e.target === (hoverId ?? focusId));
       ctx.globalAlpha = dimming ? (activeEdge ? 0.9 : 0.08) : (e.kind === 'related' ? 0.55 : 0.4);
       ctx.strokeStyle = e.kind === 'related' ? cssVar('--brand') : cssVar('--border') || '#8888';
       ctx.lineWidth = activeEdge ? 1.8 : (e.kind === 'related' ? 1.2 : 1);
@@ -1359,6 +1478,24 @@ function buildGraphView(data) {
         ctx.arc(node.x, node.y, node.r, 0, Math.PI * 2);
         ctx.fill();
       }
+      // due-for-review marker: a neutral dashed ring, no status judgement
+      if (node.kind === 'claim' && node.review_due && state.meta?.today && node.review_due <= state.meta.today) {
+        ctx.strokeStyle = cssVar('--text-muted');
+        ctx.lineWidth = 1.3;
+        ctx.setLineDash([3, 3]);
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, node.r + 3.5, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+      // sticky focus ring
+      if (focusId === node.id) {
+        ctx.strokeStyle = cssVar('--brand');
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, node.r + 5, 0, Math.PI * 2);
+        ctx.stroke();
+      }
       const label = node.kind === 'note' ? node.label : node.title ?? node.label;
       const wantLabel = node.kind === 'note' || showLabels || node.id === hoverId || (dimming && isNeighbor(node.id));
       if (wantLabel) {
@@ -1368,6 +1505,29 @@ function buildGraphView(data) {
         const text = label.length > 26 ? `${label.slice(0, 25)}…` : label;
         ctx.fillText(text, node.x, node.y + node.r + (node.kind === 'note' ? 16 : 11));
       }
+      // search-hit pulse: an expanding ring, then gone
+      if (pulseSet.has(node.id)) {
+        const t = (performance.now() - pulseSet.get(node.id)) / 1600;
+        if (t >= 1) pulseSet.delete(node.id);
+        else {
+          ctx.globalAlpha = (1 - t) * 0.8;
+          ctx.strokeStyle = cssVar('--brand');
+          ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          ctx.arc(node.x, node.y, node.r + 4 + t * 14, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+      }
+    }
+    // topic centroid labels (恒显示, drawn on top so clusters stay readable)
+    if (mode === 'topics' && topicCentroids?.size) {
+      ctx.globalAlpha = 0.6;
+      ctx.fillStyle = cssVar('--text-muted');
+      ctx.textAlign = 'center';
+      ctx.font = '12px var(--font-ui, sans-serif)';
+      for (const [topic, c] of topicCentroids) {
+        ctx.fillText(`${topic} · ${topicCounts.get(topic) ?? 0}`, c.x, c.y);
+      }
     }
     ctx.globalAlpha = 1;
   }
@@ -1376,7 +1536,7 @@ function buildGraphView(data) {
     raf = 0;
     if (alpha > 0) tick();
     draw();
-    if (alpha > 0) kick(0);
+    if (alpha > 0 || performance.now() < animUntil) kick(0);
   }
 
   function kick(initialAlpha) {
@@ -1387,6 +1547,8 @@ function buildGraphView(data) {
     if (raf) cancelAnimationFrame(raf);
     raf = 0;
     alpha = 0;
+    animUntil = 0;
+    pulseSet.clear();
   }
 
   // ---- interaction ----
@@ -1459,13 +1621,16 @@ function buildGraphView(data) {
   });
   let downXY = null; // to distinguish a click from a drag
   canvas.addEventListener('mousedown', (event) => {
+    if (event.button !== 0) return; // non-primary buttons never drag/pan (right button = focus)
     downXY = { x: event.clientX, y: event.clientY };
     const hit = pick(event);
     if (hit) {
       dragNode = hit.id;
       view.autoFit = false;
+      view.target = null;
     } else {
       panning = { x: event.clientX, y: event.clientY, panX: view.panX, panY: view.panY };
+      view.target = null;
     }
     kick(0.15);
   });
@@ -1480,11 +1645,24 @@ function buildGraphView(data) {
       panning = null;
       if (moved < 4) {
         // plain click on background: clear sticky focus
-        if (focusNote) { focusNote = null; kick(0.2); }
+        if (focusId) { focusId = null; updateFocusChip(); kick(0.2); }
       }
     }
   };
   window.addEventListener('mouseup', onWindowUp);
+  canvas.addEventListener('contextmenu', (event) => {
+    event.preventDefault();
+    const hit = pick(event);
+    if (!hit) return;
+    focusId = focusId === hit.id ? null : hit.id;
+    updateFocusChip();
+    kick(0.2);
+  });
+  canvas.addEventListener('dblclick', (event) => {
+    const hit = pick(event);
+    if (!hit || hit.kind !== 'note' || !hit.path) return;
+    location.hash = `#/note/${encodeURIComponent(hit.path)}`;
+  });
   canvas.addEventListener('click', (event) => {
     if (event.target !== canvas) return;
     // ignore the click that ends a node drag / pan
@@ -1494,7 +1672,8 @@ function buildGraphView(data) {
     if (hit.kind === 'claim') {
       location.hash = `#/claim/${encodeURIComponent(hit.id)}`;
     } else {
-      focusNote = focusNote === hit.id ? null : hit.id;
+      focusId = focusId === hit.id ? null : hit.id;
+      updateFocusChip();
       kick(0.2);
     }
   });
@@ -1510,19 +1689,53 @@ function buildGraphView(data) {
     view.panY = my - (my - view.panY) * applied;
     view.zoom = next;
     view.autoFit = false;
+    view.target = null;
     kick(0);
   }, { passive: false });
+
+  const onKeyDown = (event) => {
+    if ((location.hash || '#/queue') !== '#/graph') return;
+    if (event.key !== 'Escape') return;
+    const el = event.target;
+    if (el instanceof HTMLElement && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT')) return;
+    if (focusId) { focusId = null; updateFocusChip(); kick(0.2); }
+  };
+  window.addEventListener('keydown', onKeyDown);
 
   $('#graph-mode').addEventListener('change', (event) => {
     mode = event.target.value;
     graphMode = mode;
-    focusNote = null;
+    focusId = null;
+    updateFocusChip();
     refilter();
   });
   $('#graph-relayout').addEventListener('click', () => {
     pos.clear();
-    view = { zoom: 1, panX: 0, panY: 0, autoFit: true };
+    view = { zoom: 1, panX: 0, panY: 0, autoFit: true, target: null };
     refilter();
+  });
+  $('#graph-focus-close').addEventListener('click', () => {
+    focusId = null;
+    updateFocusChip();
+    kick(0.2);
+  });
+  $('#graph-export').addEventListener('click', () => {
+    // composite onto an opaque canvas first: the live canvas background is transparent
+    const out = document.createElement('canvas');
+    out.width = canvas.width;
+    out.height = canvas.height;
+    const octx = out.getContext('2d');
+    octx.fillStyle = cssVar('--surface') || '#ffffff';
+    octx.fillRect(0, 0, out.width, out.height);
+    octx.drawImage(canvas, 0, 0);
+    out.toBlob((blob) => {
+      if (!blob) return;
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `knowledgeanchor-graph-${state.meta?.today ?? new Date().toISOString().slice(0, 10)}.png`;
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }, 'image/png');
   });
 
   graphRuntime = {
@@ -1530,6 +1743,7 @@ function buildGraphView(data) {
     pause,
     refilter,
     onWindowUp,
+    onKeyDown,
   };
   resize();
   refilter();
