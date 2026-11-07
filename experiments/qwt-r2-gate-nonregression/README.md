@@ -47,7 +47,8 @@ QwT 不改动量化权重，只在量化模块后并联线性补偿层。因此�
 ### Phase 0：官方仓库对齐（本地/网络，0.5h）——2026-11-08 01:4x 完成
 
 - [x] 确认仓库结构：ResNet 线（Percentile 基线）与 ViT 线（`QwT-cls-RepQ-ViT/qwt_vit_and_deit.py`）各自的入口脚本、依赖版本、checkpoint 获取方式；
-  → **checkpoint 不需要**：管线自含——`build_model`（utils/build_model.py L67）用 `timm.create_model(pretrained=True)` 在线拉 FP 权重，PTQ（RepQ-ViT 规模重参数化 / ResNet Percentile）在脚本内完成；repo 克隆 + API 实测 default 分支 sha=`8a927da86be764a85b7d552bcdfa937af8211f90`（2025-09-30 "update readme"），kernel 按 pinned sha 运行时克隆。ImageNet 比赛数据集规则已接受（`kaggle competitions files` 实测可列）。
+  → **checkpoint 不需要**：管线自含——`build_model`（utils/build_model.py L67）用 `timm.create_model(pretrained=True)` 在线拉 FP 权重，PTQ（RepQ-ViT 规模重参数化 / ResNet Percentile）在脚本内完成；repo 克隆 + API 实测 default 分支 sha=`8a927da86be764a85b7d552bcdfa937af8211f90`（2025-09-30 "update readme"），kernel 按 pinned sha 运行时克隆。timm 版本约束实测确认：vendor `utils/vision_transformer.py`（带 `forward_before_blocks` L333，注册覆盖 vit_*/deit_* 同名模型）依赖 `timm.models.helpers`/`timm.models.layers`（1.x 已删除）→ **kernel 需 pin timm==0.9.16**。
+  → **⚠ 预检①勘误（2026-11-08 01:5x，push 实测）**：`kaggle competitions files` 端点**不验证**比赛规则接受状态，先前"规则已接受"结论错误；`kernels push` 挂 `imagenet-object-localization-challenge` 为数据源时被拒（"You must accept this competition's rules"）。**实际规则未接受 → 本实验 BLOCKED，待主人在浏览器接受规则后重推**（恢复指令见 STATE.md / BLOCKED.md）。备选 sautkin 镜像数据集经查为分片哈希文件名、标签格式未验证——不引入未验证数据源，保持 BLOCKED。
 - [x] 确认 PTQ 校准与 QwT 补偿校准是否共用 loader（影响 §1 解耦实现）；
   → **确认耦合**：PTQ 校准 = `loader_train` 首批（L323-325，batch_size 32）；QwT 补偿 = `loader_train` 顺序前 512 张（L141-147）。官方重跑 `--seed s` 会同时重抽两者。按 §1 解耦设计：PTQ 用 seed 0 校准一次并固化 state_dict，逐种子只换补偿集（每 seed 按官方协议重建 loader 取其顺序前 512 张）；此为**文档化偏离**（偏离官方"整脚本重跑"，系 §1 有意设计），Tier A 结论照此标注。
 - [x] 确认 R² 门控代码与 verify E5 行号一致（防仓库版本漂移）；

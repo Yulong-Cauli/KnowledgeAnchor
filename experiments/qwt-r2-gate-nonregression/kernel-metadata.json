@@ -1,0 +1,14 @@
+{
+  "id": "cauliyulong/claim-qwt-r2-gate-nonregression",
+  "title": "claim-qwt-r2-gate-nonregression",
+  "code_file": "qwt-r2-gate-tier-a.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": true,
+  "competition_sources": ["imagenet-object-localization-challenge"],
+  "dataset_sources": [],
+  "kernel_sources": [],
+  "model_sources": []
+}

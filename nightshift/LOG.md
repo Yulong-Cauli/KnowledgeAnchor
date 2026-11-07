@@ -90,3 +90,5 @@
 - [verify-fire1|01:16✅] [班A] 数据源侦察定案：sahangunasekara92/nuscenes-v1-0-full-keyframes 含 v1.0-trainval/ 元数据（scene.json 实拉=850场景、sample.json=34149样本，锚点双命中）；diamond1234/mitanshuchakrawarty 两备选实测404排除
 - [verify-fire1|01:19✅] [班A] 预注册落盘 commit 6720267（README: 阈值族H/L/P+判定带+5119锚点+防择优；5119 出处核实=笔记L55 AppendixB 有效样本口径）
 - [verify-fire1|01:24✅] [班A] notebook 8 cells 本地 ast 全过 + 合成数据冒烟（yaw/lateral/冲突检出）；kernel 推送排障：400×2（title 52字符/license/enable_tpu 嫌疑，工作配置=最简字段）→ **v2 RUNNING**（CPU会话+45.7GB数据集挂载）
+- [verify-fire1|01:52✅] [班B] notebook 就绪（8 cells 语法全过）；push 实测遭拒：**比赛规则未接受**（预检①勘误：competitions files 端点不验证接受状态）→ BLOCKED；sautkin 镜像评估后否决（分片哈希名/标签未验证，不引入未验证数据源）
+- [verify-fire1|01:55✅] [班B] BLOCKED.md + STATE(blocked_awaiting_competition_rules) + QUESTIONS #98 落盘；README Phase 0 勘误注记；恢复指令就绪（主人接受规则→一键重推）

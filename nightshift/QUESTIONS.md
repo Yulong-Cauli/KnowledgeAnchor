@@ -128,3 +128,6 @@
 93. **CornerNet 4.1 FPS 同机与否不可判**：OAP Table 2 caption 用斜体标示"转引自原论文"的 FPS，pdftotext 丢失斜体信息（centernetpoints-fps 卡 scope/falsifier 已留残留子项）；闭合需目检 PDF。
 94. **代码侧核查未做（4 卡 falsifier 保留）**：CenterNet 全仓库 NMS 存在性排查（只核了 decode.py）；CenterNet 三输出头无 embedding 仓库核对；princeton-vl/CornerNet pooling/AE 实现；tianzhi0549/FCOS 默认配置是否开中心采样。
 95. **经典检测笔记四处建议（需授权）**：① Objects as Points §潜在局限性 20.0% 转述为"漏检率"，原文口径是 Faster-RCNN 15 anchors @0.5 IoU 的 anchor 放置不足漏检率；② FCOS §预测头 仍把 Center-ness 列在分类塔输出下（v5 已改，消歧只在图注补注）；③ Keypoint Triplets §消融未载 CCP-only 行（38.3）与 MS-COCO validation 口径；④ CornerNet.md 未载任何实验数字（含 Table 1 消融 36.5→38.4）。
+
+## #98（班 B qwt-r2-gate-nonregression，2026-11-08 01:5x，BLOCKED 待主人）
+Kaggle 账号未接受 ImageNet 比赛规则（imagenet-object-localization-challenge），kernel push 挂数据源被 API 拒绝，班 B 今晚无法开跑。预检①探测手段错误已勘误（competitions files 端点不验证规则接受状态）。**主人动作**：浏览器接受 https://www.kaggle.com/c/imagenet-object-localization-challenge/rules 后，任何值班火次或手动 `kaggle kernels push -p experiments/qwt-r2-gate-nonregression` 即复活（notebook/metadata 已就绪，BLOCKED.md 有完整恢复指令）。备选 sautkin 镜像（分片哈希名、标签未验证）已评估并否决——不为赶进度引入未验证数据源。
