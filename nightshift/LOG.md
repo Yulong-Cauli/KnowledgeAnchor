@@ -86,3 +86,7 @@
 - 01:05 P1 分批编码：14 批 191/191 全覆盖（B1 历史 12/B2a 17/B2b 18/B3a 9/B3b 11/B3c 9/B4a 13/B4b 17/B4c 14/B4d 8/B5 20/B6 9/B7a 16/B7b 15）
 - 01:08 P1 派发 B1+B2a（2 并发后台）；同时 P2 对齐批：templates/claim.md + web/app.js NEW_CARD_BODY 换七节样板结构 + 阶段 C 字段显示说明（存储键不动），selftest PASS，commit 2055b51
 00:35–06:45 | fire-0035 | 02 任务书整理班全流程 | P0 三样板+sample-notes 定调（38232f3/0c6d48b）；P1 十六批 191/191 全清（含 B4e 补批 pillarnet×3——派发名单转写伪影致漏派的教训）；P2 templates+web 对齐（2055b51）；P3 程序全检 100%（138 卡冻结字段 0 变更、662 quote 0 真问题）+ 深核 32 卡抽样（批一 PASS16/批二 PASS10-FIXED6，3409d85）；P4 实施报告 tmp_docs/03（532a072） | validate OK(191) 全程 + selftest PASS + index 重建 | 23 commits 未 push；命题级修正 8 张（pdquant-pd-metric/vqmap-argoverse/hgsfusion-dark-scene/pillarnet-od-diou/njusparseocc/mobilenet-dsc N≥72/rcbevdet-dmsa 公式/ptqat×2）；公式级 3 张；QUESTIONS #48–95 共 48 条待主人；全部卡保持 asserted，未产生 verified
+- [verify-fire1|01:13✅] [总] 三火制第1火开班；基线 c24715a，工作区净；班B预检①ImageNet规则已接受②QwT仓库可达（api.github.com 实测）
+- [verify-fire1|01:16✅] [班A] 数据源侦察定案：sahangunasekara92/nuscenes-v1-0-full-keyframes 含 v1.0-trainval/ 元数据（scene.json 实拉=850场景、sample.json=34149样本，锚点双命中）；diamond1234/mitanshuchakrawarty 两备选实测404排除
+- [verify-fire1|01:19✅] [班A] 预注册落盘 commit 6720267（README: 阈值族H/L/P+判定带+5119锚点+防择优；5119 出处核实=笔记L55 AppendixB 有效样本口径）
+- [verify-fire1|01:24✅] [班A] notebook 8 cells 本地 ast 全过 + 合成数据冒烟（yaw/lateral/冲突检出）；kernel 推送排障：400×2（title 52字符/license/enable_tpu 嫌疑，工作配置=最简字段）→ **v2 RUNNING**（CPU会话+45.7GB数据集挂载）

@@ -1,0 +1,13 @@
+{
+  "id": "cauliyulong/claim-bevplanner-straight-driving-imbalance",
+  "title": "claim-bevplanner-straight-driving-imbalance",
+  "code_file": "bevplanner-straight-driving-stats.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_internet": true,
+  "dataset_sources": [
+    "sahangunasekara92/nuscenes-v1-0-full-keyframes"
+  ]
+}
