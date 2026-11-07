@@ -1,0 +1,11 @@
+# 本地临时数据与权重，一律不入库（见 experiments/README.md）
+data/
+checkpoints/
+*.pt
+*.pth
+*.ckpt
+*.tar
+__pycache__/
+.ipynb_checkpoints/
+# 值班瞬态文件
+LOCK
