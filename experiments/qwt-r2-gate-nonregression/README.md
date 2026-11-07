@@ -44,12 +44,15 @@ QwT 不改动量化权重，只在量化模块后并联线性补偿层。因此�
 
 ## 3. 阶段设计
 
-### Phase 0：官方仓库对齐（本地/网络，0.5h）
+### Phase 0：官方仓库对齐（本地/网络，0.5h）——2026-11-08 01:4x 完成
 
-- [ ] 确认仓库结构：ResNet 线（Percentile 基线）与 ViT 线（`QwT-cls-RepQ-ViT/qwt_vit_and_deit.py`）各自的入口脚本、依赖版本、checkpoint 获取方式；
-- [ ] 确认 PTQ 校准与 QwT 补偿校准是否共用 loader（影响 §1 解耦实现）；
-- [ ] 确认 R² 门控代码与 verify E5 行号一致（防仓库版本漂移）；
-- [ ] 产出：本 README 勾选 + 需要的话把实现细节补进 §3.1。
+- [x] 确认仓库结构：ResNet 线（Percentile 基线）与 ViT 线（`QwT-cls-RepQ-ViT/qwt_vit_and_deit.py`）各自的入口脚本、依赖版本、checkpoint 获取方式；
+  → **checkpoint 不需要**：管线自含——`build_model`（utils/build_model.py L67）用 `timm.create_model(pretrained=True)` 在线拉 FP 权重，PTQ（RepQ-ViT 规模重参数化 / ResNet Percentile）在脚本内完成；repo 克隆 + API 实测 default 分支 sha=`8a927da86be764a85b7d552bcdfa937af8211f90`（2025-09-30 "update readme"），kernel 按 pinned sha 运行时克隆。ImageNet 比赛数据集规则已接受（`kaggle competitions files` 实测可列）。
+- [x] 确认 PTQ 校准与 QwT 补偿校准是否共用 loader（影响 §1 解耦实现）；
+  → **确认耦合**：PTQ 校准 = `loader_train` 首批（L323-325，batch_size 32）；QwT 补偿 = `loader_train` 顺序前 512 张（L141-147）。官方重跑 `--seed s` 会同时重抽两者。按 §1 解耦设计：PTQ 用 seed 0 校准一次并固化 state_dict，逐种子只换补偿集（每 seed 按官方协议重建 loader 取其顺序前 512 张）；此为**文档化偏离**（偏离官方"整脚本重跑"，系 §1 有意设计），Tier A 结论照此标注。
+- [x] 确认 R² 门控代码与 verify E5 行号一致（防仓库版本漂移）；
+  → **逐行核对通过**：`qwt_vit_and_deit.py` L44 `LINEAR_COMPENSATION_SAMPLES = 512`、L62-69 门控（`linear_init and (r2_score > 0)` else 置零）、L127-129 R² 公式（ss_tot/ss_res），与 verify E5 引文逐字一致，无漂移。
+- [x] 产出：本 README 勾选 + 实现细节补进 §3.1。
 
 ### Phase 1：锚点复现（1 个 GPU 会话内）
 
@@ -68,6 +71,15 @@ QwT 不改动量化权重，只在量化模块后并联线性补偿层。因此�
 3. 记录逐模块 R² 分布直方图（校准 R² 的分布形态本身就是后续所有分析的背景）。
 
 ### Phase 3：对抗扫描（主实验，Tier A）
+
+**§3.1 实现注记（2026-11-08 Phase 0 后补，授权自 Phase 0 产出条目）**
+
+- 运行时 `git clone https://github.com/wujx2001/QwT` 并 checkout pinned sha `8a927da`，`sys.path` 指向 `QwT-cls-RepQ-ViT/`；clone sha 记入 metrics（防漂移）。
+- 数据：`/kaggle/input/imagenet-object-localization-challenge/ILSVRC/Data/CLS-LOC`。val 目录结构运行时探测：若已按类分目录直接用；若 flat 则解析 `ILSVRC/Annotations/CLS-LOC/val/*.xml` 的 `<name>`（wnid）把 50k val 图符号链接到 `/kaggle/working/val_sorted/<wnid>/`（与 train 同一 sorted-wnid 索引空间）；无 XML 再 fallback devkit ground truth。实际采用哪条路径记入 metrics。
+- eval batch 64（官方 32——纯吞吐偏离，不影响逐样本精度，记录在案）；train loader batch 32 保持官方（PTQ 校准批与补偿流式语义不变）。
+- Phase 3 每种子：按官方协议重建该 seed 的 loader_train → 顺序取前 512 张过 `forward_before_blocks` 收特征**一次**；`calib_size ∈ {512,128,64,32}` 对特征前 k 张切片各自回归（闭式解，秒级）；`gate on/off` 复用同一回归（off = CompensationBlock 以 r2_score=1.0 强制 linear init，即无视门控全部载入 W,b）；随后逐配置 eval。每 seed 实测 ≈ 8 次 eval（4 尺寸 × 2 门控）。
+- PTQ 固化：seed 0 校准 + 量化 + 规模重参数化完成后 `state_dict` 存 `/kaggle/working/ptq_deit_tiny.pt`，Phase 3 每配置从固化权重载入（§1 解耦要点）。
+- 会话自检点：**5.5h**——此后不启动新配置，收尾保存退出（保 08:10 收割火前完成）。
 
 维度矩阵（每格 K=3 校准种子）：
 
