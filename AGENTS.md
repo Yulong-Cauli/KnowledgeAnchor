@@ -11,6 +11,7 @@
 ## 可写
 
 - 可以创建或修改 `claims/` 中 `status: asserted` 的卡片。
+- 可以创建和修改 `experiments/` 下的实验代码与结果（约定见 `experiments/README.md`）；实验数字必须如实记录，失败与反例同样入库，不得先有结论再凑数据；实验不改变任何 claim 的 status；数据集、checkpoint 等大文件不得入 git。
 - 可以建议修改 `library/` 笔记，但未经用户同意不要直接改。
 - 不得修改任何 `status: verified / refuted / stale` 的 claim；不得修改 `signoff`。
 - 不得把 `asserted` 改为 `verified`；本仓库没有供 Agent 使用的 verify 命令。
