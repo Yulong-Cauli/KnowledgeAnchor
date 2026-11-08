@@ -88,6 +88,7 @@ for j, (metric, label, color) in enumerate([('start_speed_mps', '起点速度估
                          ha='center', va='bottom', fontsize=8, rotation=35)
 for axis in axes:
     axis.set_xticks(x, labels)
+    axis.set_xlim(-.6, len(edges)-.4)
     axis.set_xlabel('速度分组（m/s，左闭右开；1 m/s = 3.6 km/h）')
     axis.yaxis.set_major_formatter(mtick.PercentFormatter(1))
     axis.legend(frameon=False, loc='upper right')
@@ -104,6 +105,8 @@ fig.savefig(OUT / 'speed-groups.png', dpi=220)
 fig.savefig(OUT / 'speed-groups.svg')
 plt.close(fig)
 sha = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
+for vector in OUT.glob('*.svg'):
+    vector.write_bytes(('\n'.join(line.rstrip() for line in vector.read_text(encoding='utf-8').splitlines())+'\n').encode('utf-8'))
 record = {'source_profile_sha256': sha(RESULTS/'profile.json'), 'plot_script_sha256': sha(Path(__file__)),
           'matplotlib_version': matplotlib.__version__, 'numpy_version': np.__version__,
           'curve_boundary': 'ECDF uses <=; threshold tables and bar proportions use strict <',

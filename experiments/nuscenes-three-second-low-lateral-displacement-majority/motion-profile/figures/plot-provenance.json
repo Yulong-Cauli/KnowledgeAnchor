@@ -1,6 +1,6 @@
 {
   "source_profile_sha256": "4bd35cd9764ddcc9d5edb3d8cee4c7f2348fb657a858b9d208d8af436c71f90d",
-  "plot_script_sha256": "023cacb0f08f79acb9147fc20f8ce8f2a36953ff9c7ab89d88feb9be02186f91",
+  "plot_script_sha256": "e320eef6a993eb9e197d830031c654aa8e87987432e2280102385e64b618d13d",
   "matplotlib_version": "3.9.2",
   "numpy_version": "1.26.4",
   "curve_boundary": "ECDF uses <=; threshold tables and bar proportions use strict <",
