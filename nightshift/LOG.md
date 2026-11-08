@@ -105,3 +105,4 @@
 2026-11-09 00:30:52 | fire-0020 | init 完成 | 班B v2 RUNNING(规则实锤)+K-env v1+K-probe-1 v1(RUNNING)；POOL/STATE 已更 | 预注册 b555f02 先于 K-probe-1 push
 2026-11-09 02:20:49 | fire-0220 | 班次开始 | POOL mtime 00:30 无防重入 | K-env COMPLETE，K-probe-1 ERROR，班B ERROR——修复重推各 1/2
 2026-11-09 02:41:42 | fire-0220 | 收割+修复 | K-env done(v1 结论入库)；K-probe-1 v2 重推(修3处,本地过)；班B v3 重推(val路径修复,1/2)；K-env-v2 入池 | 修复预算各 1/2
+2026-11-09 02:43:46 | fire-0220 | K-coco-stats init | R1 定 awsaf49/coco-2017-dataset(470MB train 标注实测)；预注册 c08407c；notebook 主口径修正(全部标注含 crowd)后 push | CPU 槽 2/2 占用
