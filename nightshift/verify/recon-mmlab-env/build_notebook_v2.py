@@ -57,7 +57,7 @@ RES['index_probe'] = {
 print(json.dumps(RES['index_probe']), flush=True)
 
 # miniconda 底座（v1 已证可行，重装一遍）
-sh('download-miniforge', 'rm -f /kaggle/tmp/miniforge2.sh; (curl --retry 5 --retry-delay 3 -fsSL https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh -o /kaggle/tmp/miniforge2.sh || curl --retry 5 --retry-delay 3 -fsSL https://mirrors.tuna.tsinghua.edu.cn/github-release/conda-forge/miniforge/LatestRelease/Miniforge3-Linux-x86_64.sh -o /kaggle/tmp/miniforge2.sh) && ls -la /kaggle/tmp/miniforge2.sh', 900)
+sh('download-miniforge', 'mkdir -p /kaggle/tmp && rm -f /kaggle/tmp/miniforge2.sh; (curl --retry 5 --retry-delay 3 -fsSL https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh -o /kaggle/tmp/miniforge2.sh || curl --retry 5 --retry-delay 3 -fsSL https://mirrors.tuna.tsinghua.edu.cn/github-release/conda-forge/miniforge/LatestRelease/Miniforge3-Linux-x86_64.sh -o /kaggle/tmp/miniforge2.sh) && ls -la /kaggle/tmp/miniforge2.sh', 900)
 sh('install-miniconda', 'bash /kaggle/tmp/miniforge2.sh -b -p /kaggle/tmp/mc2', 1200)
 sh('verify-conda', 'test -x /kaggle/tmp/mc2/bin/conda && /kaggle/tmp/mc2/bin/conda --version', 120)"""})
 

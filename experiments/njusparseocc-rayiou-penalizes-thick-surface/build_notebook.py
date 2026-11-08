@@ -173,6 +173,13 @@ try:
     P2['sha256'] = hashlib.sha256(src).hexdigest()
     open('/kaggle/working/results/nf4/bnb_functional_fetched.py', 'wb').write(src)
     print('fetched bnb functional.py', P2['sha256'][:16], flush=True)
+    import types, sys as _sys
+    _utils_stub = types.ModuleType('bitsandbytes.utils')
+    _utils_stub.pack_dict_to_tensor = lambda *a, **k: None
+    _utils_stub.unpack_tensor_to_dict = lambda *a, **k: None
+    _bnb_stub = types.ModuleType('bitsandbytes'); _bnb_stub.utils = _utils_stub
+    _sys.modules.setdefault('bitsandbytes', _bnb_stub)
+    _sys.modules.setdefault('bitsandbytes.utils', _utils_stub)   # v2 修复：functional.py L16 的包内绝对导入（仅 state 辅助，构造函数不用）
     ns_bnb = {}
     exec(compile(src, 'bnb_functional.py', 'exec'), ns_bnb)   # 隔离命名空间，不 import 安装版
     nf4_table = list(ns_bnb['nf4'])                            # 硬编码 16 值

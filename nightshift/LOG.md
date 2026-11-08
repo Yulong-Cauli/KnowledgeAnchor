@@ -114,3 +114,4 @@
 2026-11-09 04:45:08 | fire-0420 | K-probe-2 init | 预注册 eafa8a0；本地冒烟 P1 toy SUPPORT(d_ray=0.0)+P3 CONSISTENT+P2 管线通；push v1 | CPU 槽 2/2（probe-2+env-v2）
 2026-11-09 06:21:18 | fire-0620 | 班次开始 | POOL mtime 04:45 无防重入 | probe-2/env-v2 COMPLETE；班B v5 ERROR（按 STATE 承诺走 BLOCKED，不再重推）
 2026-11-09 06:24:45 | fire-0620 | 班B BLOCKED | v5 败于 create_loader 缺 re_prob（shim+数据管线全通）；预算尽按承诺停手；QUESTIONS #100 三选一待主人 | T4 槽空出
+2026-11-09 06:25:26 | fire-0620 | 两 CPU 重推 | env-v2 v3(mkdir 修复,v1/v2 败因翻案=目录缺失非网络)+probe-2 v2(bnb exec stub) | 预算：env-v2 2/2 尽，probe-2 1/2
