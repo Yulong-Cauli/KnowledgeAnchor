@@ -97,3 +97,4 @@
 - [catchup-1055✅] [班B] 复活探测：push 仍被拒（主人尚未接受 ImageNet 规则），维持 BLOCKED 待 #98
 - [catchup-1116✅] [班A] kernel v8 COMPLETE（49s 计算段）；收割完成：results/ 四件套+sha256 清单入库、RESULTS.md（falsifier1 未触发/73.9% 带内复得/87% 与 5119 精准复现/五项文档化偏离）、STATE=done、卡片核查记录追加一行（status 未动）
 - [catchup-1117✅] [总] 班B 维持 BLOCKED（主人未接受 ImageNet 规则，QUESTIONS #98 待答）；三火 automation 仍处暂停态待主人恢复或删除
+2026-11-09 00:11:17 | 主会话部署 | cron 提前批示（00:20 首火，20 0,3,8,12,18）已生效；任务书/POOL 同步待 commit | - | -

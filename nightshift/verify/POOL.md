@@ -5,8 +5,8 @@
 > QUESTIONS 自 #100 起（#96–99 为 04 班保留）。git 提交 flock `nightshift/.git-commit.lock`，前缀 `nightshift: verify ...`。
 
 - mode: **active**  （active = 正常执行；polling = 全部 done/blocked 后转入，不收摊、不自动停机；⛔ = 主人专用紧急停机）
-- automation: `automation-2b53c801-b509-4234-bbc2-fe54d8dc3f39`（2026-11-09 建，active，首火 2026-11-09 01:10）
-- cron: `10 1,3,8,12,18 * * *`（recurring=true，5 火/天统一执行器）
+- automation: `automation-2b53c801-b509-4234-bbc2-fe54d8dc3f39`（2026-11-09 建，active，首火 2026-11-09 00:20）
+- cron: `20 0,3,8,12,18 * * *`（recurring=true，5 火/天统一执行器；2026-11-09 00:1x 主人批示首火由 01:10 提前至 00:20）
 - 建池时间：2026-11-09；建池 commit：见 git log「nightshift: verify pool init」
 
 ## 槽序与状态
@@ -48,3 +48,4 @@
 ## 班次记录（append-only，时间戳取实际 date）
 
 - 2026-11-09 主会话建池：24 卡四组 → 16 kernel（5 CPU + 10 T4 新 + 班 B）入池，mode=active；任务书 05 定稿（轮询模式版）。规则门主人口头确认已接受，待首火 push 实测。
+- 2026-11-09 00:1x 主人批示首火提前：cron `10 1,3,8,12,18` → `20 0,3,8,12,18`（CronUpdate 已生效，nextRunAt=00:20），任务书/POOL 同步。
