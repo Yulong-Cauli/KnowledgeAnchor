@@ -92,3 +92,6 @@
 - [verify-fire1|01:24✅] [班A] notebook 8 cells 本地 ast 全过 + 合成数据冒烟（yaw/lateral/冲突检出）；kernel 推送排障：400×2（title 52字符/license/enable_tpu 嫌疑，工作配置=最简字段）→ **v2 RUNNING**（CPU会话+45.7GB数据集挂载）
 - [verify-fire1|01:52✅] [班B] notebook 就绪（8 cells 语法全过）；push 实测遭拒：**比赛规则未接受**（预检①勘误：competitions files 端点不验证接受状态）→ BLOCKED；sautkin 镜像评估后否决（分片哈希名/标签未验证，不引入未验证数据源）
 - [verify-fire1|01:55✅] [班B] BLOCKED.md + STATE(blocked_awaiting_competition_rules) + QUESTIONS #98 落盘；README Phase 0 勘误注记；恢复指令就绪（主人接受规则→一键重推）
+- [catchup-1050✅] [总] 早间补班开始（automation 仍处误暂停态，2/3 火未跑；本班手动执行其职责）。班A kernel 实为 ERROR：cell4 ast.literal_eval 挂于 devkit splits.py L102（现版 train=list(sorted(set(...))) 组合式定义）；**cell3 数据管线全过**（四JSON载入+锚点全中：850场景/34149样本/2631083 sample_data）
+- [catchup-1053✅] [班A] cell4 改 exec 载入官方 splits.py（pinned sha 不变），外科手术式 patch+ast 全过 → v3 push；随后 cwd 误停班A目录又推一版（v4=与v3同内容无害重复）——记为操作瑕疵
+- [catchup-1055✅] [班B] 复活探测：push 仍被拒（主人尚未接受 ImageNet 规则），维持 BLOCKED 待 #98
