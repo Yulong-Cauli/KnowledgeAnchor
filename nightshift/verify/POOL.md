@@ -21,7 +21,7 @@
 | — | K-probe-1 `ka-verify-probe-pointnet-mobilenet` | CPU | experiments/pointnetpillars-pointnet-permutation-invariance-symmetric-function/ | done | …(v2) | **P1 逐位一致 / P2 max 带内（sum 出带观察）/ P4 双 SUPPORT**；P3 未闭合留人工；三卡核查记录已加；RESULTS 四件套齐（env 快照缺口登记） |
 | — | K-probe-2 `ka-verify-probe-rayiou-nf4-flops` | CPU | experiments/njusparseocc-rayiou-penalizes-thick-surface/ | running | kaggle.com/code/cauliyulong/ka-verify-probe-rayiou-nf4-flops (v1) | 预注册 eafa8a0；关联卡：qlora-nf4（#48 材料）、sparseocc-flops；本地冒烟 P1 SUPPORT/P3 CONSISTENT |
 | — | K-lingo `ka-verify-lingoqa-judge` | CPU | experiments/lingoqa-lingo-judge-spearman-0950/ | pending | — | 依赖 R7；CPU 过慢转 T4 |
-| 0 | 班 B `claim-qwt-r2-gate-nonregression`（既有） | T4 | experiments/qwt-r2-gate-nonregression/ | running | …(v5) | v3 败于 vendor timm 兼容（hf_hub 键）→ v4 shim（本地全链验证）含班次笔误 → v5 RUNNING；预算说明见 STATE（若主人认定超限→后续 BLOCKED）；自检点 ~10:25，**收割明晚 00:20 火** |
+| 0 | 班 B `claim-qwt-r2-gate-nonregression`（既有） | T4 | experiments/qwt-r2-gate-nonregression/ | **blocked(预算尽)** | …(v5 error 留痕) | v5 败于 create_loader 缺 re_prob kwarg（shim+数据管线已实测全通，v6 只差一行）；**BLOCKED+QUESTIONS #100 三选一待主人**；不再重推 |
 | 1 | K-bevdet `ka-verify-bevdet-scale-nms` | T4 | experiments/bevdet-scale-nms-small-object-ap-gain/ | pending | — | 依赖 K-env；关联卡：bevdet-tiny-fcos3d |
 | 2 | K-triplets `ka-verify-centernettriplets-oracle` | T4 | experiments/centernettriplets-gt-center-oracle-ap-565/ | pending | — | 依赖 R1/R5 |
 | 3 | K-bevplanner `ka-verify-bevplanner-egostatus-injection` | T4 | experiments/bevplanner-egostatus-injection-closes-gap/ | pending | — | 依赖 K-env + R2/R6；关联卡：ego-velocity、egomlp-parity；1–2 会话 STATE 断点 |

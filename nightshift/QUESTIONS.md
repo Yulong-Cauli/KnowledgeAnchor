@@ -131,3 +131,6 @@
 
 ## #98（班 B qwt-r2-gate-nonregression，2026-11-08 01:5x，BLOCKED 待主人）
 Kaggle 账号未接受 ImageNet 比赛规则（imagenet-object-localization-challenge），kernel push 挂数据源被 API 拒绝，班 B 今晚无法开跑。预检①探测手段错误已勘误（competitions files 端点不验证规则接受状态）。**主人动作**：浏览器接受 https://www.kaggle.com/c/imagenet-object-localization-challenge/rules 后，任何值班火次或手动 `kaggle kernels push -p experiments/qwt-r2-gate-nonregression` 即复活（notebook/metadata 已就绪，BLOCKED.md 有完整恢复指令）。备选 sautkin 镜像（分片哈希名、标签未验证）已评估并否决——不为赶进度引入未验证数据源。
+
+## #100（班B qwt-r2-gate，fire-0620 06:2x，BLOCKED 待主人裁定）
+v5 败于 QwT vendor `utils.utils.create_loader` 缺位置参数 `re_prob`（TypeError，cell 2 L71；eval loader 拟补 `re_prob=0.0`——eval 不做 random erasing，方法层含义待主人确认是否照补）。**已实测全通**：timm 兼容 shim 四件套、repo clone（pinned 8a927da）、CLS-LOC 探测、val XML 排序 50,000、train 1,281,167 载入——v6 只差一个 kwarg 即达 Phase 1 锚点复现（DeiT-T 58.2→61.4）。修复预算按任务书 ≤2 次已用尽（v3 val 路径；v4/v5 vendor shim 记一次），班次按 STATE 承诺停手。**主人三选一**：①授权 v6（预计一次直达 Phase 1）；②亲自修改；③维持 BLOCKED。若授权，任何火次/手动：改 notebook 一行 → `kaggle kernels push -p experiments/qwt-r2-gate-nonregression`。
