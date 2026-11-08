@@ -98,3 +98,7 @@
 - [catchup-1116✅] [班A] kernel v8 COMPLETE（49s 计算段）；收割完成：results/ 四件套+sha256 清单入库、RESULTS.md（falsifier1 未触发/73.9% 带内复得/87% 与 5119 精准复现/五项文档化偏离）、STATE=done、卡片核查记录追加一行（status 未动）
 - [catchup-1117✅] [总] 班B 维持 BLOCKED（主人未接受 ImageNet 规则，QUESTIONS #98 待答）；三火 automation 仍处暂停态待主人恢复或删除
 2026-11-09 00:11:17 | 主会话部署 | cron 提前批示（00:20 首火，20 0,3,8,12,18）已生效；任务书/POOL 同步待 commit | - | -
+2026-11-09 00:22:06 | fire-0020 | 班次开始 | POOL mtime 00:11 防重入命中但系本会话部署班收尾（780c60c），无并行值班者，放行 | 计划：B push 实测规则→K-env init→K-probe-1 init
+2026-11-09 00:22:49 | fire-0020 | 班B 复活 | push 成功 v2（ImageNet 规则接受实锤，403 消失）| T4 槽被班B占用
+2026-11-09 00:26:20 | 主会话调度 | 主人批示 12:20/18:20 两火取消（夜间 token 09:00 过期）——cron 20 0,3,8,12,18 → 20 0,2,4,6,8 已生效（nextRunAt=02:20）；任务书/POOL 同步 | - | -
+2026-11-09 00:26:03 | fire-0020 | K-env init | notebook 6 cells ast 全过，kernel 推送 | CPU 槽 1/2 占用
