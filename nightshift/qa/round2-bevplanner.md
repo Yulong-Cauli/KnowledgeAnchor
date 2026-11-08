@@ -1,5 +1,7 @@
 # QA round2 — BEV-Planner 5 张 claim 卡复审
 
+> **2026-11-08 现行状态更正（本报告其余内容为历史快照）：** 原 `claim-bevplanner-nuscenes-straight-driving-imbalance` 已移除，由 [nuScenes 六步低横向位移数据属性卡](../../claims/claim-nuscenes-three-second-low-lateral-displacement-majority.md)（asserted / watch，尚未独立验证）替代。原“精准复现/强证据”解释已撤回，见 [审核说明](../../experiments/bevplanner-nuscenes-straight-driving-imbalance/AUDIT-2026-11-08.md)。旧 id 与旧评级仅保留历史语境，新卡不承接捷径因果。
+
 - 日期：2026-11-02
 - 复审人：QA 子代理（nightshift round2）
 - 来源笔记：`library/ADe2e/BEV-Planner.md`

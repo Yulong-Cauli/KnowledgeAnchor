@@ -1,5 +1,7 @@
 # BEV-Planner 深度精读报告
 
+> **2026-11-08 现行状态更正（本报告其余内容为历史快照）：** 原 `claim-bevplanner-nuscenes-straight-driving-imbalance` 已移除，由 [nuScenes 六步低横向位移数据属性卡](../../claims/claim-nuscenes-three-second-low-lateral-displacement-majority.md)（asserted / watch，尚未独立验证）替代。原“精准复现/强证据”解释已撤回，见 [审核说明](../../experiments/bevplanner-nuscenes-straight-driving-imbalance/AUDIT-2026-11-08.md)。旧 id 与旧评级仅保留历史语境，新卡不承接捷径因果。
+
 **日期：** 2026-11-02
 **性质：** nightshift report 班次产出；只读素材，仅新增本文件；不 git 提交
 **服务对象：** 主人的端到端自动驾驶研究（`library/ADe2e/` 线）

@@ -1,0 +1,7 @@
+2026-11-08T13:32:39Z started claim-nuscenes-three-second-low-lateral-displacement-majority
+2026-11-08T13:33:07Z official metadata hashed: ego_pose.json
+2026-11-08T13:33:07Z official metadata hashed: scene.json
+2026-11-08T13:33:19Z official metadata hashed: sample_data.json
+2026-11-08T13:33:21Z official metadata hashed: sample.json
+2026-11-08T13:33:53Z complete windows=29049; excluded tails={'train': 4200, 'val': 900}
+2026-11-08T13:33:57Z finished: {"n": 29049, "counts": {"endpoint_lt_2m": 25409, "max_lateral_lt_2m": 25409, "endpoint_only_excursion": 0}, "ratios": {"endpoint_lt_2m": 0.8746944817377534, "max_lateral_lt_2m": 0.8746944817377534, "endpoint_only_excursion": 0.0}, "majority_gt_half": true, "motion_state_counts": {"moving": 23799, "stopped": 4481, "low_speed": 769}}

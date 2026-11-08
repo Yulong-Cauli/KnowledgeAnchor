@@ -1,0 +1,11 @@
+{
+  "id": "cauliyulong/claim-nuscenes-low-lateral-census",
+  "title": "claim-nuscenes-low-lateral-census",
+  "code_file": "motion-census.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_internet": true,
+  "dataset_sources": ["sahangunasekara92/nuscenes-v1-0-full-keyframes"]
+}

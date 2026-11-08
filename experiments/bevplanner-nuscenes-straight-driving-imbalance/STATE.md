@@ -1,5 +1,7 @@
 # STATE — 班 A（bevplanner-straight-driving）
 
+> 当前状态（2026-11-08）：**retired / superseded**。以下 done 是原收割状态，不代表审核通过；原解释已撤回、旧卡已移除，见 [审核说明](AUDIT-2026-11-08.md) 和 [后续普查](../nuscenes-three-second-low-lateral-displacement-majority/README.md)。
+
 - phase: **done**（2026-11-08 11:16 收割完成）
 - preregister_commit: 6720267（阈值族/判定带锁定先于运行）
 - kernel: `cauliyulong/claim-bevplanner-straight-driving-imbalance` **version 8（成功）**；v1-v7 全程失败留痕（见 RESULTS.md §4）

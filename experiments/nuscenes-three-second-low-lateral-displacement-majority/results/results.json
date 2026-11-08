@@ -1,0 +1,384 @@
+{
+  "claim_id": "claim-nuscenes-three-second-low-lateral-displacement-majority",
+  "protocol": {
+    "horizon_keyframes": 6,
+    "nominal_horizon_seconds": 3,
+    "primary_abs_endpoint_lateral_lt_m": 2.0,
+    "majority_ratio_strictly_gt": 0.5,
+    "stopped_path_length_le_m": 0.3,
+    "low_speed_path_length_le_m": 1.5,
+    "crosscheck_min_each_step_gt_m": 0.3,
+    "crosscheck_accumulated_difference_gt_deg": 15.0,
+    "lateral_sensitivity_m": [
+      0.5,
+      1.0,
+      2.0,
+      3.0
+    ],
+    "heading_sensitivity_deg": [
+      3,
+      5,
+      10,
+      15,
+      20,
+      30
+    ],
+    "design_origin": "post-exploration definition frozen before this follow-up census; not the original preregistration"
+  },
+  "provenance": {
+    "startup_git_head": "d50d40679a4a904a3faf92e0b2e76208c0b94502",
+    "code_sha256": "ce4dda3c13b64fe511f109366796edbf6795385f747a979deb08ee48089e27d7",
+    "protocol_readme_sha256": "55aa33013558130ad9d310d29b853f7741bc522c54bada73a9ba03f96f9bc1c6",
+    "splits_manifest_sha256": "c7d03cf20063c1d11357857b89a74cc2c01759dc594da716e7d0aefb332e56d7",
+    "devkit_splits_commit": "b40adc467b919192899405d9b77871afee8efa07",
+    "kaggle_source_metadata_sha256": "82aab97ebac7a97c811a51ec55b919fcc1b63d6777969dc7c2ef701daf61cb60",
+    "kaggle_source_ref": "sahangunasekara92/nuscenes-v1-0-full-keyframes",
+    "kaggle_source_recorded_version": null,
+    "kaggle_kernel": "cauliyulong/nuscenes-low-lateral-census",
+    "version_binding": "exact version and downloaded-code equality recorded in local harvest.json"
+  },
+  "environment": {
+    "python": "3.13.18 (main, Oct 26 2026, 15:28:15) [GCC 13.3.0]",
+    "platform": "Linux-6.18.55+-x86_64-with-glibc2.39",
+    "cpu": "Intel(R) Xeon(R) CPU @ 2.20GHz",
+    "gpu_used": false,
+    "pip_freeze_sha256": "358b7d293968e155cb9c32d8d40f8f1f165e386f564d91c3a4350ed6c6b6348b"
+  },
+  "data": {
+    "dataset": "sahangunasekara92/nuscenes-v1-0-full-keyframes",
+    "version": "v1.0-trainval",
+    "sha256": {
+      "scene.json": "bdc3211bfbfda652d5e9dab73c45c7132925ca84f869bf45e8e14edeafb1d20b",
+      "sample.json": "6035ac58b6e971622be2bb1be15b917e7cb4e05ae984d6b339c27c1699c4ad9d",
+      "sample_data.json": "6dcad49f0b9bd7b1cef04e2a0ff2ac2879b46b938e8d48153f00693cebb4de21",
+      "ego_pose.json": "be12bd501f694b344628ba0680a37d6e1ec83e62b37f310c205c1dbe41cd09ff"
+    },
+    "counts": {
+      "scenes": 850,
+      "samples": 34149,
+      "sample_data": 2631083,
+      "ego_pose": 2631083,
+      "all_samples_by_split": {
+        "train": 28130,
+        "val": 6019
+      },
+      "excluded_incomplete_by_split": {
+        "train": 4200,
+        "val": 900
+      },
+      "missing_lidar": 0
+    },
+    "official_comparison_status": "matched"
+  },
+  "populations": {
+    "trainval_all": {
+      "n": 29049,
+      "counts": {
+        "endpoint_lt_2m": 25409,
+        "max_lateral_lt_2m": 25409,
+        "endpoint_only_excursion": 0
+      },
+      "ratios": {
+        "endpoint_lt_2m": 0.8746944817377534,
+        "max_lateral_lt_2m": 0.8746944817377534,
+        "endpoint_only_excursion": 0.0
+      },
+      "majority_gt_half": true,
+      "motion_state_counts": {
+        "moving": 23799,
+        "stopped": 4481,
+        "low_speed": 769
+      }
+    },
+    "trainval_stopped": {
+      "n": 4481,
+      "counts": {
+        "endpoint_lt_2m": 4481,
+        "max_lateral_lt_2m": 4481,
+        "endpoint_only_excursion": 0
+      },
+      "ratios": {
+        "endpoint_lt_2m": 1.0,
+        "max_lateral_lt_2m": 1.0,
+        "endpoint_only_excursion": 0.0
+      },
+      "majority_gt_half": true,
+      "motion_state_counts": {
+        "stopped": 4481
+      }
+    },
+    "trainval_low_speed": {
+      "n": 769,
+      "counts": {
+        "endpoint_lt_2m": 769,
+        "max_lateral_lt_2m": 769,
+        "endpoint_only_excursion": 0
+      },
+      "ratios": {
+        "endpoint_lt_2m": 1.0,
+        "max_lateral_lt_2m": 1.0,
+        "endpoint_only_excursion": 0.0
+      },
+      "majority_gt_half": true,
+      "motion_state_counts": {
+        "low_speed": 769
+      }
+    },
+    "trainval_moving": {
+      "n": 23799,
+      "counts": {
+        "endpoint_lt_2m": 20159,
+        "max_lateral_lt_2m": 20159,
+        "endpoint_only_excursion": 0
+      },
+      "ratios": {
+        "endpoint_lt_2m": 0.8470523971595445,
+        "max_lateral_lt_2m": 0.8470523971595445,
+        "endpoint_only_excursion": 0.0
+      },
+      "majority_gt_half": true,
+      "motion_state_counts": {
+        "moving": 23799
+      }
+    },
+    "trainval_non_stopped": {
+      "n": 24568,
+      "counts": {
+        "endpoint_lt_2m": 20928,
+        "max_lateral_lt_2m": 20928,
+        "endpoint_only_excursion": 0
+      },
+      "ratios": {
+        "endpoint_lt_2m": 0.8518397915988277,
+        "max_lateral_lt_2m": 0.8518397915988277,
+        "endpoint_only_excursion": 0.0
+      },
+      "majority_gt_half": true,
+      "motion_state_counts": {
+        "moving": 23799,
+        "low_speed": 769
+      }
+    },
+    "train_all": {
+      "n": 23930,
+      "counts": {
+        "endpoint_lt_2m": 20908,
+        "max_lateral_lt_2m": 20908,
+        "endpoint_only_excursion": 0
+      },
+      "ratios": {
+        "endpoint_lt_2m": 0.8737150020894275,
+        "max_lateral_lt_2m": 0.8737150020894275,
+        "endpoint_only_excursion": 0.0
+      },
+      "majority_gt_half": true,
+      "motion_state_counts": {
+        "moving": 19481,
+        "low_speed": 635,
+        "stopped": 3814
+      }
+    },
+    "train_stopped": {
+      "n": 3814,
+      "counts": {
+        "endpoint_lt_2m": 3814,
+        "max_lateral_lt_2m": 3814,
+        "endpoint_only_excursion": 0
+      },
+      "ratios": {
+        "endpoint_lt_2m": 1.0,
+        "max_lateral_lt_2m": 1.0,
+        "endpoint_only_excursion": 0.0
+      },
+      "majority_gt_half": true,
+      "motion_state_counts": {
+        "stopped": 3814
+      }
+    },
+    "train_low_speed": {
+      "n": 635,
+      "counts": {
+        "endpoint_lt_2m": 635,
+        "max_lateral_lt_2m": 635,
+        "endpoint_only_excursion": 0
+      },
+      "ratios": {
+        "endpoint_lt_2m": 1.0,
+        "max_lateral_lt_2m": 1.0,
+        "endpoint_only_excursion": 0.0
+      },
+      "majority_gt_half": true,
+      "motion_state_counts": {
+        "low_speed": 635
+      }
+    },
+    "train_moving": {
+      "n": 19481,
+      "counts": {
+        "endpoint_lt_2m": 16459,
+        "max_lateral_lt_2m": 16459,
+        "endpoint_only_excursion": 0
+      },
+      "ratios": {
+        "endpoint_lt_2m": 0.844874493095837,
+        "max_lateral_lt_2m": 0.844874493095837,
+        "endpoint_only_excursion": 0.0
+      },
+      "majority_gt_half": true,
+      "motion_state_counts": {
+        "moving": 19481
+      }
+    },
+    "train_non_stopped": {
+      "n": 20116,
+      "counts": {
+        "endpoint_lt_2m": 17094,
+        "max_lateral_lt_2m": 17094,
+        "endpoint_only_excursion": 0
+      },
+      "ratios": {
+        "endpoint_lt_2m": 0.849771326307417,
+        "max_lateral_lt_2m": 0.849771326307417,
+        "endpoint_only_excursion": 0.0
+      },
+      "majority_gt_half": true,
+      "motion_state_counts": {
+        "moving": 19481,
+        "low_speed": 635
+      }
+    },
+    "val_all": {
+      "n": 5119,
+      "counts": {
+        "endpoint_lt_2m": 4501,
+        "max_lateral_lt_2m": 4501,
+        "endpoint_only_excursion": 0
+      },
+      "ratios": {
+        "endpoint_lt_2m": 0.8792732955655401,
+        "max_lateral_lt_2m": 0.8792732955655401,
+        "endpoint_only_excursion": 0.0
+      },
+      "majority_gt_half": true,
+      "motion_state_counts": {
+        "stopped": 667,
+        "low_speed": 134,
+        "moving": 4318
+      }
+    },
+    "val_stopped": {
+      "n": 667,
+      "counts": {
+        "endpoint_lt_2m": 667,
+        "max_lateral_lt_2m": 667,
+        "endpoint_only_excursion": 0
+      },
+      "ratios": {
+        "endpoint_lt_2m": 1.0,
+        "max_lateral_lt_2m": 1.0,
+        "endpoint_only_excursion": 0.0
+      },
+      "majority_gt_half": true,
+      "motion_state_counts": {
+        "stopped": 667
+      }
+    },
+    "val_low_speed": {
+      "n": 134,
+      "counts": {
+        "endpoint_lt_2m": 134,
+        "max_lateral_lt_2m": 134,
+        "endpoint_only_excursion": 0
+      },
+      "ratios": {
+        "endpoint_lt_2m": 1.0,
+        "max_lateral_lt_2m": 1.0,
+        "endpoint_only_excursion": 0.0
+      },
+      "majority_gt_half": true,
+      "motion_state_counts": {
+        "low_speed": 134
+      }
+    },
+    "val_moving": {
+      "n": 4318,
+      "counts": {
+        "endpoint_lt_2m": 3700,
+        "max_lateral_lt_2m": 3700,
+        "endpoint_only_excursion": 0
+      },
+      "ratios": {
+        "endpoint_lt_2m": 0.8568781843446039,
+        "max_lateral_lt_2m": 0.8568781843446039,
+        "endpoint_only_excursion": 0.0
+      },
+      "majority_gt_half": true,
+      "motion_state_counts": {
+        "moving": 4318
+      }
+    },
+    "val_non_stopped": {
+      "n": 4452,
+      "counts": {
+        "endpoint_lt_2m": 3834,
+        "max_lateral_lt_2m": 3834,
+        "endpoint_only_excursion": 0
+      },
+      "ratios": {
+        "endpoint_lt_2m": 0.8611859838274932,
+        "max_lateral_lt_2m": 0.8611859838274932,
+        "endpoint_only_excursion": 0.0
+      },
+      "majority_gt_half": true,
+      "motion_state_counts": {
+        "low_speed": 134,
+        "moving": 4318
+      }
+    }
+  },
+  "scene_level": {
+    "n": 850,
+    "equal_scene_mean_ratio": 0.8745671767678688,
+    "ratio_distribution": {
+      "min": 0.14705882352941177,
+      "median": 1.0,
+      "p05": 0.5454545454545454,
+      "p95": 1.0,
+      "max": 1.0
+    }
+  },
+  "crosscheck": {
+    "eligible_n": 22294,
+    "excluded_short_step_n": 6755,
+    "gap_gt_15deg_n": 0,
+    "gap_gt_15deg_ratio_of_eligible": 0.0,
+    "gap_deg_distribution": {
+      "min": 1.8904143015419095e-06,
+      "median": 0.2300059796245747,
+      "p05": 0.01963457358807741,
+      "p95": 0.8729771685259771,
+      "max": 6.716057217444392
+    },
+    "interpretation": "diagnostic only; compares accumulated directions at segment midpoints, not per-step orientation conflicts"
+  },
+  "timing": {
+    "horizon_seconds": {
+      "min": 2.6498,
+      "median": 2.999814,
+      "p05": 2.898623,
+      "p95": 3.100403,
+      "max": 3.400703
+    },
+    "horizon_outside_2p75_3p25_n": 79,
+    "min_step_seconds": 0.394377,
+    "max_step_seconds": 0.750945
+  },
+  "runtime_seconds": 78.02963995933533,
+  "limits": [
+    "trainval only, excludes 150 test scenes",
+    "endpoint low lateral displacement is not scene simplicity",
+    "does not test ego-status shortcut causality",
+    "descriptive census, no independent held-out confirmation",
+    "strict thresholds; stopped and low_speed are operational path-length bins"
+  ]
+}

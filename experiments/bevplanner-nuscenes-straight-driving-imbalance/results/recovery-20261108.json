@@ -1,0 +1,8 @@
+{
+  "recovered_from": "cauliyulong/claim-bevplanner-straight-driving-imbalance",
+  "recovered_log": "recovered-kaggle-log-20261108.txt",
+  "sha256": "12e62e3cab5d6f547a21bbfd37306653c9929d1aacb5cd68af12fd9b08aaa22a",
+  "original_manifest_log_sha256": "b02e8ed66eea5ea215d2e8c6401587ec196eadb8732f1c2376bec8a93c749a43",
+  "matches_original_manifest": false,
+  "note": "Kaggle API returned a log with a different byte hash; preserve as recovery, not as the missing original file. Four numerical/environment output files are byte-identical to the original archive."
+}

@@ -1,0 +1,29 @@
+{
+  "url": "https://motional-nuscenes.s3.amazonaws.com/public/v1.0/v1.0-trainval_meta.tgz",
+  "status": "matched",
+  "files": {
+    "ego_pose.json": {
+      "sha256": "be12bd501f694b344628ba0680a37d6e1ec83e62b37f310c205c1dbe41cd09ff",
+      "bytes": 645746265,
+      "matches_mirror": true
+    },
+    "scene.json": {
+      "sha256": "bdc3211bfbfda652d5e9dab73c45c7132925ca84f869bf45e8e14edeafb1d20b",
+      "bytes": 285132,
+      "matches_mirror": true
+    },
+    "sample_data.json": {
+      "sha256": "6dcad49f0b9bd7b1cef04e2a0ff2ac2879b46b938e8d48153f00693cebb4de21",
+      "bytes": 1345678379,
+      "matches_mirror": true
+    },
+    "sample.json": {
+      "sha256": "6035ac58b6e971622be2bb1be15b917e7cb4e05ae984d6b339c27c1699c4ad9d",
+      "bytes": 7424233,
+      "matches_mirror": true
+    }
+  },
+  "etag": "\"fd4ea76d8701fb567a67a65025d0b022-56\"",
+  "last_modified": "Tue, 30 Jan 2024 21:40:59 GMT",
+  "content_length": "461678030"
+}

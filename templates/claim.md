@@ -13,8 +13,7 @@ evidence:
     locator: "§X / p.N"
     quote: ""
     relation: supports
-falsifiers:
-  - ""
+# 统计记录可省略 falsifiers；有明确待检验预测时再添加具体条件列表。
 review_due: YYYY-MM-DD
 related: []
 signoff: null

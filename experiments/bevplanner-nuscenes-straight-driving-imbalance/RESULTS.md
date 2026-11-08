@@ -1,5 +1,7 @@
 # RESULTS — claim-bevplanner-nuscenes-straight-driving-imbalance 统计复算
 
+> **2026-11-08 审核更正：下文“精准复现”“强证据级支持”“三个独立数字全部对上”均撤回。** 数字保留作历史输出；本次只能作为自定义判据的探索统计。详见 [审核说明](AUDIT-2026-11-08.md)。现行主张和补充普查见 [新实验](../nuscenes-three-second-low-lateral-displacement-majority/README.md)。
+
 **结论只表述为实验观察，不构成"已验证"；status 裁决权在主人。**（experiments/README.md 诚实规则）
 
 - **实验日期**：2026-11-08（kernel 完成 11:14 本地；第 1 火 01:10 起，经 v2→v8 八个 kernel 版本迭代——失败全程留痕见 §4 与 nightshift/LOG.md）

@@ -1,0 +1,9 @@
+{
+  "startup_git_head": "d50d40679a4a904a3faf92e0b2e76208c0b94502",
+  "measurement_code_sha256": "ce4dda3c13b64fe511f109366796edbf6795385f747a979deb08ee48089e27d7",
+  "extension_code_sha256": "44e57b0087cac2c85dc5dce93c8fbff0dc65157e52e971629155ad33a0174042",
+  "protocol_readme_sha256": "f29f1e1492f65d5f01e6f2c1ec0124b31e2ec5e418d60f152d988338309f45a6",
+  "splits_manifest_sha256": "bb7373fc9d4a759b00b8e343a74c253f769bb8e6706047154486cf67f6fa766c",
+  "devkit_commit": "b40adc467b919192899405d9b77871afee8efa07",
+  "kaggle_kernel": "cauliyulong/claim-nuscenes-all-census"
+}

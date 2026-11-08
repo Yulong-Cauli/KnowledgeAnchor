@@ -1,0 +1,46 @@
+[{"stream_name":"stderr","time":11.972308357,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":11.972369888,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":11.972377224,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":11.972381984,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":12.944786648000001,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":12.944844682,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":12.944866181,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":12.944871945,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":14.587651068,"data":"ENV: {'cpu_model': 'Intel(R) Xeon(R) CPU @ 2.20GHz', 'ram_gb': 32.9, 'python': '3.13.18', 'platform': 'Linux-6.18.55+-x86_64-with-glibc2.39'}\n"}
+,{"stream_name":"stdout","time":14.587692902,"data":"start: 2026-11-08T03:13:52\n"}
+,{"stream_name":"stdout","time":15.079328564,"data":"meta_dir = /kaggle/input/nuscenes-v1-0-full-keyframes/v1.0-trainval/\n"}
+,{"stream_name":"stdout","time":15.079374396,"data":"sizes: {'scene.json': 285132, 'sample.json': 7424233, 'sample_data.json': 1345678379, 'ego_pose.json': 645746265}\n"}
+,{"stream_name":"stdout","time":15.079380343,"data":"scene.json loaded 0.1\n"}
+,{"stream_name":"stdout","time":15.378429321,"data":"sample.json loaded 0.2\n"}
+,{"stream_name":"stdout","time":34.376462401,"data":"sample_data.json loaded 19.0\n"}
+,{"stream_name":"stdout","time":51.743367894,"data":"ego_pose.json loaded 17.4\n"}
+,{"stream_name":"stdout","time":51.743431089,"data":"COUNTS: {'scenes': 850, 'samples': 34149, 'sample_data': 2631083, 'ego_pose': 2631083} anchors_ok: True\n"}
+,{"stream_name":"stdout","time":54.378321131,"data":"pip freeze lines: 858\n"}
+,{"stream_name":"stdout","time":54.845470721,"data":"devkit commit: b40adc467b919192899405d9b77871afee8efa07\n"}
+,{"stream_name":"stdout","time":54.845523921,"data":"train scenes: 700 val scenes: 150 overlap: 0 — 锚点通过\n"}
+,{"stream_name":"stdout","time":60.56588794,"data":"LIDAR_TOP keyframes found: 34149 (期望 ≈ 样本数 34149)\n"}
+,{"stream_name":"stdout","time":63.022760592,"data":"records: 34149 excluded_no_lidar: 0 in 4.3 s\n"}
+,{"stream_name":"stdout","time":63.022802649,"data":"split counts: Counter({'train': 28130, 'val': 6019})\n"}
+,{"stream_name":"stdout","time":63.022810293,"data":"n_future dist: Counter({6: 29049, 5: 850, 4: 850, 3: 850, 2: 850, 1: 850, 0: 850})\n"}
+,{"stream_name":"stdout","time":63.379678601,"data":"metrics computed in 0.3 s\n"}
+,{"stream_name":"stdout","time":63.379721949,"data":"determinism_ok: True (40 samples of scene-0001)\n"}
+,{"stream_name":"stdout","time":63.379728974,"data":"displacement cross-check: {'steps_total': 150266, 'steps_conflict': 42, 'samples_majority_conflict': 20, 'sample_rate': 0.00059}\n"}
+,{"stream_name":"stdout","time":63.748636492,"data":"trainval_complete {'n': 29049, 'H_3deg': 0.60777, 'H_5deg': 0.71724, 'H_10deg': 0.8317, 'H_15deg': 0.87941, 'H_20deg': 0.90709, 'H_30deg': 0.93748, 'L_0.5m': 0.6719, 'L_1m': 0.78564, 'L_2m': 0.87469, 'L_3m': 0.91563, 'P_step_lt5deg': 0.88671}\n"}
+,{"stream_name":"stdout","time":63.748687145,"data":"train_complete {'n': 23930, 'H_3deg': 0.60272, 'H_5deg': 0.71805, 'H_10deg': 0.83268, 'H_15deg': 0.87994, 'H_20deg': 0.90769, 'H_30deg': 0.93748, 'L_0.5m': 0.67146, 'L_1m': 0.78554, 'L_2m': 0.87372, 'L_3m': 0.91438, 'P_step_lt5deg': 0.8883}\n"}
+,{"stream_name":"stdout","time":63.748736944,"data":"val_complete {'n': 5119, 'H_3deg': 0.63137, 'H_5deg': 0.71342, 'H_10deg': 0.82711, 'H_15deg': 0.87693, 'H_20deg': 0.90428, 'H_30deg': 0.93749, 'L_0.5m': 0.67396, 'L_1m': 0.78609, 'L_2m': 0.87927, 'L_3m': 0.92147, 'P_step_lt5deg': 0.87927}\n"}
+,{"stream_name":"stdout","time":63.748744981,"data":"val_all6019_secondary {'n': 6019, 'H_3deg': 0.63864, 'H_5deg': 0.7154, 'H_10deg': 0.81891, 'H_15deg': 0.86343, 'H_20deg': 0.88885, 'H_30deg': 0.91892, 'L_0.5m': 0.683, 'L_1m': 0.78501, 'L_2m': 0.86858, 'L_3m': 0.90646, 'P_step_lt5deg': 0.86293}\n"}
+,{"stream_name":"stdout","time":63.748752131,"data":"scene_level: {'H_3deg': {'n_scenes': 850, 'ratio': 0.45412}, 'H_5deg': {'n_scenes': 850, 'ratio': 0.57412}, 'H_10deg': {'n_scenes': 850, 'ratio': 0.74353}, 'H_15deg': {'n_scenes': 850, 'ratio': 0.89294}, 'H_20deg': {'n_scenes': 850, 'ratio': 0.97176}, 'H_30deg': {'n_scenes': 850, 'ratio': 0.99882}}\n"}
+,{"stream_name":"stdout","time":63.748758178,"data":"val complete-future: 5119/6019 = 0.85047 (5119 旁证带 0.8304–0.8704: True)\n"}
+,{"stream_name":"stdout","time":63.774092627,"data":"line1 falsifier1_triggered=NO (complete-population global min ratio=0.60272)\n"}
+,{"stream_name":"stdout","time":63.774128441,"data":"line2 in_band_trainval_complete=['H_5deg=0.71724', 'L_1m=0.78564']\n"}
+,{"stream_name":"stdout","time":63.774133981,"data":"line3 appendix_band_val_complete={'H_10deg': 0.82711, 'H_15deg': 0.87693, 'H_20deg': 0.90428, 'L_2m': 0.87927, 'P_step_lt5deg': 0.87927} val_complete_n=5119/6019=0.85047\n"}
+,{"stream_name":"stdout","time":63.774138813,"data":"DONE total_sec 49.2\n"}
+,{"stream_name":"stderr","time":69.891027556,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":69.891070599,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":70.14165741,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":70.141692019,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":71.206336497,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":71.335712161,"data":"[NbConvertApp] Writing 25546 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":74.835835865,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":75.631320308,"data":"[NbConvertApp] Writing 362507 bytes to __results__.html\n"}
+]

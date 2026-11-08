@@ -1,0 +1,13 @@
+2026-11-08T15:23:55Z started full motion profile; no preselected conclusion
+2026-11-08T15:24:09Z trainval metadata matches previous official hashes
+2026-11-08T15:24:41Z trainval: recomputed 29049 original rows exactly; start-speed missing=850
+2026-11-08T15:24:45Z test input matched previous official bytes: ego_pose.json
+2026-11-08T15:24:45Z test input matched previous official bytes: scene.json
+2026-11-08T15:24:46Z test input matched previous official bytes: sample_data.json
+2026-11-08T15:24:46Z test input matched previous official bytes: sample.json
+2026-11-08T15:24:51Z test: recomputed 5108 original rows exactly; start-speed missing=150
+2026-11-08T15:25:03Z finished: {"scenes": 1000, "future_windows": 34157, "start_speed_available": 33157, "start_speed_missing_first_keyframe": 1000, "all_original_rows_equal_baseline": true}
+2026-11-08T15:25:03Z distribution {"scope": "all", "metric": "abs_endpoint_lateral_m", "scope_n": 34157, "n": 34157, "mean": 0.8531578632432331, "population_std": 1.5362930415311733, "min": 0.0, "p10": 0.0013732020726503176, "p25": 0.047765014980157616, "p50": 0.23349718119238005, "p75": 0.8197005912496598, "p90": 2.601036338376853, "p95": 4.464147687455009, "p99": 7.300351287916619, "max": 13.315614520702816, "missing_n": 0}
+2026-11-08T15:25:03Z distribution {"scope": "all", "metric": "max_abs_lateral_m", "scope_n": 34157, "n": 34157, "mean": 0.8568795761178577, "population_std": 1.5346464125800163, "min": 2.041400976703525e-14, "p10": 0.0017212868079513955, "p25": 0.05934045975229374, "p50": 0.23811153736822988, "p75": 0.8212248395258843, "p90": 2.601036338376853, "p95": 4.464147687455009, "p99": 7.300351287916619, "max": 13.315614520702816, "missing_n": 0}
+2026-11-08T15:25:03Z distribution {"scope": "all", "metric": "mean_speed_mps", "scope_n": 34157, "n": 34157, "mean": 5.170864125688409, "population_std": 3.4948043889118896, "min": 1.5962594863874483e-13, "p10": 0.0009411205017351176, "p25": 2.2519782328040128, "p50": 5.4551232996160754, "p75": 7.7511765264012205, "p90": 9.520535195909812, "p95": 10.367690960907565, "p99": 13.102499411899908, "max": 18.358666207860114, "missing_n": 0}
+2026-11-08T15:25:03Z distribution {"scope": "all", "metric": "start_speed_mps", "scope_n": 34157, "n": 33157, "mean": 5.167477749660249, "population_std": 3.5277905890041974, "min": 0.0, "p10": 0.0004935508878343899, "p25": 2.2355239013273525, "p50": 5.447801142332711, "p75": 7.777905849079145, "p90": 9.573193400924778, "p95": 10.41463372797902, "p99": 13.137725915632878, "max": 18.439186591323697, "missing_n": 1000}

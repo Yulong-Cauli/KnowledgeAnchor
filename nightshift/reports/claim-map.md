@@ -1,5 +1,7 @@
 # [report] 全库 Claim 地图（服务人工核验与 signoff 决策）
 
+> **2026-11-08 现行状态更正（本报告其余内容为历史快照）：** 原 `claim-bevplanner-nuscenes-straight-driving-imbalance` 已移除，由 [nuScenes 六步低横向位移数据属性卡](../../claims/claim-nuscenes-three-second-low-lateral-displacement-majority.md)（asserted / watch，尚未独立验证）替代。原“精准复现/强证据”解释已撤回，见 [审核说明](../../experiments/bevplanner-nuscenes-straight-driving-imbalance/AUDIT-2026-11-08.md)。旧 id 与旧评级仅保留历史语境，新卡不承接捷径因果。
+
 - **日期**：2026-11-02
 - **性质**：只读盘点。本报告不新增、不修改任何 claim 卡；所有 id / 数量 / 状态字段均与 `claims/` 下卡文件逐一核对（evidence quote 未重复验证，以各 QA 报告为准）。
 - **素材（全部本地）**：`claims/` 全部 114 张卡；`library/` 笔记目录结构（29 篇笔记有卡）；`nightshift/qa/` 七份 round2 报告；`nightshift/verify/claim-qwt-r2-gate-nonregression.md`；`nightshift/cross/4d-radar.md`（归组参考）。
@@ -130,7 +132,7 @@ QA：round2-bevplanner（PASS ×5，14/14 quote 逐字、数字逐格比对）�
 | [claim-bevplanner-egomlp-parity-l2-collision](../../claims/claim-bevplanner-egomlp-parity-l2-collision.md) | 无感知的 Ego-MLP 仅靠 ego status 在 nuScenes 开环 L2/碰撞率上与 SOTA 持平 | 笔记单源 | PASS | ★★ |
 | [claim-bevplanner-egostatus-injection-closes-gap](../../claims/claim-bevplanner-egostatus-injection-closes-gap.md) | UniAD/VAD 仅在 planner 注入 ego status 后才追平 Ego-MLP；含 ego status 的方法间不可直接比较 | 笔记单源 | PASS | ★★ |
 | [claim-bevplanner-ego-velocity-dominates-planning](../../claims/claim-bevplanner-ego-velocity-dominates-planning.md) | ego status 在场时图像 corruption（含全黑）影响小，扰动 ego 速度才显著改变规划轨迹 | 笔记单源 | PASS | ★★ |
-| [claim-bevplanner-nuscenes-straight-driving-imbalance](../../claims/claim-bevplanner-nuscenes-straight-driving-imbalance.md) | nuScenes 73.9% 的数据是直行场景（评测样本 87%），ego status 因此成为开环规划捷径 | 笔记单源 | PASS | ★★ |
+| `claim-bevplanner-nuscenes-straight-driving-imbalance`（原卡；现行替代见页首） | nuScenes 73.9% 的数据是直行场景（评测样本 87%），ego status 因此成为开环规划捷径 | 笔记单源 | PASS | ★★ |
 | [claim-bevplanner-unidad-postprocessing-raises-ccr](../../claims/claim-bevplanner-unidad-postprocessing-raises-ccr.md) | UniAD 轨迹后处理降低碰撞率却显著推高 CCR（1.72→7.83），旧指标评判开环方法有偏 | 笔记单源 | PASS | ★★ |
 
 ### 1.5 经典检测（28 张；Classical_Detection/ 7 篇笔记）

@@ -387,8 +387,9 @@ function renderDetail(id) {
         <div class="kv"><span class="k">review_due</span><span class="v ${c.review_due ? dueClass(c.review_due) : 'muted'}">${esc(c.review_due || '—')}</span></div>
         <div class="kv"><span class="k">文件</span><span class="v mono"><a href="../${esc(c.path)}" target="_blank">${esc(c.path)}</a></span></div>
       </div>
-      <h2>Falsifiers（什么结果会推翻它）</h2>
-      <ul class="fals">${(c.falsifiers || []).map((f) => `<li>${esc(f)}</li>`).join('')}</ul>
+      ${c.falsifiers?.length ? `
+        <h2>Falsifiers（什么结果会推翻它）</h2>
+        <ul class="fals">${c.falsifiers.map((f) => `<li>${esc(f)}</li>`).join('')}</ul>` : ''}
       <h2>Evidence（${(c.evidence || []).length}）</h2>
       ${(c.evidence || []).map((e) => `
         <div class="ev">

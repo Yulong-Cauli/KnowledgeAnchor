@@ -1,0 +1,12 @@
+{
+  "id": "cauliyulong/claim-nuscenes-motion-profile",
+  "title": "claim-nuscenes-motion-profile",
+  "code_file": "motion-profile.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_internet": true,
+  "dataset_sources": ["sahangunasekara92/nuscenes-v1-0-full-keyframes"],
+  "kernel_sources": ["cauliyulong/claim-nuscenes-all-census"]
+}

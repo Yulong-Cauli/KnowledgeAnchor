@@ -55,7 +55,7 @@ test('create/edit validation, exact preservation, conflict and protection throug
   const before = snapshot(root);
   for (const patch of [{ title: '' }, { title: '  ' }, { title: [] }, { scope: '' }, { scope: '\t ' }, { evidence: [] }, { evidence: [''] },
     { evidence: [{ ...valid.evidence[0], quote: '  ' }] }, { evidence: [{ ...valid.evidence[0], source: 'library/missing.md' }] },
-    { evidence: [{ ...valid.evidence[0], source: 'javascript:alert(1)' }] }, { falsifiers: [] }, { falsifiers: [''] }, { falsifiers: [null] },
+    { evidence: [{ ...valid.evidence[0], source: 'javascript:alert(1)' }] }, { falsifiers: null }, { falsifiers: '' }, { falsifiers: {} }, { falsifiers: [''] }, { falsifiers: [null] },
     { review_due: '2026-02-30' }, { related: ['claim-unknown'] }, { related: [null] }, { note: null }, { tags: [null] },
     { note: 'library/../README.md' }, { note: 'library/中文 空格' }, { id: 'claim-fixture-past' }]) {
     const r = await request(url, '/api/claims', 'POST', { ...valid, ...patch });
@@ -94,6 +94,40 @@ test('create/edit validation, exact preservation, conflict and protection throug
   const brokenBefore = snapshot(root);
   assert.equal((await request(url, '/api/claims', 'POST', { ...valid, id: 'claim-fixture-other' })).status, 400);
   assert.deepEqual(snapshot(root), brokenBefore);
+});
+
+test('statistical records may omit or clear falsifiers; existing predictions remain editable', async (t) => {
+  const { root } = fixture(); const { server, url } = await start({ root, today: () => TODAY });
+  t.after(() => { server.closeAllConnections(); server.close(); fs.rmSync(root, { recursive: true, force: true }); });
+  const original = snapshot(root);
+  const candidate = { ...data('statistic'), actor: 'local', body: 'Fixed-dataset descriptive result' };
+  delete candidate.falsifiers;
+  const created = await request(url, '/api/claims', 'POST', candidate);
+  assert.equal(created.status, 201);
+  assert.equal(Object.hasOwn(created.body, 'falsifiers'), false);
+  const endpoint = '/api/claims/' + candidate.id;
+  const file = path.join(root, 'claims', candidate.id + '.md');
+  assert.equal(parseClaimFile(fs.readFileSync(file, 'utf8')).fields.has('falsifiers'), false);
+  const edited = await request(url, endpoint, 'PUT', { actor: 'local', patch: { title: 'Updated statistic' } });
+  assert.equal(edited.status, 200);
+  assert.equal(Object.hasOwn(edited.body, 'falsifiers'), false, 'unrelated edit does not add a dummy field');
+  const added = await request(url, endpoint, 'PUT', { actor: 'local', patch: { falsifiers: ['A specific predicted result is contradicted'] } });
+  assert.equal(added.status, 200);
+  assert.deepEqual(added.body.falsifiers, ['A specific predicted result is contradicted']);
+  const cleared = await request(url, endpoint, 'PUT', { actor: 'local', patch: { falsifiers: [] } });
+  assert.equal(cleared.status, 200);
+  assert.deepEqual((await request(url, endpoint)).body.falsifiers, []);
+  const empty = await request(url, '/api/claims', 'POST', { ...candidate, id: 'claim-fixture-empty-falsifiers', falsifiers: [] });
+  assert.equal(empty.status, 201);
+  for (const value of [null, '', {}, [''], [null]]) {
+    const before = snapshot(root);
+    assert.equal((await request(url, endpoint, 'PUT', { actor: 'local', patch: { falsifiers: value } })).status, 400);
+    assert.deepEqual(snapshot(root), before, 'invalid optional values leave files and index unchanged');
+  }
+  for (const [name, text] of Object.entries(original)) {
+    if (name.startsWith('claims/')) assert.equal(fs.readFileSync(path.join(root, name), 'utf8'), text);
+  }
+  assert.equal(parseClaimFile(fs.readFileSync(file, 'utf8')).data.signoff, null);
 });
 
 test('review scheduling counts survive reload, protected files and signoff are byte-identical', async (t) => {

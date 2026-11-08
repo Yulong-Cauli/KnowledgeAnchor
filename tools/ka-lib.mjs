@@ -352,7 +352,7 @@ export function validateClaims(claims, root = ROOT) {
       errors.push(`${rel}: frontmatter must be a map`);
       continue;
     }
-    const required = ['id', 'title', 'type', 'status', 'scope', 'stance', 'evidence', 'falsifiers'];
+    const required = ['id', 'title', 'type', 'status', 'scope', 'stance', 'evidence'];
     for (const key of required) {
       if (data[key] === undefined || data[key] === null || (typeof data[key] === 'string' && !data[key].trim())) {
         errors.push(`${rel}: missing ${key}`);
@@ -390,10 +390,12 @@ export function validateClaims(claims, root = ROOT) {
         checkRepoPath(item?.source, `${rel}: evidence[${index}].source`, errors, root);
       });
     }
-    if (!Array.isArray(data.falsifiers) || data.falsifiers.length === 0) {
-      errors.push(`${rel}: falsifiers must be a non-empty array`);
-    } else if (data.falsifiers.some((v) => typeof v !== 'string' || !v.trim())) {
-      errors.push(`${rel}: falsifiers entries must be non-blank text`);
+    if (data.falsifiers !== undefined) {
+      if (!Array.isArray(data.falsifiers)) {
+        errors.push(`${rel}: falsifiers must be an array when provided`);
+      } else if (data.falsifiers.some((v) => typeof v !== 'string' || !v.trim())) {
+        errors.push(`${rel}: falsifiers entries must be non-blank text`);
+      }
     }
     if (data.tags !== undefined && !Array.isArray(data.tags)) {
       errors.push(`${rel}: tags must be an array`);

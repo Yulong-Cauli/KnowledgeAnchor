@@ -1,0 +1,26 @@
+{
+  "url": "https://motional-nuscenes.s3.amazonaws.com/public/v1.0/v1.0-test_meta.tgz",
+  "origin": "official metadata archive, not a mirror",
+  "files": {
+    "ego_pose.json": {
+      "sha256": "cd58a4deacddb06a0f0f3835cda2414834c7c97445e33f78a3a6bd52f6780714",
+      "bytes": 113582699
+    },
+    "scene.json": {
+      "sha256": "92bb751d8fb3ff292a59892754d530ba8b89bb9ddd009fff5ae02cf2c090e034",
+      "bytes": 49351
+    },
+    "sample_data.json": {
+      "sha256": "ea3983384a0bae7c047602c188d8183db99c89ffd642bc045dccff760cd997cc",
+      "bytes": 236751263
+    },
+    "sample.json": {
+      "sha256": "c20c37aaeb4ea5a603b338c815c3466c2e955c45a73d72ab60d1df969dfd3200",
+      "bytes": 1306154
+    }
+  },
+  "http_status": 200,
+  "etag": "\"967a353cd3bf9e63015d7db3e73fa449-9\"",
+  "last_modified": "Tue, 30 Jan 2024 21:40:40 GMT",
+  "content_length": "70803751"
+}

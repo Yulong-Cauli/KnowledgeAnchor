@@ -1,0 +1,9 @@
+2026-11-08T14:27:20Z started official test extension; measurement protocol unchanged
+2026-11-08T14:27:21Z original trainval rows and all 15 summaries verified
+2026-11-08T14:27:26Z official test table read: ego_pose.json
+2026-11-08T14:27:26Z official test table read: scene.json
+2026-11-08T14:27:28Z official test table read: sample_data.json
+2026-11-08T14:27:28Z official test table read: sample.json
+2026-11-08T14:27:34Z test chain census: 5108 complete; 900 incomplete
+2026-11-08T14:27:38Z finished test: {"n": 5108, "counts": {"endpoint_lt_2m": 4374, "max_lateral_lt_2m": 4374, "endpoint_only_excursion": 0}, "ratios": {"endpoint_lt_2m": 0.8563038371182459, "max_lateral_lt_2m": 0.8563038371182459, "endpoint_only_excursion": 0.0}, "majority_gt_half": true, "motion_state_counts": {"moving": 4538, "low_speed": 105, "stopped": 465}}
+2026-11-08T14:27:38Z finished all: {"n": 34157, "counts": {"endpoint_lt_2m": 29783, "max_lateral_lt_2m": 29783, "endpoint_only_excursion": 0}, "ratios": {"endpoint_lt_2m": 0.8719442573996545, "max_lateral_lt_2m": 0.8719442573996545, "endpoint_only_excursion": 0.0}, "majority_gt_half": true, "motion_state_counts": {"moving": 28337, "stopped": 4946, "low_speed": 874}}

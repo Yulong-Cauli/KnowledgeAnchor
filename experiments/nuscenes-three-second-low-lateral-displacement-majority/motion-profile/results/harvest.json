@@ -1,0 +1,72 @@
+{
+  "kaggle_url": "https://www.kaggle.com/code/cauliyulong/claim-nuscenes-motion-profile",
+  "version_number": 1,
+  "code_cells_equal_submitted": true,
+  "original_34157_rows_recomputed_equal": true,
+  "start_speed_missing_first_frame_each_scene": 1000,
+  "numpy_quantiles_checks": 20,
+  "threshold_rows_recounted": 90,
+  "speed_groups_recounted": 110,
+  "full_ecdf_metrics_checked": 4,
+  "numpy_version": "1.26.4",
+  "output_hashes_checked": [
+    {
+      "name": "ecdf-abs_endpoint_lateral_m.csv.gz",
+      "sha256": "feab95f01af97b7f90fa12f84b999801ca51950670f9e058a5710484d61f63dd"
+    },
+    {
+      "name": "ecdf-max_abs_lateral_m.csv.gz",
+      "sha256": "541138cc74b80d7ec92ff477c334b66a65797abd2a8bfe5043bc49a103eae2bf"
+    },
+    {
+      "name": "ecdf-mean_speed_mps.csv.gz",
+      "sha256": "57492385d80230f053e74a1af89f06fd27939156b3d07be6d99a6349014f993d"
+    },
+    {
+      "name": "ecdf-start_speed_mps.csv.gz",
+      "sha256": "37ddabac8ab42383343ede562a1d630db113b193b1555ebc64e2656f9cd45051"
+    },
+    {
+      "name": "input-integrity.json",
+      "sha256": "9f80bba2437bbd9dbd152cc6649f4ccc2547a9d301a288759d68fe21fca02944"
+    },
+    {
+      "name": "lateral-thresholds.csv",
+      "sha256": "5b7505b6978b952c11d5bed1c4038aa5e9d36a64e5153bb5f7ea880b84a72703"
+    },
+    {
+      "name": "pip-freeze.txt",
+      "sha256": "358b7d293968e155cb9c32d8d40f8f1f165e386f564d91c3a4350ed6c6b6348b"
+    },
+    {
+      "name": "profile-samples-test.csv.gz",
+      "sha256": "1bc2fc89f330f6d87aebd4ad329f3f6853985541a05578c61e56fb7d5a6b5c22"
+    },
+    {
+      "name": "profile-samples-train.csv.gz",
+      "sha256": "c23eadeca5930e8a7a2fb1c866f0c2976f6f009284cb0367016645393dd9ea22"
+    },
+    {
+      "name": "profile-samples-val.csv.gz",
+      "sha256": "30a72f601b4b667fa386c1d77cdd2c3a43a255e283789ae83ef407c85edd9ff9"
+    },
+    {
+      "name": "profile.json",
+      "sha256": "4bd35cd9764ddcc9d5edb3d8cee4c7f2348fb657a858b9d208d8af436c71f90d"
+    },
+    {
+      "name": "quantiles.csv",
+      "sha256": "937ecc5d65956ab99e05ab494434d909d303d85e63d0bde4c4f9cfbec480d0eb"
+    },
+    {
+      "name": "run-log.txt",
+      "sha256": "4d33c9727322a31ca96a4113ccb85bfad1e0b8f3784d2a6bdbd9b48b6fcb39d1"
+    },
+    {
+      "name": "speed-conditioned.csv",
+      "sha256": "75f8f4b0da4ceaa611bedaec99251c24cbe024db2cbc38a4570f9ba0849c21de"
+    }
+  ],
+  "local_notebook_sha256": "2bc077ee8dd18060efdc78811138bb880971adc391d708ce50ccafb56b5456bc",
+  "downloaded_notebook_sha256": "9fd72559256c6eadba30ea00dfee9b90898bacae3a39ed360c37cdc58060b440"
+}

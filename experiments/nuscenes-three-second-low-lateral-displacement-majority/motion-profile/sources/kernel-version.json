@@ -1,0 +1,14 @@
+{
+  "id": 143447559,
+  "ref": "cauliyulong/claim-nuscenes-motion-profile",
+  "current_version_number": 1,
+  "last_run_time": "2026-11-05 15:27:43.172000",
+  "enable_gpu": false,
+  "dataset_data_sources": [
+    "sahangunasekara92/nuscenes-v1-0-full-keyframes"
+  ],
+  "kernel_data_sources": [
+    "cauliyulong/claim-nuscenes-all-census"
+  ],
+  "docker_image": "gcr.io/kaggle-images/python@sha256:0717e81990be591f8c5f98f033d29ab23e9ffde057e5b3a6bd4371f93969e962"
+}

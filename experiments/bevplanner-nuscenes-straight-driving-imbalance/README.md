@@ -1,6 +1,8 @@
 # 实验设计：nuScenes 直行场景占比能否复得 73.9%
 
-- **对应卡**：[claim-bevplanner-nuscenes-straight-driving-imbalance](../../claims/claim-bevplanner-nuscenes-straight-driving-imbalance.md)（status: asserted）
+> **历史实验，已由后续数据集普查替代（2026-11-08）。** 原设计及下文旧卡 id 只保留历史含义；结果中的“精准复现/强支持”解释已撤回。见 [审核说明](AUDIT-2026-11-08.md)；现行卡为 [nuScenes 六步低横向位移](../../claims/claim-nuscenes-three-second-low-lateral-displacement-majority.md)（asserted / watch）。
+
+- **原对应卡**：`claim-bevplanner-nuscenes-straight-driving-imbalance`（原 status: asserted；已移除，历史由 Git 保留）
 - **复核问题**：论文 §1 自报 "73.9% of the nuScenes data involve scenarios of driving straightforwardly"（Fig. 2），对 nuScenes v1.0 trainval 全量 ego 未来轨迹按预注册判据族重算，73.9% 能否在合理阈值带内复得？附录 E 的评测样本口径（87%）能否同步复得？
 - **文献核验基线**：卡「当前立场与下一步」预方案 + [nightshift/reports/bevplanner-deep-read.md](../../nightshift/reports/bevplanner-deep-read.md) L245（复算预案：先定口径再按两个分母复算，顺带核 87% 分母是否为 5119 有效样本）；deep-read 评级本卡为链内最弱 ★（唯一单来源、无脚本可复核）。
 - **执行环境**：Kaggle CPU 会话（统计任务无需 GPU，不占 T4 周配额）；env 快照照记 CPU/RAM/pip freeze。

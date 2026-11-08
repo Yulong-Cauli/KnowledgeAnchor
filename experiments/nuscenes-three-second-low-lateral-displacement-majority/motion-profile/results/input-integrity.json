@@ -1,0 +1,31 @@
+{
+  "url": "https://motional-nuscenes.s3.amazonaws.com/public/v1.0/v1.0-test_meta.tgz",
+  "files": {
+    "ego_pose.json": {
+      "sha256": "cd58a4deacddb06a0f0f3835cda2414834c7c97445e33f78a3a6bd52f6780714",
+      "bytes": 113582699
+    },
+    "scene.json": {
+      "sha256": "92bb751d8fb3ff292a59892754d530ba8b89bb9ddd009fff5ae02cf2c090e034",
+      "bytes": 49351
+    },
+    "sample_data.json": {
+      "sha256": "ea3983384a0bae7c047602c188d8183db99c89ffd642bc045dccff760cd997cc",
+      "bytes": 236751263
+    },
+    "sample.json": {
+      "sha256": "c20c37aaeb4ea5a603b338c815c3466c2e955c45a73d72ab60d1df969dfd3200",
+      "bytes": 1306154
+    }
+  },
+  "http_status": 200,
+  "etag": "\"967a353cd3bf9e63015d7db3e73fa449-9\"",
+  "last_modified": "Tue, 30 Jan 2024 21:40:40 GMT",
+  "content_length": "70803751",
+  "trainval_sha256": {
+    "scene.json": "bdc3211bfbfda652d5e9dab73c45c7132925ca84f869bf45e8e14edeafb1d20b",
+    "sample.json": "6035ac58b6e971622be2bb1be15b917e7cb4e05ae984d6b339c27c1699c4ad9d",
+    "sample_data.json": "6dcad49f0b9bd7b1cef04e2a0ff2ac2879b46b938e8d48153f00693cebb4de21",
+    "ego_pose.json": "be12bd501f694b344628ba0680a37d6e1ec83e62b37f310c205c1dbe41cd09ff"
+  }
+}

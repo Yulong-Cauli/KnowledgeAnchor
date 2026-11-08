@@ -1,0 +1,28 @@
+[{"stream_name":"stderr","time":6.733803583,"data":"/usr/local/lib/python3.13/dist-packages/nbformat/validator.py:434: MissingIDFieldWarning: Cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.\n"}
+,{"stream_name":"stderr","time":6.733920006,"data":"  _validate(nbdict, ref, version, version_minor, relax_add_props)\n"}
+,{"stream_name":"stderr","time":7.733374066,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.733409001,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.733415188,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.733420141,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":8.472646283,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.472682663,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.472688825,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.472693854,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":9.921261274,"data":"2026-11-08T14:27:20Z started official test extension; measurement protocol unchanged\n"}
+,{"stream_name":"stdout","time":11.048288165,"data":"2026-11-08T14:27:21Z original trainval rows and all 15 summaries verified\n"}
+,{"stream_name":"stdout","time":16.121925338,"data":"2026-11-08T14:27:26Z official test table read: ego_pose.json\n"}
+,{"stream_name":"stdout","time":16.12667808,"data":"2026-11-08T14:27:26Z official test table read: scene.json\n"}
+,{"stream_name":"stdout","time":18.302028265,"data":"2026-11-08T14:27:28Z official test table read: sample_data.json\n"}
+,{"stream_name":"stdout","time":18.317114824,"data":"2026-11-08T14:27:28Z official test table read: sample.json\n"}
+,{"stream_name":"stdout","time":24.011521647,"data":"2026-11-08T14:27:34Z test chain census: 5108 complete; 900 incomplete\n"}
+,{"stream_name":"stdout","time":28.491466342,"data":"2026-11-08T14:27:38Z finished test: {\"n\": 5108, \"counts\": {\"endpoint_lt_2m\": 4374, \"max_lateral_lt_2m\": 4374, \"endpoint_only_excursion\": 0}, \"ratios\": {\"endpoint_lt_2m\": 0.8563038371182459, \"max_lateral_lt_2m\": 0.8563038371182459, \"endpoint_only_excursion\": 0.0}, \"majority_gt_half\": true, \"motion_state_counts\": {\"moving\": 4538, \"low_speed\": 105, \"stopped\": 465}}\n"}
+,{"stream_name":"stdout","time":28.492656595,"data":"2026-11-08T14:27:38Z finished all: {\"n\": 34157, \"counts\": {\"endpoint_lt_2m\": 29783, \"max_lateral_lt_2m\": 29783, \"endpoint_only_excursion\": 0}, \"ratios\": {\"endpoint_lt_2m\": 0.8719442573996545, \"max_lateral_lt_2m\": 0.8719442573996545, \"endpoint_only_excursion\": 0.0}, \"majority_gt_half\": true, \"motion_state_counts\": {\"moving\": 28337, \"stopped\": 4946, \"low_speed\": 874}}\n"}
+,{"stream_name":"stderr","time":31.79388237,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":31.793917781,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":32.006865874,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":32.006911912,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":32.905797207,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":33.003625032,"data":"[NbConvertApp] Writing 58303 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":36.344881542,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":37.237880508,"data":"[NbConvertApp] Writing 510685 bytes to __results__.html\n"}
+]

@@ -1,0 +1,12 @@
+{
+  "startup_git_head": "d50d40679a4a904a3faf92e0b2e76208c0b94502",
+  "code_sha256": "ce4dda3c13b64fe511f109366796edbf6795385f747a979deb08ee48089e27d7",
+  "protocol_readme_sha256": "55aa33013558130ad9d310d29b853f7741bc522c54bada73a9ba03f96f9bc1c6",
+  "splits_manifest_sha256": "c7d03cf20063c1d11357857b89a74cc2c01759dc594da716e7d0aefb332e56d7",
+  "devkit_splits_commit": "b40adc467b919192899405d9b77871afee8efa07",
+  "kaggle_source_metadata_sha256": "82aab97ebac7a97c811a51ec55b919fcc1b63d6777969dc7c2ef701daf61cb60",
+  "kaggle_source_ref": "sahangunasekara92/nuscenes-v1-0-full-keyframes",
+  "kaggle_source_recorded_version": null,
+  "kaggle_kernel": "cauliyulong/nuscenes-low-lateral-census",
+  "version_binding": "exact version and downloaded-code equality recorded in local harvest.json"
+}

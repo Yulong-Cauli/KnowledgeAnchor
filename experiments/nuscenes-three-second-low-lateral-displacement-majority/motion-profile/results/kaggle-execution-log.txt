@@ -1,0 +1,32 @@
+[{"stream_name":"stderr","time":6.616347328,"data":"/usr/local/lib/python3.13/dist-packages/nbformat/validator.py:434: MissingIDFieldWarning: Cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.\n"}
+,{"stream_name":"stderr","time":6.616417584,"data":"  _validate(nbdict, ref, version, version_minor, relax_add_props)\n"}
+,{"stream_name":"stderr","time":7.611694927,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.611728019,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.611733375,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.611737551,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":8.301163873,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.30121054,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.301217165,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.30122253,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":9.697978046,"data":"2026-11-08T15:23:55Z started full motion profile; no preselected conclusion\n"}
+,{"stream_name":"stdout","time":23.743521213,"data":"2026-11-08T15:24:09Z trainval metadata matches previous official hashes\n"}
+,{"stream_name":"stdout","time":55.428654647,"data":"2026-11-08T15:24:41Z trainval: recomputed 29049 original rows exactly; start-speed missing=850\n"}
+,{"stream_name":"stdout","time":59.355150402,"data":"2026-11-08T15:24:45Z test input matched previous official bytes: ego_pose.json\n"}
+,{"stream_name":"stdout","time":59.358171845,"data":"2026-11-08T15:24:45Z test input matched previous official bytes: scene.json\n"}
+,{"stream_name":"stdout","time":60.9355444,"data":"2026-11-08T15:24:46Z test input matched previous official bytes: sample_data.json\n"}
+,{"stream_name":"stdout","time":60.949042244,"data":"2026-11-08T15:24:46Z test input matched previous official bytes: sample.json\n"}
+,{"stream_name":"stdout","time":65.842505606,"data":"2026-11-08T15:24:51Z test: recomputed 5108 original rows exactly; start-speed missing=150\n"}
+,{"stream_name":"stdout","time":77.633441985,"data":"2026-11-08T15:25:03Z finished: {\"scenes\": 1000, \"future_windows\": 34157, \"start_speed_available\": 33157, \"start_speed_missing_first_keyframe\": 1000, \"all_original_rows_equal_baseline\": true}\n"}
+,{"stream_name":"stdout","time":77.636268839,"data":"2026-11-08T15:25:03Z distribution {\"scope\": \"all\", \"metric\": \"abs_endpoint_lateral_m\", \"scope_n\": 34157, \"n\": 34157, \"mean\": 0.8531578632432331, \"population_std\": 1.5362930415311733, \"min\": 0.0, \"p10\": 0.0013732020726503176, \"p25\": 0.047765014980157616, \"p50\": 0.23349718119238005, \"p75\": 0.8197005912496598, \"p90\": 2.601036338376853, \"p95\": 4.464147687455009, \"p99\": 7.300351287916619, \"max\": 13.315614520702816, \"missing_n\": 0}\n"}
+,{"stream_name":"stdout","time":77.637507667,"data":"2026-11-08T15:25:03Z distribution {\"scope\": \"all\", \"metric\": \"max_abs_lateral_m\", \"scope_n\": 34157, \"n\": 34157, \"mean\": 0.8568795761178577, \"population_std\": 1.5346464125800163, \"min\": 2.041400976703525e-14, \"p10\": 0.0017212868079513955, \"p25\": 0.05934045975229374, \"p50\": 0.23811153736822988, \"p75\": 0.8212248395258843, \"p90\": 2.601036338376853, \"p95\": 4.464147687455009, \"p99\": 7.300351287916619, \"max\": 13.315614520702816, \"missing_n\": 0}\n"}
+,{"stream_name":"stdout","time":77.638984217,"data":"2026-11-08T15:25:03Z distribution {\"scope\": \"all\", \"metric\": \"mean_speed_mps\", \"scope_n\": 34157, \"n\": 34157, \"mean\": 5.170864125688409, \"population_std\": 3.4948043889118896, \"min\": 1.5962594863874483e-13, \"p10\": 0.0009411205017351176, \"p25\": 2.2519782328040128, \"p50\": 5.4551232996160754, \"p75\": 7.7511765264012205, \"p90\": 9.520535195909812, \"p95\": 10.367690960907565, \"p99\": 13.102499411899908, \"max\": 18.358666207860114, \"missing_n\": 0}\n"}
+,{"stream_name":"stdout","time":77.639955911,"data":"2026-11-08T15:25:03Z distribution {\"scope\": \"all\", \"metric\": \"start_speed_mps\", \"scope_n\": 34157, \"n\": 33157, \"mean\": 5.167477749660249, \"population_std\": 3.5277905890041974, \"min\": 0.0, \"p10\": 0.0004935508878343899, \"p25\": 2.2355239013273525, \"p50\": 5.447801142332711, \"p75\": 7.777905849079145, \"p90\": 9.573193400924778, \"p95\": 10.41463372797902, \"p99\": 13.137725915632878, \"max\": 18.439186591323697, \"missing_n\": 1000}\n"}
+,{"stream_name":"stderr","time":81.041174191,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":81.041230765,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":81.237838559,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":81.2378743,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":82.140494637,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":82.22905354,"data":"[NbConvertApp] Writing 63682 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":85.312593073,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":86.178921318,"data":"[NbConvertApp] Writing 529939 bytes to __results__.html\n"}
+]

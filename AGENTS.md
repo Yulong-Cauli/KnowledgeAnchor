@@ -21,13 +21,13 @@
 1. 使用知识时必须保留 claim 的 `status` 和 `stance`，并给出 claim id / 来源。
 2. `asserted` 必须表述为“论文声称 / 尚未独立验证”，不得写成事实。
 3. 高风险决策（选型、部署、写进方案）只使用 `verified`。
-4. 不要编造 source、locator、quote；没有出处就写 `asserted` 并标 `falsifiers`。
+4. 不要编造 source、locator、quote；证据不足时保持 `asserted` 并说明缺口，不为补齐栏目编凑可推翻条件。
 
 ## 起草 claim
 
 - `id` 用 `claim-<论文或方法>-<结论>` 的小写 kebab-case（如 `claim-qwt-r2-gate-nonregression`），文件名必须与 id 相同；已提交或被引用的 id 不得改名。
-- 一条 claim 只写一个可证伪的主张，不写“某方法很好”这类评价；评价放进 `stance` 和正文。
-- 必须写 `scope`（数据集/模型/硬件/条件）和 `falsifiers`（什么结果会推翻它）。
+- 一条 claim 只写一个明确、可核查的判断或统计结论，不写“某方法很好”这类评价；评价放进 `stance` 和正文。
+- 必须写 `scope`（数据集/模型/硬件/条件）。统计记录不强制设置 `falsifiers`；有明确待检验预测的主张再填写具体的可推翻条件。不把“数据或代码有错就重算”等通用要求凑成可推翻条件。
 - 证据优先链接 `library/` 中的笔记，并给出章节/页码和原文引文。
 - 完成后运行 `node tools/ka.mjs validate`。
 

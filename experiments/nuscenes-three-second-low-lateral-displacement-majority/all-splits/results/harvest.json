@@ -1,0 +1,44 @@
+{
+  "kaggle_url": "https://www.kaggle.com/code/cauliyulong/claim-nuscenes-all-census",
+  "version_number": 1,
+  "code_cells_equal_submitted": true,
+  "downloaded_output_hashes_checked": [
+    {
+      "name": "official-test-source.json",
+      "sha256": "8fffe62a0a89782d55d7814cc8c987f010850ab18bb55a3b7c6603fbdd345e74"
+    },
+    {
+      "name": "sample-metrics.csv.gz",
+      "sha256": "d36aa8c40ee6c012746381faa0bd5de858009b7f312e37f541c478f3ccdb9f13"
+    },
+    {
+      "name": "scene-metrics.csv",
+      "sha256": "2c10e01f6dfd10e6cb33d058999ab9bc051cf311ec1a53945d6a1edc77ade743"
+    },
+    {
+      "name": "sensitivity.csv",
+      "sha256": "f45baaf1d1aae6c9cc5c1998cdbef91a2d477479fcbd99ec6c84099ac4db4109"
+    },
+    {
+      "name": "pip-freeze.txt",
+      "sha256": "358b7d293968e155cb9c32d8d40f8f1f165e386f564d91c3a4350ed6c6b6348b"
+    },
+    {
+      "name": "results.json",
+      "sha256": "cf4f15e3f08854f8abff28fa6fd36588faeadd7fb5434abc0f64661e57d2c523"
+    },
+    {
+      "name": "run-log.txt",
+      "sha256": "2072a5bf8f490f1a273f233891ece3ba786a402bd7c6d022b16d9065f45aeeef"
+    }
+  ],
+  "local_notebook_sha256": "534d1ce9adb44e3e8fa9becfb92066a29664e8a36d32e03fbf7a802b674378ed",
+  "downloaded_notebook_sha256": "34e10b035b46ec84811a1a31f99e0295e3d588511508e52954d742b9e08caa2f",
+  "trainval_all_sample_rows_unchanged": true,
+  "old_15_populations_unchanged": true,
+  "all_25_populations_recounted": true,
+  "all_350_sensitivity_rows_recounted": true,
+  "all_1000_scene_counts_recounted": true,
+  "sample_rows": 34157,
+  "version_record": "../sources/kernel-version.json"
+}

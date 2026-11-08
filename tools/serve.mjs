@@ -241,9 +241,9 @@ function writeCreate(claims, payload) {
     tags: normalizeStringList(payload.tags ?? []),
     stance: payload.stance ?? 'watch',
     evidence: normalizeEvidence(payload.evidence ?? []),
-    falsifiers: payload.falsifiers ?? [],
     signoff: null,
   };
+  if (payload.falsifiers !== undefined) data.falsifiers = payload.falsifiers;
   if (payload.note !== undefined && payload.note !== '') data.note = typeof payload.note === 'string' ? payload.note.trim() : payload.note;
   if (typeof payload.paper === 'string' && payload.paper.trim()) data.paper = payload.paper.trim();
   if (payload.review_due !== '' && payload.review_due !== null) data.review_due = payload.review_due ?? addDays(today(), REVIEW_INTERVAL_DAYS);

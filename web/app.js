@@ -638,8 +638,9 @@ async function renderDetail(id) {
         </div>
         <p class="section-title">来源证据（不等于独立验证）</p>
         ${(card.evidence ?? []).map((item) => evidenceItemHtml(item)).join('')}
-        <p class="section-title">可推翻条件（falsifiers）</p>
-        <ol class="falsifier-list">${(card.falsifiers ?? []).map((item) => `<li><div class="md md-compact">${renderMarkdown(item)}</div></li>`).join('')}</ol>
+        ${card.falsifiers?.length ? `
+          <p class="section-title">可推翻条件（falsifiers）</p>
+          <ol class="falsifier-list">${card.falsifiers.map((item) => `<li><div class="md md-compact">${renderMarkdown(item)}</div></li>`).join('')}</ol>` : ''}
         ${(card.related?.length) ? `
           <p class="section-title">关联 claim</p>
           <div class="chip-row">${card.related.map((relId) => `<a class="chip" href="#/claim/${encodeURIComponent(relId)}">${esc(relId)}</a>`).join('')}</div>` : ''}
@@ -739,7 +740,8 @@ function editPanelHtml(card) {
       <div class="struct-list" id="ev-list">${evRows}</div>
       <div><button type="button" class="btn btn-sm" id="add-ev">＋ 添加证据</button></div>
 
-      <p class="section-title">可推翻条件</p>
+      <p class="section-title">可推翻条件（有待检验预测时填写）</p>
+      <p class="field-hint">统计记录可留空；已有明确预测时，填写什么观察结果会推翻它。</p>
       <div class="struct-list" id="fals-list">${falsRows}</div>
       <div><button type="button" class="btn btn-sm" id="add-fals">＋ 添加 可推翻条件</button></div>
 
@@ -913,7 +915,8 @@ function renderNew() {
         <div class="struct-list" id="n-ev-list"></div>
         <div><button type="button" class="btn btn-sm" id="n-add-ev">＋ 添加证据</button></div>
 
-        <p class="section-title">可推翻条件</p>
+        <p class="section-title">可推翻条件（有待检验预测时填写）</p>
+        <p class="field-hint">统计记录可留空；已有明确预测时，填写什么观察结果会推翻它。</p>
         <div class="struct-list" id="n-fals-list"></div>
         <div><button type="button" class="btn btn-sm" id="n-add-fals">＋ 添加 可推翻条件</button></div>
 
@@ -977,7 +980,6 @@ function renderNew() {
     list.appendChild(row);
   };
   addEv();
-  addFals();
   watchForm($('#new-form'));
   $('#n-add-ev').addEventListener('click', addEv);
   $('#n-add-fals').addEventListener('click', addFals);

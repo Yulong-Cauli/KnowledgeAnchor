@@ -1,0 +1,11 @@
+{
+  "id": 143439838,
+  "ref": "cauliyulong/claim-nuscenes-all-census",
+  "current_version_number": 1,
+  "last_run_time": "2026-11-05 14:30:56.906000",
+  "enable_gpu": false,
+  "kernel_data_sources": [
+    "cauliyulong/claim-nuscenes-low-lateral-census"
+  ],
+  "docker_image": "gcr.io/kaggle-images/python@sha256:0717e81990be591f8c5f98f033d29ab23e9ffde057e5b3a6bd4371f93969e962"
+}
