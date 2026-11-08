@@ -17,7 +17,7 @@
 | --- | --- | --- | --- | --- | --- | --- |
 | — | K-env `ka-verify-env-probe-mmlab` | CPU | nightshift/verify/recon-mmlab-env/ | done | kaggle.com/code/cauliyulong/ka-verify-env-probe-mmlab (v1) | v1 结论：默认 py3.13 环境全家装不上（无 cp313 轮+无 nvcc）；PlanB 骨架已成；详见 nightshift/verify/recon/recon-2026-11.md |
 | — | K-env-v2 `ka-verify-env-probe2-conda` | CPU | nightshift/verify/recon-mmlab-env/ | pending | — | conda 双路线探针（新栈 py3.10+torch2.x+mmcv-full1.7.2 轮 / 旧栈补完 mmdet3d0.17）——**组 2/3 全部 kernel 的新前提** |
-| — | K-coco-stats `ka-verify-coco-center-collision` | CPU | experiments/centernetpoints-center-collision-rare-on-coco/ | pending | — | 依赖 R1（COCO 标注镜像） |
+| — | K-coco-stats `ka-verify-coco-center-collision` | CPU | experiments/centernetpoints-center-collision-rare-on-coco/ | running | kaggle.com/code/cauliyulong/ka-verify-coco-center-collision (v1) | R1 定 awsaf49/coco-2017-dataset（470MB train 标注实测）；预注册 c08407c；主口径=全部标注含 crowd |
 | — | K-probe-1 `ka-verify-probe-pointnet-mobilenet` | CPU | experiments/pointnetpillars-pointnet-permutation-invariance-symmetric-function/ | running | kaggle.com/code/cauliyulong/ka-verify-probe-pointnet-mobilenet (v2) | 修复重推 1/2（P2 g 语义+P4 total+=m 与 dw 的 w 未更新三处）；v1 error 已留痕；预注册 b555f02 |
 | — | K-probe-2 `ka-verify-probe-rayiou-nf4-flops` | CPU | experiments/njusparseocc-rayiou-penalizes-thick-surface/ | pending | — | 关联卡：qlora-nf4（#48 材料）、sparseocc-flops |
 | — | K-lingo `ka-verify-lingoqa-judge` | CPU | experiments/lingoqa-lingo-judge-spearman-0950/ | pending | — | 依赖 R7；CPU 过慢转 T4 |
