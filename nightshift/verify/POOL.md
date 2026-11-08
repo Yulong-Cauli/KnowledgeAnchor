@@ -15,12 +15,13 @@
 
 | 槽 | kernel | 类型 | EXP 目录 | 状态 | kernel URL | 依赖/备注 |
 | --- | --- | --- | --- | --- | --- | --- |
-| — | K-env `ka-verify-env-probe-mmlab` | CPU | nightshift/verify/recon-mmlab-env/ | running | kaggle.com/code/cauliyulong/ka-verify-env-probe-mmlab (v1) | 组 2/3 全部 openmmlab 系 kernel 的 push 前提；产出 env-matrix.json |
+| — | K-env `ka-verify-env-probe-mmlab` | CPU | nightshift/verify/recon-mmlab-env/ | done | kaggle.com/code/cauliyulong/ka-verify-env-probe-mmlab (v1) | v1 结论：默认 py3.13 环境全家装不上（无 cp313 轮+无 nvcc）；PlanB 骨架已成；详见 nightshift/verify/recon/recon-2026-11.md |
+| — | K-env-v2 `ka-verify-env-probe2-conda` | CPU | nightshift/verify/recon-mmlab-env/ | pending | — | conda 双路线探针（新栈 py3.10+torch2.x+mmcv-full1.7.2 轮 / 旧栈补完 mmdet3d0.17）——**组 2/3 全部 kernel 的新前提** |
 | — | K-coco-stats `ka-verify-coco-center-collision` | CPU | experiments/centernetpoints-center-collision-rare-on-coco/ | pending | — | 依赖 R1（COCO 标注镜像） |
-| — | K-probe-1 `ka-verify-probe-pointnet-mobilenet` | CPU | experiments/pointnetpillars-pointnet-permutation-invariance-symmetric-function/ | running | kaggle.com/code/cauliyulong/ka-verify-probe-pointnet-mobilenet (v1) | 预注册 b555f02；关联卡：maxpool-skeleton、mobilenet-dsc |
+| — | K-probe-1 `ka-verify-probe-pointnet-mobilenet` | CPU | experiments/pointnetpillars-pointnet-permutation-invariance-symmetric-function/ | running | kaggle.com/code/cauliyulong/ka-verify-probe-pointnet-mobilenet (v2) | 修复重推 1/2（P2 g 语义+P4 total+=m 与 dw 的 w 未更新三处）；v1 error 已留痕；预注册 b555f02 |
 | — | K-probe-2 `ka-verify-probe-rayiou-nf4-flops` | CPU | experiments/njusparseocc-rayiou-penalizes-thick-surface/ | pending | — | 关联卡：qlora-nf4（#48 材料）、sparseocc-flops |
 | — | K-lingo `ka-verify-lingoqa-judge` | CPU | experiments/lingoqa-lingo-judge-spearman-0950/ | pending | — | 依赖 R7；CPU 过慢转 T4 |
-| 0 | 班 B `claim-qwt-r2-gate-nonregression`（既有） | T4 | experiments/qwt-r2-gate-nonregression/ | running | kaggle.com/code/cauliyulong/claim-qwt-r2-gate-nonregression (v2) | 00:21 push 成功=规则接受实锤；5.5h 自检点 ~06:00 收尾，08:20 收割 |
+| 0 | 班 B `claim-qwt-r2-gate-nonregression`（既有） | T4 | experiments/qwt-r2-gate-nonregression/ | running | kaggle.com/code/cauliyulong/claim-qwt-r2-gate-nonregression (v3) | 修复重推 1/2（v2 三分钟即败：val XML Annotations 候选硬编码旧式路径，已改 DATA 根推导+walk 兜底）；v3 约 02:55 起 5.5h 自检点 → ~08:25，08:20 火晨报注明 |
 | 1 | K-bevdet `ka-verify-bevdet-scale-nms` | T4 | experiments/bevdet-scale-nms-small-object-ap-gain/ | pending | — | 依赖 K-env；关联卡：bevdet-tiny-fcos3d |
 | 2 | K-triplets `ka-verify-centernettriplets-oracle` | T4 | experiments/centernettriplets-gt-center-oracle-ap-565/ | pending | — | 依赖 R1/R5 |
 | 3 | K-bevplanner `ka-verify-bevplanner-egostatus-injection` | T4 | experiments/bevplanner-egostatus-injection-closes-gap/ | pending | — | 依赖 K-env + R2/R6；关联卡：ego-velocity、egomlp-parity；1–2 会话 STATE 断点 |

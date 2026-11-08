@@ -91,7 +91,7 @@ class PointNetSmall(nn.Module):
         if self.agg == 'max':   g = y.max(dim=2)[0]
         elif self.agg == 'mean': g = y.mean(dim=2)
         else:                    g = y.sum(dim=2)
-        return self.head(g), y
+        return self.head(g), y, g                # v2 修复：g=池化后全局向量（256 维），P2 语义需要
 
 def train_model(agg, seed):
     torch.manual_seed(seed); np.random.seed(seed)
@@ -190,8 +190,7 @@ if MODELS.get('max'):
             for si in range(len(vx)):
                 pts = vx[si].copy()
                 x0 = torch.tensor(pts[None])
-                head0, y0 = model(x0)
-                g0 = y0[0]                                  # 256-d pre-head global feature
+                head0, y0, g0 = model(x0)                   # g0: 256-d pooled global feature (v2 修复)
                 skel = y0[0].argmax(dim=1).numpy()          # per-dim argmax point idx
                 nonskel = np.setdiff1d(np.arange(CFG['n_pts']), skel)
                 k = min(int(CFG['skel_frac'] * CFG['n_pts']), len(nonskel))
@@ -199,13 +198,13 @@ if MODELS.get('max'):
                 radius = float(np.linalg.norm(pts, axis=1).max())
                 # (a) gaussian noise on selected non-skeleton points
                 pts2 = pts.copy(); pts2[sel] += rng.normal(0, CFG['noise_sigma'] * radius, (k, 3)).astype('float32')
-                head1, y1 = model(torch.tensor(pts2[None]))
-                rels_noise.append(float((g0 - y1[0]).norm() / (g0.norm() + 1e-12)))
+                head1, _, g1 = model(torch.tensor(pts2[None]))
+                rels_noise.append(float((g0 - g1).norm() / (g0.norm() + 1e-12)))
                 flips_n += int(head1[0].argmax() != head0[0].argmax())
                 # (b) delete selected non-skeleton points
                 keep = np.setdiff1d(np.arange(CFG['n_pts']), sel)
-                head2, y2 = model(torch.tensor(pts[keep][None]))
-                rels_del.append(float((g0 - y2[0]).norm() / (g0.norm() + 1e-12)))
+                head2, _, g2 = model(torch.tensor(pts[keep][None]))
+                rels_del.append(float((g0 - g2).norm() / (g0.norm() + 1e-12)))
                 flips_d += int(head2[0].argmax() != head0[0].argmax())
         rel_n, rel_d = float(np.median(rels_noise)), float(np.median(rels_del))
         fr_n, fr_d = flips_n / len(vx), flips_d / len(vx)
@@ -281,13 +280,15 @@ def macs(stem_in=3, stem_out=32, in_res=224, blocks=None, conv_mobile=False, fc=
         ho = h // 2 if s == 2 else h
         if conv_mobile:
             m = ho * ho * cin * cout * 9
+            total += m
             rows.append((f'conv3x3_{cin}-{cout}_s{s}', cin, cout, s, ho * ho, m))
         else:
-            mdw = h * w * cin * 9                        # dw 保持输入分辨率
+            mdw = h * h * cin * 9                        # dw 保持输入分辨率（方形特征图，w 恒等 h）
             mpw = ho * ho * cin * cout
             m = mdw + mpw
+            total += m
             rows.append((f'dsc_{cin}-{cout}_s{s}', cin, cout, s, ho * ho, m, mdw, mpw))
-        h = ho
+        h = w = ho
     m = fc; total += m; rows.append(('fc', 1024, 1000, 1, 1, m))
     return total, rows
 
