@@ -1,0 +1,158 @@
+{
+ "claim_id": "claim-bevplanner-nuscenes-straight-driving-imbalance",
+ "git_commit": "c24715a",
+ "kaggle_notebook_version": "FILLED_BY_HARVESTER",
+ "env": {
+  "cpu_model": "Intel(R) Xeon(R) CPU @ 2.20GHz",
+  "ram_gb": 32.9,
+  "python": "3.13.18",
+  "platform": "Linux-6.18.55+-x86_64-with-glibc2.39"
+ },
+ "env_pip_freeze_sha256": "358b7d293968e155cb9c32d8d40f8f1f165e386f564d91c3a4350ed6c6b6348b",
+ "data": {
+  "dataset": "sahangunasekara92/nuscenes-v1-0-full-keyframes",
+  "meta_dir_suffix": "nuscenes-v1-0-full-keyframes/v1.0-trainval/",
+  "sizes": {
+   "scene.json": 285132,
+   "sample.json": 7424233,
+   "sample_data.json": 1345678379,
+   "ego_pose.json": 645746265
+  },
+  "counts": {
+   "scenes": 850,
+   "samples": 34149,
+   "sample_data": 2631083,
+   "ego_pose": 2631083
+  },
+  "anchors_ok": true,
+  "excluded_no_lidar_keyframe": 0
+ },
+ "splits_sha": "b40adc467b919192899405d9b77871afee8efa07",
+ "determinism_ok": true,
+ "displacement_cross_check": {
+  "steps_total": 150266,
+  "steps_conflict": 42,
+  "samples_majority_conflict": 20,
+  "sample_rate": 0.00059
+ },
+ "complete_future": {
+  "trainval": 29049,
+  "train": 23930,
+  "val": 5119,
+  "val_ratio_vs_6019": 0.85047,
+  "val_ratio_in_5119_band": true
+ },
+ "populations": {
+  "trainval_complete": {
+   "n": 29049,
+   "H_3deg": 0.60777,
+   "H_5deg": 0.71724,
+   "H_10deg": 0.8317,
+   "H_15deg": 0.87941,
+   "H_20deg": 0.90709,
+   "H_30deg": 0.93748,
+   "L_0.5m": 0.6719,
+   "L_1m": 0.78564,
+   "L_2m": 0.87469,
+   "L_3m": 0.91563,
+   "P_step_lt5deg": 0.88671
+  },
+  "train_complete": {
+   "n": 23930,
+   "H_3deg": 0.60272,
+   "H_5deg": 0.71805,
+   "H_10deg": 0.83268,
+   "H_15deg": 0.87994,
+   "H_20deg": 0.90769,
+   "H_30deg": 0.93748,
+   "L_0.5m": 0.67146,
+   "L_1m": 0.78554,
+   "L_2m": 0.87372,
+   "L_3m": 0.91438,
+   "P_step_lt5deg": 0.8883
+  },
+  "val_complete": {
+   "n": 5119,
+   "H_3deg": 0.63137,
+   "H_5deg": 0.71342,
+   "H_10deg": 0.82711,
+   "H_15deg": 0.87693,
+   "H_20deg": 0.90428,
+   "H_30deg": 0.93749,
+   "L_0.5m": 0.67396,
+   "L_1m": 0.78609,
+   "L_2m": 0.87927,
+   "L_3m": 0.92147,
+   "P_step_lt5deg": 0.87927
+  },
+  "val_all6019_secondary": {
+   "n": 6019,
+   "H_3deg": 0.63864,
+   "H_5deg": 0.7154,
+   "H_10deg": 0.81891,
+   "H_15deg": 0.86343,
+   "H_20deg": 0.88885,
+   "H_30deg": 0.91892,
+   "L_0.5m": 0.683,
+   "L_1m": 0.78501,
+   "L_2m": 0.86858,
+   "L_3m": 0.90646,
+   "P_step_lt5deg": 0.86293
+  }
+ },
+ "scene_level_secondary": {
+  "H_3deg": {
+   "n_scenes": 850,
+   "ratio": 0.45412
+  },
+  "H_5deg": {
+   "n_scenes": 850,
+   "ratio": 0.57412
+  },
+  "H_10deg": {
+   "n_scenes": 850,
+   "ratio": 0.74353
+  },
+  "H_15deg": {
+   "n_scenes": 850,
+   "ratio": 0.89294
+  },
+  "H_20deg": {
+   "n_scenes": 850,
+   "ratio": 0.97176
+  },
+  "H_30deg": {
+   "n_scenes": 850,
+   "ratio": 0.99882
+  }
+ },
+ "preregistered": {
+  "H": [
+   3,
+   5,
+   10,
+   15,
+   20,
+   30
+  ],
+  "L": [
+   0.5,
+   1,
+   2,
+   3
+  ],
+  "P": 5.0,
+  "horizon": 6,
+  "falsifier_line": 0.6,
+  "inband": [
+   0.689,
+   0.789
+  ],
+  "appendix_band": [
+   0.82,
+   0.92
+  ]
+ },
+ "runtime_sec": 49.2,
+ "notes": "主分母=完整未来轨迹样本；val_all6019_secondary 含被截断样本（短 horizon 偏直行），仅敏感性参考不作判定。"
+}

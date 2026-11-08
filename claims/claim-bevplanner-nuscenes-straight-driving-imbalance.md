@@ -60,5 +60,7 @@ signoff: null
 
 ## 核查记录
 
+- 2026-11-08（统计复算，[experiments/bevplanner-nuscenes-straight-driving-imbalance](../../experiments/bevplanner-nuscenes-straight-driving-imbalance/)，Kaggle kernel v8）：falsifier 1 未触发（全判据×阈值×split 最低 60.3% > 60%）；73.9% 带内复得（预注册判据 H_5°=71.7%、L_1m=78.6%，trainval 完整样本 n=29049）；附录 87% 复得（H_15°=87.7%、L_2m=87.9%、P=87.9%），且 val 完整未来轨迹样本数恰为 5119/6019，与论文 Appendix B 有效样本数逐位一致；航向双法交叉校验冲突 0.059%＜0.5% 阈值。falsifier 2（因果隔离）不在范围。status 维持 asserted，是否升级由主人裁决。详见实验目录 RESULTS.md。
+
 - 2026-11-02（建卡，commit c3ecdd4）：数字自 arXiv HTML v2 实抓。
 - 2026-11-05（02 任务书 P1-B3a 批）：表达整理，数字与 quote 未改写。2 条 evidence Grep 逐字命中笔记；73.9%/87% 分母区分保留；新增"直行判定阈值未记载"前置缺口（deep-read 遗留 #1）与"占比→捷径因果未隔离、三因叠加未分离"的证据边界；falsifier 加分层标注并标记预设判据。id/status/stance/review_due/signoff 未动。

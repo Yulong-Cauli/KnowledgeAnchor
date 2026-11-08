@@ -95,3 +95,5 @@
 - [catchup-1050✅] [总] 早间补班开始（automation 仍处误暂停态，2/3 火未跑；本班手动执行其职责）。班A kernel 实为 ERROR：cell4 ast.literal_eval 挂于 devkit splits.py L102（现版 train=list(sorted(set(...))) 组合式定义）；**cell3 数据管线全过**（四JSON载入+锚点全中：850场景/34149样本/2631083 sample_data）
 - [catchup-1053✅] [班A] cell4 改 exec 载入官方 splits.py（pinned sha 不变），外科手术式 patch+ast 全过 → v3 push；随后 cwd 误停班A目录又推一版（v4=与v3同内容无害重复）——记为操作瑕疵
 - [catchup-1055✅] [班B] 复活探测：push 仍被拒（主人尚未接受 ImageNet 规则），维持 BLOCKED 待 #98
+- [catchup-1116✅] [班A] kernel v8 COMPLETE（49s 计算段）；收割完成：results/ 四件套+sha256 清单入库、RESULTS.md（falsifier1 未触发/73.9% 带内复得/87% 与 5119 精准复现/五项文档化偏离）、STATE=done、卡片核查记录追加一行（status 未动）
+- [catchup-1117✅] [总] 班B 维持 BLOCKED（主人未接受 ImageNet 规则，QUESTIONS #98 待答）；三火 automation 仍处暂停态待主人恢复或删除
