@@ -1,0 +1,14 @@
+{
+  "id": "cauliyulong/ka-verify-env-probe-mmlab",
+  "title": "ka-verify-env-probe-mmlab",
+  "code_file": "env-probe.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_internet": true,
+  "competition_sources": [],
+  "dataset_sources": [],
+  "kernel_sources": [],
+  "model_sources": []
+}

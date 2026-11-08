@@ -1,9 +1,9 @@
 # STATE — 班 B（qwt-r2-gate-nonregression）
 
-- phase: **blocked_awaiting_competition_rules**
-- Phase 0: 完成（commit b5d27ce + 勘误注记）；checkpoint 免需、E5 行号零漂移、timm==0.9.16 依赖路径确认
-- notebook: `qwt-r2-gate-tier-a.ipynb` 就绪（8 cells，本地 ast 全过），kernel-metadata.json 就绪（GPU + competition source）
-- kernel: **未创建**（push 被 API 拒绝：比赛规则未接受）
-- 阻塞解除动作（主人）：浏览器接受 https://www.kaggle.com/c/imagenet-object-localization-challenge/rules
-- 解除后动作（值班班次或手动）：`cd experiments/qwt-r2-gate-nonregression && kaggle kernels push -p .` → 照任务书「班 B」收割流程走
-- 详见 BLOCKED.md
+- phase: **running**（2026-11-09 00:21 复活——BLOCKED 解除）
+- BLOCKED 解除: 主人已浏览器接受 ImageNet 规则；`kaggle kernels push` 成功 = 规则接受实锤（v1 时点 API 拒绝 → v2 push 通过）
+- kernel: `cauliyulong/claim-qwt-r2-gate-nonregression` **version 2 RUNNING**（T4 + competition source）
+- kernel_url: https://www.kaggle.com/code/cauliyulong/claim-qwt-r2-gate-nonregression
+- 今夜目标（照任务书 04 班 B 节）: Phase 0→1→2→3，DeiT-T 优先，5.5h 自检点（约 06:00 前收尾），metrics.jsonl 逐配置落盘
+- 预计完成: ~06:00–06:30；08:20 火收割；仍 running 则晨报注明
+- 下一动作: complete → 收割（锚点门 ±0.5% → RESULTS.md 四件套 → 卡核查记录 → STATE 断点续跑清单）

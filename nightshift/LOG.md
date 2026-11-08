@@ -102,3 +102,4 @@
 2026-11-09 00:22:49 | fire-0020 | 班B 复活 | push 成功 v2（ImageNet 规则接受实锤，403 消失）| T4 槽被班B占用
 2026-11-09 00:26:20 | 主会话调度 | 主人批示 12:20/18:20 两火取消（夜间 token 09:00 过期）——cron 20 0,3,8,12,18 → 20 0,2,4,6,8 已生效（nextRunAt=02:20）；任务书/POOL 同步 | - | -
 2026-11-09 00:26:03 | fire-0020 | K-env init | notebook 6 cells ast 全过，kernel 推送 | CPU 槽 1/2 占用
+2026-11-09 00:30:52 | fire-0020 | init 完成 | 班B v2 RUNNING(规则实锤)+K-env v1+K-probe-1 v1(RUNNING)；POOL/STATE 已更 | 预注册 b555f02 先于 K-probe-1 push
