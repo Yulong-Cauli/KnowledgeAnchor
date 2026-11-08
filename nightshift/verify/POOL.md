@@ -16,12 +16,12 @@
 | 槽 | kernel | 类型 | EXP 目录 | 状态 | kernel URL | 依赖/备注 |
 | --- | --- | --- | --- | --- | --- | --- |
 | — | K-env `ka-verify-env-probe-mmlab` | CPU | nightshift/verify/recon-mmlab-env/ | done | kaggle.com/code/cauliyulong/ka-verify-env-probe-mmlab (v1) | v1 结论：默认 py3.13 环境全家装不上（无 cp313 轮+无 nvcc）；PlanB 骨架已成；详见 nightshift/verify/recon/recon-2026-11.md |
-| — | K-env-v2 `ka-verify-env-probe2-conda` | CPU | nightshift/verify/recon-mmlab-env/ | pending | — | conda 双路线探针（新栈 py3.10+torch2.x+mmcv-full1.7.2 轮 / 旧栈补完 mmdet3d0.17）——**组 2/3 全部 kernel 的新前提** |
-| — | K-coco-stats `ka-verify-coco-center-collision` | CPU | experiments/centernetpoints-center-collision-rare-on-coco/ | running | …(v2) | 修复重推 1/2：v1 漏 image_id 分组（跨图假对 3.16M 留痕，**v1 判 falsifier 命中无效**）；v2 修复后重跑；阈值不变；预注册 c08407c |
+| — | K-env-v2 `ka-verify-env-probe2-conda` | CPU | nightshift/verify/recon-mmlab-env/ | running | kaggle.com/code/cauliyulong/ka-verify-env-probe2-conda (v1) | conda 双路线探针（A: py3.10+torch2.0.1cu118+mmcv-full1.7.2 轮+mmdet2.28 / B: py3.8 旧栈补完）——组 2/3 新前提 |
+| — | K-coco-stats `ka-verify-coco-center-collision` | CPU | experiments/centernetpoints-center-collision-rare-on-coco/ | running | …(v2) | v2 修复 image_id 分组后重跑（v1 跨图假对 3.16M 留痕，v1 falsifier 判定作废）；阈值不变；预注册 c08407c |
 | — | K-probe-1 `ka-verify-probe-pointnet-mobilenet` | CPU | experiments/pointnetpillars-pointnet-permutation-invariance-symmetric-function/ | done | …(v2) | **P1 逐位一致 / P2 max 带内（sum 出带观察）/ P4 双 SUPPORT**；P3 未闭合留人工；三卡核查记录已加；RESULTS 四件套齐（env 快照缺口登记） |
 | — | K-probe-2 `ka-verify-probe-rayiou-nf4-flops` | CPU | experiments/njusparseocc-rayiou-penalizes-thick-surface/ | pending | — | 关联卡：qlora-nf4（#48 材料）、sparseocc-flops |
 | — | K-lingo `ka-verify-lingoqa-judge` | CPU | experiments/lingoqa-lingo-judge-spearman-0950/ | pending | — | 依赖 R7；CPU 过慢转 T4 |
-| 0 | 班 B `claim-qwt-r2-gate-nonregression`（既有） | T4 | experiments/qwt-r2-gate-nonregression/ | running | kaggle.com/code/cauliyulong/claim-qwt-r2-gate-nonregression (v3) | 修复重推 1/2（v2 三分钟即败：val XML Annotations 候选硬编码旧式路径，已改 DATA 根推导+walk 兜底）；v3 约 02:55 起 5.5h 自检点 → ~08:25，08:20 火晨报注明 |
+| 0 | 班 B `claim-qwt-r2-gate-nonregression`（既有） | T4 | experiments/qwt-r2-gate-nonregression/ | running | …(v5) | v3 败于 vendor timm 兼容（hf_hub 键）→ v4 shim（本地全链验证）含班次笔误 → v5 RUNNING；预算说明见 STATE（若主人认定超限→后续 BLOCKED）；自检点 ~10:25，**收割明晚 00:20 火** |
 | 1 | K-bevdet `ka-verify-bevdet-scale-nms` | T4 | experiments/bevdet-scale-nms-small-object-ap-gain/ | pending | — | 依赖 K-env；关联卡：bevdet-tiny-fcos3d |
 | 2 | K-triplets `ka-verify-centernettriplets-oracle` | T4 | experiments/centernettriplets-gt-center-oracle-ap-565/ | pending | — | 依赖 R1/R5 |
 | 3 | K-bevplanner `ka-verify-bevplanner-egostatus-injection` | T4 | experiments/bevplanner-egostatus-injection-closes-gap/ | pending | — | 依赖 K-env + R2/R6；关联卡：ego-velocity、egomlp-parity；1–2 会话 STATE 断点 |

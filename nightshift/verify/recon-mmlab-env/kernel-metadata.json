@@ -1,7 +1,7 @@
 {
-  "id": "cauliyulong/ka-verify-env-probe-mmlab",
-  "title": "ka-verify-env-probe-mmlab",
-  "code_file": "env-probe.ipynb",
+  "id": "cauliyulong/ka-verify-env-probe2-conda",
+  "title": "ka-verify-env-probe2-conda",
+  "code_file": "env-probe2.ipynb",
   "language": "python",
   "kernel_type": "notebook",
   "is_private": true,
