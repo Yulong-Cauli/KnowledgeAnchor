@@ -110,3 +110,4 @@
 2026-11-09 04:20:44 | fire-0420 | 班次开始 | POOL mtime 02:44 无防重入 | probe-1 v2 COMPLETE / coco-stats v1 COMPLETE / 班B v3 ERROR(修复 2/2 最后预算)
 2026-11-09 04:23:39 | fire-0420 | K-probe-1 收割 | P1 逐位一致/P2 max 带内/P4 双 SUPPORT/P3 未闭合留人工；三卡核查记录+RESULTS 四件套；validate OK(191) | K-coco-stats v1 falsifier 判定作废（image_id 缺陷），v2 已重推
 2026-11-09 04:36:03 | fire-0420 | 班B v5 RUNNING | v3 败于 vendor hf_hub 键→shim 四件套（本地全链验证）→v4 含班次笔误自查→v5=同修复完成版；预算超限说明如实记 STATE | K-coco-stats v2 + K-env-v2 v1 均在跑
+2026-11-09 04:37:47 | fire-0420 | K-coco-stats v2 收割 | SUPPORT 708 对/0.082

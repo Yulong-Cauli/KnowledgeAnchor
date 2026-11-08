@@ -58,3 +58,7 @@ signoff: null
 ## 核查记录
 
 - 2026-11-05（02 任务书 P1-B7a 整理班）：表达整理 + 原文核查，数字未改写。两条笔记 quote Grep 逐字命中；新增 3 条 arXiv 1904.07850v2 原文 evidence（§6.1.1 碰撞统计句、20.0% 句、Appendix C train2017 口径句），原「待人工核对原文」falsifier 闭合；scope 由「笔记未注明 split」升级为 train2017 已核口径；falsifiers 分层为原文核查（已闭合）/ 同范围复现 / 跨条件迁移。id/status/stance/review_due/signoff 未动。
+
+## 核查记录
+
+- 2026-11-09：K-coco-stats 复算（[experiments/centernetpoints-center-collision-rare-on-coco/](../experiments/centernetpoints-center-collision-rare-on-coco/RESULTS.md)，Kaggle kernel v2）——完整性门逐位过（118,287 图 / 860,001 物体），per-image+同类 R=4 floor 口径碰撞 **708 对 / 0.082%**（论文 614 对，+15.3%，预注册 614±20% 带内；round 敏感性 660 更近论文值）——**falsifier 2 未触发**，"碰撞实际可忽略"量级方向支持。v1 曾因实现缺陷（碰撞分组漏 image_id，跨图假对 3.16M）误判 falsifier 命中，已作废留痕。实验观察，status 未动。

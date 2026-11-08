@@ -17,7 +17,7 @@
 | --- | --- | --- | --- | --- | --- | --- |
 | — | K-env `ka-verify-env-probe-mmlab` | CPU | nightshift/verify/recon-mmlab-env/ | done | kaggle.com/code/cauliyulong/ka-verify-env-probe-mmlab (v1) | v1 结论：默认 py3.13 环境全家装不上（无 cp313 轮+无 nvcc）；PlanB 骨架已成；详见 nightshift/verify/recon/recon-2026-11.md |
 | — | K-env-v2 `ka-verify-env-probe2-conda` | CPU | nightshift/verify/recon-mmlab-env/ | running | kaggle.com/code/cauliyulong/ka-verify-env-probe2-conda (v1) | conda 双路线探针（A: py3.10+torch2.0.1cu118+mmcv-full1.7.2 轮+mmdet2.28 / B: py3.8 旧栈补完）——组 2/3 新前提 |
-| — | K-coco-stats `ka-verify-coco-center-collision` | CPU | experiments/centernetpoints-center-collision-rare-on-coco/ | running | …(v2) | v2 修复 image_id 分组后重跑（v1 跨图假对 3.16M 留痕，v1 falsifier 判定作废）；阈值不变；预注册 c08407c |
+| — | K-coco-stats `ka-verify-coco-center-collision` | CPU | experiments/centernetpoints-center-collision-rare-on-coco/ | done | …(v2) | **SUPPORT：708 对 / 0.082% 带内（论文 614）；完整性门逐位过**；v1 falsifier 判定作废留痕；核查记录已加 |
 | — | K-probe-1 `ka-verify-probe-pointnet-mobilenet` | CPU | experiments/pointnetpillars-pointnet-permutation-invariance-symmetric-function/ | done | …(v2) | **P1 逐位一致 / P2 max 带内（sum 出带观察）/ P4 双 SUPPORT**；P3 未闭合留人工；三卡核查记录已加；RESULTS 四件套齐（env 快照缺口登记） |
 | — | K-probe-2 `ka-verify-probe-rayiou-nf4-flops` | CPU | experiments/njusparseocc-rayiou-penalizes-thick-surface/ | pending | — | 关联卡：qlora-nf4（#48 材料）、sparseocc-flops |
 | — | K-lingo `ka-verify-lingoqa-judge` | CPU | experiments/lingoqa-lingo-judge-spearman-0950/ | pending | — | 依赖 R7；CPU 过慢转 T4 |

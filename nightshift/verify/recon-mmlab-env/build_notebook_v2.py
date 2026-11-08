@@ -57,8 +57,9 @@ RES['index_probe'] = {
 print(json.dumps(RES['index_probe']), flush=True)
 
 # miniconda 底座（v1 已证可行，重装一遍）
-sh('download-miniforge', 'curl -fsSL https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh -o /kaggle/tmp/miniforge2.sh', 600)
-sh('install-miniconda', 'bash /kaggle/tmp/miniforge2.sh -b -p /kaggle/tmp/mc2', 1200)"""})
+sh('download-miniforge', 'rm -f /kaggle/tmp/miniforge2.sh; (curl --retry 5 --retry-delay 3 -fsSL https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh -o /kaggle/tmp/miniforge2.sh || curl --retry 5 --retry-delay 3 -fsSL https://mirrors.tuna.tsinghua.edu.cn/github-release/conda-forge/miniforge/LatestRelease/Miniforge3-Linux-x86_64.sh -o /kaggle/tmp/miniforge2.sh) && ls -la /kaggle/tmp/miniforge2.sh', 900)
+sh('install-miniconda', 'bash /kaggle/tmp/miniforge2.sh -b -p /kaggle/tmp/mc2', 1200)
+sh('verify-conda', 'test -x /kaggle/tmp/mc2/bin/conda && /kaggle/tmp/mc2/bin/conda --version', 120)"""})
 
 CELLS.append({'cell_type': 'code', 'execution_count': None, 'metadata': {}, 'outputs': [], 'source': """# Route A：新栈 conda py3.10 + torch 2.0.1+cu118 + mmcv-full 1.7.2 轮 + mmdet 2.28.2
 ROUTE_A = {'env': '/kaggle/tmp/mc2/envs/a310', 'steps': []}
@@ -115,7 +116,7 @@ CONCL = {
 }
 RES['finished'] = time.strftime('%F %T')
 with open('/kaggle/working/env-matrix2.json', 'w') as f:
-    json.dump({'res': RES, 'routeA': ROUTE_A, 'routeB': ROUTE_B, 'conclusions': CONCL}, f, ensure_ascii=False, indent=1)
+    json.dump({'res': RES, 'matrix': MATRIX, 'routeA': ROUTE_A, 'routeB': ROUTE_B, 'conclusions': CONCL}, f, ensure_ascii=False, indent=1)
 if RES['routeA']['ok']:
     with open('/kaggle/working/env-routeA.sh', 'w') as f:
         f.write('#!/bin/bash\\nset -e\\n')

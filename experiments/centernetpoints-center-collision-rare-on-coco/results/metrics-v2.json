@@ -1,0 +1,33 @@
+{
+ "kernel": "ka-verify-coco-center-collision",
+ "started": "2026-11-08 20:22:13",
+ "git_note": "preregister commit 见 EXP/README（先于 push）",
+ "annotations_path": "/kaggle/input/datasets/awsaf49/coco-2017-dataset/coco2017/annotations/instances_train2017.json",
+ "n_images": 118287,
+ "n_objects_raw": 860001,
+ "n_objects_all": 860001,
+ "n_objects_noncrowd": 849949,
+ "R": 4,
+ "pairs_floor": 708,
+ "pairs_floor_v1_global_grouping_defect": "v1 漏 image_id 分组得 3159187（跨图假对），数字留痕于 RESULTS.md；判定口径不变（614±20%）",
+ "pairs_round": 660,
+ "ratio_floor": 0.0008232548566803992,
+ "paper": {
+  "pairs": 614,
+  "objects": 860001,
+  "R": 4
+ },
+ "completeness_gate": {
+  "images": true,
+  "objects_860001": true
+ },
+ "verdict": "SUPPORT: floor 口径 614±20% 带内且 <0.1%",
+ "bucket_note": "分桶需要 pair 级 bbox 面积，改为记录各桶物体占比与总体对数，pair 级分桶留收割后人工",
+ "objects_by_area": {
+  "small(<32^2)": 267697,
+  "medium(32^2-96^2)": 300132,
+  "large(>96^2)": 292172
+ },
+ "deterministic_rerun_equal": true,
+ "finished": "2026-11-08 20:22:53"
+}
