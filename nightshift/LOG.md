@@ -107,3 +107,5 @@
 2026-11-09 02:41:42 | fire-0220 | 收割+修复 | K-env done(v1 结论入库)；K-probe-1 v2 重推(修3处,本地过)；班B v3 重推(val路径修复,1/2)；K-env-v2 入池 | 修复预算各 1/2
 2026-11-09 02:43:46 | fire-0220 | K-coco-stats init | R1 定 awsaf49/coco-2017-dataset(470MB train 标注实测)；预注册 c08407c；notebook 主口径修正(全部标注含 crowd)后 push | CPU 槽 2/2 占用
 2026-11-09 02:44:14 | fire-0220 | K-coco-stats push 成功 v1 | POOL 已更（三 CPU RUNNING：probe-1 v2 / coco-stats v1；T4：班B v3） | 
+2026-11-09 04:20:44 | fire-0420 | 班次开始 | POOL mtime 02:44 无防重入 | probe-1 v2 COMPLETE / coco-stats v1 COMPLETE / 班B v3 ERROR(修复 2/2 最后预算)
+2026-11-09 04:23:39 | fire-0420 | K-probe-1 收割 | P1 逐位一致/P2 max 带内/P4 双 SUPPORT/P3 未闭合留人工；三卡核查记录+RESULTS 四件套；validate OK(191) | K-coco-stats v1 falsifier 判定作废（image_id 缺陷），v2 已重推

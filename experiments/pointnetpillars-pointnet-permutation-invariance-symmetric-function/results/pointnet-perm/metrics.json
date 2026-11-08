@@ -1,0 +1,9 @@
+{
+ "trials": 20,
+ "per_sample_max_diff": {},
+ "determinism_ok": true,
+ "max_abs_logit_diff_global": 0.0,
+ "n_samples_gt_1e-6": 0,
+ "n_samples_gt_1e-3": 0,
+ "verdict": "SUPPORT: bitwise-identical under permutation (float32 CPU)"
+}

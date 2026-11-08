@@ -1,0 +1,29 @@
+{
+ "noise_sigma": 0.05,
+ "frac": 0.1,
+ "per_agg": {
+  "max": {
+   "rel_l2_noise_median": 0.012768743559718132,
+   "rel_l2_delete_median": 5.7459484281707773e-08,
+   "flip_rate_noise": 0.0,
+   "flip_rate_delete": 0.0,
+   "support_band": true,
+   "max_not_more_sensitive_than_others": true
+  },
+  "mean": {
+   "rel_l2_noise_median": 0.006275039631873369,
+   "rel_l2_delete_median": 0.02644967846572399,
+   "flip_rate_noise": 0.0,
+   "flip_rate_delete": 0.0,
+   "support_band": true
+  },
+  "sum": {
+   "rel_l2_noise_median": 0.006081145955249667,
+   "rel_l2_delete_median": 0.10018444806337357,
+   "flip_rate_noise": 0.0,
+   "flip_rate_delete": 0.0,
+   "support_band": false
+  }
+ },
+ "verdict": "SUPPORT: skeleton robustness band passed (preset criteria)"
+}

@@ -50,3 +50,7 @@ signoff: null
 
 成立：无序集合输入可以绕开顺序敏感的序列建模，共享 MLP + 对称聚合是点云特征提取的标准起点，也是后续 pillar/voxel 编码（见 [PointPillars 编码卡](claim-pointnetpillars-pillar-encoding-2dcnn-avoid-3dconv.md)）复用的机制前提；引用进方案前仍需 verified。
 不成立：实现存在隐含顺序依赖或对称性另有来源，本卡改为记录"笔记表述与实现不符"，置换不变性主张按实际实现收窄。
+
+## 核查记录
+
+- 2026-11-09：K-probe-1 合成管线实验（[experiments/pointnetpillars-pointnet-permutation-invariance-symmetric-function/](../experiments/pointnetpillars-pointnet-permutation-invariance-symmetric-function/RESULTS.md)，Kaggle kernel v2）——共享 MLP+maxpool 小模型（三聚合 gate 全过）在 200 样本×20 置换下输出**逐位一致**（max|Δlogit|=0.0，确定性断言过），预注册判据（<1e-6）带内，falsifier 1 未触发；官方 repo（charlesq34/pointnet）实现核查未闭合（repo 布局变化，head 2618f72 已固定留人工）；env 快照缺 pip freeze 缺口如实登记（RESULTS.md §四件套）。实验观察，status 未动。

@@ -46,3 +46,7 @@ signoff: null
 
 成立：max 聚合对离群点与点数波动的鲁棒性有据可依，可用于支撑点云稀疏/密度不稳场景（如车载 LiDAR）选型的机制论证。
 不成立：max 聚合的鲁棒性依赖未注明的条件（扰动比例、训练分布），或与其他对称函数无差异，本卡收窄为纯结构描述，鲁棒性论证需另立实验卡。
+
+## 核查记录
+
+- 2026-11-09：K-probe-1 同 kernel 实验（experiments/pointnetpillars-pointnet-permutation-invariance-symmetric-function/RESULTS.md）——**预设判据（非卡面锚点，预注册 b555f02）**：仅扰非骨架点（≤10%）时 max 聚合全局特征 rel L2 中位 1.28%（noise）/0.0%（delete）、翻转率 0，带内支持「骨架」论证；对照：mean 0.63%/2.64% 带内，**sum 删除扰动 10.02% 出带**——max 不比 mean/sum 更敏感（falsifier 2 方向未触发）。合成数据证据级，status 未动。

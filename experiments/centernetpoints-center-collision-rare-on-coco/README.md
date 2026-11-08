@@ -26,3 +26,8 @@
 ## 关联 kernel 运行记录
 
 - kernel：`cauliyulong/ka-verify-coco-center-collision`（push 后 STATE.md 回填）
+
+## 偏差与修复记录（2026-11-09 fire-0420）
+
+- v1 kernel 实现缺陷：碰撞分组漏 `image_id`（跨图物体落入同格被误计为碰撞），得 3,159,187 对——**数字留痕**（RESULTS.md v1 节），不作为判读依据；阈值（614±20% 带、<0.1%、完整性门）**不变**。
+- v2 修复：分组键改为 (image_id, category_id, col, row)，重推（修复预算 1/2）。判定带仍以本 README 预注册节为准。

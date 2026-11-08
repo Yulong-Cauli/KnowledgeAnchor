@@ -1,0 +1,121 @@
+{
+ "kernel": "ka-verify-probe-pointnet-mobilenet",
+ "cfg": {
+  "seed": 0,
+  "n_train": 3000,
+  "n_val": 200,
+  "n_pts": 256,
+  "k": 4,
+  "epochs": 25,
+  "batch": 64,
+  "perm_trials": 20,
+  "skel_frac": 0.1,
+  "noise_sigma": 0.05,
+  "band_identical": 1e-06,
+  "band_noisy": 0.001,
+  "feat_rel_l2": 0.05,
+  "flip_rate": 0.05,
+  "train_gate": 0.95,
+  "aggs": [
+   "max",
+   "mean",
+   "sum"
+  ]
+ },
+ "git_note": "preregister commit b555f02 (EXP/README)",
+ "started": "2026-11-08 18:35:25",
+ "train_log": [
+  {
+   "agg": "max",
+   "seed": 0,
+   "val_acc": 1.0
+  },
+  {
+   "agg": "mean",
+   "seed": 0,
+   "val_acc": 1.0
+  },
+  {
+   "agg": "sum",
+   "seed": 0,
+   "val_acc": 1.0
+  }
+ ],
+ "gate_pass": {
+  "max": true,
+  "mean": true,
+  "sum": true
+ },
+ "p1": {
+  "trials": 20,
+  "per_sample_max_diff": {},
+  "determinism_ok": true,
+  "max_abs_logit_diff_global": 0.0,
+  "n_samples_gt_1e-6": 0,
+  "n_samples_gt_1e-3": 0,
+  "verdict": "SUPPORT: bitwise-identical under permutation (float32 CPU)"
+ },
+ "p2": {
+  "noise_sigma": 0.05,
+  "frac": 0.1,
+  "per_agg": {
+   "max": {
+    "rel_l2_noise_median": 0.012768743559718132,
+    "rel_l2_delete_median": 5.7459484281707773e-08,
+    "flip_rate_noise": 0.0,
+    "flip_rate_delete": 0.0,
+    "support_band": true,
+    "max_not_more_sensitive_than_others": true
+   },
+   "mean": {
+    "rel_l2_noise_median": 0.006275039631873369,
+    "rel_l2_delete_median": 0.02644967846572399,
+    "flip_rate_noise": 0.0,
+    "flip_rate_delete": 0.0,
+    "support_band": true
+   },
+   "sum": {
+    "rel_l2_noise_median": 0.006081145955249667,
+    "rel_l2_delete_median": 0.10018444806337357,
+    "flip_rate_noise": 0.0,
+    "flip_rate_delete": 0.0,
+    "support_band": false
+   }
+  },
+  "verdict": "SUPPORT: skeleton robustness band passed (preset criteria)"
+ },
+ "p3": {
+  "repo": "https://github.com/charlesq34/pointnet",
+  "checked_at": "2026-11-08 18:42:41",
+  "facts": [
+   "逐点共享权重 = 1x1 Conv（见 conv_lines）；聚合 = max pool（见 pool_lines）——逐字行为仓库事实，与卡 falsifier2 的对照由收割时人工复核两段行文本定论"
+  ],
+  "clone_rc": 0,
+  "head": "2618f72bc1a0fd21b074096e748016960d44ef55\n\nhead: cannot open 'classify.py' for reading: No such file or directory",
+  "conv_lines": "",
+  "pool_lines": ""
+ },
+ "p4": {
+  "dsc_total_macs": 578900992,
+  "conv_total_macs": 4867293184,
+  "ratio_recomputed": 8.407816278193561,
+  "paper": {
+   "conv": 4866000000.0,
+   "dsc": 569000000.0,
+   "ratio": 8.551845342706503
+  },
+  "dev_conv_pct": 0.026575914508836826,
+  "dev_dsc_pct": 1.7400688927943762,
+  "ratio_grid_N72plus": {
+   "72": 8.0,
+   "96": 8.22857142857143,
+   "128": 8.408759124087592,
+   "256": 8.69433962264151,
+   "512": 8.844529750479847,
+   "1024": 8.9215876089061
+  },
+  "ratio_grid_all_in_8_9x": true,
+  "verdict": "SUPPORT"
+ },
+ "finished": "2026-11-08 18:42:42"
+}

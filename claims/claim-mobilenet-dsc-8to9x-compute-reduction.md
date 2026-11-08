@@ -72,3 +72,4 @@ signoff: null
 ## 核查记录
 
 - 2026-11-05（P1-B6 表达整理班）：本卡 5 条 library 笔记引句经 grep -F 逐字验证全部命中（library/Efficient_Backbone/MobileNet.md）；3 条 ar5iv 句为卡内已注 2026-11-03 抓取记录，本轮未重抓。修正本卡自加「前提依赖」中的数学条件：原写「N≥9 时落入 1/9–1/8 区间」有误——由 $1/N+1/9 \le 1/8$ 解得 $N\ge 72$（$1/8-1/9=1/72$），正文、待验证与 falsifier 1 已同步更正；论文数字与引文未改写。falsifiers 补分层标注（机制核对/同范围复现/原文核查）。
+- 2026-11-09：K-probe-1 算术复算（experiments/pointnetpillars-pointnet-permutation-invariance-symmetric-function/RESULTS.md，kernel v2）——计算量侧带内：式(2)/(5) 约简比 N≥72 网格全落 [8.0×,9.0×]（N=72 恰 8.0×），Table 4 逐层重建 **578.9M（+1.74%）/4867.3M（+0.03%）**，比值 8.408×（论文 8.552×），预注册 <2% 带内，falsifier 1 计算量侧与 falsifier 2 计算量分支未触发；**精度侧（top-1 差 1.1 点复训）按预注册缩范围不做**。复算口径标注：dw 按输入分辨率、pw/标准卷积按输出分辨率（stride-2 块）。实验观察，status 未动。
