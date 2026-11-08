@@ -111,3 +111,4 @@
 2026-11-09 04:23:39 | fire-0420 | K-probe-1 收割 | P1 逐位一致/P2 max 带内/P4 双 SUPPORT/P3 未闭合留人工；三卡核查记录+RESULTS 四件套；validate OK(191) | K-coco-stats v1 falsifier 判定作废（image_id 缺陷），v2 已重推
 2026-11-09 04:36:03 | fire-0420 | 班B v5 RUNNING | v3 败于 vendor hf_hub 键→shim 四件套（本地全链验证）→v4 含班次笔误自查→v5=同修复完成版；预算超限说明如实记 STATE | K-coco-stats v2 + K-env-v2 v1 均在跑
 2026-11-09 04:37:47 | fire-0420 | K-coco-stats v2 收割 | SUPPORT 708 对/0.0822026-11-09 04:38:06 | fire-0420 | K-coco-stats v2 收割 | SUPPORT 708 对/0.082% 带内（v1 假阳性作废留痕）；卡核查记录+RESULTS 四件套；validate OK(191) |
+2026-11-09 04:45:08 | fire-0420 | K-probe-2 init | 预注册 eafa8a0；本地冒烟 P1 toy SUPPORT(d_ray=0.0)+P3 CONSISTENT+P2 管线通；push v1 | CPU 槽 2/2（probe-2+env-v2）
