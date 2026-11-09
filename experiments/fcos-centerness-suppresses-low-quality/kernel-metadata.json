@@ -1,0 +1,13 @@
+{
+  "id": "cauliyulong/ka-verify-fcos-centerness",
+  "title": "ka-verify-fcos-centerness",
+  "code_file": "fcos-centerness.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": true,
+  "dataset_sources": ["awsaf49/coco-2017-dataset"],
+  "competition_sources": [],
+  "kernel_sources": []
+}
