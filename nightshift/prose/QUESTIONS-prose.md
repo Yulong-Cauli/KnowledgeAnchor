@@ -16,3 +16,4 @@
 - R12（F4 批）：r4det-pdf 卡主张节内嵌历史附注 blockquote 整块保留（卡无核查记录节），日后压缩/迁移待裁定（同 R8 类）。
 - R13（O1 批）：drocc-cotr-plus 卡原句「官方 43.1」疑笔误（COTR 官论文自报约 41.4，见 cotr-compact 卡口径 2）——prose 已改为「与 COTR 官方口径是否等价」回避疑点，请主人复核原意。
 - R14（V1 批）：B3c 整理班五卡（llava×3、qwen3vl×2）核查记录均称「scope 末补『尚未独立验证』」，但五卡 scope 实文均无此字样（各有其他归属表述）——账实不符；是否补回及补在何处待主人裁定。
+- R15（P1a 批）：kradar 两卡（image-noise-sensitivity、seq13-ddp24-recipe）无「核查记录」节，起草账目留在「待验证」节；且原始来源链接指向 Windows 本地路径 D:/Research/Replication/…，库内无归档——是否补建核查记录节与归档原始记录文件，待主人裁定（同 R8 类）。
