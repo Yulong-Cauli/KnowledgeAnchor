@@ -122,3 +122,5 @@
 2026-11-10 02:28:59 | fire-0220 | probe-2 v4 推送 | 配方执行：三模块 stub+符号适配+布局修正（[:16]→[0:8]+[248:256]）；本地真源码冒烟 max_err=0.0；P2 三 verdict 落位（SUPPORT/Eq.4 确认/NF4 非最低如实记） | 判定带不动
 2026-11-10 02:29:33 | fire-0220 | env-v2 收割定论 | 双路线 OK（A 新栈 import✓+env-routeA.sh；B 旧栈 mmdet2.25✓，mmdet3d 留 T4）；组 2/3 解锁 | recon 文档已更新
 2026-11-10 02:29:47 | fire-0220 | 收尾 | B v6 状态见上；probe-2 v4 RUNNING（04:20 火收）；fcos v2 修复排 B v6 完成后（06:20 火执行）| CPU 1/2（probe-2 v4）
+2026-11-10 04:21:04 | fire-0420 | 班次开始 | POOL mtime 02:29 无防重入 | probe-2 v4 COMPLETE（收割+RESULTS+三卡）；B v6 QUEUED 4h+（零动作）；fcos 持牌等 T4
+2026-11-10 04:22:51 | fire-0420 | probe-2 v4 收割 done | P1 toy SUPPORT/P2-① max_err=0.0/P2-② Eq.4 不命中确认/P2-④ NF4 非最低自算/P3 CONSISTENT/P1b 三项闭合；三卡核查记录+#48 材料注入；validate OK | B v6 仍 QUEUED（零动作）；fcos 持牌

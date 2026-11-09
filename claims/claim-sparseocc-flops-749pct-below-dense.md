@@ -59,3 +59,4 @@ signoff: null
 
 成立：稀疏潜变量表示能把相机占据预测的算力压到稠密管线的约 1/4，做大分辨率 / 长距离占据时可作为首选工程路线复现验证。
 不成立：FLOPs 优势来自统计口径不对等或数字转抄错误，算力问题回到稠密表示 + 剪枝 / 量化的老路。
+- 2026-11-10：K-probe-2 论文侧算术（experiments/njusparseocc-rayiou-penalizes-thick-surface/RESULTS.md，kernel v4）——**1−455/1810=74.862%→74.9%（四舍五入自洽 ✓）；455/1810=0.2514（"约 1/4" ✓）；基线=C-CONet（笔记 Table 1 唯一稠密基线行，转引结构核对一致）**。缩范围标注：455G 运行时复算需 mmdet3d 栈（conda 路线已通，留池），FLOPs 统计口径（含不含 2D 主干/深度网络）未核——falsifier a/b 运行时侧不在本实验范围。实验观察，status 未动。

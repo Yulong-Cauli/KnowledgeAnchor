@@ -87,3 +87,4 @@ QLoRA 冻结 4-bit 底座做微调，其权重存储类型 NF4 是专门设计�
   - 数值复算（python3，statistics.NormalDist）：实现公式命中 16 值 max|err|≈1.083e-7；Eq.4 字面网格（i/(2^k+1) 避开端点、相邻均值）不命中（首位正值 0.1079 vs 0.0796）。
   - title/scope 更新（指数读法修正、实现核对注记）；falsifier 结构化为"构造核对/假设核对/最优性核对"并标注首次复算结果；新增 af4 线索。id/status/stance/review_due/signoff 未动。
   - 待决：论文 Eq.4/散文构造与官方实现的对应关系（端点意图待 PDF 澄清）——转 nightshift/QUESTIONS.md #48。
+- 2026-11-10：K-probe-2 实验（experiments/njusparseocc-rayiou-penalizes-thick-surface/RESULTS.md，kernel v4，bnb main 源码 sha 520a9e9d 两次独立抓取一致）——①**官方公式↔16 码点逐位一致（max_err=0.0）**：`create_normal_map(offset=0.9677083, use_extra_value=True)` 头尾块 [0:8]+[248:256] 即 NF4 码点（符号适配经主人 11-10 00:4x 授权，判定不动）；②**Eq.4 字面网格不命中确认**（本班网格读法首正 0.1484 ≠ 论文表 0.0796；与 11-05 的 0.108 读法互为不同字面读法——均不命中）→ #48 材料固化；③bin 质量检验口径局限（未做 absmax 归一，溢出污染外 bin）如实标注；④**E|X−Q| 自算 NF4 非最低（INT4 0.1896 < NF4 0.1934 < AF4 0.1988）**——与 bnb 代码注释线索 arXiv:2306.06965 同向；口径为码点域直接比较（未做 block-absmax），不构成证伪级反例，材料归 #48/后续精读。实验观察，status 未动。

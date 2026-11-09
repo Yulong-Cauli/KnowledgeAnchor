@@ -51,3 +51,7 @@ signoff: null
 
 成立：占据模型评测应优先 RayIoU（或同样按首次命中深度计分的指标）；凡只报体积 mIoU 的对比都可能被厚表面预测高估，横向看论文数字时要先看指标口径。
 不成立：若加厚仍能在 RayIoU 下获利或实现与描述不符，则其作主指标的公平性需重新评估，自建 benchmark 时另选或修正指标。
+
+## 核查记录
+
+- 2026-11-10：K-probe-2 实验（[experiments/njusparseocc-rayiou-penalizes-thick-surface/](../experiments/njusparseocc-rayiou-penalizes-thick-surface/RESULTS.md)，Kaggle kernel v4）——**P1 合成 toy：向内加厚表面使 voxel mIoU 0.171→0.773（获利 0.60）而 RayIoU Δ=0.0（τ=1/2/4m 各自不动）**，"加厚无法换分"机制在算子口径复现下成立（合成场景证据级）；**P1b 官方 evaluator（MCG-NJU/SparseOcc head af4d9df8）三项闭合：硬阈值 TP（L151）✓、τ=[1,2,4]（L139/237）✓、按类 IoU 聚合 TP/(gt+pred−TP)（L169-170，与 toy 同式）✓——falsifier 2 未触发**；首中语义段 grep 未覆盖（partial）。实验观察，status 未动。
