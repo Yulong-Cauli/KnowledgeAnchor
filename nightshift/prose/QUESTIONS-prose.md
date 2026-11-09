@@ -7,3 +7,4 @@
 - R5（Q2 批）：MQBench 四卡共同证据缺口——笔记未记录论文实验的数据集/模型清单/位宽/具体数字（§5.2/§5.3 表未转录），四卡停在「笔记转述」层；补强须先补笔记（library 只读）。
 - R6（C1 批）：centernetpoints-regression 卡正文细节「全类别共享、L1 loss、仅中心点位置」与 heatmap-peaks 卡 scope「每图前 100 峰值解码」均无 evidence quote 逐字覆盖（出自笔记节）；补 quote 需另行走流程，登记待补。
 - R7（C2 批）：fcos-centerness-regression 卡 Table 3 的 37.1→37.4 是否补入 evidence 待主人定夺；fcos-suppresses 卡在跑实验 ka-verify-fcos-centerness 未在卡内标注，出结果后需回填 falsifier 2/3 复现项——是否现在加指针待定（未擅自新增）。
+- R8（B2 批）：caddn 四卡无「核查记录」节（2026-11-05 口径核对账目留在「待验证」节）；是否统一补建核查记录节待主人裁定（prose 班不追加核查记录）。
