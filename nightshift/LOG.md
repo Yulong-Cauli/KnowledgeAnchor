@@ -120,3 +120,4 @@
 2026-11-09 14:02:24 | 白天补班 | 用户要求先启动一批 | K-fcos v1（T4 推理配对，预注册 bd9dab9）和 K-lingo v1（CPU 公开资产预检，预注册 4ce8939）均已提交，复查均 RUNNING | 正式 Lingo 相关性复核待逐题输出和人工分
 2026-11-10 02:21:37 | fire-0220 | 班次开始 | 接管守门（POOL mtime 00:44 >40min）| 白天补班推了 K-fcos/K-lingo；主人双授权 B v6 + probe-2 NF4 配方
 2026-11-10 02:28:59 | fire-0220 | probe-2 v4 推送 | 配方执行：三模块 stub+符号适配+布局修正（[:16]→[0:8]+[248:256]）；本地真源码冒烟 max_err=0.0；P2 三 verdict 落位（SUPPORT/Eq.4 确认/NF4 非最低如实记） | 判定带不动
+2026-11-10 02:29:33 | fire-0220 | env-v2 收割定论 | 双路线 OK（A 新栈 import✓+env-routeA.sh；B 旧栈 mmdet2.25✓，mmdet3d 留 T4）；组 2/3 解锁 | recon 文档已更新
