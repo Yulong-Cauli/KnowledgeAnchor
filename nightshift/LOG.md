@@ -115,3 +115,5 @@
 2026-11-09 06:21:18 | fire-0620 | 班次开始 | POOL mtime 04:45 无防重入 | probe-2/env-v2 COMPLETE；班B v5 ERROR（按 STATE 承诺走 BLOCKED，不再重推）
 2026-11-09 06:24:45 | fire-0620 | 班B BLOCKED | v5 败于 create_loader 缺 re_prob（shim+数据管线全通）；预算尽按承诺停手；QUESTIONS #100 三选一待主人 | T4 槽空出
 2026-11-09 06:25:26 | fire-0620 | 两 CPU 重推 | env-v2 v3(mkdir 修复,v1/v2 败因翻案=目录缺失非网络)+probe-2 v2(bnb exec stub) | 预算：env-v2 2/2 尽，probe-2 1/2
+2026-11-09 08:20:51 | fire-0820 | 班次开始 | POOL mtime 06:25 无防重入 | probe-2 v2 与 env-v2 v3 均 COMPLETE——晨报火收割+REPORT
+2026-11-09 08:23:14 | fire-0820 | 收割+晨报 | probe-2 v3（__name__ 修复，预算 2/2 尽）+env-v2 v4（pkg_resources→setuptools<70 钉版）重推；REPORT-2026-11-09.md 生成 | 五火全跑

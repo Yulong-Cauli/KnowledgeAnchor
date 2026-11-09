@@ -180,7 +180,7 @@ try:
     _bnb_stub = types.ModuleType('bitsandbytes'); _bnb_stub.utils = _utils_stub
     _sys.modules.setdefault('bitsandbytes', _bnb_stub)
     _sys.modules.setdefault('bitsandbytes.utils', _utils_stub)   # v2 修复：functional.py L16 的包内绝对导入（仅 state 辅助，构造函数不用）
-    ns_bnb = {}
+    ns_bnb = {'__name__': 'bnb_functional_stub'}   # v3 修复：bnb 源码模块级引用 __name__
     exec(compile(src, 'bnb_functional.py', 'exec'), ns_bnb)   # 隔离命名空间，不 import 安装版
     nf4_table = list(ns_bnb['nf4'])                            # 硬编码 16 值
     q_fn = ns_bnb.get('create_quantize_nf4')

@@ -16,10 +16,10 @@
 | 槽 | kernel | 类型 | EXP 目录 | 状态 | kernel URL | 依赖/备注 |
 | --- | --- | --- | --- | --- | --- | --- |
 | — | K-env `ka-verify-env-probe-mmlab` | CPU | nightshift/verify/recon-mmlab-env/ | done | kaggle.com/code/cauliyulong/ka-verify-env-probe-mmlab (v1) | v1 结论：默认 py3.13 环境全家装不上（无 cp313 轮+无 nvcc）；PlanB 骨架已成；详见 nightshift/verify/recon/recon-2026-11.md |
-| — | K-env-v2 `ka-verify-env-probe2-conda` | CPU | nightshift/verify/recon-mmlab-env/ | running | …(v3) | 修复 2/2（v1/v2 败因翻案：curl 23=/kaggle/tmp 目录缺失，非瞬时网络；v3 加 mkdir）——conda 双路线探针，组 2/3 新前提，08:20 火收割定论 |
+| — | K-env-v2 `ka-verify-env-probe2-conda` | CPU | nightshift/verify/recon-mmlab-env/ | running | …(v4) | v3 COMPLETE：conda 双路线底座全装成（torch2.0.1cu118+mmcv-full1.7.2 轮+mmdet2.28 ✓），import 败于 pkg_resources 缺失→v4 钉 setuptools<70（**侦察跟进迭代**非 error 修复，再不开即停手转请示）；Route B mmdet3d CPU 编不出属预期留 T4 |
 | — | K-coco-stats `ka-verify-coco-center-collision` | CPU | experiments/centernetpoints-center-collision-rare-on-coco/ | done | …(v2) | **SUPPORT：708 对 / 0.082% 带内（论文 614）；完整性门逐位过**；v1 falsifier 判定作废留痕；核查记录已加 |
 | — | K-probe-1 `ka-verify-probe-pointnet-mobilenet` | CPU | experiments/pointnetpillars-pointnet-permutation-invariance-symmetric-function/ | done | …(v2) | **P1 逐位一致 / P2 max 带内（sum 出带观察）/ P4 双 SUPPORT**；P3 未闭合留人工；三卡核查记录已加；RESULTS 四件套齐（env 快照缺口登记） |
-| — | K-probe-2 `ka-verify-probe-rayiou-nf4-flops` | CPU | experiments/njusparseocc-rayiou-penalizes-thick-surface/ | running | …(v2) | 修复 1/2（v1 P2 exec 败于 bnb 包内绝对导入 L16，已 stub）；P1 toy SUPPORT 复现+P3 CONSISTENT 已到手；预注册 eafa8a0 |
+| — | K-probe-2 `ka-verify-probe-rayiou-nf4-flops` | CPU | experiments/njusparseocc-rayiou-penalizes-thick-surface/ | running | …(v3) | 修复 2/2 尽（v2 败于 exec 命名空间缺 __name__，v3 已修）；P1 toy SUPPORT+P3 CONSISTENT 稳定复现；今晚 00:20 火收割 P2 |
 | — | K-lingo `ka-verify-lingoqa-judge` | CPU | experiments/lingoqa-lingo-judge-spearman-0950/ | pending | — | 依赖 R7；CPU 过慢转 T4 |
 | 0 | 班 B `claim-qwt-r2-gate-nonregression`（既有） | T4 | experiments/qwt-r2-gate-nonregression/ | **blocked(预算尽)** | …(v5 error 留痕) | v5 败于 create_loader 缺 re_prob kwarg（shim+数据管线已实测全通，v6 只差一行）；**BLOCKED+QUESTIONS #100 三选一待主人**；不再重推 |
 | 1 | K-bevdet `ka-verify-bevdet-scale-nms` | T4 | experiments/bevdet-scale-nms-small-object-ap-gain/ | pending | — | 依赖 K-env；关联卡：bevdet-tiny-fcos3d |

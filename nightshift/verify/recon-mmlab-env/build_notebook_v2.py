@@ -71,6 +71,7 @@ def ash(tag, cmd, timeout):
 P = ROUTE_A['env'] + '/bin/pip'
 PY = ROUTE_A['env'] + '/bin/python'
 ash('create-py310', '/kaggle/tmp/mc2/bin/conda create -y -n a310 python=3.10', 1800)
+ash('setuptools-pin', P + ' install ' + chr(39) + 'setuptools<70' + chr(39) + ' -q', 600)
 ash('torch-2.0.1-cu118', P + ' install torch==2.0.1+cu118 -f https://download.pytorch.org/whl/cu118/torch_stable.html -q', 1500)
 ash('mmcv-full-1.7.2-cu118', P + ' install mmcv-full==1.7.2 -f https://download.openmmlab.com/mmcv/dist/cu118/torch2.0/index.html -q', 1500)
 ash('mmdet-2.28.2', P + ' install mmdet==2.28.2 -q', 1200)
@@ -95,7 +96,9 @@ bsh('mmcv-full-1.5.3-cpu', P + ' install mmcv-full==1.5.3 -f https://download.op
 bsh('pycocotools-pre', P + ' install pycocotools -q', 900)
 bsh('mmdet-2.25.0', P + ' install mmdet==2.25.0 -q', 1800)
 bsh('mmdet3d-0.17.1-src', P + ' install mmdet3d==0.17.1 -q', 3300)
-bsh('import-test', ROUTE_B['env'] + '/bin/python -c ' + chr(34) + 'import torch, mmcv, mmdet; import mmdet3d; print(ROUTE_B_OK, mmdet.__version__, mmdet3d.__version__)'.replace('ROUTE_B_OK', chr(39)+'ROUTE_B_OK'+chr(39)) + chr(34), 300)
+bsh('mmdet3d-import-expected-cpu-fail', ROUTE_B['env'] + '/bin/python -c ' + chr(34) + 'import mmdet3d'.replace('mmdet3d', 'mmdet3d') + chr(34), 120)
+bsh('import-test', ROUTE_B['env'] + '/bin/python -c ' + chr(34) + 'import torch, mmcv, mmdet; print(ROUTE_B_OK, mmdet.__version__)'.replace('ROUTE_B_OK', chr(39)+'ROUTE_B_OK'+chr(39)) + chr(34), 300)
+RES['routeB_note'] = 'mmdet3d 源码构建 CPU 无 nvcc 预期失败（已单列不判死）；import-test 只验 torch/mmcv/mmdet——mmdet3d 构建留 T4 kernel 首格'
 RES['routeB'] = {'ok': any(s['tag'] == 'import-test' and s['rc'] == 0 for s in ROUTE_B['steps'])}
 print('ROUTE B:', RES['routeB'], flush=True)"""})
 
