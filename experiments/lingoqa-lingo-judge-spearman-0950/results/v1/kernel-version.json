@@ -1,0 +1,10 @@
+{
+  "id": 143563292,
+  "ref": "cauliyulong/ka-verify-lingoqa-judge",
+  "current_version_number": 1,
+  "last_run_time": "2026-11-06 14:25:17.046000",
+  "enable_gpu": false,
+  "dataset_data_sources": [],
+  "local_notebook_sha256": "5f922234f6cbf1b3a1bf8cf0a3b1e571d319294d5a41a49951fa146c0ebda9f8",
+  "code_cells_match": true
+}

@@ -1,0 +1,18 @@
+{
+  "url": "https://drive.usercontent.google.com/u/1/uc?id=1I8u6uYysQUstoVYZapyRQkXmOwr-AG3d&export=download",
+  "sha256": "435461a8a8038ad8d2a8fe98388f40530978149e60e7beaaa41174088fe53caf",
+  "columns": [
+    "question_id",
+    "segment_id",
+    "images",
+    "question",
+    "answer"
+  ],
+  "rows": 1000,
+  "questions": 500,
+  "segments": 100,
+  "rows_per_question": {
+    "2": 500
+  },
+  "null_cells": 0
+}

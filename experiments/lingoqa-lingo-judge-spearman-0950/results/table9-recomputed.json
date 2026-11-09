@@ -1,0 +1,186 @@
+{
+  "scope": "Arithmetic on published aggregate scores, no model inference or new human ratings",
+  "source": "https://www.ecva.net/papers/eccv_2024/papers_ECCV/papers/09911-supp.pdf#page=12",
+  "scipy": "1.13.1",
+  "columns": [
+    "row",
+    "lingo_judge_percent",
+    "human_mean"
+  ],
+  "rows": [
+    [
+      "Model A",
+      59.6,
+      0.571
+    ],
+    [
+      "Model B",
+      59.6,
+      0.564
+    ],
+    [
+      "Model C",
+      57.4,
+      0.563
+    ],
+    [
+      "Model D",
+      58.2,
+      0.559
+    ],
+    [
+      "Model E",
+      59.0,
+      0.553
+    ],
+    [
+      "Model F",
+      58.0,
+      0.552
+    ],
+    [
+      "Model G",
+      54.8,
+      0.529
+    ],
+    [
+      "Model H",
+      50.0,
+      0.52
+    ],
+    [
+      "Model I",
+      53.0,
+      0.51
+    ],
+    [
+      "Model J",
+      52.6,
+      0.509
+    ],
+    [
+      "Model K",
+      53.0,
+      0.5
+    ],
+    [
+      "Model L",
+      51.2,
+      0.485
+    ],
+    [
+      "Model M",
+      43.2,
+      0.371
+    ],
+    [
+      "Model N",
+      35.8,
+      0.361
+    ],
+    [
+      "Model O",
+      33.6,
+      0.279
+    ],
+    [
+      "Human labellers group A",
+      96.6,
+      0.934
+    ],
+    [
+      "Human labellers group B",
+      91.2,
+      0.894
+    ]
+  ],
+  "models_only": {
+    "n": 15,
+    "pearson": 0.9739109178366852,
+    "spearman": 0.9320229582337869
+  },
+  "models_and_human_groups": {
+    "n": 17,
+    "pearson": 0.9930937681254212,
+    "spearman": 0.953374950788746
+  },
+  "v1_input_mismatches": [
+    {
+      "row": "Model C",
+      "v1": [
+        59.6,
+        0.559
+      ],
+      "table9": [
+        57.4,
+        0.563
+      ]
+    },
+    {
+      "row": "Model D",
+      "v1": [
+        59.1,
+        0.555
+      ],
+      "table9": [
+        58.2,
+        0.559
+      ]
+    },
+    {
+      "row": "Model G",
+      "v1": [
+        56.3,
+        0.547
+      ],
+      "table9": [
+        54.8,
+        0.529
+      ]
+    },
+    {
+      "row": "Model H",
+      "v1": [
+        54.9,
+        0.529
+      ],
+      "table9": [
+        50.0,
+        0.52
+      ]
+    },
+    {
+      "row": "Model I",
+      "v1": [
+        54.8,
+        0.51
+      ],
+      "table9": [
+        53.0,
+        0.51
+      ]
+    },
+    {
+      "row": "Model J",
+      "v1": [
+        54.0,
+        0.5
+      ],
+      "table9": [
+        52.6,
+        0.509
+      ]
+    },
+    {
+      "row": "Model K",
+      "v1": [
+        52.6,
+        0.491
+      ],
+      "table9": [
+        53.0,
+        0.5
+      ]
+    }
+  ]
+}

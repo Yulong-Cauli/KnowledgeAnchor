@@ -1,0 +1,339 @@
+[{"stream_name":"stderr","time":8.499668504,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.499722259,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.499730456,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.499735076,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":9.255607184,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.255646597,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.255652132,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.255656663,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":13.237144114,"data":"{'source': 'ECCV supplementary Table 9, rounded published scores, A¨CO only', 'n': 15, 'judge_scores': [59.6, 59.6, 59.6, 59.1, 59.0, 58.0, 56.3, 54.9, 54.8, 54.0, 52.6, 51.2, 43.2, 35.8, 33.6], 'human_scores': [0.571, 0.564, 0.559, 0.555, 0.553, 0.552, 0.547, 0.529, 0.51, 0.5, 0.491, 0.485, 0.371, 0.361, 0.279], 'spearman': 0.996422170998389, 'pearson': 0.9846761287810801}\n"}
+,{"stream_name":"stdout","time":14.890866231,"data":"{'url': 'https://drive.usercontent.google.com/u/1/uc?id=1I8u6uYysQUstoVYZapyRQkXmOwr-AG3d\u0026export=download', 'sha256': '435461a8a8038ad8d2a8fe98388f40530978149e60e7beaaa41174088fe53caf', 'columns': ['question_id', 'segment_id', 'images', 'question', 'answer'], 'rows': 1000, 'questions': 500, 'segments': 100, 'rows_per_question': {2: 500}, 'null_cells': 0}\n"}
+,{"stream_name":"stdout","time":16.016268832,"data":"Collecting transformers==4.52.4\n"}
+,{"stream_name":"stdout","time":16.142825531,"data":"  Downloading transformers-4.52.4-py3-none-any.whl.metadata (38 kB)\n"}
+,{"stream_name":"stdout","time":16.218894389,"data":"Collecting transformers==4.52.4\n"}
+,{"stream_name":"stdout","time":16.218935336,"data":"  Downloading transformers-4.52.4-py3-none-any.whl.metadata (38 kB)\n"}
+,{"stream_name":"stdout","time":16.39510793,"data":"Collecting sentencepiece==0.2.1\n"}
+,{"stream_name":"stdout","time":16.412809784,"data":"  Downloading sentencepiece-0.2.1-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (10 kB)\n"}
+,{"stream_name":"stdout","time":16.433823051,"data":"Requirement already satisfied: filelock in /usr/local/lib/python3.13/dist-packages (from transformers==4.52.4) (4.2.4)\n"}
+,{"stream_name":"stdout","time":16.551963032,"data":"Collecting huggingface-hub\u003c1.0,\u003e=0.30.0 (from transformers==4.52.4)\n"}
+,{"stream_name":"stdout","time":16.568750649000002,"data":"  Downloading huggingface_hub-0.36.2-py3-none-any.whl.metadata (15 kB)\n"}
+,{"stream_name":"stdout","time":16.598191145,"data":"Collecting sentencepiece==0.2.1\n"}
+,{"stream_name":"stdout","time":16.598231054,"data":"  Downloading sentencepiece-0.2.1-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (10 kB)\n"}
+,{"stream_name":"stdout","time":16.598236108000002,"data":"Requirement already satisfied: filelock in /usr/local/lib/python3.13/dist-packages (from transformers==4.52.4) (4.2.4)\n"}
+,{"stream_name":"stdout","time":16.598240504,"data":"Collecting huggingface-hub\u003c1.0,\u003e=0.30.0 (from transformers==4.52.4)\n"}
+,{"stream_name":"stdout","time":16.598244413,"data":"  Downloading huggingface_hub-0.36.2-py3-none-any.whl.metadata (15 kB)\n"}
+,{"stream_name":"stdout","time":16.615587123,"data":"Requirement already satisfied: numpy\u003e=1.17 in /usr/local/lib/python3.13/dist-packages (from transformers==4.52.4) (2.1.3)\n"}
+,{"stream_name":"stdout","time":16.61643823,"data":"Requirement already satisfied: packaging\u003e=20.0 in /usr/local/lib/python3.13/dist-packages (from transformers==4.52.4) (26.3)\n"}
+,{"stream_name":"stdout","time":16.61731477,"data":"Requirement already satisfied: pyyaml\u003e=5.1 in /usr/local/lib/python3.13/dist-packages (from transformers==4.52.4) (6.0.3)\n"}
+,{"stream_name":"stdout","time":16.618018251,"data":"Requirement already satisfied: regex!=2019.12.17 in /usr/local/lib/python3.13/dist-packages (from transformers==4.52.4) (2025.11.3)\n"}
+,{"stream_name":"stdout","time":16.618676876,"data":"Requirement already satisfied: requests in /usr/local/lib/python3.13/dist-packages (from transformers==4.52.4) (2.34.2)\n"}
+,{"stream_name":"stdout","time":16.818543979,"data":"Requirement already satisfied: numpy\u003e=1.17 in /usr/local/lib/python3.13/dist-packages (from transformers==4.52.4) (2.1.3)\n"}
+,{"stream_name":"stdout","time":16.81857469,"data":"Requirement already satisfied: packaging\u003e=20.0 in /usr/local/lib/python3.13/dist-packages (from transformers==4.52.4) (26.3)\n"}
+,{"stream_name":"stdout","time":16.818580813,"data":"Requirement already satisfied: pyyaml\u003e=5.1 in /usr/local/lib/python3.13/dist-packages (from transformers==4.52.4) (6.0.3)\n"}
+,{"stream_name":"stdout","time":16.818585167,"data":"Requirement already satisfied: regex!=2019.12.17 in /usr/local/lib/python3.13/dist-packages (from transformers==4.52.4) (2025.11.3)\n"}
+,{"stream_name":"stdout","time":16.818589348,"data":"Requirement already satisfied: requests in /usr/local/lib/python3.13/dist-packages (from transformers==4.52.4) (2.34.2)\n"}
+,{"stream_name":"stdout","time":16.974367176,"data":"Collecting tokenizers\u003c0.22,\u003e=0.21 (from transformers==4.52.4)\n"}
+,{"stream_name":"stdout","time":16.991358762,"data":"  Downloading tokenizers-0.21.4-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.7 kB)\n"}
+,{"stream_name":"stdout","time":17.018371373,"data":"Requirement already satisfied: safetensors\u003e=0.4.3 in /usr/local/lib/python3.13/dist-packages (from transformers==4.52.4) (0.8.0)\n"}
+,{"stream_name":"stdout","time":17.019197934,"data":"Requirement already satisfied: tqdm\u003e=4.27 in /usr/local/lib/python3.13/dist-packages (from transformers==4.52.4) (4.67.3)\n"}
+,{"stream_name":"stdout","time":17.023180969,"data":"Requirement already satisfied: fsspec\u003e=2023.5.0 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub\u003c1.0,\u003e=0.30.0-\u003etransformers==4.52.4) (2025.12.0)\n"}
+,{"stream_name":"stdout","time":17.024378614,"data":"Requirement already satisfied: hf-xet\u003c2.0.0,\u003e=1.1.3 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub\u003c1.0,\u003e=0.30.0-\u003etransformers==4.52.4) (1.7.0)\n"}
+,{"stream_name":"stdout","time":17.025416101,"data":"Requirement already satisfied: typing-extensions\u003e=3.7.4.3 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub\u003c1.0,\u003e=0.30.0-\u003etransformers==4.52.4) (4.16.0)\n"}
+,{"stream_name":"stdout","time":17.06750055,"data":"Requirement already satisfied: charset_normalizer\u003c4,\u003e=2 in /usr/local/lib/python3.13/dist-packages (from requests-\u003etransformers==4.52.4) (3.4.9)\n"}
+,{"stream_name":"stdout","time":17.068454554,"data":"Requirement already satisfied: idna\u003c4,\u003e=2.5 in /usr/local/lib/python3.13/dist-packages (from requests-\u003etransformers==4.52.4) (3.20)\n"}
+,{"stream_name":"stdout","time":17.069312056,"data":"Requirement already satisfied: urllib3\u003c3,\u003e=1.26 in /usr/local/lib/python3.13/dist-packages (from requests-\u003etransformers==4.52.4) (2.8.0)\n"}
+,{"stream_name":"stdout","time":17.07010536,"data":"Requirement already satisfied: certifi\u003e=2023.5.7 in /usr/local/lib/python3.13/dist-packages (from requests-\u003etransformers==4.52.4) (2026.10.23)\n"}
+,{"stream_name":"stdout","time":17.101905171,"data":"Downloading transformers-4.52.4-py3-none-any.whl (10.5 MB)\n"}
+,{"stream_name":"stdout","time":17.177632946,"data":"Collecting tokenizers\u003c0.22,\u003e=0.21 (from transformers==4.52.4)\n"}
+,{"stream_name":"stdout","time":17.177662560999998,"data":"  Downloading tokenizers-0.21.4-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.7 kB)\n"}
+,{"stream_name":"stdout","time":17.177668799,"data":"Requirement already satisfied: safetensors\u003e=0.4.3 in /usr/local/lib/python3.13/dist-packages (from transformers==4.52.4) (0.8.0)\n"}
+,{"stream_name":"stdout","time":17.17767388,"data":"Requirement already satisfied: tqdm\u003e=4.27 in /usr/local/lib/python3.13/dist-packages (from transformers==4.52.4) (4.67.3)\n"}
+,{"stream_name":"stdout","time":17.177678699,"data":"Requirement already satisfied: fsspec\u003e=2023.5.0 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub\u003c1.0,\u003e=0.30.0-\u003etransformers==4.52.4) (2025.12.0)\n"}
+,{"stream_name":"stdout","time":17.177683416,"data":"Requirement already satisfied: hf-xet\u003c2.0.0,\u003e=1.1.3 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub\u003c1.0,\u003e=0.30.0-\u003etransformers==4.52.4) (1.7.0)\n"}
+,{"stream_name":"stdout","time":17.17768815,"data":"Requirement already satisfied: typing-extensions\u003e=3.7.4.3 in /usr/local/lib/python3.13/dist-packages (from huggingface-hub\u003c1.0,\u003e=0.30.0-\u003etransformers==4.52.4) (4.16.0)\n"}
+,{"stream_name":"stdout","time":17.177693102,"data":"Requirement already satisfied: charset_normalizer\u003c4,\u003e=2 in /usr/local/lib/python3.13/dist-packages (from requests-\u003etransformers==4.52.4) (3.4.9)\n"}
+,{"stream_name":"stdout","time":17.177697353,"data":"Requirement already satisfied: idna\u003c4,\u003e=2.5 in /usr/local/lib/python3.13/dist-packages (from requests-\u003etransformers==4.52.4) (3.20)\n"}
+,{"stream_name":"stdout","time":17.177701419999998,"data":"Requirement already satisfied: urllib3\u003c3,\u003e=1.26 in /usr/local/lib/python3.13/dist-packages (from requests-\u003etransformers==4.52.4) (2.8.0)\n"}
+,{"stream_name":"stdout","time":17.177704312,"data":"Requirement already satisfied: certifi\u003e=2023.5.7 in /usr/local/lib/python3.13/dist-packages (from requests-\u003etransformers==4.52.4) (2026.10.23)\n"}
+,{"stream_name":"stdout","time":17.17770708,"data":"Downloading transformers-4.52.4-py3-none-any.whl (10.5 MB)\n"}
+,{"stream_name":"stdout","time":17.260962265,"data":"   ©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥ 10.5/10.5 MB 79.2 MB/s  0:00:00\n"}
+,{"stream_name":"stdout","time":17.280634769,"data":"Downloading sentencepiece-0.2.1-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (1.4 MB)\n"}
+,{"stream_name":"stdout","time":17.314654242,"data":"   ©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥ 1.4/1.4 MB 36.8 MB/s  0:00:00\n"}
+,{"stream_name":"stdout","time":17.331327569,"data":"Downloading huggingface_hub-0.36.2-py3-none-any.whl (566 kB)\n"}
+,{"stream_name":"stdout","time":17.365024365,"data":"   ©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥ 566.4/566.4 kB 10.2 MB/s  0:00:00\n"}
+,{"stream_name":"stdout","time":17.384642061,"data":"Downloading tokenizers-0.21.4-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.1 MB)\n"}
+,{"stream_name":"stdout","time":17.432284829,"data":"   ©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥ 3.1/3.1 MB 64.4 MB/s  0:00:00\n"}
+,{"stream_name":"stdout","time":17.463711398,"data":"   ©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥ 10.5/10.5 MB 79.2 MB/s  0:00:00\n"}
+,{"stream_name":"stdout","time":17.463754675,"data":"Downloading sentencepiece-0.2.1-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (1.4 MB)\n"}
+,{"stream_name":"stdout","time":17.463760788,"data":"   ©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥ 1.4/1.4 MB 36.8 MB/s  0:00:00\n"}
+,{"stream_name":"stdout","time":17.46378597,"data":"Downloading huggingface_hub-0.36.2-py3-none-any.whl (566 kB)\n"}
+,{"stream_name":"stdout","time":17.463790554,"data":"   ©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥ 566.4/566.4 kB 10.2 MB/s  0:00:00\n"}
+,{"stream_name":"stdout","time":17.463795155,"data":"Downloading tokenizers-0.21.4-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.1 MB)\n"}
+,{"stream_name":"stdout","time":17.463799154,"data":"   ©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥©¥ 3.1/3.1 MB 64.4 MB/s  0:00:00\n"}
+,{"stream_name":"stdout","time":19.496017157,"data":"Installing collected packages: sentencepiece, huggingface-hub, tokenizers, transformers\n"}
+,{"stream_name":"stdout","time":19.49687222,"data":"  Attempting uninstall: sentencepiece\n"}
+,{"stream_name":"stdout","time":19.506617119,"data":"    Found existing installation: sentencepiece 0.2.2\n"}
+,{"stream_name":"stdout","time":19.511797946,"data":"    Uninstalling sentencepiece-0.2.2:\n"}
+,{"stream_name":"stdout","time":19.541839358,"data":"      Successfully uninstalled sentencepiece-0.2.2\n"}
+,{"stream_name":"stdout","time":19.612128305,"data":"  Attempting uninstall: huggingface-hub\n"}
+,{"stream_name":"stdout","time":19.643995341,"data":"    Found existing installation: huggingface_hub 1.33.0\n"}
+,{"stream_name":"stdout","time":19.667598319,"data":"    Uninstalling huggingface_hub-1.33.0:\n"}
+,{"stream_name":"stdout","time":19.698535028,"data":"Installing collected packages: sentencepiece, huggingface-hub, tokenizers, transformers\n"}
+,{"stream_name":"stdout","time":19.698563792,"data":"  Attempting uninstall: sentencepiece\n"}
+,{"stream_name":"stdout","time":19.698567468,"data":"    Found existing installation: sentencepiece 0.2.2\n"}
+,{"stream_name":"stdout","time":19.698570355,"data":"    Uninstalling sentencepiece-0.2.2:\n"}
+,{"stream_name":"stdout","time":19.698573017,"data":"      Successfully uninstalled sentencepiece-0.2.2\n"}
+,{"stream_name":"stdout","time":19.698575602,"data":"  Attempting uninstall: huggingface-hub\n"}
+,{"stream_name":"stdout","time":19.698578087,"data":"    Found existing installation: huggingface_hub 1.33.0\n"}
+,{"stream_name":"stdout","time":19.698580723,"data":"    Uninstalling huggingface_hub-1.33.0:\n"}
+,{"stream_name":"stdout","time":19.879327532,"data":"      Successfully uninstalled huggingface_hub-1.33.0\n"}
+,{"stream_name":"stdout","time":20.081882857,"data":"      Successfully uninstalled huggingface_hub-1.33.0\n"}
+,{"stream_name":"stdout","time":20.299664687,"data":"  Attempting uninstall: tokenizers\n"}
+,{"stream_name":"stdout","time":20.323257207,"data":"    Found existing installation: tokenizers 0.23.3\n"}
+,{"stream_name":"stdout","time":20.335172564,"data":"    Uninstalling tokenizers-0.23.3:\n"}
+,{"stream_name":"stdout","time":20.420497736,"data":"      Successfully uninstalled tokenizers-0.23.3\n"}
+,{"stream_name":"stdout","time":20.502129605,"data":"  Attempting uninstall: tokenizers\n"}
+,{"stream_name":"stdout","time":20.502217656,"data":"    Found existing installation: tokenizers 0.23.3\n"}
+,{"stream_name":"stdout","time":20.502224064,"data":"    Uninstalling tokenizers-0.23.3:\n"}
+,{"stream_name":"stdout","time":20.502227267,"data":"      Successfully uninstalled tokenizers-0.23.3\n"}
+,{"stream_name":"stdout","time":20.519796028000002,"data":"  Attempting uninstall: transformers\n"}
+,{"stream_name":"stdout","time":20.543412211,"data":"    Found existing installation: transformers 5.20.2\n"}
+,{"stream_name":"stdout","time":20.722435532,"data":"  Attempting uninstall: transformers\n"}
+,{"stream_name":"stdout","time":20.722471721,"data":"    Found existing installation: transformers 5.20.2\n"}
+,{"stream_name":"stdout","time":21.14128324,"data":"    Uninstalling transformers-5.20.2:\n"}
+,{"stream_name":"stdout","time":21.343916638,"data":"    Uninstalling transformers-5.20.2:\n"}
+,{"stream_name":"stdout","time":24.011990627,"data":"      Successfully uninstalled transformers-5.20.2\n"}
+,{"stream_name":"stdout","time":24.214528784,"data":"      Successfully uninstalled transformers-5.20.2\n"}
+,{"stream_name":"stdout","time":32.873120723,"data":"\n"}
+,{"stream_name":"stderr","time":32.874912269,"data":"ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.\n"}
+,{"stream_name":"stderr","time":32.874941032,"data":"gradio-client 2.7.2 requires huggingface-hub\u003c3.0,\u003e=1.16.0, but you have huggingface-hub 0.36.2 which is incompatible.\n"}
+,{"stream_name":"stderr","time":32.874947132,"data":"gradio 6.30.0 requires huggingface-hub\u003c3.0,\u003e=1.16.0, but you have huggingface-hub 0.36.2 which is incompatible.\n"}
+,{"stream_name":"stderr","time":32.874951558,"data":"gradio 6.30.0 requires pillow\u003c13.0,\u003e=8.0, but you have pillow 13.0.0 which is incompatible.\n"}
+,{"stream_name":"stderr","time":32.874955789,"data":"diffusers 0.42.0 requires huggingface-hub\u003c3.0,\u003e=1.32.0, but you have huggingface-hub 0.36.2 which is incompatible.\n"}
+,{"stream_name":"stdout","time":32.951270701,"data":"Successfully installed huggingface-hub-0.36.2 sentencepiece-0.2.1 tokenizers-0.21.4 transformers-4.52.4\n"}
+,{"stream_name":"stdout","time":33.076679584,"data":"\n"}
+,{"stream_name":"stdout","time":33.076716506,"data":"Successfully installed huggingface-hub-0.36.2 sentencepiece-0.2.1 tokenizers-0.21.4 transformers-4.52.4\n"}
+,{"stream_name":"stderr","time":33.077992916,"data":"ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.\n"}
+,{"stream_name":"stderr","time":33.078020903,"data":"gradio-client 2.7.2 requires huggingface-hub\u003c3.0,\u003e=1.16.0, but you have huggingface-hub 0.36.2 which is incompatible.\n"}
+,{"stream_name":"stderr","time":33.07802707,"data":"gradio 6.30.0 requires huggingface-hub\u003c3.0,\u003e=1.16.0, but you have huggingface-hub 0.36.2 which is incompatible.\n"}
+,{"stream_name":"stderr","time":33.07803167,"data":"gradio 6.30.0 requires pillow\u003c13.0,\u003e=8.0, but you have pillow 13.0.0 which is incompatible.\n"}
+,{"stream_name":"stderr","time":33.078035482,"data":"diffusers 0.42.0 requires huggingface-hub\u003c3.0,\u003e=1.32.0, but you have huggingface-hub 0.36.2 which is incompatible.\n"}
+,{"stream_name":"stderr","time":33.078039794,"data":"\n"}
+,{"stream_name":"stderr","time":33.078043509,"data":"ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.\n"}
+,{"stream_name":"stderr","time":33.078067483,"data":"gradio-client 2.7.2 requires huggingface-hub\u003c3.0,\u003e=1.16.0, but you have huggingface-hub 0.36.2 which is incompatible.\n"}
+,{"stream_name":"stderr","time":33.078071682,"data":"gradio 6.30.0 requires huggingface-hub\u003c3.0,\u003e=1.16.0, but you have huggingface-hub 0.36.2 which is incompatible.\n"}
+,{"stream_name":"stderr","time":33.078075952,"data":"gradio 6.30.0 requires pillow\u003c13.0,\u003e=8.0, but you have pillow 13.0.0 which is incompatible.\n"}
+,{"stream_name":"stderr","time":33.078080062,"data":"diffusers 0.42.0 requires huggingface-hub\u003c3.0,\u003e=1.32.0, but you have huggingface-hub 0.36.2 which is incompatible.\n"}
+,{"stream_name":"stderr","time":49.342640736999996,"data":"WARNING:torchao.kernel.intmm:Warning: Detected no triton, on systems without Triton certain kernels will not work\n"}
+,{"stream_name":"stderr","time":49.34270799,"data":"\n"}
+,{"stream_name":"stderr","time":49.34271471,"data":"WARNING:torchao.kernel.intmm:Warning: Detected no triton, on systems without Triton certain kernels will not work\n"}
+,{"stream_name":"stderr","time":54.663983483,"data":"WARNING: All log messages before absl::InitializeLog() is called are written to STDERR\n"}
+,{"stream_name":"stderr","time":54.664027923,"data":"I0000 00:00:1794204126.919181      16 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.\n"}
+,{"stream_name":"stderr","time":54.875287465,"data":"WARNING: All log messages before absl::InitializeLog() is called are written to STDERR\n"}
+,{"stream_name":"stderr","time":54.875319493,"data":"I0000 00:00:1794204126.919181      16 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.\n"}
+,{"stream_name":"stderr","time":54.875324009,"data":"\n"}
+,{"stream_name":"stderr","time":54.875327335,"data":"WARNING: All log messages before absl::InitializeLog() is called are written to STDERR\n"}
+,{"stream_name":"stderr","time":54.875330593,"data":"I0000 00:00:1794204126.919181      16 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.\n"}
+,{"stream_name":"stderr","time":68.904270161,"data":"WARNING: All log messages before absl::InitializeLog() is called are written to STDERR\n"}
+,{"stream_name":"stderr","time":68.904313484,"data":"I0000 00:00:1794204142.619248      16 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.\n"}
+,{"stream_name":"stderr","time":69.108005342,"data":"WARNING: All log messages before absl::InitializeLog() is called are written to STDERR\n"}
+,{"stream_name":"stderr","time":69.108035494,"data":"I0000 00:00:1794204142.619248      16 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.\n"}
+,{"stream_name":"stderr","time":69.10804196,"data":"\n"}
+,{"stream_name":"stderr","time":69.108046764,"data":"WARNING: All log messages before absl::InitializeLog() is called are written to STDERR\n"}
+,{"stream_name":"stderr","time":69.108051291,"data":"I0000 00:00:1794204142.619248      16 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.\n"}
+,{"stream_name":"stdout","time":86.744737998,"data":"{\n"}
+,{"stream_name":"stdout","time":86.744800878,"data":"  \"scope\": \"public-asset smoke test, no model-human correlation\",\n"}
+,{"stream_name":"stdout","time":86.744808139,"data":"  \"prereg_commit\": \"4ce893924bb62a002d41cc4ac895d952191fb12e\",\n"}
+,{"stream_name":"stdout","time":86.74481248,"data":"  \"model\": \"wayveai/Lingo-Judge\",\n"}
+,{"stream_name":"stdout","time":86.744816724,"data":"  \"revision\": \"a1a6e2194fd1aedaba02bde82316a6b73753d1d5\",\n"}
+,{"stream_name":"stdout","time":86.744833594,"data":"  \"python\": \"3.13.18\",\n"}
+,{"stream_name":"stdout","time":86.744836865,"data":"  \"torch\": \"2.11.0+cpu\",\n"}
+,{"stream_name":"stdout","time":86.744839878,"data":"  \"elapsed_s\": 10.883228505000005,\n"}
+,{"stream_name":"stdout","time":86.744843009,"data":"  \"cases\": [\n"}
+,{"stream_name":"stdout","time":86.744845924,"data":"    {\n"}
+,{"stream_name":"stdout","time":86.744849013,"data":"      \"segment_id\": \"00fb5ab9e2d508c573d588652cf0d025\",\n"}
+,{"stream_name":"stdout","time":86.744852134,"data":"      \"question_id\": \"0c8e9268f24b1dc414c21ebacd24ced9\",\n"}
+,{"stream_name":"stdout","time":86.744855937,"data":"      \"arm\": \"reference_self\",\n"}
+,{"stream_name":"stdout","time":86.744859713,"data":"      \"per_reference\": [\n"}
+,{"stream_name":"stdout","time":86.744863255,"data":"        0.9615347385406494,\n"}
+,{"stream_name":"stdout","time":86.744866973,"data":"        0.7853206396102905\n"}
+,{"stream_name":"stdout","time":86.744870524,"data":"      ],\n"}
+,{"stream_name":"stdout","time":86.74487430799999,"data":"      \"maximum\": 0.9615347385406494,\n"}
+,{"stream_name":"stdout","time":86.744877813,"data":"      \"correct\": true\n"}
+,{"stream_name":"stdout","time":86.744880746,"data":"    },\n"}
+,{"stream_name":"stdout","time":86.744883784,"data":"    {\n"}
+,{"stream_name":"stdout","time":86.744886681,"data":"      \"segment_id\": \"00fb5ab9e2d508c573d588652cf0d025\",\n"}
+,{"stream_name":"stdout","time":86.744889807,"data":"      \"question_id\": \"0c8e9268f24b1dc414c21ebacd24ced9\",\n"}
+,{"stream_name":"stdout","time":86.74489282,"data":"      \"arm\": \"unrelated\",\n"}
+,{"stream_name":"stdout","time":86.744895766,"data":"      \"per_reference\": [\n"}
+,{"stream_name":"stdout","time":86.744898673,"data":"        0.04587835073471069,\n"}
+,{"stream_name":"stdout","time":86.744901505,"data":"        0.052073754370212555\n"}
+,{"stream_name":"stdout","time":86.74490438,"data":"      ],\n"}
+,{"stream_name":"stdout","time":86.744907365,"data":"      \"maximum\": 0.052073754370212555,\n"}
+,{"stream_name":"stdout","time":86.744910342,"data":"      \"correct\": false\n"}
+,{"stream_name":"stdout","time":86.744913358,"data":"    },\n"}
+,{"stream_name":"stdout","time":86.744916189,"data":"    {\n"}
+,{"stream_name":"stdout","time":86.744918984,"data":"      \"segment_id\": \"00fb5ab9e2d508c573d588652cf0d025\",\n"}
+,{"stream_name":"stdout","time":86.744922019,"data":"      \"question_id\": \"527818d289cee334f9903df88f6f3f67\",\n"}
+,{"stream_name":"stdout","time":86.744925021,"data":"      \"arm\": \"reference_self\",\n"}
+,{"stream_name":"stdout","time":86.744928086,"data":"      \"per_reference\": [\n"}
+,{"stream_name":"stdout","time":86.744931197,"data":"        0.9487183094024658,\n"}
+,{"stream_name":"stdout","time":86.744934501,"data":"        0.9456859827041626\n"}
+,{"stream_name":"stdout","time":86.744937745,"data":"      ],\n"}
+,{"stream_name":"stdout","time":86.744941356,"data":"      \"maximum\": 0.9487183094024658,\n"}
+,{"stream_name":"stdout","time":86.744944903,"data":"      \"correct\": true\n"}
+,{"stream_name":"stdout","time":86.744948762,"data":"    },\n"}
+,{"stream_name":"stdout","time":86.744952322,"data":"    {\n"}
+,{"stream_name":"stdout","time":86.744956257,"data":"      \"segment_id\": \"00fb5ab9e2d508c573d588652cf0d025\",\n"}
+,{"stream_name":"stdout","time":86.7449596,"data":"      \"question_id\": \"527818d289cee334f9903df88f6f3f67\",\n"}
+,{"stream_name":"stdout","time":86.74496261,"data":"      \"arm\": \"unrelated\",\n"}
+,{"stream_name":"stdout","time":86.744968831,"data":"      \"per_reference\": [\n"}
+,{"stream_name":"stdout","time":86.744971832,"data":"        0.028152048587799072,\n"}
+,{"stream_name":"stdout","time":86.74497483,"data":"        0.04452425613999367\n"}
+,{"stream_name":"stdout","time":86.744977742,"data":"      ],\n"}
+,{"stream_name":"stdout","time":86.744980596,"data":"      \"maximum\": 0.04452425613999367,\n"}
+,{"stream_name":"stdout","time":86.744983536,"data":"      \"correct\": false\n"}
+,{"stream_name":"stdout","time":86.744986645,"data":"    },\n"}
+,{"stream_name":"stdout","time":86.744989463,"data":"    {\n"}
+,{"stream_name":"stdout","time":86.744992278,"data":"      \"segment_id\": \"00fb5ab9e2d508c573d588652cf0d025\",\n"}
+,{"stream_name":"stdout","time":86.744995323,"data":"      \"question_id\": \"5bb70f548212e262aa85332f29d3b1e8\",\n"}
+,{"stream_name":"stdout","time":86.744998343,"data":"      \"arm\": \"reference_self\",\n"}
+,{"stream_name":"stdout","time":86.745001319,"data":"      \"per_reference\": [\n"}
+,{"stream_name":"stdout","time":86.745004186,"data":"        0.9456312656402588,\n"}
+,{"stream_name":"stdout","time":86.745007038,"data":"        0.6941114664077759\n"}
+,{"stream_name":"stdout","time":86.745010098,"data":"      ],\n"}
+,{"stream_name":"stdout","time":86.745012894,"data":"      \"maximum\": 0.9456312656402588,\n"}
+,{"stream_name":"stdout","time":86.745015859,"data":"      \"correct\": true\n"}
+,{"stream_name":"stdout","time":86.745018776,"data":"    },\n"}
+,{"stream_name":"stdout","time":86.745021691,"data":"    {\n"}
+,{"stream_name":"stdout","time":86.745025171,"data":"      \"segment_id\": \"00fb5ab9e2d508c573d588652cf0d025\",\n"}
+,{"stream_name":"stdout","time":86.745028976,"data":"      \"question_id\": \"5bb70f548212e262aa85332f29d3b1e8\",\n"}
+,{"stream_name":"stdout","time":86.745032888,"data":"      \"arm\": \"unrelated\",\n"}
+,{"stream_name":"stdout","time":86.745036928,"data":"      \"per_reference\": [\n"}
+,{"stream_name":"stdout","time":86.745040633,"data":"        0.6415725350379944,\n"}
+,{"stream_name":"stdout","time":86.745044866,"data":"        0.04253430664539337\n"}
+,{"stream_name":"stdout","time":86.7450478,"data":"      ],\n"}
+,{"stream_name":"stdout","time":86.745050613,"data":"      \"maximum\": 0.6415725350379944,\n"}
+,{"stream_name":"stdout","time":86.745053533,"data":"      \"correct\": true\n"}
+,{"stream_name":"stdout","time":86.745056448,"data":"    },\n"}
+,{"stream_name":"stdout","time":86.745059224,"data":"    {\n"}
+,{"stream_name":"stdout","time":86.745062205,"data":"      \"segment_id\": \"00fb5ab9e2d508c573d588652cf0d025\",\n"}
+,{"stream_name":"stdout","time":86.745065281,"data":"      \"question_id\": \"8453ff3d2fb1a49eb6913076104ebe0d\",\n"}
+,{"stream_name":"stdout","time":86.745068293,"data":"      \"arm\": \"reference_self\",\n"}
+,{"stream_name":"stdout","time":86.745071223,"data":"      \"per_reference\": [\n"}
+,{"stream_name":"stdout","time":86.745074228,"data":"        0.9565218687057495,\n"}
+,{"stream_name":"stdout","time":86.745077213,"data":"        0.9565218687057495\n"}
+,{"stream_name":"stdout","time":86.745080046,"data":"      ],\n"}
+,{"stream_name":"stdout","time":86.745082853,"data":"      \"maximum\": 0.9565218687057495,\n"}
+,{"stream_name":"stdout","time":86.745085991,"data":"      \"correct\": true\n"}
+,{"stream_name":"stdout","time":86.745088903,"data":"    },\n"}
+,{"stream_name":"stdout","time":86.745091674,"data":"    {\n"}
+,{"stream_name":"stdout","time":86.745094502,"data":"      \"segment_id\": \"00fb5ab9e2d508c573d588652cf0d025\",\n"}
+,{"stream_name":"stdout","time":86.74510108,"data":"      \"question_id\": \"8453ff3d2fb1a49eb6913076104ebe0d\",\n"}
+,{"stream_name":"stdout","time":86.745104314,"data":"      \"arm\": \"unrelated\",\n"}
+,{"stream_name":"stdout","time":86.745107898,"data":"      \"per_reference\": [\n"}
+,{"stream_name":"stdout","time":86.745111672,"data":"        0.04760950058698654,\n"}
+,{"stream_name":"stdout","time":86.745115462,"data":"        0.04760950058698654\n"}
+,{"stream_name":"stdout","time":86.745119251,"data":"      ],\n"}
+,{"stream_name":"stdout","time":86.74512266,"data":"      \"maximum\": 0.04760950058698654,\n"}
+,{"stream_name":"stdout","time":86.745125608,"data":"      \"correct\": false\n"}
+,{"stream_name":"stdout","time":86.745128521,"data":"    },\n"}
+,{"stream_name":"stdout","time":86.745131257,"data":"    {\n"}
+,{"stream_name":"stdout","time":86.745134055,"data":"      \"segment_id\": \"00fb5ab9e2d508c573d588652cf0d025\",\n"}
+,{"stream_name":"stdout","time":86.745137061,"data":"      \"question_id\": \"8e21a4ee04ee8a95308f9dc1327a6314\",\n"}
+,{"stream_name":"stdout","time":86.745140218,"data":"      \"arm\": \"reference_self\",\n"}
+,{"stream_name":"stdout","time":86.745143173,"data":"      \"per_reference\": [\n"}
+,{"stream_name":"stdout","time":86.745146051,"data":"        0.9507768154144287,\n"}
+,{"stream_name":"stdout","time":86.745148932,"data":"        0.904373049736023\n"}
+,{"stream_name":"stdout","time":86.745151804,"data":"      ],\n"}
+,{"stream_name":"stdout","time":86.745154615,"data":"      \"maximum\": 0.9507768154144287,\n"}
+,{"stream_name":"stdout","time":86.74515754,"data":"      \"correct\": true\n"}
+,{"stream_name":"stdout","time":86.745160407,"data":"    },\n"}
+,{"stream_name":"stdout","time":86.745163409,"data":"    {\n"}
+,{"stream_name":"stdout","time":86.745166341,"data":"      \"segment_id\": \"00fb5ab9e2d508c573d588652cf0d025\",\n"}
+,{"stream_name":"stdout","time":86.745169536,"data":"      \"question_id\": \"8e21a4ee04ee8a95308f9dc1327a6314\",\n"}
+,{"stream_name":"stdout","time":86.74517253,"data":"      \"arm\": \"unrelated\",\n"}
+,{"stream_name":"stdout","time":86.745175472,"data":"      \"per_reference\": [\n"}
+,{"stream_name":"stdout","time":86.745178355,"data":"        0.06852705031633377,\n"}
+,{"stream_name":"stdout","time":86.745181223,"data":"        0.07307606190443039\n"}
+,{"stream_name":"stdout","time":86.745189513,"data":"      ],\n"}
+,{"stream_name":"stdout","time":86.745193494,"data":"      \"maximum\": 0.07307606190443039,\n"}
+,{"stream_name":"stdout","time":86.745197373,"data":"      \"correct\": false\n"}
+,{"stream_name":"stdout","time":86.745201243,"data":"    },\n"}
+,{"stream_name":"stdout","time":86.745205866,"data":"    {\n"}
+,{"stream_name":"stdout","time":86.745208948,"data":"      \"segment_id\": \"01dbcf4b079b49b6ca34c0475492380c\",\n"}
+,{"stream_name":"stdout","time":86.745212042,"data":"      \"question_id\": \"0f0ded19aa951c8f46e0dc3b3f0bcf1a\",\n"}
+,{"stream_name":"stdout","time":86.745215194,"data":"      \"arm\": \"reference_self\",\n"}
+,{"stream_name":"stdout","time":86.745218228,"data":"      \"per_reference\": [\n"}
+,{"stream_name":"stdout","time":86.745221325,"data":"        0.956789493560791,\n"}
+,{"stream_name":"stdout","time":86.745224526,"data":"        0.694160521030426\n"}
+,{"stream_name":"stdout","time":86.74522785,"data":"      ],\n"}
+,{"stream_name":"stdout","time":86.745231492,"data":"      \"maximum\": 0.956789493560791,\n"}
+,{"stream_name":"stdout","time":86.745234877,"data":"      \"correct\": true\n"}
+,{"stream_name":"stdout","time":86.745240521,"data":"    },\n"}
+,{"stream_name":"stdout","time":86.7452435,"data":"    {\n"}
+,{"stream_name":"stdout","time":86.745246339,"data":"      \"segment_id\": \"01dbcf4b079b49b6ca34c0475492380c\",\n"}
+,{"stream_name":"stdout","time":86.745249591,"data":"      \"question_id\": \"0f0ded19aa951c8f46e0dc3b3f0bcf1a\",\n"}
+,{"stream_name":"stdout","time":86.745252646,"data":"      \"arm\": \"unrelated\",\n"}
+,{"stream_name":"stdout","time":86.745255707,"data":"      \"per_reference\": [\n"}
+,{"stream_name":"stdout","time":86.745258895,"data":"        0.03817496448755264,\n"}
+,{"stream_name":"stdout","time":86.745261818,"data":"        0.04285202920436859\n"}
+,{"stream_name":"stdout","time":86.745264837,"data":"      ],\n"}
+,{"stream_name":"stdout","time":86.745267776,"data":"      \"maximum\": 0.04285202920436859,\n"}
+,{"stream_name":"stdout","time":86.745271515,"data":"      \"correct\": false\n"}
+,{"stream_name":"stdout","time":86.745285782,"data":"    },\n"}
+,{"stream_name":"stdout","time":86.745288829,"data":"    {\n"}
+,{"stream_name":"stdout","time":86.745291819,"data":"      \"segment_id\": \"01dbcf4b079b49b6ca34c0475492380c\",\n"}
+,{"stream_name":"stdout","time":86.74529607,"data":"      \"question_id\": \"3df8fd33c7747823283df9991e266165\",\n"}
+,{"stream_name":"stdout","time":86.745299607,"data":"      \"arm\": \"reference_self\",\n"}
+,{"stream_name":"stdout","time":86.745302661,"data":"      \"per_reference\": [\n"}
+,{"stream_name":"stdout","time":86.745305624,"data":"        0.9544228911399841,\n"}
+,{"stream_name":"stdout","time":86.745317208,"data":"        0.9045507311820984\n"}
+,{"stream_name":"stdout","time":86.745320188,"data":"      ],\n"}
+,{"stream_name":"stdout","time":86.745323058,"data":"      \"maximum\": 0.9544228911399841,\n"}
+,{"stream_name":"stdout","time":86.745326152,"data":"      \"correct\": true\n"}
+,{"stream_name":"stdout","time":86.745329128,"data":"    },\n"}
+,{"stream_name":"stdout","time":86.745332015,"data":"    {\n"}
+,{"stream_name":"stdout","time":86.745334883,"data":"      \"segment_id\": \"01dbcf4b079b49b6ca34c0475492380c\",\n"}
+,{"stream_name":"stdout","time":86.745337919,"data":"      \"question_id\": \"3df8fd33c7747823283df9991e266165\",\n"}
+,{"stream_name":"stdout","time":86.745341196,"data":"      \"arm\": \"unrelated\",\n"}
+,{"stream_name":"stdout","time":86.745344343,"data":"      \"per_reference\": [\n"}
+,{"stream_name":"stdout","time":86.74534742,"data":"        0.04175304248929024,\n"}
+,{"stream_name":"stdout","time":86.745350951,"data":"        0.046983808279037476\n"}
+,{"stream_name":"stdout","time":86.74535434,"data":"      ],\n"}
+,{"stream_name":"stdout","time":86.745357909,"data":"      \"maximum\": 0.046983808279037476,\n"}
+,{"stream_name":"stdout","time":86.745361798,"data":"      \"correct\": false\n"}
+,{"stream_name":"stdout","time":86.745365609,"data":"    },\n"}
+,{"stream_name":"stdout","time":86.745369176,"data":"    {\n"}
+,{"stream_name":"stdout","time":86.745371981,"data":"      \"segment_id\": \"01dbcf4b079b49b6ca34c0475492380c\",\n"}
+,{"stream_name":"stdout","time":86.745375145,"data":"      \"question_id\": \"43a93a761b31639c3dd11b97e4a7739a\",\n"}
+,{"stream_name":"stdout","time":86.745378165,"data":"      \"arm\": \"reference_self\",\n"}
+,{"stream_name":"stdout","time":86.745381129,"data":"      \"per_reference\": [\n"}
+,{"stream_name":"stdout","time":86.74538397,"data":"        0.9537496566772461,\n"}
+,{"stream_name":"stdout","time":86.745386813,"data":"        0.9425748586654663\n"}
+,{"stream_name":"stdout","time":86.745392648,"data":"      ],\n"}
+,{"stream_name":"stdout","time":86.745396154,"data":"      \"maximum\": 0.9537496566772461,\n"}
+,{"stream_name":"stdout","time":86.745399168,"data":"      \"correct\": true\n"}
+,{"stream_name":"stdout","time":86.745402167,"data":"    },\n"}
+,{"stream_name":"stdout","time":86.745405017,"data":"    {\n"}
+,{"stream_name":"stdout","time":86.745407838,"data":"      \"segment_id\": \"01dbcf4b079b49b6ca34c0475492380c\",\n"}
+,{"stream_name":"stdout","time":86.745411136,"data":"      \"question_id\": \"43a93a761b31639c3dd11b97e4a7739a\",\n"}
+,{"stream_name":"stdout","time":86.745414204,"data":"      \"arm\": \"unrelated\",\n"}
+,{"stream_name":"stdout","time":86.745417169,"data":"      \"per_reference\": [\n"}
+,{"stream_name":"stdout","time":86.745420255,"data":"        0.07435877621173859,\n"}
+,{"stream_name":"stdout","time":86.745423076,"data":"        0.03196784853935242\n"}
+,{"stream_name":"stdout","time":86.745425948,"data":"      ],\n"}
+,{"stream_name":"stdout","time":86.74542879,"data":"      \"maximum\": 0.07435877621173859,\n"}
+,{"stream_name":"stdout","time":86.745431767,"data":"      \"correct\": false\n"}
+,{"stream_name":"stdout","time":86.745435345,"data":"    }\n"}
+,{"stream_name":"stdout","time":86.745438648,"data":"  ]\n"}
+,{"stream_name":"stdout","time":86.745442132,"data":"}\n"}
+,{"stream_name":"stderr","time":92.621919782,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":92.621967175,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":92.825223562,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":92.825253773,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":93.725532107,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":93.828116418,"data":"[NbConvertApp] Writing 114393 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":96.970138,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":97.621487825,"data":"[NbConvertApp] Writing 386384 bytes to __results__.html\n"}
+]
