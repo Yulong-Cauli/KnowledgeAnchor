@@ -20,7 +20,7 @@
 | — | K-coco-stats `ka-verify-coco-center-collision` | CPU | experiments/centernetpoints-center-collision-rare-on-coco/ | done | …(v2) | **SUPPORT：708 对 / 0.082% 带内（论文 614）；完整性门逐位过**；v1 falsifier 判定作废留痕；核查记录已加 |
 | — | K-probe-1 `ka-verify-probe-pointnet-mobilenet` | CPU | experiments/pointnetpillars-pointnet-permutation-invariance-symmetric-function/ | done | …(v2) | **P1 逐位一致 / P2 max 带内（sum 出带观察）/ P4 双 SUPPORT**；P3 未闭合留人工；三卡核查记录已加；RESULTS 四件套齐（env 快照缺口登记） |
 | — | K-probe-2 `ka-verify-probe-rayiou-nf4-flops` | CPU | experiments/njusparseocc-rayiou-penalizes-thick-surface/ | running | …(v3) | 修复 2/2 尽（v2 败于 exec 命名空间缺 __name__，v3 已修）；P1 toy SUPPORT+P3 CONSISTENT 稳定复现；今晚 00:20 火收割 P2 |
-| — | K-lingo `ka-verify-lingoqa-judge` | CPU | experiments/lingoqa-lingo-judge-spearman-0950/ | pending | — | 依赖 R7；CPU 过慢转 T4 |
+| — | K-lingo `ka-verify-lingoqa-judge` | CPU | experiments/lingoqa-lingo-judge-spearman-0950/ | running | kaggle.com/code/cauliyulong/ka-verify-lingoqa-judge (v1) | 仅公开参考数据与权重预检，加论文 Table 9 算术；正式相关性仍待逐题模型输出与人工分 |
 | 0 | 班 B `claim-qwt-r2-gate-nonregression`（既有） | T4 | experiments/qwt-r2-gate-nonregression/ | **blocked(预算尽)** | …(v5 error 留痕) | v5 败于 create_loader 缺 re_prob kwarg（shim+数据管线已实测全通，v6 只差一行）；**BLOCKED+QUESTIONS #100 三选一待主人**；不再重推 |
 | 1 | K-bevdet `ka-verify-bevdet-scale-nms` | T4 | experiments/bevdet-scale-nms-small-object-ap-gain/ | pending | — | 依赖 K-env；关联卡：bevdet-tiny-fcos3d |
 | 2 | K-triplets `ka-verify-centernettriplets-oracle` | T4 | experiments/centernettriplets-gt-center-oracle-ap-565/ | pending | — | 依赖 R1/R5 |
@@ -29,7 +29,7 @@
 | 5 | K-repqvit `ka-verify-repqvit-w4a4` | T4 | experiments/repqvit-layernorm-reparam-recovers-layerwise/ | pending | — | 规则门；关联卡：repqvit-softmax |
 | 6 | K-brecq-a `ka-verify-brecq-w4a4-1024` | T4 | experiments/brecq-w4a4-comparable-qat-1024-images/ | pending | — | 规则门 |
 | 7 | K-points-nms `ka-verify-centernetpoints-nms` | T4 | experiments/centernetpoints-heatmap-peaks-replace-nms/ | pending | — | 依赖 K-env（DCNv2）+ R1 |
-| 8 | K-fcos `ka-verify-fcos-centerness` | T4 | experiments/fcos-centerness-suppresses-low-quality/ | pending | — | 依赖 K-env（mmdet 2.x）+ R1 |
+| 8 | K-fcos `ka-verify-fcos-centerness` | T4 | experiments/fcos-centerness-suppresses-low-quality/ | running | kaggle.com/code/cauliyulong/ka-verify-fcos-centerness (v1) | 同权重配对；先跑新栈补 torchvision 后的 CUDA NMS、权重、COCO val2017 和官方输出一致性门 |
 | 9 | K-brecq-b `ka-verify-brecq-w2-granularity` | T4 | experiments/brecq-block-granularity-best-w2-ablation/ | pending | — | 规则门；关联卡：brecq-w2a4-first-usable-level；1–2 会话 |
 | 10 | K-lsq `ka-verify-lsq-step-size` | T4 | experiments/lsq-step-size-not-minimize-quantization-error/ | pending | — | **ckpt 存在性门**：无官方 2-bit R18 ckpt → BLOCKED 请主人裁定，不短训 |
 | 11 | K-unidad `ka-verify-unidad-postprocessing` | T4 | experiments/bevplanner-unidad-postprocessing-raises-ccr/ | pending | — | 显存+旧栈双风险门，垫底 |

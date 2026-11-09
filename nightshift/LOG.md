@@ -117,3 +117,4 @@
 2026-11-09 06:25:26 | fire-0620 | 两 CPU 重推 | env-v2 v3(mkdir 修复,v1/v2 败因翻案=目录缺失非网络)+probe-2 v2(bnb exec stub) | 预算：env-v2 2/2 尽，probe-2 1/2
 2026-11-09 08:20:51 | fire-0820 | 班次开始 | POOL mtime 06:25 无防重入 | probe-2 v2 与 env-v2 v3 均 COMPLETE——晨报火收割+REPORT
 2026-11-09 08:23:14 | fire-0820 | 收割+晨报 | probe-2 v3（__name__ 修复，预算 2/2 尽）+env-v2 v4（pkg_resources→setuptools<70 钉版）重推；REPORT-2026-11-09.md 生成 | 五火全跑
+2026-11-09 14:02:24 | 白天补班 | 用户要求先启动一批 | K-fcos v1（T4 推理配对，预注册 bd9dab9）和 K-lingo v1（CPU 公开资产预检，预注册 4ce8939）均已提交，复查均 RUNNING | 正式 Lingo 相关性复核待逐题输出和人工分
