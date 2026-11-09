@@ -125,3 +125,5 @@
 2026-11-10 04:21:04 | fire-0420 | 班次开始 | POOL mtime 02:29 无防重入 | probe-2 v4 COMPLETE（收割+RESULTS+三卡）；B v6 QUEUED 4h+（零动作）；fcos 持牌等 T4
 2026-11-10 04:22:51 | fire-0420 | probe-2 v4 收割 done | P1 toy SUPPORT/P2-① max_err=0.0/P2-② Eq.4 不命中确认/P2-④ NF4 非最低自算/P3 CONSISTENT/P1b 三项闭合；三卡核查记录+#48 材料注入；validate OK | B v6 仍 QUEUED（零动作）；fcos 持牌
 2026-11-10 04:23:48 | fire-0420 | K-lsq 侦察定论 | 官方未开源(笔记在案)+hustzxd 0 releases 无 ckpt——ckpt 门触发，POOL 转 blocked(ckpt 门)+三选一待主人；不降协议不短训 |
+2026-11-10 06:21:06 | fire-0620 | 班次开始 | POOL mtime 04:23 无防重入 | B v6 QUEUED 6h（零动作）；fcos v1 ERROR——预 staged 修复不推（T4 纪律）
+2026-11-10 06:22:06 | fire-0620 | fcos v2 预 staged | v1 死因=MPLBACKEND 泄漏进 subprocess（env 加 Agg 一行修复）；builder+ipynb 已改未推（T4 纪律：B v6 QUEUED 占队）；T4 一空即推（修复 1/2） |

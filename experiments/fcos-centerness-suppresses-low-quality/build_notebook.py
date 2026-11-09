@@ -210,7 +210,7 @@ remaining = int(5.5 * 3600 - (time.monotonic() - started))
 assert remaining > 120, 'Setup consumed the available session budget'
 entrypoint = work / 'evaluate.py'
 entrypoint.write_text(source + '\\nrun(' + repr(started + 5.5 * 3600 - 120) + ', ' + repr(prereg_commit) + ', ' + repr(notebook_sha256) + ')\\n', encoding='utf-8')
-subprocess.run([py, str(entrypoint)], env={{**os.environ, 'CUDA_VISIBLE_DEVICES': '0'}}, check=True, timeout=remaining)
+subprocess.run([py, str(entrypoint)], env={{**os.environ, 'CUDA_VISIBLE_DEVICES': '0', 'MPLBACKEND': 'Agg'}}, check=True, timeout=remaining)
 '''
 
 if __name__ == '__main__':
