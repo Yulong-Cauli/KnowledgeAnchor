@@ -31,7 +31,7 @@
 | 7 | K-points-nms `ka-verify-centernetpoints-nms` | T4 | experiments/centernetpoints-heatmap-peaks-replace-nms/ | pending | — | 依赖 K-env（DCNv2）+ R1 |
 | 8 | K-fcos `ka-verify-fcos-centerness` | T4 | experiments/fcos-centerness-suppresses-low-quality/ | running | kaggle.com/code/cauliyulong/ka-verify-fcos-centerness (v1) | 同权重配对；先跑新栈补 torchvision 后的 CUDA NMS、权重、COCO val2017 和官方输出一致性门；**v1 ERROR（11-09 白天补班推，T4）——火次读 log 修复重推（单 kernel ≤2 预算），排 T4 队列班 B v6 之后** |
 | 9 | K-brecq-b `ka-verify-brecq-w2-granularity` | T4 | experiments/brecq-block-granularity-best-w2-ablation/ | pending | — | 规则门；关联卡：brecq-w2a4-first-usable-level；1–2 会话 |
-| 10 | K-lsq `ka-verify-lsq-step-size` | T4 | experiments/lsq-step-size-not-minimize-quantization-error/ | pending | — | **ckpt 存在性门**：无官方 2-bit R18 ckpt → BLOCKED 请主人裁定，不短训 |
+| 10 | K-lsq `ka-verify-lsq-step-size` | T4 | experiments/lsq-step-size-not-minimize-quantization-error/ | **blocked(ckpt 门触发)** | — | 2026-11-10 04:2x 火侦察定论：**官方未开源**（笔记 L4 在案，论文仅声明 PyTorch 实现）→官方 ckpt 不存在；首要第三方 hustzxd/LSQuantization 0 releases/README 无 ckpt 线索，其余 unofficial impls 未见 ImageNet 2-bit R18 权重证据。**三选一待主人**：①授权 90-epoch QAT 长训（3–4 天 T4）②指定第三方来源 ③弃做——不降协议不短训（预注册条款） |
 | 11 | K-unidad `ka-verify-unidad-postprocessing` | T4 | experiments/bevplanner-unidad-postprocessing-raises-ccr/ | pending | — | 显存+旧栈双风险门，垫底 |
 
 ## Recon 状态（R1–R8，见任务书 §5）

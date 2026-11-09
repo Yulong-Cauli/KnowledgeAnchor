@@ -124,3 +124,4 @@
 2026-11-10 02:29:47 | fire-0220 | 收尾 | B v6 状态见上；probe-2 v4 RUNNING（04:20 火收）；fcos v2 修复排 B v6 完成后（06:20 火执行）| CPU 1/2（probe-2 v4）
 2026-11-10 04:21:04 | fire-0420 | 班次开始 | POOL mtime 02:29 无防重入 | probe-2 v4 COMPLETE（收割+RESULTS+三卡）；B v6 QUEUED 4h+（零动作）；fcos 持牌等 T4
 2026-11-10 04:22:51 | fire-0420 | probe-2 v4 收割 done | P1 toy SUPPORT/P2-① max_err=0.0/P2-② Eq.4 不命中确认/P2-④ NF4 非最低自算/P3 CONSISTENT/P1b 三项闭合；三卡核查记录+#48 材料注入；validate OK | B v6 仍 QUEUED（零动作）；fcos 持牌
+2026-11-10 04:23:48 | fire-0420 | K-lsq 侦察定论 | 官方未开源(笔记在案)+hustzxd 0 releases 无 ckpt——ckpt 门触发，POOL 转 blocked(ckpt 门)+三选一待主人；不降协议不短训 |
