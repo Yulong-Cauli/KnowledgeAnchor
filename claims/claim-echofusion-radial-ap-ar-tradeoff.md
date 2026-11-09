@@ -3,7 +3,7 @@ id: claim-echofusion-radial-ap-ar-tradeoff
 title: "EchoFusion 在 RADIal 原始协议下的主要收益是 AR/F1，AP 仅与 FFTRadNet 持平"
 type: claim
 status: asserted
-scope: "RADIal test split；original protocol；AP/AR/F1/RE/AE；EchoFusion RT+C vs FFTRadNet RD / ADCNet ADC；数字为论文自报（Table 2，arXiv:2307.16532v2 PDF 文本层，2026-11-05 实抓逐值核对；笔记 §3.1 主表同值）"
+scope: "RADIal test split；original protocol；AP/AR/F1/RE/AE；EchoFusion RT+C vs FFTRadNet RD / ADCNet ADC；数字为论文自报（Table 2，arXiv:2307.16532v2；笔记 §3.1 主表同值）"
 tags: [radar, sensor-fusion, echofusion, radial, evaluation]
 note: library/3D_Occupancy/EchoFusion.md#31-radial-数据集主要性能对比
 paper: "NeurIPS 2023, Echoes Beyond Points: Unleashing the Power of Raw Radar Data in Multi-modality Fusion"
@@ -37,19 +37,20 @@ related: [claim-echofusion-rt-vs-rp-radial, claim-echofusion-3d-ap-below-lidar, 
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文 Table 2 报告：EchoFusion 的 AP 是 **96.95**，仅比 FFTRadNet 的 **96.84** 高 0.11；真正的差距在 AR（**93.43 vs 82.18**）和 F1（**95.16 vs 88.91**）。同时 RE **0.12** / AE **0.18** 不如 FFTRadNet 的 0.11 / 0.17，AE 也不如 ADCNet 的 0.11。论文自己指出 RE/AE 对高召回模型不公平（§5.2.1 原句已于 2026-11-05 实抓核实），因此“主要收益是召回/F1”比“全面领先”更准确。
 
-这张表也不是受控的模态比较：FFTRadNet 用 RD、ADCNet 用 ADC、EchoFusion 用 RT+C。要判断方法本身的贡献，应看 [受控消融卡](claim-echofusion-rt-vs-rp-radial.md)。笔记 §3.1 主表数字与论文 Table 2 一致（96.95/93.43/95.16 等逐值相同，见 evidence；笔记省略 CMS、T-FFTRadNet 两行）。
+这张表不是受控的模态比较：FFTRadNet 用 RD、ADCNet 用 ADC、EchoFusion 用 RT+C。要判断方法本身的贡献，应看 [受控消融卡](claim-echofusion-rt-vs-rp-radial.md)。笔记 §3.1 主表数字与论文 Table 2 一致（96.95/93.43/95.16 等逐值相同，见 evidence；笔记省略 CMS、T-FFTRadNet 两行）。
 
 ## 待验证
 
+- 核对三个方法是否使用同一 RADIal 划分、同一 AP/AR 定义与同一匹配阈值（官方代码）：不一致则表格不可比（falsifier 2），对齐后重比。
+- 检查 AR/F1 的提升是否来自更宽松的置信阈值或更多查询（对比三方解码配置）：来自阈值/查询数，则增益归因改写为解码差异而非特征更好。
+- 在受控模态设置下（都带相机）重新比较 AP/AR/F1：AP 仍持平而 AR/F1 拉开，则“收益在召回”成立；AP 也拉开，则本卡“AP 持平”需修正。
 - 已核对（2026-11-05）：本班二次实抓 arXiv:2307.16532v2，PDF 文本层 Table 2 三行逐值命中（表题 original protocol）；笔记 §3.1 对应行逐值命中（见 evidence）。
-- 核对三个方法是否使用同一 RADIal 划分、同一 AP/AR 定义与同一匹配阈值。
-- 检查 AR/F1 的提升是否来自更宽松的阈值或更多查询，而非更好的特征。
-- 在受控模态设置下（都带相机）重新比较 AP/AR/F1。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
-成立则 EchoFusion 适合“少漏检”优先的场景，但不能宣称 AP 或定位精度全面领先；不成立则说明主表比较存在协议差异，需要重新对齐评测。
+成立：EchoFusion 适合“少漏检”优先的场景；引用主表按“AR/F1 拉开、AP 与 FFTRadNet 持平”表述，不宣称 AP 或定位精度全面领先。
+不成立：查明协议/阈值不一致（falsifier 2），主表比较需重新对齐后再下“持平/领先”结论。

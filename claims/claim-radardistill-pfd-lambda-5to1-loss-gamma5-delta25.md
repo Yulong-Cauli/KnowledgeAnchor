@@ -3,7 +3,7 @@ id: claim-radardistill-pfd-lambda-5to1-loss-gamma5-delta25
 title: "RadarDistill 声称 PFD 中 TP∪FN:FP 权重为 5:1（σ=0.1，按区域像素数归一化），总损失权重 γ=5、δ=25"
 type: claim
 status: asserted
-scope: "超参配置主张（笔记 §PFD 与 §损失函数，对应论文公式 (11)–(15)、(18)）；σ=0.1、λ1=5、λ2=1、γ=5、δ=25 已对照 arXiv:2403.05061v3 正文核实与笔记一致（2026-11-02 抓取），开源 cfg 与复现仍未核实；笔记未记录超参敏感性分析；教师/学生骨干为 Pillar 编码 + SparseEnc/DenseEnc（README）；数字仍为论文自报"
+scope: "RadarDistill 超参配置主张（笔记 §PFD 与 §损失函数，对应论文公式 (11)–(15)、(18)）；σ=0.1、λ1=5、λ2=1、γ=5、δ=25 已对照 arXiv:2403.05061v3 正文核实与笔记一致（2026-11-02 抓取），数字为论文自报；开源 cfg 与复现仍未核实；笔记未记录超参敏感性分析；教师/学生骨干为 Pillar 编码 + SparseEnc/DenseEnc（README）"
 tags: [knowledge-distillation, proposal-based, hyperparameters, radar, lidar, loss-design, cvpr2024, radardistill]
 note: "library/Multimodal_Fusion/RadarDistill.md#pfd-基于建议框的特征蒸馏--针对考试结果查漏补缺"
 paper: "CVPR 2024, RadarDistill: Boosting Radar-based Object Detection Performance via Knowledge Distillation from LiDAR Features (arXiv:2403.05061)"
@@ -50,11 +50,11 @@ related: [claim-radardistill-lidar-teacher-boosts-radar-only-detection, claim-ra
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称：PFD 以热图阈值 σ=0.1 把学生预测分为 TP（答对，逼近）、FP（瞎猜，抑制）、FN（漏检，唤醒）三类；权重按公式 (14)：TP∪FN 区域 λ1=5、FP 区域 λ2=1、背景 0，且除以区域像素数（N_TP+N_FN、N_FP）做平均化，防止大面积 FP 用数量优势淹没 TP 的 Loss；特征先沿 channel 维 softmax 归一（抹平两模态绝对数值差异）再做加权 L1。总损失 L_total = L_det + γ·L_AFD + δ·L_PFD，γ=5、δ=25。
 
-必须记住的口径限制：
+口径限制：
 1. 数字本身已于 2026-11-02 复审时对照 arXiv:2403.05061v3 正文逐个核实（σ=0.1、λ1=5、λ2=1、γ=5、δ=25，与笔记转述一致）；但「开源 cfg 默认值是否与论文一致」「按此配置能否复现 20.5/43.7」仍未核——EMC2 笔记表格错位（claim-emc2-note-table-mismatch）的教训在这里同样适用，卡片维持 asserted。
 2. 「δ=25 远大于 γ=5 说明高层语义模仿更关键」是笔记作者的解读，不是笔记给出的消融结论。
 
@@ -65,7 +65,7 @@ signoff: null
 - 查开源仓库 cfgs/radar_distill/*.yaml 中对应 loss 权重默认值是否与论文一致。
 - 复现时按此配置训练一次，确认能对齐 README 自报的 20.5 / 43.7（关联主卡）。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：这组超参可直接作为雷达蒸馏复现起点；δ≫γ 的配置提示 proposal 级蒸馏主导收益，后续蒸馏方案可优先调 proposal 级项。
 不成立：任一数字与原文不符，需修订笔记并重估「高层蒸馏主导」的解读；复现起点改为以开源 cfg 为准。

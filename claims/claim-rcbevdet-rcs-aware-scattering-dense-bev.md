@@ -3,7 +3,7 @@ id: claim-rcbevdet-rcs-aware-scattering-dense-bev
 title: "RCBEVDet 的 RCS-aware BEV 编码器以 RCS 为物体尺寸先验，把稀疏雷达点散射为高斯圆斑得到稠密 BEV 特征（论文声称）"
 type: claim
 status: asserted
-scope: "RCBEVDet（CVPR 2024）的方法设计声明；口径：RadarBEVNet 的 RCS 感知 BEV 编码器（笔记 §二.2）；散射半径含 (cx²+cy²)×v_RCS 距离项与 Sum Pooling 聚合已对照 arXiv:2403.16440v1 原文核实（2026-11-02 抓取）；CVPR 原文 Table 5 已含消融数字（+1.4 NDS / +1.9 mAP，nuScenes），与扩展版草稿转录一致；本卡只主张『设计存在与形式』，不主张增益幅度"
+scope: "RCBEVDet（CVPR 2024）方法设计声称（论文自报）；口径：RadarBEVNet 的 RCS 感知 BEV 编码器（笔记 §二.2），nuScenes；散射半径含 (cx²+cy²)×v_RCS 距离项与 Sum Pooling 聚合，已对照 arXiv:2403.16440v1 原文核实（2026-11-02 抓取）；CVPR 原文 Table 5 已含消融数字，与扩展版草稿转录一致（数字见正文复审更新）；本卡只主张『设计存在与形式』，不主张增益幅度"
 tags: [radar-camera-fusion, bev, radarbevnet, rcbevdet, rcs, scattering]
 note: library/Multimodal_Fusion/RCBEVDet.md#2-rcs-感知-bev-编码器-利用rcs把稀疏点云补成稠密图像
 paper: "CVPR 2024, RCBEVDet: Radar-camera Fusion in Bird's Eye View for 3D Object Detection (arXiv:2403.16440)"
@@ -46,7 +46,7 @@ related: [claim-rcbevdet-dualstream-injection-extraction-interactive]
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称：雷达点在 BEV 网格上极度稀疏（笔记举例：128×128 的 BEV 图约 16000 像素，雷达点可能只有几百个），normal scattering 后 CNN 难以提取形状。RadarBEVNet 的 RCS-aware BEV 编码器把 RCS 当作物体尺寸先验——RCS 越大物体通常越大——对每个雷达点以半径 r=(cx²+cy²)×V_RCS 铺开一个中心权重最高的高斯圆斑（半径里的坐标平方项是距离补偿），点特征乘高斯权重图后叠加到 BEV 网格，重叠处 Sum Pooling 聚合；再把散射特征与高斯权重图本身（作空间注意力图）拼接过 MLP，得到稠密的 RCS-aware BEV 特征。
 
@@ -58,7 +58,7 @@ signoff: null
 - 读官方仓库 https://github.com/VDIGPKU/RCBEVDet 的散射实现，确认半径含 (cx²+cy²) 距离项、重叠聚合为求和。
 - 在 nuScenes 上复现 RCS-aware vs normal scattering 消融（CVPR v1 Table 5 自报 +1.4 NDS / +1.9 mAP；扩展版 Table VI 数字见 nightshift/drafts/RCBEVDetPP.md §3.5，待人工核对）。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：雷达-相机融合中『用传感器物理属性先验把稀疏点补稠密』是可复用的设计路线，后续雷达 BEV 特征提取选型时作为对照方案。
 不成立：笔记对该模块的转写有误或实现与论文不符，涉及 RCS 先验的设计讨论需回原文重核，本卡降级或作废。

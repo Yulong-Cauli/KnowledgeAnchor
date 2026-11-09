@@ -1,6 +1,6 @@
 ---
 id: claim-echofusion-rt-vs-ra-noise
-title: "在 RADIal 上，RT+C 与 RA+C 的总体 BEV AP 差异在误差范围内"
+title: "EchoFusion 论文自报：RADIal 上 RT+C 与 RA+C 的总体 BEV AP 差在误差条内（84.92±0.98 vs 84.77±0.65）"
 type: claim
 status: asserted
 scope: "RADIal test split；refined 3D 标注；BEV AP@0.7；RT+C vs RA+C（同一 EchoFusion 架构，同一论文 Table 6 内比较）；每组实验重复 3 次、模态消融报 mean 与 variance（论文 §5.1 所述设置，±值统计口径未进一步定义）；论文自报数字"
@@ -33,7 +33,7 @@ related: [claim-echofusion-rt-vs-rp-radial, claim-echofusion-note-table-mismatch
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文明确说 RT+C 与 RA+C 的差距在误差条内；Table 6 的总体 BEV AP 是 **84.92**（RT+C，±0.98）对 **84.77**（RA+C，±0.65），LET-BEV-AP 则是 **88.86** 对 **89.54**。因此“RT 比 RA 更好”不是这篇论文支持的结论；它只支持“RT 与 RA 都优于点云，且不必显式解算方位角”。
 
@@ -41,13 +41,14 @@ signoff: null
 
 ## 待验证
 
-- 按论文设置多种子复跑，确认 84.92 与 84.77 的差异是否始终小于误差条。
-- 检查 RT/RA 分支的预处理与容量是否对等；RA 分支多做了一次角度 FFT。
-- 如果换成别的雷达或数据集，RT vs RA 的排序可能改变，需要单独验证。
+- 按论文设置多种子复跑（固定架构、训练配置与评测协议，只加种子数）：84.92 与 84.77 之差始终小于误差条则本卡成立；稳定超出按 falsifier 1 记“在误差条内”不成立。
+- 检查 RT/RA 分支的预处理与容量是否对等（RA 分支多做一次角度 FFT）：不对等且补齐后排序反转，则“两者等价”需按新比较重写。
+- 换别的雷达或数据集时单独验证 RT vs RA 排序（固定架构与协议、只换数据）：排序反转，则“不必显式解算方位角”不外推出 RADIal。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
-成立则工程上可以选更便宜的 RA 或 RT，取决于数据管线；不成立则说明 RT 的多普勒/时间信息确实带来稳定增益，不能把两者视为等价。
+成立：RADIal 上 RT 与 RA 可视为等价，工程上按数据管线成本任选，且可省去显式方位角解算与 Doppler-angle 维度变换。
+不成立：RT 的多普勒/时间信息带来稳定超出误差条的增益，不能把两者视为等价。
 
 ## 核查记录
 

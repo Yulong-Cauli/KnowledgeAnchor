@@ -38,9 +38,11 @@ related: [claim-msmdfusion-multidepth-unprojection-no-noise, claim-msmdfusion-mu
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
-论文声称：MSMDFusion 以单模型、无 TTA/ensemble 在 nuScenes test 上取得 71.5% mAP / 74.0% NDS，超过 Table 1 所列全部方法（最强竞品 BEVFusion [16] 70.2/72.9、DeepInteraction 70.8/73.4）（arXiv v3）。配套的跟踪结果为 74.0 AMOTA（Table 2，greedy tracker）：与使用 ensemble 的 BEVFusion [16]*（74.1）相当，单模型中为最高——但这是次要主张，本卡可证伪核心是检测的 71.5/74.0。
+论文声称：MSMDFusion 以单模型、无 TTA/ensemble 在 nuScenes test 上取得 71.5% mAP / 74.0% NDS，超过 Table 1 所列全部方法（最强竞品 BEVFusion [16] 70.2/72.9、DeepInteraction 70.8/73.4）（arXiv v3）。
+
+配套跟踪结果（次要主张，本卡可证伪核心是检测的 71.5/74.0）：74.0 AMOTA（Table 2，greedy tracker），与使用 ensemble 的 BEVFusion [16]*（74.1）相当，单模型中为最高。
 
 类别层面的边界（笔记观察，防"全类别第一"误读）：MSMDFusion 的 C.V.（construction vehicle）35.2 低于 BEVFusion [16] 的 39.3 与 DeepInteraction 的 37.5；Bike 58.3 为全表最高（较 UVTR 54.8 高 +3.5，论文专门点名）。"surpasses all"是总体 mAP/NDS 层面。
 
@@ -48,13 +50,13 @@ signoff: null
 
 ## 待验证
 
-- 查 nuScenes 官方 test 榜单提交记录，核对 71.5/74.0 与单模型/无 TTA 声明。
-- 核对 BEVFusion [16]、DeepInteraction 官方论文最终版数字，确认无低引竞品。
+- 查 nuScenes 官方 test 榜单提交记录：mAP/NDS 低于 71.5/74.0 或低于 Table 1 任一所列方法，按 falsifier 1 处理；同时核对提交是否单模型、无 TTA。
+- 核对 BEVFusion [16]、DeepInteraction 官方论文最终版数字：存在更高官方数字未被引用，按 falsifier 3 记“低引竞品”，“surpasses all”不成立。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立（目前只是论文声称）：nuScenes test 榜在 CVPR 2023 时点的 LC 融合 SOTA 基准线为 71.5/74.0（单模型口径）；库内后续融合方法笔记（RCBEVDet、HGSFusion 等）对比时有了一条单模型锚点。
-不成立：则该 SOTA 主张依赖特定对比口径（竞品数字低引或配置差异），本卡降级为"论文自报数字"，榜单核对结果回填。
+不成立：该 SOTA 主张依赖特定对比口径（竞品数字低引或配置差异），本卡降级为“论文自报数字”，榜单核对结果回填。
 
 ## 核查记录
 

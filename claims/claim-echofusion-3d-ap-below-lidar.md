@@ -3,7 +3,7 @@ id: claim-echofusion-3d-ap-below-lidar
 title: "EchoFusion 在 RADIal 上的 3D AP 仍远低于 LiDAR"
 type: claim
 status: asserted
-scope: "RADIal test split；refined 3D 标注；3D AP@0.5；ATE/ASE/AOE；论文 Table 7 行名 RT&C vs L / L&C；数字为论文自报（Table 7，arXiv:2307.16532v2 PDF 文本层，2026-11-05 实抓逐值核对）"
+scope: "RADIal test split；refined 3D 标注；3D AP@0.5；ATE/ASE/AOE；论文 Table 7 行名 RT&C vs L / L&C；数字为论文自报（Table 7，arXiv:2307.16532v2）"
 tags: [radar, sensor-fusion, echofusion, radial, lidar]
 note: library/3D_Occupancy/EchoFusion.md#3-实验结果
 paper: "NeurIPS 2023, Echoes Beyond Points: Unleashing the Power of Raw Radar Data in Multi-modality Fusion"
@@ -29,18 +29,19 @@ related: [claim-echofusion-radial-ap-ar-tradeoff, claim-echofusion-kradar-gain]
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文表格报告：EchoFusion 的 BEV AP 接近 LiDAR（Table 6：RT+C 84.92 vs L 84.47），但 Table 7 的 **3D AP@0.5** 是 **39.81**（行名 RT&C），远低于 LiDAR 的 **62.69**（L）和 **68.36**（L&C）；ATE 也更高（**0.301 vs 0.243 / 0.239**）。论文把差距归因于 RADIal 的 16 线 LiDAR 标注粗糙和雷达俯仰分辨率低（作者解释，§5.5 原句已于 2026-11-05 实抓核实），但这仍是“方法有效”的边界：BEV 好不等于 3D 定位好。
 
+证据边界：本卡数字全部来自论文 Table 6/7；library 笔记 §3 未收录 Table 3/6/7 与 KRadar 结果，引用 EchoFusion 数字时以论文原表为准。
+
 ## 待验证
 
-- 在 KRadar-20 这类有更准确 3D 标注的数据上复核 3D AP，而不是只看 RADIal。
-- 检查 3D AP 的 IoU 阈值、中心点定义和高度标注是否与 LiDAR 基线一致。
-- 本卡数字全部来自论文 Table 6/7；library 笔记 §3 未收录 Table 3/6/7 与 KRadar 结果，引用 EchoFusion 数字时以论文原表为准。
+- 在 KRadar-20 这类有更准确 3D 标注的数据上复核 3D AP：固定方法与输入、评测协议不变，只换数据集，观察 3D AP@0.5 与其 LiDAR 基线的差距——差距缩到接近 BEV 级差距，说明本卡的“远低于”主要受 RADIal 标注限制；仍远低于 LiDAR，则 3D 定位差距是方法的真实边界。
+- 检查 3D AP 的 IoU 阈值、中心点定义和高度标注是否与 LiDAR 基线一致（官方代码/补充材料）：任一项不一致，跨方法比较按 falsifier 2 记为不可比，需对齐后重评。
 - 已核对（2026-11-05）：本班二次实抓 arXiv:2307.16532v2——PDF 文本层 Table 7 三行逐值命中（L/L&C/RT&C 六项误差列含 ATE/ASE/AOE），HTML v2 的 Table 6 行值 84.92±0.98 / 84.47±0.15 与 §5.5「coarse LiDAR annotation and inferior radar elevation resolution」归因句逐字命中；Table 7 在 v2 印刷页 p.10（原 locator 记 p.9，已更正）。此前卡内记录的 2026-11-02 复核未留抓取凭证细节，以本轮实抓为准。
-- 把 BEV AP 与 3D AP 分开报告，避免用 BEV 指标宣称“接近 LiDAR”。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
-成立则 EchoFusion 更适合 BEV 级检测或对高度/3D 定位要求不高的场景；不成立则说明 RADIal 的标注限制了结论，需要换数据集重新评估。
+成立：EchoFusion 的收益限于 BEV 级检测，更适合对高度/3D 定位要求不高的场景；引用时把 BEV AP 与 3D AP 分开报告，不用 BEV 指标宣称“接近 LiDAR”。
+不成立：复现的 3D AP@0.5 显著高于 39.81 或接近 LiDAR 的 62.69/68.36，按 falsifier 1 重核论文数字与复现配置；若查明协议或标注不可比（falsifier 2），“远低于”需换数据集重新评估。

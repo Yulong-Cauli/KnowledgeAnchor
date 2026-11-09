@@ -3,7 +3,7 @@ id: claim-rcbevdetpp-vitl-nuscenes-test-727nds-sota
 title: "RCBEVDet++ 自报 nuScenes test（ViT-L 骨干、无 TTA/ensemble）72.7 NDS / 67.3 mAP，超过表内全部 camera-only 与 radar-camera 对比方法（摘要口径 72.73/67.34）"
 type: claim
 status: asserted
-scope: "RCBEVDet++（arXiv:2409.04979 v1 2024-09-08，RCBEVDet CVPR 2024 的期刊扩展版）的基准快照声明（论文自报）；窄卡绑定：nuScenes test set、ViT-L 图像骨干、雷达+相机输入、无测试时增强/无模型集成（Table II：72.7 NDS / 67.3 mAP / mAOE 0.241 / mAVE 0.147；摘要与 §VI 作 72.73/67.34，表内为四舍五入）；对比对象为同表快照——camera-only：SparseBEV†（ViT-L）70.2 NDS（mAP 表内未报，表内最强 camera-only NDS 对照）、Far3D（ViT-L）68.7/63.5、StreamPETR（ViT-L）67.6/62.0、SparseBEV（V2-99）63.6/55.6、SparseBEV† 带未来帧（V2-99）67.5/60.3；radar-camera：CRN（ConvNeXt-B）62.4/57.5；V2-99 变体 68.7/62.6 比 SparseBEV 基线 +5.1 NDS/+7.0 mAP 并超过其 offline 版；快照截至 v1（2024-09-08），非当前榜单状态；SOTA 措辞按论文自述（'new state-of-the-art radar-camera 3D object detection results on nuScenes'）；⚠ §V-B1 'reduce the velocity error by 14.6%' 一句无法由表推出（笔记 QUESTIONS #23），本卡不引该句、不主张速度误差百分比"
+scope: "RCBEVDet++（arXiv:2409.04979 v1 2024-09-08，RCBEVDet CVPR 2024 的期刊扩展版）基准快照声称（论文自报）；绑定：nuScenes test set、ViT-L 图像骨干、雷达+相机输入、无测试时增强/无模型集成（Table II：72.7 NDS / 67.3 mAP / mAOE 0.241 / mAVE 0.147；摘要与 §VI 作 72.73/67.34，表内为四舍五入）；对比对象为同表快照，各对照方法数字见正文；快照截至 v1（2024-09-08），非当前榜单状态；SOTA 措辞按论文自述（'new state-of-the-art radar-camera 3D object detection results on nuScenes'）；§V-B1 'reduce the velocity error by 14.6%' 一句不引、不主张速度误差百分比（无法由表推出，笔记 QUESTIONS #23，见正文口径边界段）"
 tags: [rcbevdetpp, radar-camera-fusion, sota-snapshot, nuscenes, vit-l]
 note: library/Multimodal_Fusion/RCBEVDetPP.md#32-3d-目标检测与-sota-对比v-b1
 paper: "arXiv:2409.04979 (v1), RCBEVDet++: Toward High-accuracy Radar-Camera Fusion 3D Perception Network（RCBEVDet 的期刊扩展）"
@@ -58,9 +58,9 @@ related: [claim-rcbevdetpp-sparse-fusion-camf-query-based, claim-rcbevdet-camf-a
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
-论文声称：RCBEVDet++（雷达-相机融合，RadarBEVNet + 稀疏融合 CAMF）在 nuScenes test 上，ViT-L 图像骨干、不使用测试时增强与模型集成，取得 72.7 NDS / 67.3 mAP（摘要与 §VI 精确到 72.73/67.34），自述为雷达-相机 3D 检测新 SOTA；表内 camera-only 的最强 NDS 对照是带未来帧的 SparseBEV†（ViT-L）70.2（mAP 未报，72.7 仍高于它），mAP 对照最强为 Far3D（ViT-L）68.7/63.5，V2-99 档带未来帧的 SparseBEV† 为 67.5/60.3，radar-camera 对比 CRN 62.4/57.5。中等骨干 V2-99 版 68.7/62.6，比其相机基线 SparseBEV（63.6/55.6）+5.1 NDS / +7.0 mAP，且超过 SparseBEV 使用未来帧的 offline 版（67.5）——说明雷达通道带来的增益超过时间维信息。误差分解的亮点是方向/速度（mAOE 0.241、mAVE 0.147），与雷达测速直接相关的分量明显优于纯相机方法。
+论文声称：RCBEVDet++（雷达-相机融合，RadarBEVNet + 稀疏融合 CAMF）在 nuScenes test 上，ViT-L 图像骨干、不使用测试时增强与模型集成，取得 72.7 NDS / 67.3 mAP（摘要与 §VI 精确到 72.73/67.34），自述为雷达-相机 3D 检测新 SOTA。表内对比（同为快照口径）：camera-only 的最强 NDS 对照是带未来帧的 SparseBEV†（ViT-L）70.2（mAP 表内未报，72.7 仍高于它）；mAP 对照最强为 Far3D（ViT-L）68.7/63.5；同表 camera-only 还有 StreamPETR（ViT-L）67.6/62.0、SparseBEV（V2-99）63.6/55.6、带未来帧的 SparseBEV†（V2-99）67.5/60.3；radar-camera 对比 CRN（ConvNeXt-B）62.4/57.5。中等骨干 V2-99 版 68.7/62.6，比其相机基线 SparseBEV（63.6/55.6）+5.1 NDS / +7.0 mAP，且超过 SparseBEV 使用未来帧的 offline 版（67.5）——说明雷达通道带来的增益超过时间维信息。误差分解的亮点是方向/速度（mAOE 0.241、mAVE 0.147），与雷达测速直接相关的分量明显优于纯相机方法。
 
 口径边界：论文自报、本库未独立复核；快照截至 v1（2024-09-08）。另注：§V-B1 有 "reduce the velocity error by 14.6%" 一句无法由 Table I/II 推出（笔记已标 QUESTIONS #23），本卡不引；速度优势只按 mAVE 绝对值表述。
 
@@ -71,7 +71,7 @@ signoff: null
 - 向 nuScenes 官方榜单/评测存档核对 2024-09 时点该提交是否存在且口径为 no TTA/no ensemble。
 - 复现 V2-99 版（SparseBEV + 稀疏融合 CAMF，12 epochs 两阶段）核对 +5.1 NDS / +7.0 mAP。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：雷达通道可把 query-based 相机检测栈推过当时 camera-only SOTA（含用未来帧的方法），雷达-相机融合在强相机骨干下仍有真实增量，值得在量产感知栈保留雷达流。
 不成立：复现不到自报数字或依赖了 TTA/ensemble，则 SOTA 主张降级为「接近 camera-only SOTA」，雷达流的成本收益需重新评估。

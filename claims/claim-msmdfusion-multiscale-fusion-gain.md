@@ -1,9 +1,9 @@
 ---
 id: claim-msmdfusion-multiscale-fusion-gain
-title: "MSMDFusion 论文声称（Table 5 消融）：C2–C5 四尺度全部做 LiDAR-相机交互优于任何单尺度——比最佳单尺度（C2）高 1.42 mAP / 1.01 NDS（66.93/68.93 vs 65.51/67.92），论文将该增益口径写作 '~2% mAP / ~1% NDS'"
+title: "MSMDFusion 论文声称（Table 5 消融）：C2–C5 全尺度 LiDAR-相机交互优于任何单尺度，比最佳单尺度（仅 C2）高 1.42 mAP / 1.01 NDS（66.93/68.93 vs 65.51/67.92），论文口径写作 '~2% mAP / ~1% NDS'"
 type: claim
 status: asserted
-scope: "nuScenes 训练集随机 1/4 子集（'Following UVTR' 的消融降规模口径，§4.3），TransFusion-L 为基线（#1 60.26/65.62），各行均含 MDU+GMA-Conv、仅交互发生的尺度不同（C2 空间分辨率最大、C5 最小，Table 5 表题）；'最佳单尺度'指 Table 5 中单尺度行（#2–#5）的最高 mAP 行即 #2（仅 C2，65.51/67.92）；增益按表内行差验算为 +1.42 mAP / +1.01 NDS，论文正文口径为 '~2% mAP / ~1% NDS'（约整表述，本卡两种口径并写）；nuScenes test SOTA 数字（71.5/74.0）与 MDU/GMA-Conv 组件消融另有专卡，不在此卡；论文自报数字"
+scope: "nuScenes 训练集随机 1/4 子集（'Following UVTR' 的消融降规模口径，§4.3）；TransFusion-L 基线（#1 60.26/65.62），各行均含 MDU+GMA-Conv、仅交互发生的尺度不同（C2 空间分辨率最大、C5 最小，Table 5 表题）；'最佳单尺度'指 Table 5 中单尺度行（#2–#5）的最高 mAP 行即 #2（仅 C2，65.51/67.92）；test SOTA 数字（71.5/74.0）与 MDU/GMA-Conv 组件消融另有专卡；论文自报数字"
 tags: [msmdfusion, lidar-camera-fusion, multi-scale, ablation, nuscenes]
 note: library/Multimodal_Fusion/MSMDFusion.md#36-多尺度交互的作用
 paper: "CVPR 2023, MSMDFusion: Fusing LiDAR and Camera at Multiple Scales with Multi-Depth Seeds for 3D Object Detection (arXiv:2209.03102)"
@@ -63,9 +63,7 @@ related: [claim-msmdfusion-nuscenes-test-sota-single-model, claim-msmdfusion-mul
 signoff: null
 ---
 
-## 我的理解
-
-这是 MSMDFusion 的多尺度融合消融卡，核心是把"+~2% mAP"这个论文口径写清楚：
+## 主张
 
 - **表内事实**：Table 5 中仅 C2 交互的单尺度模型 65.51 mAP / 67.92 NDS（四行单尺度中最高），C2–C5 全开的完整模型 66.93 / 68.93——行差验算 +1.42 mAP / +1.01 NDS。
 - **论文口径**：正文把这一增益写作 "~2% mAP and ~1% NDS over the best single-scale model"。即 "~2%" 是对 +1.42 的约整上浮（NDS 的 "~1%" 与行差 +1.01 吻合）。引用时建议两个口径都带：论文口径 "~2%/~1%"，表内行差 "+1.42/+1.01"。
@@ -77,11 +75,11 @@ TableRow 与两句正文已于 2026-11-03 实抓 arXiv HTML v3（https://arxiv.o
 
 ## 待验证
 
-- 用官方仓库复跑 Table 5 的 #2 与 #8 两行，核对 65.51/67.92 与 66.93/68.93（重点看 1/4 子集划分是否可复现）。
-- 在完整训练集上补一组 #2 vs #8，检验 +1.42 mAP 的增益是否随数据规模保持。
+- 用官方仓库复跑 Table 5 的 #2 与 #8 两行，核对 65.51/67.92 与 66.93/68.93（重点看 1/4 子集划分是否可复现）；任一单尺度复跑值达到或超过 66.93，按 falsifier 1 记"多尺度无优势"。
+- 在完整训练集上补一组 #2 vs #8，检验 +1.42 mAP 的增益是否随数据规模保持；消失或为负，按 falsifier 2 记口径外推失败。
 - 把"最佳单尺度"换成 C3/C4/C5 重算增益区间（+1.94～+2.41 mAP：66.93−64.99=1.94、66.93−64.97=1.96、66.93−64.52=2.41；本卡原写"+1.96～+2.41"系把 #4 行差误作下限，2026-11-05 验算改正），确认论文选 C2 作"best single-scale"是因为它确实最强而非有利于叙事。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：体素空间多尺度 LiDAR-相机交互值得付出（比最佳单尺度 +1.42 mAP），且浅层大分辨率尺度是收益主体——做融合检测器消融时应把"在哪些尺度交互"作为独立设计轴，并预期浅层尺度贡献最大。
 不成立：单尺度（尤其仅 C2）即可追平多尺度，则 MSMDFusion 的"多尺度融合"卖点降级为实现细节，相关算力开销（多尺度 MDU+GMA-Conv）不划算，选型回到单尺度交互 + 加深 encoder 的路线。
