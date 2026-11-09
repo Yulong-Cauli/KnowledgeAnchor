@@ -3,7 +3,7 @@ id: claim-cotr-plugin-lowers-latency-flops
 title: "COTR 论文声称：即插即用嵌入后各基线延迟与 FLOPs 均低于原基线（RTX A6000，Table 7），且 CFSG 仅训练期使用、推理零开销"
 type: claim
 status: asserted
-scope: "Occ3D-nuScenes；COTR arXiv v2（arXiv:2312.01919，html/2312.01919v2）补充材料 Table 7（效率消融，单卡 RTX A6000）；对比 TPVFormer、BEVDet4D（R50 与 Swin-B 骨干，含/不含长期时序 LT）嵌入 COTR 前后；Latency 单位 s；论文自报数字。边界：表注 '† input size of 256×704, others same as Tab. 1'——无 † 的基线行沿用 Table 1 的更大输入（TPVFormer 900×1600、BEVDet4D R50 384×704、Swin-B 512×1408），而 + COTR 行均为 256×704，严格同输入对比不成立（笔记遗留观察 7 同此提示）"
+scope: "Occ3D-nuScenes；COTR arXiv v2（arXiv:2312.01919，html/2312.01919v2）补充材料 Table 7（效率消融，单卡 RTX A6000）；对比 TPVFormer、BEVDet4D（R50 与 Swin-B 骨干，含/不含长期时序 LT）嵌入 COTR 前后；Latency 单位 s；论文自报数字。边界：表注 '† input size of 256×704, others same as Tab. 1'——无 † 的基线行沿用 Table 1 的更大输入（TPVFormer 900×1600、BEVDet4D R50 384×704、Swin-B 512×1408），而 + COTR 行均为 256×704，严格同输入对比不成立"
 tags: [occupancy-prediction, plug-and-play, efficiency, latency, nuscenes, cotr]
 note: library/3D_Occupancy/COTR.md#34-表示分辨率与效率消融
 paper: "CVPR 2024, COTR: Compact Occupancy TRansformer for Vision-based 3D Occupancy Prediction (arXiv:2312.01919)"
@@ -42,7 +42,7 @@ related: [claim-cotr-compact-occupancy-1-16-no-perf-drop]
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称：COTR 可即插即用嵌入主流占据模型；嵌入后整体延迟与 FLOPs 反而低于原基线——TPVFormer 0.59 s/972.75G → 0.43 s/784.85G，BEVDet4D† 0.67 s/924.07G → 0.42 s/747.26G，BEVDet4D（LT）1.89 s/1049.52G → 1.43 s/747.26G（Table 7，RTX A6000，arXiv v2 补充材料）。机制：IVT 只在 1/16 紧凑表示上计算（姊妹卡 claim-cotr-compact-occupancy-1-16-no-perf-drop），且 CFSG（粗到细语义分组）只在训练期使用、推理期保持单组，零额外开销（Supplementary 原句）。另 Swin-B 对：BEVDet4D 121.28M/4195.12G/1.67 s → +COTR(SwinB) 104.99M/3761.06G/1.43 s（参数下降机制论文未解释，笔记已注明）。
 
@@ -55,7 +55,7 @@ signoff: null
 - 统一输入（256×704）复测 TPVFormer 与 BEVDet4D 基线延迟，检验 falsifier 2（输入尺寸混淆）。
 - 审查官方代码 CFSG 推理分支：确认推理时只保留一组 mask query。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立（目前只是论文声称）：占据预测模型可以"加模块反而更快"，紧凑表示 + 训练期分组是可复用的效率配方；在延迟预算紧的部署场景可直接优先尝试 COTR 化改造。
 不成立：则效率收益主要来自输入缩水或测量口径，COTR 的部署价值回落到精度增益（姊妹卡）本身。

@@ -40,13 +40,14 @@ signoff: null
 
 ## 我的理解
 
-论文声称（据笔记 §1 概述与 §4.1 转述）：相对稠密基线，SparseOcc 的 FLOPs 减少 74.9%。笔记 Table 1 给出 SparseOcc 455G、C-CONet 1810G，455/1810 约 25.1%，即约 1/4，与 74.9% 自洽；显存 13G vs 21G（约省 38.1%）、3D 延迟 0.19s vs 2.18s（延迟口径未注明，不进本卡主张）。
+论文声称（据笔记 §1 概述与 §4.1 转述）：相对稠密基线，SparseOcc 的 FLOPs 减少 74.9%。笔记 Table 1 给出 SparseOcc 455G、C-CONet 1810G，1 − 455/1810 = 74.862%，按一位小数舍入即 74.9%（本库 2026-11-09 K-probe-2 复算一致，见 [RESULTS.md](../experiments/njusparseocc-rayiou-penalizes-thick-surface/RESULTS.md)），即约 1/4；显存 13G vs 21G（约省 38.1%）、3D 延迟 0.19s vs 2.18s（延迟口径未注明，不进本卡主张）。
 
 限定与注意：
 
-1. 摘要只写 over the dense baseline，未点名是哪条基线；「74.9% 对应 C-CONet」是从笔记表内数字反推（1-455/1810 约 74.9%），需回原文确认。
+1. 摘要只写 over the dense baseline，未点名是哪条基线；「74.9% 对应 C-CONet」是从笔记表内数字反推（1 − 455/1810 = 74.862% → 74.9%，算术已由 K-probe-2 复核），对比对象是否即 C-CONet 需回原文确认。
 2. 概述的显存区间 31.6%~40.9%：按笔记表内可对上 19G→31.6%、21G→38.1%；40.9% 反推对应约 22G 显存的基线，未出现在笔记表中——说明该区间涉及笔记未列全的对比对象。
-3. arXiv 摘要与官方 GitHub README（均抓取于 2026-11-02，https://arxiv.org/abs/2404.09502 、https://github.com/VISION-SJTU/SparseOcc）均含 74.9% 句，与笔记一致；但 FLOPs 的测量口径（官方库用何种工具、是否含 LSS 深度网与 2D 主干）未核对。
+3. arXiv 摘要与官方 GitHub README（均抓取于 2026-11-02，https://arxiv.org/abs/2404.09502 、https://github.com/VISION-SJTU/SparseOcc）均含 74.9% 句，与笔记一致；但 FLOPs 的测量口径（官方库用何种工具、是否含 LSS 深度网与 2D 主干）未核对，K-probe-2 该轮也只覆盖论文数字算术、未测运行时。
+4. 同名消歧：本卡 SparseOcc 为 VISION-SJTU（CVPR 2024，arXiv:2404.09502），与 MCG-NJU 的同名方法 Fully Sparse 3D Occupancy Prediction（ECCV 2024，arXiv:2312.17118，见库内 NJU-SparseOcc 系卡）勿混。
 
 ## 待验证
 
@@ -54,7 +55,7 @@ signoff: null
 - 回原文确认 74.9% 的基线对象与 FLOPs 统计范围。
 - 确认显存 31.6%~40.9% 区间对应的基线全集。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：稀疏潜变量表示能把相机占据预测的算力压到稠密管线的约 1/4，做大分辨率 / 长距离占据时可作为首选工程路线复现验证。
 不成立：FLOPs 优势来自统计口径不对等或数字转抄错误，算力问题回到稠密表示 + 剪枝 / 量化的老路。

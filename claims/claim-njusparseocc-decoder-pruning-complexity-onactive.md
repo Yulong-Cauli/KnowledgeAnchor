@@ -46,7 +46,7 @@ related: [claim-njusparseocc-rayiou34-fps17-beats-dense-baselines, claim-njuspar
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 > **原文核查注记（2026-11-05，02 任务书 P1-B5 整理班）**：回 arXiv:2312.17118v5（https://arxiv.org/html/2312.17118v5 ，本次实抓）核对出三处口径差：① **剪枝实现是 top-k 不是阈值**——原文明确 "In our implementation, we simply keep voxels with top-k occupancy scores for training efficiency"，阈值法是论文并列两种方案之一的可替换项（Fig. 8(b)，e.g. 0.7），笔记「仅保留 s>τ 的 Token」只对应阈值方案；② 原文的「>90%」是**数据集几何稀疏度统计**（§1）与 "discards over 90% of voxels" 定性表述（Fig. 7 讨论），不是逐层剪枝率——「低分辨率阶段物理抹除 >90% 背景节点」出自笔记「底层逻辑支撑」节，属笔记综合表述；③ O(L^3)→O(N_active) 复杂度表达式在 v5 全文未检得，论文以 "K=32000 ≪ 200×200×16、推理快近 4×"（Table 2 讨论）与 Fig. 8(a) 消融表达同一思想。卡内三条笔记引文保留为历史记录，原文句已补入 evidence；title 与命题不动，scope 已同步改写。
 
@@ -61,9 +61,8 @@ signoff: null
 
 - 在开源实现（github.com/MCG-NJU/SparseOcc）逐层统计活跃 token 数 / 理论稠密体素数，验证各层实际剪枝率与 k 的逐层配置（原文只给 k=32000 总口径与「按各分辨率最大非空体素数计」的定义，无逐层数字）。
 - 实测端到端延迟 / 显存随场景稀疏度（空旷 vs 拥挤街道）的变化曲线，检验 O(N_active) 缩放。
-- （「回 arXiv v5 原文核对 τ 取值 / L=3 分辨率金字塔 / >90% 位置与上下文」一项已于 2026-11-05 完成，见顶部注记：实现为 top-k、阈值法为可替换方案、L=3 与逐层 2× 上采样见 Fig. 3 caption、>90% 两处原句均已定位。）
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：占据解码器的默认形态可以是「低分辨率起步 + 逐层硬剪枝」，算力预算随场景活跃表面而非体积走，3D 高分辨率下游任务可复用该模式。
 不成立：>90% 剪枝或复杂度缩放不成立时，其速度优势主要来自工程实现而非表示方式，路线评估需按实际 profile 重做。

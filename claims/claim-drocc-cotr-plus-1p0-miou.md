@@ -29,18 +29,18 @@ related: [claim-cotr-compact-occupancy-1-16-no-perf-drop, claim-cotr-plugin-lowe
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称（asserted）：Dr.Occ 的两组模块不只是 BEVDet4D 专属，插入更强的 COTR 仍能再拿 +1.0 mIoU（43.1→44.1）。注意增益从 BEVDet4D 的 +7.4 缩到 COTR 的 +1.0——基线越强，剩余可提升空间越小，引用"即插即用增益"时必须带上基线档位。
 
-关键限定：43.1 的 COTR 是 Dr.Occ 作者自己重训的（‡），不是 [COTR 官方口径](claim-cotr-compact-occupancy-1-16-no-perf-drop.md)（官方笔记记录的是 Occ3D-nuScenes 上的效率与精度自报，两处训练配方可能不同）。重训基线是否等价于官方 43.1 无从核对，falsifier 已覆盖。
+关键限定：43.1 的 COTR 是 Dr.Occ 作者自己重训的（‡），不是 [COTR 官方口径](claim-cotr-compact-occupancy-1-16-no-perf-drop.md)（官方笔记记录的是 Occ3D-nuScenes 上的效率与精度自报，两处训练配方可能不同）。重训基线与 COTR 官方口径是否等价无从核对，falsifier 已覆盖。
 
 ## 待验证
 
 - 等论文开源（或 CVPR open access 放出补充材料）后核对重训 COTR 的训练配方与 43.1。
 - 若 Dr.Occ 放出代码，直接在 COTR 官方权重上插模块复测。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：深度掩码 + 区域专家作为通用组件成立，占用主线的组件库多一件可插拔工具。
 不成立：增益只对弱基线有效，或重训基线不可比，跨基线迁移主张放弃。

@@ -39,11 +39,11 @@ related: [claim-radarocc-sss-rangewise-preserves-lowrcs, claim-radarocc-cfar-poi
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
-论文原文（§5.3 + Table 2，NeurIPS 2024 camera-ready v4，2026-11-03 实抓）声称（数字为论文自报）：在 K-Radar well-condition test split 上，把完整 RadarOcc 的旁瓣感知空间稀疏化（SSS，逐距离单元取多普勒均值功率 Top-$N_r$，Nr=250）替换为 K-Radar / Enhanced-K-Radar 的 percentile-based 全局稀疏化、其余 pipeline 不变，mIoU@12.8m 从 34.3 降至 24.1（-10.2 点），mIoU@25.6m/51.2m 同降 8.3/7.0 点；其中 FG IoU 三个距离从 20.7/18.7/15.8 跌至 5.9/4.7/3.5（-14.8/-14.0/-12.3），即低 RCS 前景在全局百分比稀疏化下几乎全部丢失。方向与 §2 方法「percentile 筛选把保留元素集中在少数强反射距离并混入旁瓣」的机制叙述一致。
+论文原文（§5.3 + Table 2，NeurIPS 2024 camera-ready v4，2026-11-03 实抓）自报：在 K-Radar well-condition test split 上，把完整 RadarOcc 的旁瓣感知空间稀疏化（SSS，逐距离单元取多普勒均值功率 Top-$N_r$，Nr=250）替换为 K-Radar / Enhanced-K-Radar 的 percentile-based 全局稀疏化、其余 pipeline 不变，mIoU@12.8m 从 34.3 降至 24.1（-10.2 点），mIoU@25.6m/51.2m 同降 8.3/7.0 点；其中 FG IoU 三个距离从 20.7/18.7/15.8 跌至 5.9/4.7/3.5（-14.8/-14.0/-12.3），即低 RCS 前景在全局百分比稀疏化下几乎全部丢失。方向与 §2 方法「percentile 筛选把保留元素集中在少数强反射距离并混入旁瓣」的机制叙述一致。
 
-必须记住的限定：
+四条限定：
 
 1. 单一变量是稀疏化策略，但这是 **w/o 式消融**（从完整模型替换）：10.2 是「替换后掉多少」，不是从零累加的组件贡献。
 2. 本卡只立 **SSS 单组件**的消融增益。**不立** DBD 有效性——Table 2 行 (b) 的 w/o DBD 差距 ≤0.7 且方向混杂（25.6m 四列 w/o DBD 反而略高），论文自认 "the improvement is somehow marginal"；**不立**球坐标编码/S2C 的拆分归因——行 (d) 同时改「转笛卡尔编码」与「省略 S2C 聚合」两处，只能得出合并增益 mIoU +1.5~+3.9。
@@ -56,14 +56,14 @@ signoff: null
 - 跟踪官方 repo / NeurIPS 页面有无勘误修改 Table 2 读数。
 - 机制对照：同稀疏预算下「随机筛选 vs range-wise Top-Nr vs 全局 percentile」三组对比，检验「旁瓣/弱信号保留」解释是否必要（排除纯稀疏度效应）。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：对 4D 雷达张量管线，输入端稀疏化策略（逐距离分层 vs 全局百分比）是被低估的最大单点收益；自研 4DRT 管线应默认 range-wise Top-$N_r$，并把全局 percentile 路线视为已知次优。
 不成立：增益主要来自稀疏度/容量差异或实现细节而非旁瓣机制，稀疏化按算力预算选参数即可；`claim-radarocc-sss-rangewise-preserves-lowrcs` 的动机叙事需相应降级。
 
 ---
 
-2026-11-03 消融核查：见 claim-radarocc-sss-ablation-gain-10p2（本卡即该核查产出；Table 2 全表及 DBD/SFE/RWA 补充消融已转录至笔记 §3 实验）。
+本卡即 2026-11-03 消融核查的产出；Table 2 全表及 DBD/SFE/RWA 补充消融已转录至笔记 §3 实验。
 
 ## 核查记录
 

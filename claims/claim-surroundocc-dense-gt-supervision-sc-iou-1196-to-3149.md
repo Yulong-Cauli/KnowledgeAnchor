@@ -26,7 +26,7 @@ related: [claim-surroundocc-poisson-reconstruction-dense-gt-pipeline, claim-surr
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称（据笔记 §5.2 转述）：在 nuScenes 上，其余配置不变、仅把监督信号从原始稀疏点云替换为离线生成的密集占用真值，SC IoU（几何）从 11.96% 升至 31.49%（约 2.6 倍）。这是本篇笔记里幅度最大的一处消融，也是笔记总结「数据是王道」的依据。密集真值本身由 §3 的离线 pipeline 生成，见 [pipeline 卡](claim-surroundocc-poisson-reconstruction-dense-gt-pipeline.md)。
 
@@ -41,7 +41,7 @@ signoff: null
 - 用官方实现（github.com/weiyithu/SurroundOcc）复现稀疏点云监督 vs 密集真值监督两侧训练，核对 SC IoU 差距。
 - 检查密集真值生成质量：泊松重建的孔洞率、语义传播的标签错误率。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：占据预测的瓶颈首先在监督信号密度而非网络结构，自研占据方案应优先投入密集真值生产（多帧拼接 + 曲面重建）这条数据管线。
 不成立：性能提升主要来自其他因素（结构 / 训练技巧 / 配置差异），「密集真值决定论」不成立，选型时数据管线投入降级。

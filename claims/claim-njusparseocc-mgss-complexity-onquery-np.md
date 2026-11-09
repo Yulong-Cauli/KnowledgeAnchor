@@ -3,7 +3,7 @@ id: claim-njusparseocc-mgss-complexity-onquery-np
 title: "SparseOcc 声称：掩码引导稀疏采样（MGSS）把实例查询的掩码交叉注意力从 O(N_query·M_voxel) 全局计算降为 O(N_query·N_p) 的固定点数采样"
 type: claim
 status: asserted
-scope: "SparseOcc（ECCV 2024）论文自述 Mask Transformer 设计，据库内笔记转述 + 2026-11-05 arXiv v5 原文核查；对象为 Mask Transformer 的交叉注意力环节：原文口径为「在上一层预测的 mask 内随机选一组 3D 点，投影回多视图取特征」（未给点数、未写按掩码概率密度加权），笔记细化为「以查询-体素点积生成的掩码分布 M 作离散概率密度、随机采样固定 N_p 点（举例 96）」；O(N_query·N_p) 复杂度式 v5 全文未检得，仍只出自笔记；论文 Table 3 有 MT/交叉注意力消融（dense CA 28.7 RayIoU / 16.2 FPS vs +Mask-guided 29.2 / 24.0，2026-11-05 实抓核对），笔记未录该表；N_p 正式取值与随机性控制笔记与原文均未记录"
+scope: "SparseOcc（ECCV 2024）论文自述 Mask Transformer 设计，据库内笔记转述 + 2026-11-05 arXiv v5 原文核查；对象为 Mask Transformer 的交叉注意力环节：原文口径为「在上一层预测的 mask 内随机选一组 3D 点，投影回多视图取特征」（未给点数、未写按掩码概率密度加权），笔记细化为「以查询-体素点积生成的掩码分布 M 作离散概率密度、随机采样固定 N_p 点（举例 96）」；O(N_query·N_p) 复杂度式 v5 全文未检得，仍只出自笔记（Table 3 消融数字与 N_p 取值缺口见正文）"
 tags: [occupancy-prediction, sparse-3d, mask-transformer, sparse-sampling, sparseocc]
 note: library/3D_Occupancy/NJU-SparseOcc.md#22-掩码-transformer-mask-transformer
 paper: "ECCV 2024 · Fully Sparse 3D Occupancy Prediction (SparseOcc) · arXiv:2312.17118 · https://github.com/MCG-NJU/SparseOcc"
@@ -50,7 +50,7 @@ related: [claim-njusparseocc-decoder-pruning-complexity-onactive, claim-njuspars
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 > **原文核查注记（2026-11-05，02 任务书 P1-B5 整理班）**：回 arXiv:2312.17118v5（https://arxiv.org/html/2312.17118v5 ，本次实抓）核对三点：① 原文算子口径为 "**randomly select a set of 3D points within the mask** predicted by the previous (l-1)-th Transformer decoder layer"——在上一层预测的 mask 内随机选点；笔记的「以掩码分布 M 作离散概率密度采样」「查询-体素点积 + Softmax 生成 M」是对原文的细化转述，原文未写概率密度加权与 M 的生成式，N_p 点数原文未给；② **论文 Table 3 有 MT/交叉注意力消融**（笔记未录），LaTeXML 渲染转录（2026-11-05 逐格核对，引用以现页为准）：无 MT（逐体素 MLP）27.0 RayIoU / 29.0 FPS；MT + Dense cross attention 28.7 / 16.2；MT + Sparse sampling（无 mask 引导）25.8 / 24.0；MT + **+ Mask-guided** 29.2 / 24.0——普通稀疏采样比 dense CA 掉 2.9 RayIoU，加 mask 引导后才反超，即论文自报消融中「mask 引导」本身必要；③ O(N_query·N_p) 复杂度表达式 v5 全文未检得（与卡内原限定一致，仍只出自笔记）。卡内笔记引文保留，原文句已补入 evidence；title 与命题不动，scope 已同步改写。
 
@@ -63,7 +63,7 @@ signoff: null
 - 读开源实现（github.com/MCG-NJU/SparseOcc），确认注意力路径只触及 N_p 个采样点、N_p 正式取值、随机性来源（纯随机 vs top-k / 固定种子），并核对采样是「mask 内均匀随机」还是笔记所述「按掩码概率密度加权」。
 - 消融：论文 Table 3 已给 MT/交叉注意力四行对照（见顶部注记）；复现重点改为核对 Table 3 数字与补「同点预算均匀采样（mask 内 vs 全空间）」对照，比较实例 / 语义占据精度与耗时。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：高分辨率 3D 分割 / 占据的 transformer 解码可按「掩码先验 + 固定点预算采样」设计，算力由查询数与点预算决定，与场景体素数解耦，可迁移到其他密集预测任务。
 不成立：复杂度被低估（实现仍隐式依赖 M）或精度代价无法接受，实例占据解码回到稀疏卷积 / 局部窗口注意力路线。

@@ -3,7 +3,7 @@ id: claim-njusparseocc-rayiou34-fps17-beats-dense-baselines
 title: "SparseOcc 声称：Occ3D-nuScenes + A100 上 7 帧输入达 RayIoU 34.0 / 17.3 FPS，高于同表稠密基线 BEVFormer（32.4 / 3.0）与 FB-Occ（33.5 / 10.3）"
 type: claim
 status: asserted
-scope: "Occ3D-nuScenes 数据集、Tesla A100 (fp32)；SparseOcc 7 历史帧时序输入（摘要口径，Table 1 行标 8f=7+1），对比同表稠密（Dense Cost Volume）基线 BEVFormer（4f）与 FB-Occ（16f）；数字为论文自报对比表数字，已与 arXiv:2312.17118v5（ECCV 2024 camera-ready）Table 1 逐格核对（2026-11-03 实抓），据库内笔记转述，尚未独立复现验证；两条基线的 RayIoU 系本文提出指标，「引用各自原文」已结构性排除，但基线是否作者复训、FPS 是否含数据加载论文未写明"
+scope: "Occ3D-nuScenes 数据集、Tesla A100 (fp32)；SparseOcc 7 历史帧时序输入（摘要口径，Table 1 行标 8f=7+1），对比同表稠密（Dense Cost Volume）基线 BEVFormer（4f）与 FB-Occ（16f）；数字为论文自报对比表，已与 arXiv:2312.17118v5（ECCV 2024 camera-ready）Table 1 逐格核对（2026-11-03 实抓），据库内笔记转述，尚未独立复现验证；基线是否作者复训、FPS 是否含数据加载论文未写明（RayIoU 指标归属与基线口径的完整陈述见 falsifier 2 注）"
 tags: [occupancy-prediction, sparse-3d, rayiou, nuscenes, sparseocc]
 note: library/3D_Occupancy/NJU-SparseOcc.md#3-实验数据与因果关联
 paper: "ECCV 2024 · Fully Sparse 3D Occupancy Prediction (SparseOcc) · arXiv:2312.17118 · https://github.com/MCG-NJU/SparseOcc"
@@ -46,24 +46,23 @@ related: [claim-njusparseocc-decoder-pruning-complexity-onactive, claim-njuspars
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
-> 修订注记（2026-11-03 基线行修正）：笔记 §3 对比表两条基线行已按 arXiv:2312.17118v5（ECCV 2024 camera-ready）Table 1 逐格修正——BEVFormer 32.2 / 2.3 → **32.4 / 3.0**、FB-Occ 33.7 / 5.2 → **33.5 / 10.3**（旧 32.2 系混入 v5 Fig.4 单场景可视化面板数；抓取 URL https://arxiv.org/pdf/2312.17118v5 ，2026-11-03，pdftotext 提取核对）。本卡 title、scope、evidence（笔记两行 quote 换新 + 补 v5 Table 1 两行）、falsifier 1 阈值（33.7→33.5）与 FPS 倍数（3.3×→**1.68×**、7.5×→**5.77×**）已同步；falsifier 2 的「引用各自原文」分支经原文结构性排除（RayIoU 为本文提出的指标，BEVFormer / FB-Occ 原文不可能报告）后改写，详见卡内注。方向性主张不变（v5 下 34.0 > 33.5 > 32.4，17.3 > 10.3 > 3.0），status 不动。依据：`nightshift/reports/njusparseocc-rayiou-deep-read.md` 与 `nightshift/cross/occupancy-sparsification.md` §3-M6。
+> 修订注记（2026-11-03 基线行修正）：笔记 §3 两条基线行已按 arXiv:2312.17118v5 Table 1 逐格修正——BEVFormer 32.2 / 2.3 → **32.4 / 3.0**、FB-Occ 33.7 / 5.2 → **33.5 / 10.3**（旧值系转抄错误），本卡 title、scope、evidence、falsifier 已同步；依据 `nightshift/reports/njusparseocc-rayiou-deep-read.md` 与 `nightshift/cross/occupancy-sparsification.md` §3-M6。
 
 论文声称（据笔记 §3 转述）：在 Occ3D-nuScenes、Tesla A100 (fp32) 口径下，全稀疏架构的 SparseOcc 以 7 历史帧时序输入（摘要口径；Table 1 行标 8f=7+1）取得 RayIoU 34.0、17.3 FPS；同表两条稠密基线为 BEVFormer 4f 32.4 / 3.0 FPS、FB-Occ 16f 33.5 / 10.3 FPS。注意差距的结构：FPS 为 FB-Occ 的约 1.68 倍（17.3 vs 10.3）、BEVFormer 的约 5.77 倍（17.3 vs 3.0），RayIoU 只高 0.5–1.6——本卡主张是「同表高于稠密基线」，不是 SOTA。
 
 限定与注意：
-1. 基线数字的产生方式：已排除「引用各自原文」（RayIoU 为本文提出指标，2026-11-03 原文核查），但论文未写明基线是否作者复训、FPS 是否含数据加载；FPS 跨论文对比口径常不可比（[EMC2 卡](claim-emc2-orin-sub400ms-leading-accuracy.md)的前车之鉴），故 scope 写明「自报对比表」。
+1. 基线数字的产生方式：「引用各自原文」已结构性排除（完整陈述见 falsifier 2 注），剩余缺口是论文未写明基线是否作者复训、FPS 是否含数据加载；FPS 跨论文对比口径常不可比（[EMC2 卡](claim-emc2-orin-sub400ms-leading-accuracy.md)的前车之鉴），故 scope 写明「自报对比表」。
 2. 笔记另记录 15 帧输入时 RayIoU 35.1（arXiv 摘要亦证实；Table 1 行标 16f=15+1），属时序扩展数据点，不在本卡主张内。
 3. 34.0 / 17.3 / 7 帧（摘要口径）三个数字已与 arXiv:2312.17118 摘要逐字核对一致（抓取于 2026-11-02，https://arxiv.org/abs/2312.17118），并于 2026-11-03 以 v5 Table 1（p.8）逐格复核、两条基线行一并核对（见 evidence）；笔记旧基线行 32.2 / 2.3、33.7 / 5.2 与原表不符，系转抄错误，已随笔记修正同步（见顶部修订注记）。
 
 ## 待验证
 
 - 用官方实现（github.com/MCG-NJU/SparseOcc）在 A100（或注明差异的替代卡）上复测 RayIoU 与 FPS，核对评测协议与 RayIoU 阈值档位（以原文为准）。
-- 回 arXiv v5 原文表格核对 BEVFormer / FB-Occ 两行——2026-11-03 已核对：数字与 v5 Table 1 逐格一致（笔记旧值系转抄错误，已修正）。剩余待查：两行基线的产生方式（作者复训 or 复用公开 checkpoint 重评测）与 FPS 是否含数据加载，论文无明文。
-- 确认 FPS 统计口径：是否含预处理 / 后处理、batch size、fp32 与否。
+- 查证两条基线行的产生方式（作者复训 or 复用公开 checkpoint 重评测）与 FPS 统计口径（是否含数据加载 / 预处理 / 后处理、batch size、fp32）——论文均无明文；表格数字本身已于 2026-11-03 与 v5 Table 1 逐格核对一致（见 evidence）。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：稀疏 token 管线能在占据预测上同时拿到 RayIoU 与实时性，自研占据方案可把「全稀疏 + RayIoU」列为候选路线做复现验证。
 不成立：FPS 优势依赖口径不对等或数字转抄错误，选型回到稠密 cost volume + 推理加速工程的老路。

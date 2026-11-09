@@ -30,7 +30,7 @@ related: [claim-surroundocc-nuscenes-iou-3149-miou-2030-table-lead]
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称（asserted）：纯视觉 3D 语义占用预测在 Occ3D-nuScenes 上，Dr.Occ 的两个组件——D2-VFormer（把 MoGe-2 稠密深度转成 geometry-aware occupancy mask 做引导，而非直接投影）与 R-EFormer/R2-EFormer（按距离×高度划分区域分配专家）——把 BEVDet4D 从 36.0 mIoU 拉到 43.4，超过同表 ViewFormer（41.9）、FB-Occ（39.1）等全部公开方法。
 
@@ -45,7 +45,7 @@ signoff: null
 - 复现 BEVDet4D∗ 基线（36.0）与 +Dr.Occ（43.4），重点核对相机掩码监督的实现细节。
 - 对照 CVPR 2026 open access 版确认 Table 1 数值与 HTML v3 一致（论文无开源代码，需自行实现，成本高；至少先核对 camera-ready 数值未变）。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：深度先验的"掩码引导"用法与区域专家是占用预测的有效组件，纯视觉占用 SOTA 推进到 ~43 mIoU 量级，占用主线（SparseOcc/SurroundOcc/COTR 之后）的新参照点。
 不成立：+7.43 依赖特定监督或评测口径，Dr.Occ 回到与 FlashOcc/FB-Occ 同档，深度掩码思路降级为待验证假设。
