@@ -2,6 +2,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
+const experimentFigure = /^experiments\/[^/]+\/(?:[^/]+\/)*figures\/[^/]+\.(png|jpe?g|gif|svg|webp|avif|bmp)$/iu;
+
 export function normalizeSource(value, layers = ['library', 'claims']) {
   if (typeof value !== 'string') return null;
   const hash = value.indexOf('#');
@@ -19,6 +21,8 @@ export function normalizeSource(value, layers = ['library', 'claims']) {
 export function resolveResource(root, rawPath, layers = ['library', 'claims']) {
   const source = normalizeSource(rawPath, layers);
   if (!source) return null;
+  const experiment = source.path.startsWith('experiments/');
+  if (experiment && !experimentFigure.test(source.path)) return null;
   const base = path.join(root, source.path.split('/')[0]);
   const abs = path.resolve(root, source.path);
   try {
@@ -26,7 +30,10 @@ export function resolveResource(root, rawPath, layers = ['library', 'claims']) {
     const real = fs.realpathSync(abs);
     if (!real.startsWith(`${realBase}${path.sep}`) || !fs.statSync(real).isFile()) return null;
     if (!/\.(md|pdf|png|jpe?g|gif|webp|svg|avif|bmp)$/iu.test(real)) return null;
-    if (!source.path.startsWith('library/') && !source.path.endsWith('.md')) return null;
+    if (experiment) {
+      const realRel = path.relative(fs.realpathSync(root), real).split(path.sep).join('/');
+      if (!experimentFigure.test(realRel)) return null;
+    } else if (!source.path.startsWith('library/') && !source.path.endsWith('.md')) return null;
     return { ...source, rel: source.path, abs: real };
   } catch { return null; }
 }

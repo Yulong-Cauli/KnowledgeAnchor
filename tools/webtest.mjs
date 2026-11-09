@@ -41,8 +41,8 @@ async function start(options) {
 function snapshot(root) {
   return Object.fromEntries(['claims', 'index'].flatMap((dir) => fs.readdirSync(path.join(root, dir)).map((f) => [dir + '/' + f, fs.readFileSync(path.join(root, dir, f), 'utf8')])));
 }
-async function request(url, endpoint, method = 'GET', body) {
-  const res = await fetch(url + endpoint, { method, headers: { 'content-type': 'application/json' }, ...(body ? { body: JSON.stringify(body) } : {}) });
+async function request(url, endpoint, method = 'GET', body, headers = {}) {
+  const res = await fetch(url + endpoint, { method, headers: { 'content-type': 'application/json', ...headers }, ...(body ? { body: JSON.stringify(body) } : {}) });
   const payload = await res.json();
   return { status: res.status, body: payload };
 }
@@ -96,6 +96,52 @@ test('create/edit validation, exact preservation, conflict and protection throug
   assert.deepEqual(snapshot(root), brokenBefore);
 });
 
+test('local signing saves status and signoff together and protects the signed card', async (t) => {
+  const { root } = fixture();
+  const rw = await start({ root, today: () => TODAY });
+  const ro = await start({ root, readonly: true, today: () => TODAY });
+  t.after(() => {
+    for (const { server } of [rw, ro]) { server.closeAllConnections(); server.close(); }
+    fs.rmSync(root, { recursive: true, force: true });
+  });
+  const endpoint = '/api/claims/claim-fixture-future';
+  const before = snapshot(root);
+  const card = (await request(rw.url, endpoint)).body;
+  const sign = { by: '  Test signer  ', at: TODAY, version: card.version };
+  const localHeaders = (url) => ({ origin: url, 'sec-fetch-site': 'same-origin' });
+  const submit = (body, headers = localHeaders(rw.url)) => request(rw.url, endpoint + '/sign', 'POST', body, headers);
+  assert.equal((await submit(sign, {})).status, 403);
+  assert.equal((await submit(sign, { origin: 'https://example.com', 'sec-fetch-site': 'cross-site' })).status, 403);
+  assert.equal((await request(ro.url, endpoint + '/sign', 'POST', sign, localHeaders(ro.url))).status, 403);
+  for (const fields of [{ by: '' }, { at: '2026-02-30' }]) {
+    assert.equal((await submit({ ...sign, ...fields })).status, 400);
+  }
+  assert.equal((await submit({ ...sign, version: 'stale' })).status, 409);
+  assert.deepEqual(snapshot(root), before);
+
+  const saved = await submit(sign);
+  assert.equal(saved.status, 200);
+  assert.equal(saved.body.status, 'verified');
+  assert.deepEqual(saved.body.signoff, { by: 'Test signer', at: TODAY });
+  assert.equal(Object.hasOwn(saved.body, 'review_due'), false);
+  const file = 'claims/claim-fixture-future.md';
+  const after = snapshot(root);
+  const parsed = parseClaimFile(after[file]);
+  const original = parseClaimFile(before[file]);
+  const { review_due, ...originalData } = original.data;
+  assert.equal(review_due, card.review_due);
+  assert.deepEqual(parsed.data, { ...originalData, status: 'verified', signoff: saved.body.signoff });
+  assert.equal(parsed.body, original.body);
+  for (const [key, field] of original.fields) {
+    if (!['status', 'signoff', 'review_due'].includes(key)) assert.equal(parsed.fields.get(key).raw, field.raw);
+  }
+  const indexed = after['index/claims.jsonl'].trim().split('\n').map((line) => JSON.parse(line));
+  assert.equal(indexed.find((row) => row.id === card.id).status, 'verified');
+  assert.equal((await submit(sign)).status, 403);
+  assert.equal((await request(rw.url, endpoint, 'PUT', { actor: 'local', patch: { title: 'Changed' } })).status, 403);
+  assert.deepEqual(snapshot(root), after);
+});
+
 test('statistical records may omit or clear falsifiers; existing predictions remain editable', async (t) => {
   const { root } = fixture(); const { server, url } = await start({ root, today: () => TODAY });
   t.after(() => { server.closeAllConnections(); server.close(); fs.rmSync(root, { recursive: true, force: true }); });
@@ -134,7 +180,7 @@ test('review scheduling counts survive reload, protected files and signoff are b
   const { root, rows } = fixture(); const { server, url } = await start({ root, today: () => TODAY });
   t.after(() => { server.closeAllConnections(); server.close(); fs.rmSync(root, { recursive: true, force: true }); });
   const before = snapshot(root);
-  assert.deepEqual(reviewCounts(rows, TODAY), { today: 2, future: 1, unscheduled: 1, asserted: 4, manual: 2 });
+  assert.deepEqual(reviewCounts(rows, TODAY), { today: 2, future: 1, unscheduled: 1, asserted: 4, manual: 1 });
   assert.deepEqual((await request(url, '/api/meta')).body.reviews, reviewCounts(rows, TODAY));
   await request(url, '/api/claims'); await request(url, '/api/note?path=' + encodeURIComponent(rows[0].note));
   assert.deepEqual(snapshot(root), before, 'browsing never writes');
@@ -174,6 +220,19 @@ test('full text search, links, deduplication, refresh, allowed resources and tra
   assert.equal((await fetch(url + '/api/resource?path=' + encodeURIComponent('library/中文%20空格/笔记.md'))).status, 200);
   assert.equal((await fetch(url + '/api/resource?path=nightshift/LOG.md')).status, 200);
   assert.equal((await request(url, '/api/note?path=nightshift/LOG.md')).status, 404, 'evidence log is not presented as an L1 note');
+  const figureDir = 'experiments/example/profile/figures';
+  fs.mkdirSync(path.join(root, figureDir), { recursive: true });
+  fs.writeFileSync(path.join(root, figureDir, 'plot.png'), 'fixture figure');
+  fs.writeFileSync(path.join(root, figureDir, 'results.json'), '{}');
+  fs.writeFileSync(path.join(root, 'experiments/example/plot.png'), 'outside figures');
+  const resource = (rel) => url + '/api/resource?path=' + encodeURIComponent(rel);
+  const figure = await fetch(resource(figureDir + '/plot.png'));
+  assert.equal(figure.status, 200);
+  assert.equal(figure.headers.get('content-type'), 'image/png');
+  assert.equal(await figure.text(), 'fixture figure');
+  for (const rel of [figureDir + '/results.json', 'experiments/example/plot.png', figureDir + '/../../plot.png']) {
+    assert.equal((await fetch(resource(rel))).status, 404, rel);
+  }
   for (const unsafe of ['library/../../README.md', 'library/%2e%2e/%2e%2e/README.md', 'library/..\\..\\README.md', 'C:/Windows/win.ini', 'library/%00.md', 'claims/../index/claims.jsonl', 'library/assets/no.js', 'library/%zz']) {
     assert.equal((await request(url, '/api/resource?path=' + encodeURIComponent(unsafe))).status, 404, unsafe);
   }
@@ -183,6 +242,9 @@ test('full text search, links, deduplication, refresh, allowed resources and tra
   fs.writeFileSync(path.join(outside, 'secret.md'), 'secret');
   fs.symlinkSync(outside, path.join(root, 'library/escape'), process.platform === 'win32' ? 'junction' : 'dir');
   assert.equal((await request(url, '/api/resource?path=library/escape/secret.md')).status, 404);
+  fs.writeFileSync(path.join(outside, 'plot.png'), 'outside repository');
+  fs.symlinkSync(outside, path.join(root, 'experiments/example/figures'), process.platform === 'win32' ? 'junction' : 'dir');
+  assert.equal((await fetch(resource('experiments/example/figures/plot.png'))).status, 404);
 });
 
 test('readonly HTTP rejects all writes; disk/index failure is not reported as a complete save', async (t) => {

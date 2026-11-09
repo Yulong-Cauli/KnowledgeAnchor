@@ -27,7 +27,7 @@ function fixture() {
   fs.writeFileSync(path.join(root, 'index/claims.jsonl'), 'untouched-index\n');
   const rows = [
     ['a', 'asserted', 'watch', null, ['claim-fixture-b']],
-    ['b', 'verified', 'trial', '2099-01-01', []],
+    ['b', 'verified', 'trial', null, []],
     ['c', 'verified', 'adopt', TODAY, []],
     ['d', 'refuted', 'avoid', null, ['claim-fixture-a']],
     ['e', 'stale', 'watch', null, []],
@@ -37,7 +37,8 @@ function fixture() {
       scope: '仅限夹具配置 ScopeOnlyNeedle', tags: ['fixture'], ...(suffix === 'b' ? {} : { note: NOTE + '#章节' }),
       evidence: [{ source: NOTE, locator: '测试章节', quote: '正文独有 Needle', relation: 'supports' }],
       falsifiers: ['相同条件下观察到反例'], related, ...(due ? { review_due: due } : {}),
-      signoff: status === 'verified' ? { by: 'test-fixture-only', at: '2026-01-01', method: 'read', evidence_hash: 'fixture-not-user-signature' } : null };
+      signoff: status === 'verified' ? { by: 'test-fixture-only', at: '2026-01-01',
+        ...(suffix === 'c' ? { method: 'read', evidence_hash: 'fixture-not-user-signature' } : {}) } : null };
     fs.writeFileSync(path.join(root, `claims/${data.id}.md`), serializeClaim({ data, body: '## 正文\nClaimBodyOnlyNeedle', fields: new Map() }));
   }
   return root;
@@ -86,9 +87,10 @@ test('search retains trust metadata, scope, versions; supports full text and pag
   assert.deepEqual(snapshot(root), before);
 }));
 
-test('decision search excludes asserted, due verified, refuted, stale, and L1; never falls back', () => withFixture((k) => {
+test('decision search includes signed claims regardless of legacy review dates and never falls back', () => withFixture((k) => {
   const result = k.call('search_knowledge', { query: 'Needle', mode: 'decision' });
-  assert.deepEqual(result.items.map((item) => item.id), ['claim-fixture-b']);
+  assert.deepEqual(result.items.map((item) => item.id), ['claim-fixture-b', 'claim-fixture-c']);
+  assert.equal(result.items[1].usage.review_due_now, false);
   assert.equal(result.items[0].stance, 'trial'); // A candidate is not an adoption recommendation.
   const empty = k.call('search_knowledge', { query: 'claim-fixture-a', mode: 'decision' });
   assert.equal(empty.total, 0); assert.match(empty.notice, /不得回退/u);

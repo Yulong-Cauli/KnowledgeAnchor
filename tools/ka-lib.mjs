@@ -417,15 +417,14 @@ export function validateClaims(claims, root = ROOT) {
       if (!signoff || typeof signoff !== 'object' || Array.isArray(signoff)) {
         errors.push(`${rel}: verified claim requires signoff`);
       } else {
-        for (const key of ['by', 'at', 'method', 'evidence_hash']) {
+        for (const key of ['by', 'at']) {
           if (!signoff[key]) errors.push(`${rel}: signoff.${key} is required`);
         }
         if (!isDate(signoff.at)) errors.push(`${rel}: signoff.at must be a valid date`);
-        if (!METHODS.has(signoff.method)) {
+        if (signoff.method !== undefined && !METHODS.has(signoff.method)) {
           errors.push(`${rel}: signoff.method must be read, reproduced, or cross-checked`);
         }
       }
-      if (!data.review_due) errors.push(`${rel}: verified claim requires review_due`);
     }
     if (data.related !== undefined && !Array.isArray(data.related)) {
       errors.push(`${rel}: related must be an array`);

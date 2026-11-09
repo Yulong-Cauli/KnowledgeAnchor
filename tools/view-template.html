@@ -127,7 +127,7 @@ table.signoff th { background:#fafbfc; color:var(--muted); font-weight:600; }
 <main id="app"></main>
 <footer class="foot">
   由 <code>node tools/ka.mjs viz</code> 生成，属派生物（index/ 已 gitignore），数据更新后重跑即可。
-  引用规则：asserted 必须表述为「论文声称 / 尚未独立验证」；高风险决策只使用 verified；
+  引用时注明实际证据来源。高风险决策只使用 verified。
   verified 的 signoff 只能由本人手工编辑 claim 文件填写，本界面与 Agent 均不得代填。
 </footer>
 <script id="ka-data" type="application/json">__KA_DATA__</script>
@@ -147,8 +147,8 @@ const ALL_TAGS = [...new Set(CLAIMS.flatMap((c) => c.tags || []))].sort((a, b) =
 const STATUS_ORDER = ['asserted', 'verified', 'refuted', 'stale'];
 const STANCE_ORDER = ['adopt', 'trial', 'watch', 'avoid'];
 const STATUS_META = {
-  asserted: { banner: '论文声称 / 尚未独立验证 —— 本卡未经本人独立验证，引用时必须表述为「论文声称」，不得写成事实；高风险决策（选型、部署、写方案）只允许使用 verified。' },
-  verified: { banner: '已由本人独立验证 —— 方法、日期与证据 hash 见下方 signoff。' },
+  asserted: { banner: '未签署' },
+  verified: { banner: '用户已签署，签署人和日期见下方 signoff。' },
   refuted: { banner: '已被推翻 —— 保留可追溯，不得据此行动。' },
   stale: { banner: '已过期 —— 结论可能不再适用于当前版本或口径。' }
 };
@@ -402,8 +402,8 @@ function renderDetail(id) {
         : '<p class="muted">无。</p>'}
       <h2>Signoff</h2>
       ${c.signoff
-        ? `<table class="signoff"><tr><th>by</th><td>${esc(c.signoff.by)}</td></tr><tr><th>at</th><td>${esc(c.signoff.at)}</td></tr><tr><th>method</th><td>${esc(c.signoff.method)}</td></tr><tr><th>evidence_hash</th><td class="mono">${esc(c.signoff.evidence_hash)}</td></tr></table>`
-        : '<div class="unsigned">尚未签署。verified 只能由你本人手工编辑 claim 文件填写 signoff（by / at / method / evidence_hash）；本界面与 Agent 均不得代填。</div>'}
+        ? `<table class="signoff"><tr><th>by</th><td>${esc(c.signoff.by)}</td></tr><tr><th>at</th><td>${esc(c.signoff.at)}</td></tr>${c.signoff.method ? `<tr><th>method</th><td>${esc(c.signoff.method)}</td></tr>` : ''}${c.signoff.evidence_hash ? `<tr><th>evidence_hash</th><td class="mono">${esc(c.signoff.evidence_hash)}</td></tr>` : ''}</table>`
+        : '<div class="unsigned">尚未签署。请由本人手工编辑 claim 文件填写 signoff（by / at）。</div>'}
       ${c.body ? `<h2>正文</h2><div class="body">${mdLite(c.body)}</div>` : ''}
     </div>`;
 }

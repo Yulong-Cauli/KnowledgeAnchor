@@ -17,15 +17,16 @@ export function resolveLink(href, source = '') {
   if (/^[a-z][a-z\d+.-]*:/iu.test(value) || value.startsWith('//')) return null;
   const root = 'http://knowledge.local/';
   const base = new URL(source.split('#')[0] || 'claims/card.md', root);
-  const target = new URL(/^(library|claims|nightshift)\//u.test(value) ? '/' + value : value, base);
+  const target = new URL(/^(library|claims|nightshift|experiments)\//u.test(value) ? '/' + value : value, base);
   let rel;
   try { rel = decodeURIComponent(target.pathname).replace(/^\//u, ''); } catch { return null; }
-  if (!/^(library|claims|nightshift)\//u.test(rel) || /[\\\x00-\x1f:]/u.test(rel)) return null;
+  if (!/^(library|claims|nightshift|experiments)\//u.test(rel) || /[\\\x00-\x1f:]/u.test(rel)) return null;
   const anchor = target.hash ? decodeURIComponent(target.hash.slice(1)) : '';
   if (rel.startsWith('library/') && rel.endsWith('.md')) return { href: '#/note/' + encodeURIComponent(rel + (anchor ? '#' + anchor : '')), path: rel, anchor, kind: 'note' };
   if (/^claims\/claim-[a-z\d-]+\.md$/u.test(rel)) return { href: '#/claim/' + encodeURIComponent(rel.slice(7, -3)), path: rel, anchor, kind: 'claim' };
   if (/^nightshift\/.+\.md$/u.test(rel)) return { href: '/api/resource?path=' + encodeURIComponent(rel), path: rel, kind: 'resource' };
   if (/^library\/.+\.(pdf|png|jpe?g|gif|svg|webp|avif|bmp)$/iu.test(rel)) return { href: '/api/resource?path=' + encodeURIComponent(rel), path: rel, kind: 'resource' };
+  if (/^experiments\/[^/]+\/(?:[^/]+\/)*figures\/[^/]+\.(png|jpe?g|gif|svg|webp|avif|bmp)$/iu.test(rel)) return { href: '/api/resource?path=' + encodeURIComponent(rel), path: rel, kind: 'resource' };
   return null;
 }
 

@@ -39,7 +39,7 @@ function buildViz(claims) {
       tags: data.tags ?? [],
       note: data.note ?? null,
       paper: data.paper ?? null,
-      review_due: data.review_due ?? null,
+      review_due: data.status === 'verified' ? null : data.review_due ?? null,
       related: data.related ?? [],
       evidence: data.evidence ?? [],
       falsifiers: data.falsifiers ?? [],
@@ -55,13 +55,9 @@ function buildViz(claims) {
 }
 
 function review(claims) {
-  const today = todayString();
   const rows = claims
     .map(({ data, rel }) => ({ ...data, path: rel }))
-    .filter((row) => {
-      if (row.status === 'asserted' || row.status === 'stale') return true;
-      return row.status === 'verified' && row.review_due && row.review_due <= today;
-    })
+    .filter((row) => row.status === 'asserted' || row.status === 'stale')
     .sort((a, b) => {
       const dueA = a.review_due ?? '9999-99-99';
       const dueB = b.review_due ?? '9999-99-99';

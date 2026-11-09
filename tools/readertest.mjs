@@ -4,4 +4,9 @@ const r=createReader(md,katex);const input='# 章节\n\n## 章节\n\n$x^2$ 与 \
 const{html,headings}=r.render(input,'library/中文 空格/笔记.md');assert.match(html,/class="katex"/);assert.match(html,/table-scroll/);assert.match(html,/api\/resource/);assert.ok(!/<script|onerror=\"|href=\"javascript:/i.test(html));assert.deepEqual(headings.map(h=>h.id),['章节','章节-1']);
 for(const value of ['javascript:alert(1)','data:text/html,x','file:///etc/passwd','//example.org/x','../../README.md','%6Aavascript:alert(1)'])assert.equal(resolveLink(value,'library/x/n.md'),null,value);
 assert.equal(resolveLink('../中文%20目录/笔记.md#章节','library/x/a.md').kind,'note');assert.equal(resolveLink('../../claims/claim-test-one.md','library/x/a.md').kind,'claim');assert.equal(resolveLink('../assets/a.pdf','library/x/n.md').kind,'resource');
+const figureSource = 'claims/claim-test-one.md';
+const figureHtml = r.render('![plot](../experiments/example/profile/figures/plot.png)', figureSource).html;
+assert.match(figureHtml, /<img src="\/api\/resource\?path=experiments%2Fexample%2Fprofile%2Ffigures%2Fplot\.png"/);
+assert.equal(resolveLink('../experiments/example/results/plot.png', figureSource), null);
+assert.equal(resolveLink('../experiments/example/figures/results.json', figureSource), null);
 const q=fs.readFileSync('library/Quantization/QwT.md','utf8');const rendered=r.render(q,'library/Quantization/QwT.md').html;assert.match(rendered,/library%2Fassets%2FQwT%2FFigure2.png/);assert.equal((rendered.match(/<table>/g)||[]).length,3);console.log('PASS safe Markdown, tables, formulas, HTML image subset, local assets and relative links');

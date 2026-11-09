@@ -4,7 +4,7 @@ export function reviewBucket(row, today) {
     if (!row.review_due) return 'unscheduled';
     return row.review_due <= today ? 'today' : 'future';
   }
-  if (row.status === 'stale' || (row.status === 'verified' && row.review_due && row.review_due <= today)) return 'manual';
+  if (row.status === 'stale') return 'manual';
   return null;
 }
 

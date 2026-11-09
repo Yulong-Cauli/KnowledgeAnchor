@@ -70,14 +70,13 @@ async function renderMaterials() {
     const notes = result.notes.filter((n) => !state.materialCategory || n.category === state.materialCategory);
     const claims = result.claims.filter((c) => state.statuses.has(c.status) && (!state.activeTag || c.tags.includes(state.activeTag)));
     $('#main').innerHTML = `
-      <div class="view-head"><h1>${q.trim() ? '全库搜索' : '资料'}</h1><span class="sub">来源笔记 L1 · Claim 保留验证状态与立场</span></div>
+      <div class="view-head"><h1>${q.trim() ? '全库搜索' : '资料'}</h1><span class="sub">来源笔记 L1 · Claim 保留状态与立场</span></div>
       <p class="field-hint">${esc(result.rule)} 默认排除 assets 中的论文转换全文；目录文件单独标注。刷新或重新查询会重新读取文件。</p>
       <div class="material-filters">
         <label>笔记分类 <select id="material-category"><option value="">全部分类</option>${result.categories.map((c) => `<option value="${esc(c)}"${c === state.materialCategory ? ' selected' : ''}>${esc(c)}</option>`).join('')}</select></label>
         <label>结果类型 <select id="result-type">${[['all', '全部'], ['notes', '来源笔记'], ['claims', 'Claim']].map(([v, l]) => `<option value="${v}"${state.resultType === v ? ' selected' : ''}>${l}</option>`).join('')}</select></label>
       </div>
       ${state.resultType !== 'claims' ? `<h2 class="section-title">来源笔记 L1 · 筛选后 ${notes.length} / 匹配 ${result.notes.length}</h2>
-      <p class="field-hint">来源内容尚未由本人独立验证，可用于背景与定义查询。</p>
       <div class="material-list">${notes.length ? notes.map((n) => `<a class="material-card" href="#/note/${encodeURIComponent(n.path + (n.anchor ? '#' + n.anchor : ''))}">
         <span class="badge badge-stance">${n.kind === 'directory' ? '目录入口' : '来源笔记 L1'}</span>
         <h3>${highlight(n.title)}</h3><div class="locator">${esc(n.path)}</div><p class="search-snippet">${highlight(n.snippet)}</p></a>`).join('') : '<div class="empty-state">没有匹配的来源笔记。</div>'}</div>` : ''}
@@ -105,7 +104,6 @@ async function renderNote(source) {
       <button class="back-link btn btn-quiet" type="button" data-go-back>← 返回上一页</button>
       <div class="reader-layout"><article class="detail-col reader-article">
         <div class="chip-row"><span class="badge badge-stance">来源笔记 L1 · 只读</span></div>
-        <p class="field-hint">来源报告 / 尚未独立验证。引用关系不表示结论已证实。</p>
         <div class="reader-source"><span class="locator">${esc(note.path)}</span>
           <a class="btn btn-sm" href="/api/resource?path=${encodeURIComponent(note.path)}" target="_blank" rel="noopener">查看源文件</a></div>
         <details class="note-toc"><summary>章节目录</summary>${rendered.headings.map((h) => `<a style="padding-left:${Math.max(0, h.level - 1) * 10}px" href="#/note/${encodeURIComponent(note.path + '#' + h.id)}">${esc(h.text)}</a>`).join('')}</details>
@@ -186,7 +184,7 @@ function sortRows(rows, key) {
 }
 
 function statusLabel(status) {
-  return { asserted: 'asserted · 尚未独立验证', verified: 'verified · 用户已签署', refuted: 'refuted · 已推翻', stale: 'stale · 待用户处理' }[status] ?? status;
+  return { verified: 'verified · 用户已签署', refuted: 'refuted · 已推翻', stale: 'stale · 待用户处理' }[status] ?? status;
 }
 
 function dueLabel(due, today) {
@@ -204,11 +202,16 @@ function stanceBadgeHtml(stance) {
   return `<span class="badge badge-stance" title="当前立场">${esc(STANCE_LABELS[stance] ?? stance)}</span>`;
 }
 
-function tagsHtml(tags, clickable) {
+function tagsHtml(tags, clickable, max = Infinity) {
   if (!tags?.length) return '';
-  return tags.map((tag) => (clickable
+  const shown = tags.slice(0, max);
+  const chips = shown.map((tag) => (clickable
     ? `<button type="button" class="tag-chip tag-btn" data-tag="${esc(tag)}">${esc(tag)}</button>`
-    : `<span class="tag-chip">${esc(tag)}</span>`)).join('');
+    : `<span class="tag-chip">${esc(tag)}</span>`));
+  if (tags.length > shown.length) {
+    chips.push(`<span class="tag-chip tag-overflow">+${tags.length - shown.length}</span>`);
+  }
+  return chips.join('');
 }
 
 // Scheduling is separate from the CLI's historical full attention list.
@@ -425,16 +428,16 @@ async function renderQueue() {
   const expandedId = state.expandedId ?? rows[0]?.id ?? null;
   const today = state.meta.today;
 
-  const labels = { today: '今日待办', future: '以后处理', unscheduled: '未安排', asserted: '全部未验证', manual: '待用户处理' };
+  const labels = { today: '今日待办', future: '以后处理', unscheduled: '未安排', asserted: '全部未签署', manual: '待用户处理' };
   const total = state.meta.reviews[state.queueView];
   const listHtml = rows.length === 0
-    ? '<div class="empty-state">' + (total ? '当前筛选无结果。清除关键词或调整筛选可查看待办。' : (state.queueView === 'today' ? '今天没有待办。可查看未安排或全部未验证，主动安排处理日期。' : '此分类暂无卡片。')) + '</div>'
+    ? '<div class="empty-state">' + (total ? '当前筛选无结果。清除关键词或调整筛选可查看待办。' : (state.queueView === 'today' ? '今天没有待办。可查看「未安排」或「全部未签署」，主动安排处理日期。' : '此分类暂无卡片。')) + '</div>'
     : '<div class="card-list">' + rows.map((row) => queueCardHtml(row, row.id === expandedId, today)).join('') + '</div>';
   $('#main').innerHTML = `
     <div class="view-head"><h1>今日复核</h1><span class="sub">筛选后 ${rows.length} 张 / 此分类全库 ${total} 张 · 服务端日期 ${today}</span>
     <span class="view-tools">${sortSelectHtml(state.queueSortBy, 'queue')}</span></div>
     <div class="review-tabs">${Object.entries(labels).map(([key, label]) => '<button type="button" class="btn ' + (state.queueView === key ? 'btn-primary' : '') + '" data-review-view="' + key + '">' + label + ' ' + state.meta.reviews[key] + '</button>').join('')}</div>
-    <p class="field-hint">${state.queueView === 'manual' ? 'stale 与到期 verified 保持只读，请由用户在原文件中处理。' : '处理和顺延只安排下次日期，不代表验证通过。单纯阅读不改日期。'}</p>${listHtml}`;
+    <p class="field-hint">${state.queueView === 'manual' ? '此处列出 stale 卡片，请由用户在原文件中处理。' : '处理和顺延只安排下次日期，不代表验证通过。单纯阅读不改日期。'}</p>${listHtml}`;
   document.querySelectorAll('[data-review-view]').forEach((btn) => btn.onclick = () => { state.queueView = btn.dataset.reviewView; state.expandedId = null; renderMain(); });
 
   bindSortSelect('queue', renderMain);
@@ -454,7 +457,7 @@ function queueCardHtml(row, expanded, today) {
     !state.readonly && row.status === 'asserted' && state.queueView !== 'today' && '<button type="button" class="btn btn-sm" data-act="today" data-id="' + esc(row.id) + '">今天处理</button>',
   ].filter(Boolean).join('');
   return `
-    <div class="card" data-id="${esc(row.id)}">
+    <div class="card status-${esc(row.status)}" data-id="${esc(row.id)}">
       <div class="card-row">
         <span class="card-title">${esc(row.title)}</span>
         <span class="card-meta">
@@ -549,12 +552,12 @@ function renderClaims() {
     ${rows.length === 0
       ? '<div class="empty-state">没有匹配的 claim。</div>'
       : `<div class="card-list">${rows.map((row) => `
-          <div class="card clickable" data-id="${esc(row.id)}">
-            <div class="card-row compact">
+          <div class="card clickable status-${esc(row.status)}" data-id="${esc(row.id)}">
+            <div class="card-row">
               <span class="card-title">${esc(row.title)}</span>
               <span class="card-meta">
                 ${dueLabel(row.review_due, today) ? `<span class="due">${esc(dueLabel(row.review_due, today))}</span>` : ''}
-                ${tagsHtml(row.tags)}
+                ${tagsHtml(row.tags, false, 3)}
                 ${stanceBadgeHtml(row.stance)}
                 ${badgeHtml(row.status)}
               </span>
@@ -609,7 +612,9 @@ async function renderDetail(id) {
   }
   state.detailCache.set(id, card);
   const editable = !state.readonly && card.status === 'asserted';
+  const canSign = editable && ['127.0.0.1', 'localhost', '[::1]'].includes(location.hostname);
   const today = state.meta.today;
+  const due = card.status === 'verified' ? '' : dueLabel(card.review_due, today);
 
   $('#main').innerHTML = `
     <button class="back-link btn btn-quiet" type="button" data-go-back>← 返回上一页</button>
@@ -619,11 +624,13 @@ async function renderDetail(id) {
         <h1 class="detail-title">${esc(card.title)}</h1>
         <div class="chip-row">${badgeHtml(card.status)} ${stanceBadgeHtml(card.stance)}
           ${state.readonly ? '<span class="badge badge-stance">只读</span>' : ''}
-          ${dueLabel(card.review_due, today) ? `<span class="due">${esc(dueLabel(card.review_due, today))}</span>` : ''}
+          ${due ? `<span class="due">${esc(due)}</span>` : ''}
+          ${card.status === 'verified' ? `<span class="due">${esc(card.signoff?.by)} · ${esc(card.signoff?.at)}</span>` : ''}
         </div>
         <div class="card-actions">${editable ? '<button class="btn btn-primary" type="button" id="start-edit">编辑这张卡</button>' : ''}
+          ${canSign ? '<button class="btn" type="button" id="start-signoff">签署</button>' : ''}
           <a class="btn btn-sm" target="_blank" rel="noopener" href="/api/resource?path=${encodeURIComponent(card.path)}">查看源文件</a></div>
-        <p class="field-hint">验证状态与当前立场相互独立。高风险选型、部署和方案只使用 verified；签署仅由用户在文件中完成。</p>
+        <p class="field-hint">验证状态与当前立场相互独立。高风险选型、部署和方案只使用 verified。</p>
         <div class="meta-block">
           ${card.paper ? `<div class="meta-item"><div class="label">paper</div><div>${esc(card.paper)}</div></div>` : ''}
           ${card.tags?.length ? `<div class="meta-item"><div class="label">tags</div><div class="chip-row">${tagsHtml(card.tags)}</div></div>` : ''}
@@ -636,7 +643,7 @@ async function renderDetail(id) {
             </div>` : ''}
           <div class="meta-item"><div class="label">限定条件（scope）</div><div class="md md-compact">${renderMarkdown(card.scope, card.path)}</div></div>
         </div>
-        <p class="section-title">来源证据（不等于独立验证）</p>
+        <p class="section-title">证据来源</p>
         ${(card.evidence ?? []).map((item) => evidenceItemHtml(item)).join('')}
         ${card.falsifiers?.length ? `
           <p class="section-title">可推翻条件（falsifiers）</p>
@@ -653,11 +660,68 @@ async function renderDetail(id) {
   bindNoteToggle(card);
   $('[data-go-back]').onclick = goBack;
   bindImageZoom($('#main'));
+  if (canSign) $('#start-signoff').onclick = () => openSignoffDialog(card);
   if (editable) $('#start-edit').onclick = () => {
     const col = document.createElement('div'); col.className = 'detail-col'; col.id = 'edit-col'; col.innerHTML = editPanelHtml(card);
     const grid = $('.detail-grid'); grid.classList.remove('single'); grid.append(col); $('#start-edit').hidden = true;
+    if (canSign) $('#start-signoff').hidden = true;
     bindEditPanel(card); col.scrollIntoView({ block: 'start' });
   };
+}
+
+function openSignoffDialog(card) {
+  const today = state.meta.today;
+  const dialog = document.createElement('dialog');
+  dialog.className = 'signoff-dialog';
+  dialog.setAttribute('aria-labelledby', 'signoff-title');
+  dialog.innerHTML = `
+    <h2 id="signoff-title">签署卡片</h2>
+    <p>${esc(card.title)}</p>
+    <form>
+      <div class="field"><label for="signoff-by">签署名</label><input id="signoff-by" name="by" maxlength="100" required autofocus autocomplete="name"></div>
+      <div class="field"><label for="signoff-at">签署日期</label><input type="date" id="signoff-at" name="at" value="${esc(today)}" required></div>
+      <p class="field-hint">确认后，卡片将标记为 verified，并在网页中设为只读。</p>
+      <p class="field-hint error" role="alert" hidden></p>
+      <div class="card-actions">
+        <button type="button" class="btn" data-cancel>取消</button>
+        <button type="submit" class="btn btn-primary">确认签署</button>
+      </div>
+    </form>`;
+  const form = $('form', dialog);
+  const submit = $('[type="submit"]', form);
+  const cancel = $('[data-cancel]', form);
+  const errorBox = $('[role="alert"]', form);
+  cancel.onclick = () => dialog.close();
+  dialog.addEventListener('cancel', (event) => { if (submit.disabled) event.preventDefault(); });
+  dialog.addEventListener('close', () => dialog.remove());
+  form.onsubmit = async (event) => {
+    event.preventDefault();
+    if (submit.disabled) return;
+    const fields = Object.fromEntries(new FormData(form));
+    errorBox.hidden = true;
+    submit.disabled = cancel.disabled = true;
+    try {
+      await api(`/api/claims/${encodeURIComponent(card.id)}/sign`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ ...fields, version: card.version }),
+      });
+    } catch (error) {
+      errorBox.textContent = [error.message, ...(error.details ?? [])].join(' ');
+      errorBox.hidden = false;
+      submit.disabled = cancel.disabled = false;
+      return;
+    }
+    dialog.close();
+    try {
+      await refresh();
+      toast('已签署，卡片状态为 verified。');
+    } catch (error) {
+      toast('已签署。重新读取页面失败，请刷新查看。');
+    }
+  };
+  $('#main').append(dialog);
+  dialog.showModal();
 }
 
 function bindNoteToggle(card) {
@@ -843,11 +907,11 @@ function bindEditPanel(card) {
 const NEW_CARD_BODY = [
   '## 这条主张是什么意思',
   '',
-  '用两三句话说明：研究者在解决什么问题、主张发生了什么、为什么值得理解。asserted 卡明确说明尚未独立验证。',
+  '用两三句话交代问题、主张和适用条件。作者报告、本库实测、复算与理论推导按实际情况标明。',
   '',
   '## 证据支持到哪里',
   '',
-  '说明哪条引文/表格/实验记录支持哪一部分；区分论文报告与独立验证，写出仍缺失的证据。',
+  '说明哪条引文、表格或实验记录支持哪一部分。有影响结论的证据缺口时，说明缺哪项核查。',
   '',
   '## 可能的解释与未排除的因素',
   '',
@@ -882,7 +946,7 @@ function renderNew() {
   $('#main').innerHTML = `
     <a class="back-link" href="#/claims">← 返回列表</a>
     <div class="detail-col" style="max-width:860px">
-      <div class="edit-head"><h2>起草新 Claim</h2><span class="field-hint">创建即 status: asserted（尚未独立验证）· signoff: null（验证签署由用户本人填写，网页与 Agent 均不代签）</span></div>
+      <div class="edit-head"><h2>起草新 Claim</h2><span class="field-hint">初始状态为 asserted（未签署）</span></div>
       <div id="form-errors"></div>
       <form id="new-form" class="form-grid" autocomplete="off">
         <div class="field">

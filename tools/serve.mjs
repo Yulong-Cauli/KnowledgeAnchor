@@ -89,7 +89,7 @@ function summaryOf(data, rel) {
     tags: data.tags ?? [],
     note: data.note ?? null,
     paper: data.paper ?? null,
-    review_due: data.review_due ?? null,
+    review_due: data.status === 'verified' ? null : data.review_due ?? null,
     path: rel,
   };
 }
@@ -111,6 +111,7 @@ function handleWrite(actor, action, payload) {
   switch (action) {
     case 'edit': return writeEdit(claims, payload);
     case 'create': return writeCreate(claims, payload);
+    case 'sign': return writeSignoff(claims, payload);
     case 'reviewed': return writeReviewed(claims, payload);
     case 'postpone': return writePostpone(claims, payload);
     case 'today': return writeEdit(claims, { id: payload.id, patch: { review_due: today() } });
@@ -216,6 +217,25 @@ function writeEdit(claims, { id, patch, version }) {
   if (validationErrors.length) {
     return { status: 400, body: { error: 'validation failed, nothing written', details: validationErrors } };
   }
+  commitClaim(card);
+  return { status: 200, body: fullCardOf(card) };
+}
+
+function writeSignoff(claims, { id, version, by, at }) {
+  const card = claims.find((claim) => claim.data.id === id);
+  if (!card) return { status: 404, body: { error: '卡片不存在。' } };
+  if (card.data.status !== 'asserted') return { status: 403, body: { error: '只有未签署的 asserted 卡片可以签署。' } };
+  if (!version || version !== versionOf(card.text)) {
+    return { status: 409, body: { error: '卡片已更新，请关闭窗口并重新读取后签署。' } };
+  }
+  const signer = typeof by === 'string' ? by.trim() : '';
+  if (!signer || signer.length > 100 || /[\x00-\x1f\x7f]/u.test(signer)) {
+    return { status: 400, body: { error: '请填写签署名，最多 100 个字符。' } };
+  }
+  card.data = { ...card.data, status: 'verified', signoff: { by: signer, at } };
+  delete card.data.review_due;
+  const errors = validateWholeSet(claims, card.rel, card.data);
+  if (errors.length) return { status: 400, body: { error: '签署校验未通过。', details: errors } };
   commitClaim(card);
   return { status: 200, body: fullCardOf(card) };
 }
@@ -392,7 +412,7 @@ function buildGraph() {
       stance: data.stance,
       tags: data.tags ?? [],
       paper: data.paper ?? null,
-      review_due: data.review_due ?? null,
+      review_due: data.status === 'verified' ? null : data.review_due ?? null,
     });
   };
   for (const { data } of claims) {
@@ -490,7 +510,7 @@ async function handleApi(req, res, url) {
     return;
   }
   if (method === 'GET' && pathname === '/api/resource') {
-    const resolved = resolveResource(ROOT, url.searchParams.get('path'), ['library', 'claims', 'nightshift']);
+    const resolved = resolveResource(ROOT, url.searchParams.get('path'), ['library', 'claims', 'nightshift', 'experiments']);
     if (!resolved) { sendError(res, 404, 'resource not found in allowed directories'); return; }
     res.writeHead(200, { 'content-type': MIME_TYPES.get(path.extname(resolved.abs).toLowerCase()) ?? 'application/octet-stream',
       'cache-control': 'no-store', 'x-content-type-options': 'nosniff',
@@ -565,6 +585,21 @@ async function handleApi(req, res, url) {
   if (method === 'POST' && pathname === '/api/claims') {
     const body = await readJsonBody(req);
     const result = handleWrite(body.actor, 'create', body);
+    sendJson(res, result.status, result.body);
+    return;
+  }
+
+  const signoffMatch = pathname.match(/^\/api\/claims\/([^/]+)\/sign$/);
+  if (signoffMatch && method === 'POST') {
+    const localHost = ['127.0.0.1', 'localhost', '[::1]'].includes(url.hostname);
+    const localPeer = ['127.0.0.1', '::1', '::ffff:127.0.0.1'].includes(req.socket.remoteAddress);
+    if (!localHost || !localPeer || req.headers.origin !== url.origin || req.headers['sec-fetch-site'] !== 'same-origin') {
+      sendError(res, 403, '请在本机可写网页中签署。');
+      return;
+    }
+    const { version, by, at } = await readJsonBody(req);
+    const id = decodeURIComponent(signoffMatch[1]);
+    const result = handleWrite('local', 'sign', { id, version, by, at });
     sendJson(res, result.status, result.body);
     return;
   }

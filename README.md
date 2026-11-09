@@ -38,7 +38,7 @@ node tools/serve.mjs --host 0.0.0.0 --port 4781 --readonly
 默认入口 [资料](http://127.0.0.1:4780/#/materials) 从现有 `library/` 目录生成笔记清单，按分类浏览，不需要另外维护目录。`library/README.md` 标为目录入口；默认排除 `library/assets/` 内的论文转换全文。
 
 - 搜索覆盖笔记的标题、路径、正文，以及 claim 的 id、title、tags、scope、证据与正文。多个关键词以空白分隔，要求全部命中，不区分英文大小写；关键词可以分布在不同字段。
-- 结果区分“来源笔记 L1”和“Claim”，显示路径、命中片段；claim 保留 status 与 stance，asserted 明示“尚未独立验证”。笔记分类只筛笔记，侧栏状态/tag 只筛 claim。
+- 结果区分“来源笔记 L1”和“Claim”，显示路径与命中片段。Claim 显示状态与立场。笔记分类只筛笔记，侧栏状态/tag 只筛 claim。
 - 点击笔记进入只读阅读页，尽可能定位命中章节。支持六级标题、段落、嵌套列表、引用、代码块、标准 Markdown 表格、行内/块级 LaTeX 数学、图片、章节目录和锚点。
 - 表格和长公式在局部横向滚动；图片保持比例，点击或按 Enter 放大。相对链接按笔记目录解析，区分笔记、claim、图片/PDF、外部链接。含空格的 Markdown 链接需使用标准的尖括号语法或 URL 编码。
 - 笔记旁按 `note` 与 `evidence.source` 显示引用该笔记的 claim，去锚点、规范路径并去重，标明“主要来源 / 证据引用”；不按标题相似或 tag 自动关联。每项保留状态、立场和限定条件。引用关系不表示结论已被证实。
@@ -55,8 +55,8 @@ node tools/serve.mjs --host 0.0.0.0 --port 4781 --readonly
 | 今日复核 `/#/queue` → 今日待办 | asserted 且 `review_due <= 服务端今天`。 |
 | 以后处理 | asserted 且日期在未来。 |
 | 未安排 | asserted 且没有 `review_due`。 |
-| 全部未验证 | 全部 asserted，与今日工作量分开。 |
-| 待用户处理 | 全部 stale，以及到期（含今天）的 verified；只读。 |
+| 全部未签署 | 全部 asserted，与今日工作量分开。 |
+| 待用户处理 | 全部 stale，只读。 |
 | 全部 Claim `/#/claims` | 全部状态，含 refuted。 |
 | 新建 `/#/new` | 顶部“新建 claim”入口；只读实例隐藏入口并拒绝写入。 |
 
@@ -71,15 +71,17 @@ node tools/serve.mjs --host 0.0.0.0 --port 4781 --readonly
 | 今天处理 | 在其他 asserted 分类中主动把处理日期设为服务端今天。 |
 | 编辑下次处理日期 | 可自选日期，清空则回到未安排。 |
 
-处理或顺延后，卡片立即退出今日待办，刷新仍然如此，能在以后处理/全部未验证找到。单纯浏览不写日期；调度不改 status、stance、signoff，也不自动添加“已核对原文”等核查事实。若需记录核查经过，由操作者在卡片正文填写实际完成的事项。
+处理或顺延后，卡片立即退出今日待办，刷新后可在「以后处理」或「全部未签署」找到。单纯浏览不写日期；调度不改 status、stance、signoff，也不自动添加“已核对原文”等核查事实。若需记录核查经过，由操作者在卡片正文填写实际完成的事项。
 
-现有未来日期不回填；今日为空是合理结果，可以主动查看未安排或全部未验证。`node tools/ka.mjs review` 保持原有的**完整待关注清单**语义（全部 asserted/stale 及到期 verified），与网页今日待办不同。
+现有未来日期不回填；今日为空时，可以查看「未安排」或「全部未签署」。`node tools/ka.mjs review` 显示全部 asserted 和 stale 卡片。
 
 ### 详情、编辑与起草
 
 详情默认阅读，展示状态、立场、限定条件、证据引文与定位、关联 claim 和正文；可推翻条件只在有内容时显示。统计记录可以省略这一栏，有明确待检验预测的主张再填写。来源笔记及可解析的证据源可点击；“展开笔记”保留快速阅读能力。显式点击“编辑这张卡”后才显示表单。
 
-可写实例中的 asserted 卡可编辑标题、立场、下次处理日期、tags、scope、paper、note、related、证据、falsifiers 和正文；仅提交实际修改的字段。id、type、status、signoff 不可编辑；verified/refuted/stale 完全只读。新卡固定 asserted、signoff: null，默认立场 watch、下次日期为服务端今天 + 90 天，可清空为未安排。
+可写实例中的 asserted 卡可编辑标题、立场、下次处理日期、tags、scope、paper、note、related、证据、falsifiers 和正文。通用编辑只提交实际修改的字段。新卡初始为 asserted，默认立场 watch，复核日期默认为当天起 90 天后。
+
+在本机可写网页打开 asserted 卡片，点击「签署」，填写签署名并确认。签署日期默认当天。确认时一次保存 `status: verified` 和 `signoff`，并结束这张卡的复核排程。签署后卡片在网页中只读。
 
 创建时校验“已有集合 + 新候选”，保存时校验“替换目标后的完整集合”，包括 id/文件名、必填非空白文本、完整证据、有效日期、来源文件和关联 id。可推翻条件允许省略或空列表；提供时须为非空白文本列表，系统不自动推断主张是否含预测。已有库非法时也会拒绝写入。校验失败不写卡片或索引，表单保留输入并显示错误；成功后原子写入卡片并重建索引。若卡片写入后索引重建失败，明确提示部分保存及重建方法，不报告完整成功。
 
@@ -104,7 +106,7 @@ node tools/serve.mjs --host 0.0.0.0 --port 4781 --readonly
 
 ## 两层
 
-- `library/` — **L1 来源层**：从论文、教材、博客等来源整理的知识，记录来源说了什么、怎么推导。论文笔记和数学基础都在这一层；来源类型不改变 L1 状态，统一表示“尚未由我独立验证”。
+- `library/` — **L1 来源层**：从论文、教材、博客等来源整理的知识，记录来源说了什么、怎么推导。论文笔记和数学基础都在这一层。
 - `claims/` — **L2/L3 判决层**：原子 claim 卡。每条一句可证伪的主张，带证据指针、适用范围、我的立场和复核日期，记录“我愿意据此行动”的判断。
 
 `library/` 是“来源与知识”，`claims/` 是“敢不敢用”。一条笔记可以提炼出多条 claim；一条 claim 也可以引用多篇笔记。
@@ -113,9 +115,9 @@ node tools/serve.mjs --host 0.0.0.0 --port 4781 --readonly
 
 | 等级 | 位置 | 含义 |
 |---|---|---|
-| L1 | `library/` | 从来源整理，尚未由本人独立验证；可用于定义/背景查询 |
-| L2 asserted | `claims/`，`status: asserted` | 已抽成可检验主张，尚未独立验证 |
-| L3 verified | `claims/`，`status: verified` | 有独立证据并由本人签署 |
+| L1 | `library/` | 来源材料，可用于定义和背景查询 |
+| L2 asserted | `claims/`，`status: asserted` | 已记录主张，用户尚未签署 |
+| L3 verified | `claims/`，`status: verified` | 用户已签署，签署人和日期见 `signoff`，依据见 `evidence` |
 | refuted / stale | `claims/` | 被推翻或过期，保留可追溯 |
 
 “好不好用”是独立的一轴：`stance: adopt | trial | watch | avoid`。一条 claim 可以是真的，同时被你标成 `avoid`。
@@ -138,7 +140,7 @@ node tools/serve.mjs --host 0.0.0.0 --port 4781 --readonly
 
 1. 读论文或教材，写/更新 `library/` 笔记（L1）。
 2. 从笔记里提炼 claim，`status: asserted`，写清 `scope`、`evidence`、`stance`；有明确待检验预测时再填写 `falsifiers`，统计记录不强制设置。
-3. 做一次独立验证（复现、交叉来源、自测），**由用户本人手工编辑** claim 文件，填写 `signoff.by / at / method / evidence_hash` 并改为 `verified`；`method` 可用 `read / reproduced / cross-checked`，同时设置 `review_due`。Agent 不得代填或代签，网页与 CLI 都没有 verify 操作。
+3. 用户核阅证据后，在本机可写网页本人确认签署，或手工编辑 claim 文件。签署记录包含 `status: verified`、`signoff.by` 和 `signoff.at`。旧的签署方法、哈希和复核日期可以作为历史记录保留。
 4. `node tools/ka.mjs review` 查看待审/到期条目；`node tools/ka.mjs index` 生成 Agent 可读索引。
 
 ## Claim 命名
@@ -154,8 +156,8 @@ node tools/serve.mjs --host 0.0.0.0 --port 4781 --readonly
 
 Agent 可以检索 `library/` 与 `claims/`，但引用时必须携带 claim id / 来源、`status` 和 `stance`：
 
-- `asserted` → “论文声称 / 尚未验证”
-- `verified` → “已由本人验证（方法：…，日期：…）”
+- `asserted` 表示用户尚未签署。按实际证据注明作者报告、本库实测、复算或理论推导。
+- `verified` 表示用户已签署。签署人和日期见 `signoff`。
 - 高风险决策只允许使用 `verified`。
 
 Agent 只能起草/修改 `asserted` 条目；不得修改 `verified / refuted / stale` 卡或任何 `signoff`，不得代为升级状态。`library/` 的改动须有用户授权。详见 [AGENTS.md](AGENTS.md)。
@@ -199,7 +201,7 @@ node tools/check-materials.mjs   # 检查笔记与素材目录、图片引用的
 
 只读 MCP 提供全文搜索、完整卡片读取、笔记读取和关联查询四个工具。由支持 stdio 的 Agent 客户端启动 `tools/mcp.mjs`，无需先运行网页；启动配置、参数与信任边界见 [MCP 接入说明](docs/mcp.md)。
 
-返回结果携带状态、立场、适用范围与来源；`decision` 检索仅纳入已签署且未到复核日期的 verified 候选，没有匹配时明确返回缺口。MCP 不提供写入或签署能力，知识状态仍由用户掌握。
+返回结果携带状态、立场、适用范围与来源。`decision` 检索仅纳入已签署的 verified 候选，没有匹配时明确返回缺口。MCP 不提供写入或签署能力。
 
 ## 说明
 
