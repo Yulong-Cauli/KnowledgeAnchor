@@ -3,7 +3,7 @@ id: claim-fcos-centerness-regression-branch-ap-gain
 title: "FCOS 笔记图注声称：将 center-ness 从分类分支移到回归分支后 AP 进一步提升"
 type: claim
 status: asserted
-scope: "FCOS（ICCV 2019）center-ness 的挂载位置设计（分类分支 vs 回归分支）；主张层级为笔记图注转述：笔记未载 AP 数字，数字出处已于 2026-11-03 定位（见下方附注），但数字是否补入 evidence 待主人定夺，本卡 evidence 仍以笔记 quote 为准；本库未复测不同挂载位置的 AP"
+scope: "FCOS（ICCV 2019）center-ness 的挂载位置设计（分类分支 vs 回归分支）；主张层级为笔记图注转述：笔记未载 AP 数字，本库未复测不同挂载位置的 AP；数字出处已在原文定位（见正文），evidence 仍以笔记 quote 为准"
 tags: [fcos, anchor-free, detection, centerness, ablation]
 note: library/Classical_Detection/FCOS.md#architecture
 paper: "ICCV 2019, FCOS: Fully Convolutional One-Stage Object Detection（开源：https://github.com/tianzhi0549/FCOS）"
@@ -21,20 +21,20 @@ related: [claim-fcos-centerness-suppresses-low-quality]
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 笔记 Figure2 处图注记载：“后续实验证明，将其移到回归分支后，AP 进一步提升”——即 center-ness 挂在回归塔比挂在分类塔更优。本卡按笔记记载转述。
 
 限定：图注未注明“后续实验”的具体出处（原论文正文、扩展版或第三方工作），笔记全文亦无 AP 数字；本卡只记录该设计方向，不主张任何数字。
 
-> 附注（2026-11-03，出处已定位）：上述「待验证」第一项已部分完成——FCOS arXiv:1904.01355 **v5**（2019-08-20）§3.3 脚注 2 原文："it has been shown that the AP on MS-COCO can be improved if the center-ness is parallel with the regression branch instead of the classification branch."；§4.1.1 Table 3（COCO minival 消融）「+ ctr. on reg.」行 AP 37.1 → 37.4。即图注所述「移到回归分支 AP 提升」在原文有据（脚注引述 + 消融表），2026-11-03 实抓 arxiv.org/html/1904.01355 核实；笔记图注已补该 locator。本卡 scope/title 未改，数字是否补入 evidence 待主人定夺（evidence 仍以笔记 quote 为准）。
+出处已定位（2026-11-03 实抓 arxiv.org/html/1904.01355，2026-11-05 复核 camera-ready PDF）：FCOS arXiv:1904.01355 **v5**（2019-08-20）§3.3 脚注 2 原文："it has been shown that the AP on MS-COCO can be improved if the center-ness is parallel with the regression branch instead of the classification branch."；§4.1.1 Table 3（COCO minival 消融）「+ ctr. on reg.」行 AP 37.1 → 37.4。图注所述「移到回归分支 AP 提升」在原文有据（脚注引述 + 消融表），笔记图注已补该 locator。数字是否补入 evidence 待主人定夺，本卡 evidence 仍以笔记 quote 为准（处理经过见核查记录与 falsifier 1）。
 
 ## 待验证
 
-- 已核对（2026-11-03 定位，2026-11-05 复核）：出处已在原文找到（v5 §3.3 脚注 2 + camera-ready Table 3 'ctr. on reg.' 行 37.1→37.4）；数字是否补进 evidence 按附注留待主人定夺，本卡 evidence 不动。
+- 数字（Table 3 的 37.1→37.4）是否补入 evidence 待主人定夺；定夺前本卡 evidence 保持笔记 quote 原样。
 - 复现 center-ness 挂载位置（分类分支 vs 回归分支）的消融，对齐 Table 3 的 minival、R-50-FPN 口径（同范围复现）。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：实现 FCOS 类检测器时应把 center-ness 放在回归分支——它本质上是回归质量的度量而非分类信号。
 不成立：该图注属笔记作者转述偏差或结论不可复现，则在卡片内追加标注降级处理（不删除文件、不动 signoff）。

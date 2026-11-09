@@ -30,7 +30,7 @@ related: [claim-fastrcnn-multitask-loss-beats-cls-only]
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 笔记声称：Fast R-CNN 的关键设计是（1）整图只做一次 CNN 前向得到共享特征图，取代 R-CNN 对每个候选框单独卷积；（2）RoI Pooling 把特征图上任意 h×w 的 RoI 先按 stride 映射到特征图坐标，再切成 H×W 网格、每个子窗口（约 h/H × w/W）内取最大值、逐通道独立进行，从而输出固定尺寸（如 7×7）特征供全连接头使用。笔记认为正是这一机制使固定尺寸的分类/回归头能挂在共享卷积特征上，实现端到端训练。
 
@@ -42,7 +42,7 @@ signoff: null
 - 构造极端尺寸 RoI（如小于 H×W、极端长宽比），验证输出恒为 H×W 且前向可反传。
 - 对照 R-CNN 流程，量测同一图片“整图一次前向 + RoI 池化”与“逐候选框裁剪后分别卷积”的计算量差异。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：两阶段检测器“共享卷积 + 固定尺寸 RoI 特征头”的范式成立，是后续 Faster R-CNN、Mask R-CNN 等 RoIAlign 类设计的直接前提（见 [多任务损失卡](claim-fastrcnn-multitask-loss-beats-cls-only.md)）。
 不成立：机制描述有误则笔记该节需要修订；若 RoI Pooling 不能稳定输出固定尺寸特征，则固定尺寸头的设计依赖其他机制，引用时需回查论文原文。

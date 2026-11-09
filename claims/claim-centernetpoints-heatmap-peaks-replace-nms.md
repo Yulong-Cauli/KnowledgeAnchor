@@ -3,7 +3,7 @@ id: claim-centernetpoints-heatmap-peaks-replace-nms
 title: "CenterNet 论文声称：热力图 3×3 Max Pooling 峰值提取本身即起非极大值抑制作用，推理无需 NMS"
 type: claim
 status: asserted
-scope: "2D 目标检测（Objects as Points，arXiv 1904.07850v2）；笔记方法/推理设定：输出步长 R=4，类别通道热力图做 3×3 max pooling 取峰值、每图取前 100 个峰值解码；热力图通道数为类别数（笔记举例 COCO 80 类）；成立前提：同类物体中心点在输出特征图上不落入同一格子（碰撞率 <0.1% 见 related 卡）；2026-11-05 实抓补核：论文 §6.1.1 自报 NMS 后处理消融（DLA-34 flip-test 39.2→39.7、Hourglass-104 42.2 不变），官方 decode.py 的 _nms 即 3×3 max pooling 峰值保留、解码路径无 IoU-NMS；设计主张与「精度不受损」部分仍属论文/代码自报，本库未复跑同口径精度对比"
+scope: "2D 目标检测（Objects as Points，arXiv 1904.07850v2）；笔记方法/推理设定：输出步长 R=4，类别通道热力图做 3×3 max pooling 取峰值、每图取前 100 个峰值解码；热力图通道数为类别数（笔记举例 COCO 80 类）；成立前提：同类物体中心点在输出特征图上不落入同一格子（碰撞率 <0.1% 见 related 卡）；2026-11-05 已补核论文 §6.1.1 NMS 消融与官方 decode.py 解码路径（见 falsifier 1/2）；设计主张与「精度不受损」部分属论文/代码自报，本库未复跑同口径精度对比"
 tags: [centernet, heatmap, no-nms, anchor-free, detection]
 note: library/Classical_Detection/CenterNet：Objects as Points.md#inference-从点到框
 paper: "arXiv 2019, CenterNet: Objects as Points（开源：https://github.com/xingyizhou/CenterNet）"
@@ -46,21 +46,21 @@ related: [claim-centernetpoints-regression-replaces-keypoint-grouping, claim-cen
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称：CenterNet 将每个物体建模为单一中心点，推理时对每类热力图做 3×3 max pooling，取大于等于 8 邻域的局部峰值并解码前 100 个点为框；由于峰值提取已保证局部唯一性，该步骤本身起到 NMS 的作用，推理流程不需要非极大值抑制。
 
-注意成立前提：笔记同段指出"只要两个物体的中心点不重合，它们就能被区分开"。中心点重合（center collision）的频率是另一张卡 [claim-centernetpoints-coco-train2017-same-class-center-collision-rare](claim-centernetpoints-coco-train2017-same-class-center-collision-rare.md) 的主张，本卡不覆盖。
+成立前提：笔记同段指出"只要两个物体的中心点不重合，它们就能被区分开"。中心点重合（center collision）的频率是另一张卡 [claim-centernetpoints-coco-train2017-same-class-center-collision-rare](claim-centernetpoints-coco-train2017-same-class-center-collision-rare.md) 的主张，本卡不覆盖。
 
-2026-11-05 补核：论文自己做过 NMS 后处理对照实验（§6.1.1）——把 IoU-NMS 加到预测后处理上，DLA-34（flip-test）AP 仅 39.2→39.7，Hourglass-104 持平 42.2；即"无 NMS 精度基本不受损"在论文层有实验支撑，但仍属作者自报。官方 decode.py 的 `_nms` 与笔记所述一致：kernel=3 的 max pooling 后保留等于自身值的点（`keep = (hmax == heat).float()`），本次仅核查了 decode.py 与 ctdet 解码路径，未对全仓库做 NMS 存在性完整排查。
+2026-11-05 补核：论文自报的 NMS 后处理消融（39.2→39.7 / 42.2 持平）与官方 decode.py 的 `_nms` 实现均核对命中（见 falsifier 1/2）——"无 NMS 精度基本不受损"在论文层有实验支撑，但仍属作者自报；代码侧本次仅核查 decode.py 与 ctdet 解码路径，全仓库 NMS 存在性完整排查未做（falsifier 1 保留）。
 
 ## 待验证
 
 - 已核对（2026-11-05，部分完成）：decode.py `_nms` 确认为 3×3 max pooling 式峰值筛选、无独立 IoU-NMS；剩余：对 detectors/ 前后处理全链路做一次 NMS 存在性完整排查。
 - 在密集重叠场景（如 COCO 拥挤类目或 CrowdHuman）复现：比较峰值提取版与加 IoU-NMS 版的 AP/重复框数，对照论文自报锚点（39.2→39.7 / 42.2 持平）。
-- 统计同帧同类物体中心点映射到同一输出格子（stride=4）的帧内比例，对照论文 <0.1%（614/860001，train2017）的说法。
+- 同帧同类中心点碰撞的标注侧统计已由 [claim-centernetpoints-coco-train2017-same-class-center-collision-rare](claim-centernetpoints-coco-train2017-same-class-center-collision-rare.md) 完成（本库复算 0.0823%，verified）；剩余：用检测输出统计碰撞导致的实际漏检率，密集/小目标场景优先（对应 falsifier 3）。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：无 NMS 后处理是 CenterNet 端到端、低延迟检测的关键设计，可作为低延迟检测选型的引用起点（进方案前仍需 verified）。
 不成立：官方实现或复现中仍依赖 NMS，说明"无 NMS"是表述简化而非事实，本卡改为记录笔记与实现不符。

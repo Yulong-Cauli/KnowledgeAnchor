@@ -33,7 +33,7 @@ related: [claim-fastrcnn-two-stage-beats-one-stage]
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 笔记声称：Faster R-CNN 用 RPN（3×3 滑窗 + anchors 回归）在共享卷积特征图上生成候选框，替代约 2 秒/张的 Selective Search；消融（Table 2）比较“RPN 提框 + 独立训练 Fast R-CNN”（不共享，58.7%）与“4 步交替训练共享卷积层”（共享，59.9%），结论是共享特征既省去两次卷积计算，又提升精度，原因是检测器微调后的特征反过来优化了 RPN 的 proposal 质量。
 
@@ -45,7 +45,7 @@ signoff: null
 - 用 ShaoqingRen/faster_rcnn 或现代复现（如 Detectron 系）跑一遍 unshared（RPN 提框冻结 + 独立检测器）与 4 步交替训练，对照 mAP。
 - 核对 4 步交替训练的步骤描述与笔记是否一致（RPN 训练 → 用其 proposal 训练检测器 → 固定检测器微调 RPN → 再微调检测器）。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：候选框生成与检测应共享主干特征并交替/联合训练，这是后续一揽子两阶段检测器（FPN、Mask R-CNN 等）的默认训练方式。
 不成立：共享仅省算力不涨点甚至掉点，则 proposal 质量与检测性能的耦合假设存疑，方案里应把 proposal 网络当作可独立调优的模块（见 [两阶段对比卡](claim-fastrcnn-two-stage-beats-one-stage.md)）。

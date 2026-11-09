@@ -3,7 +3,7 @@ id: claim-centernettriplets-cre-ap-gain-small-objects
 title: "CenterNet（Keypoint Triplets）论文声称：仅在 CornerNet511-52 上增加中心点热图分支（CRE）AP 37.6%→39.9%（+2.3），增益集中于小物体（AP_S +4.6，AP_L 几乎不变）"
 type: claim
 status: asserted
-scope: "笔记 §消融实验组件叠加消融的第一步：CornerNet511-52 基线（输入分辨率 511×511，骨干 Hourglass-52）上仅增加中心点热图分支（中心点检测用普通卷积，未加特殊池化）；AP / AP_S / AP_L 为论文自报，数据集已按原文补核：MS-COCO validation（arXiv 1904.08189v3 §4.5 Table 4 caption，2026-11-05 实抓命中），37.6→39.9 / AP_S +4.6 / AP_L 52.2→52.3 均在原文命中"
+scope: "笔记 §消融实验组件叠加消融的第一步：CornerNet511-52 基线（输入分辨率 511×511，骨干 Hourglass-52）上仅增加中心点热图分支（中心点检测用普通卷积，未加特殊池化）；数据集 MS-COCO validation（arXiv 1904.08189v3 §4.5 Table 4 caption）；AP / AP_S / AP_L 数字为论文自报，2026-11-05 已按原文补核命中（见 falsifier 1）"
 tags: [centernet, cornernet, keypoint-triplets, central-region-verification, ablation, small-objects]
 note: library/Classical_Detection/CenterNet：Keypoint Triplets.md#消融实验
 paper: "ICCV 2019, CenterNet: Keypoint Triplets for Object Detection（开源：https://github.com/Duankaiwen/CenterNet）"
@@ -50,7 +50,7 @@ related: [claim-centernettriplets-ctp-ap-gain-large-objects, claim-centernettrip
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称：在 CornerNet511-52 基线上只加一个中心点热图分支，用"正确框的中心区域应能检测到同类中心点"这一验证逻辑过滤角点配对出的框，AP 就从 37.6% 升到 39.9%（+2.3）；分解上小物体受益最大（AP_S +4.6），大物体几乎不动（AP_L 52.2→52.3）。笔记归因：小物体位置稍偏中心点就落到框外，中心验证能高效过滤小物体的"空框"误检；大物体容错率高，普通卷积也能蒙对。
 
@@ -58,7 +58,7 @@ signoff: null
 1. 这是组件叠加消融的第一步，+2.3 是相对纯 CornerNet 基线的增量，不含后续 CTP/CCP 的贡献。
 2. 中心区域随物体尺度自适应（小物体 n=3 / 大物体 n=5）是笔记 §方法的设计描述，消融未单独验证该取值，本卡不主张其独立有效性。
 
-同名不同作提醒：本篇是 Duan 等的 Keypoint Triplets（角点+中心点三元组，中心点用于事后验证 corner 框），与 Zhou 等的 Objects as Points（中心点直接回归框，见 [claim-centernetpoints-regression-replaces-keypoint-grouping](claim-centernetpoints-regression-replaces-keypoint-grouping.md)）不是同一篇，两者对 "center" 的用法完全不同，引用时勿混。
+同名不同作：本篇是 Duan 等的 Keypoint Triplets（角点+中心点三元组，中心点用于事后验证 corner 框），与 Zhou 等的 Objects as Points（中心点直接回归框，见 [claim-centernetpoints-regression-replaces-keypoint-grouping](claim-centernetpoints-regression-replaces-keypoint-grouping.md)）不是同一篇，两者对 "center" 的用法完全不同，引用时勿混。
 
 ## 待验证
 
@@ -66,7 +66,7 @@ signoff: null
 - 用 Duankaiwen/CenterNet 官方实现复现 CRE-only 配置，验证 +2.3 与尺寸分解是否成立（同范围复现）。
 - 统计被中心验证过滤掉的框中小物体"空框"占比，验证"过滤小物体误检"的归因（机制辨别）。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：给角点系检测器加中心验证分支是低代价、对小目标误检抑制明显的组件，小目标密集场景选型可引用（进方案前需 verified）。
 不成立：增益依赖笔记转述或与后续组件耦合，本卡收窄为定性主张或标记笔记数字存疑。

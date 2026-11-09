@@ -3,7 +3,7 @@ id: claim-centernettriplets-gt-center-oracle-ap-565
 title: "CenterNet（Keypoint Triplets）论文声称：推断时用 GT 中心点替换预测中心点过滤框，AP 41.3%→56.5%（+15.2），当前性能瓶颈在中心点检测精度"
 type: claim
 status: asserted
-scope: "笔记 §错误分析所载 oracle 实验（笔记标注 Table 5）：在消融最终配置（CRE+CTP+CCP，AP 41.3%）的推断中，不用网络预测的中心点、改用 GT 中心点过滤角点框；56.5% 为论文自报上限值，非系统最终精度；数据集与实验设置已按原文补核：MS-COCO validation（arXiv 1904.08189v3 §4.6，2026-11-05 实抓命中），论文另报 CenterNet511-104 同型 oracle 44.8→58.1（笔记未载）"
+scope: "笔记 §错误分析所载 oracle 实验（笔记标注 Table 5）：在消融最终配置（CRE+CTP+CCP，AP 41.3%）的推断中，不用网络预测的中心点、改用 GT 中心点过滤角点框；56.5% 为论文自报上限值，非系统最终精度；数据集 MS-COCO validation，2026-11-05 已按 arXiv 1904.08189v3 §4.6 原文补核（见 falsifier 1）；论文另报 CenterNet511-104 同型 oracle 44.8→58.1（笔记未载，见 evidence）"
 tags: [centernet, cornernet, keypoint-triplets, oracle, upper-bound, error-analysis]
 note: library/Classical_Detection/CenterNet：Keypoint Triplets.md#错误分析-error-analysis
 paper: "ICCV 2019, CenterNet: Keypoint Triplets for Object Detection（开源：https://github.com/Duankaiwen/CenterNet）"
@@ -46,7 +46,7 @@ related: [claim-centernettriplets-cre-ap-gain-small-objects, claim-centernettrip
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称：在最终配置（CRE+CTP+CCP，AP 41.3%）上做 oracle 实验——推断时保留网络产出的角点框，只把"中心区域是否含同类中心点"的过滤信号换成 GT 中心点，AP 升到 56.5%（+15.2）。由此推断：三元组框架本身判别力足够，瓶颈集中在中心点热图检测精度，改进杠杆应放在中心点检测上。
 
@@ -61,7 +61,7 @@ signoff: null
 - 官方实现上复现该 oracle；加一组随机中心点过滤对照，隔离"过滤信号质量"贡献的方差范围（机制辨别）。
 - 若用于自家场景：先测中心点热图的 center AP，估计该上限逻辑在本数据的可迁移性（跨条件迁移）。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：评估与改进该类三元组检测器时，中心点热图质量是第一优先监控与投入指标；选型上"上限高但当前欠准"的框架适合作为可改进基线跟踪。
 不成立：上限主要由角点定位或框质量决定，改进重心应回到角点/框回归侧，本卡降级为"记录了一次 oracle 实验"。

@@ -3,7 +3,7 @@ id: claim-fcos-fpn-scale-range-assignment
 title: "FCOS 声称按回归距离范围（而非锚框尺寸）划分 FPN 层级，可使重叠物体的模糊样本比例大幅下降"
 type: claim
 status: asserted
-scope: "2D 目标检测（FCOS，ICCV 2019）；FPN P3–P7 分层，距离范围 P3:[0,64] 到 P7:[512,∞]（笔记所载回归距离，未标单位与数据集版本）；2026-11-05 实抓 arXiv 1904.01355v5 补核：分层规则句与 m2…m7 = 0, 64, 128, 256, 512, ∞ 在原文命中；模糊样本占比论文有报（Table 2，消融口径 minival）：无 FPN 分层 23.16%（仅跨类 17.84%）→ 有 FPN 分层 7.14%（仅跨类 3.75%），笔记未载数字、本卡仍只主张分层规则与消歧方向；消融数字为论文自报"
+scope: "2D 目标检测（FCOS，ICCV 2019）；FPN P3–P7 分层，距离范围 P3:[0,64] 到 P7:[512,∞]（笔记所载回归距离，未标单位与数据集版本）；本卡主张分层规则与消歧方向，Table 2 的模糊样本占比为论文自报（见正文）"
 tags: [fcos, anchor-free, detection, fpn, multi-scale]
 note: library/Classical_Detection/FCOS.md#fpn-解决重叠
 paper: "ICCV 2019, FCOS: Fully Convolutional One-Stage Object Detection（开源：https://github.com/tianzhi0549/FCOS）"
@@ -46,7 +46,7 @@ related: [claim-fcos-anchorfree-pixelwise-formulation, claim-fcos-centerness-sup
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 笔记声称：逐像素预测会遇到一个位置落在多个重叠物体内的模糊问题；FCOS 不按锚框尺寸、而按回归距离范围给 FPN 各层划分预测职责（P3:[0,64] … P7:[512,∞]），使绝大多数尺寸不同的重叠物体被分到不同层级，模糊样本比例大幅下降；仍有重叠时取面积最小的框。
 
@@ -54,12 +54,11 @@ signoff: null
 
 ## 待验证
 
-- 已核对（2026-11-05）：分层规则、m2…m7 数值、模糊样本定义与取面积最小框规则、Table 2 数字均在 arXiv v5 原文命中，见 evidence。
 - 在官方实现中找到各层 scale range 配置，核对与笔记/原文一致（代码侧仍未查，作为复现前置）。
 - 统计开启 / 关闭分层限制时的模糊样本占比，验证“大幅下降”是否成立，对照论文锚点 23.16%→7.14%（同范围复现）。
 - 对照按目标面积分配层级的变体，确认消歧效果是否为距离范围规则特有（机制辨别）。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：FPN 多尺度消歧靠“回归距离范围”而非锚框超参，是 anchor-free 设计中可迁移的分层原则，后续无锚框检测器可直接引用。
 不成立：消歧主要来自其他机制（如 center-ness 或回归目标形式），分层规则的作用需降级，引用时不可把消歧归因于它。

@@ -42,7 +42,7 @@ related: [claim-centernetpoints-heatmap-peaks-replace-nms, claim-centernetpoints
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称：CornerNet 需要为每个物体预测左上/右下一对角点，并用 embedding 向量距离做组合配对；CenterNet 把物体建模为单个中心点，在该点上用 Size Head 直接回归宽高（全类别共享、L1 loss、仅中心点位置计算），配对问题随之消失，推理退化为纯前向传播。
 
@@ -55,7 +55,7 @@ signoff: null
 - 复现 CornerNet 基线与 CenterNet：验证去掉 embedding 配对不影响框的组装（每中心点一个框）。
 - 构造同格子多目标极端样本，检验单点建模的失效边界。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：单点建模 + 属性回归是无锚框检测的一条可复用范式（后续 3D 检测、姿态估计扩展同源），可作为路线引用。
 不成立：中心点回归方案必须辅以配对/组合机制，本卡改为记录"替代配对"表述与实现不符，选型需重新评估组合后处理的开销。

@@ -3,7 +3,7 @@ id: claim-centernettriplets-ctp-ap-gain-large-objects
 title: "CenterNet（Keypoint Triplets）论文声称：中心点分支用 Center Pooling 替换普通卷积再 +0.9 AP（39.9%→40.8%），增益主要来自大物体（AP_L 52.3%→53.6%）"
 type: claim
 status: asserted
-scope: "笔记 §消融实验组件叠加消融的第二步（累计含 CRE）：在已有中心点热图分支的模型上，用 Center Pooling（水平方向与垂直方向分别取最大值再相加）替换中心点分支的普通卷积；+0.9 AP 为该步增量（39.9→40.8）、论文自报；数据集已按原文补核：MS-COCO validation（arXiv 1904.08189v3 §4.5 Table 4 caption，2026-11-05 实抓命中），39.9→40.8 与 AP_L 52.2→53.6（正文口径）/ 52.3→53.6（Table 4 行读数）均在原文命中"
+scope: "笔记 §消融实验组件叠加消融的第二步（累计含 CRE）：在已有中心点热图分支的模型上，用 Center Pooling（水平方向与垂直方向分别取最大值再相加）替换中心点分支的普通卷积；+0.9 AP 为该步增量（39.9→40.8）；数据集 MS-COCO validation（arXiv 1904.08189v3 §4.5 Table 4 caption）；数字为论文自报，2026-11-05 已按原文补核命中（AP_L 起点 52.2/52.3 两种读数之别见 falsifier 1）"
 tags: [centernet, cornernet, keypoint-triplets, center-pooling, ablation, large-objects]
 note: library/Classical_Detection/CenterNet：Keypoint Triplets.md#消融实验
 paper: "ICCV 2019, CenterNet: Keypoint Triplets for Object Detection（开源：https://github.com/Duankaiwen/CenterNet）"
@@ -42,12 +42,12 @@ related: [claim-centernettriplets-cre-ap-gain-small-objects, claim-centernettrip
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称：CTP 针对的问题是物体几何中心往往没有显著视觉特征（笔记举例：甜甜圈中间是空的、人的中心在衣服上），普通卷积提不出中心特征；Center Pooling 让中心点从水平/垂直十字方向"借"最大值特征，使大物体中心变得可识别，表现为该步 AP_L 52.3→53.6（+1.4），而整卡增量 +0.9 AP 是在 CRE 之后的第二档。
 
 两个限定：
-1. 这是叠加在 CRE 之上的增量主张（第二步），不是 Center Pooling 从头独立训练的对比；+0.9 不能与 CRE 的 +2.3 直接相加后当作"池化总贡献"。（2026-11-05 补核：论文 §4.5 prose 对 AP_L 增量的写法是 52.2→53.6（相对基线行），Table 4 第三行 +CRE 的 AP_L 读数是 52.3；笔记取 52.3→53.6，+1.4 两处一致，引用时知道这两个起点读数皆出自原文即可。）
+1. 这是叠加在 CRE 之上的增量主张（第二步），不是 Center Pooling 从头独立训练的对比；+0.9 不能与 CRE 的 +2.3 直接相加后当作"池化总贡献"。（2026-11-05 补核：AP_L 起点 52.2（论文 §4.5 prose）/52.3（Table 4 第三行 +CRE）两个读数均出自原文，+1.4 一致，详见 falsifier 1。）
 2. Center Pooling 与 CornerNet 的 Corner Pooling 同属方向性 max+sum 池化家族（见 [claim-cornernet-corner-pooling-directional-maxsum](claim-cornernet-corner-pooling-directional-maxsum.md)），区别在于作用位置（中心点分支）与方向组合（十字双向），本卡不主张两者的机制等同。
 
 ## 待验证
@@ -56,7 +56,7 @@ signoff: null
 - 官方实现上做 CRE-only vs CRE+CTP 对照复现，验证增量与尺寸分解（同范围复现）。
 - 检验归因：把 Center Pooling 换成普通大感受野卷积（控制感受野），若大物体增益相当，则"方向性借特征"的解释不成立（机制辨别）。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：中心特征弱的大物体（纹理居中不明显）场景，中心点分支配方向性池化是有效设计，可与 CRE 卡（小物体收益）互补引用。
 不成立：+0.9 依赖笔记转述或来自感受野/参数量变化而非方向性池化机制，设计主张收窄为"更大容量中心分支有少量收益"。

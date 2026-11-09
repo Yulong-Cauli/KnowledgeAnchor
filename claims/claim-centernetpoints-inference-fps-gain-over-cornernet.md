@@ -3,7 +3,7 @@ id: claim-centernetpoints-inference-fps-gain-over-cornernet
 title: "CenterNet 论文声称：同骨干下推理速度约为 CornerNet 两倍（Hourglass-104 7.8 vs 4.1 FPS），DLA-34 达 52 FPS"
 type: claim
 status: asserted
-scope: "笔记 §对比分析表所载推理速度对比：CornerNet Hourglass-104 4.1 FPS vs CenterNet Hourglass-104 7.8 FPS、CenterNet DLA-34 52 FPS；2026-11-05 实抓 arXiv 1904.07850v2 补核口径：三数字均在原文（COCO，§6.1 正文与 Table 1/2）——7.8 FPS 为 Hourglass-104 flip-test 口径（无翻转 14 FPS），52 FPS 为 DLA-34 无翻转单尺度口径（flip 后 28 FPS），测量硬件 Titan Xp（§6.1），训练输入 512×512、测试按 CornerNet 惯例保持原图分辨率；CornerNet 4.1 FPS 是否同机测量无法从纯文本确认（Table 2 caption 注明转引数字用斜体标示，纯文本提取丢失斜体信息）；数字为笔记/论文自报，本库未复测推理速度"
+scope: "笔记 §对比分析表所载推理速度对比（COCO）：CornerNet Hourglass-104 4.1 FPS vs CenterNet Hourglass-104 7.8 FPS（flip-test 口径）、CenterNet DLA-34 52 FPS（无翻转单尺度口径）；测量硬件 Titan Xp，训练输入 512×512、测试按 CornerNet 惯例保持原图分辨率；数字为笔记/论文自报，本库未复测推理速度；2026-11-05 已按 arXiv 1904.07850v2 原文补核（口径明细与「CornerNet 4.1 是否同机测量」残留见 falsifier 1）"
 tags: [centernet, latency, cornernet, fps]
 note: library/Classical_Detection/CenterNet：Objects as Points.md#对比分析centernet-vs-cornernet
 paper: "arXiv 2019, CenterNet: Objects as Points（开源：https://github.com/xingyizhou/CenterNet）"
@@ -50,13 +50,13 @@ related: [claim-centernetpoints-regression-replaces-keypoint-grouping, claim-cen
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 笔记所载（论文声称）：CenterNet 移除了 CornerNet 的 embedding 配对与后处理清理，推理速度显著提升——同为 Hourglass-104 骨干时 4.1 FPS 提升到 7.8 FPS，DLA-34 骨干达 52 FPS。提速来源按笔记归因于：配对消失（纯前向传播）与峰值提取替代 NMS。
 
 两个限定：
 1. 该对比表只给了 FPS，没有同表给出两侧的精度数字；本卡只主张速度差，不主张"更快且更准"。（2026-11-05 补核：论文 §6.1 正文实际同时主张了同骨干下"both speed and accuracy"——CornerNet 40.6% AP in 4.1 FPS vs CenterNet 42.2% AP in 7.8 FPS，但该精度主张不在本卡命题内。）
-2. 测量口径已于 2026-11-05 按原文补核：硬件 Titan Xp；7.8 FPS 是 Hourglass-104 flip-test 口径（同表无翻转为 14 FPS），52 FPS 是 DLA-34 无翻转单尺度口径（flip 后 28 FPS），两侧口径不同但均出自同一论文自报体系；唯一无法从纯文本确认的是 Table 2 中 CornerNet 4.1 FPS 是否为同机复测（该表注明转引数字以斜体标示，pdftotext 丢失斜体信息），引用时注明此残留。
+2. 测量口径已于 2026-11-05 按原文补核（明细见 falsifier 1）：7.8 FPS 是 Hourglass-104 flip-test 口径、52 FPS 是 DLA-34 无翻转单尺度口径，两侧口径不同但均出自同一论文自报体系；唯一残留是 CornerNet 4.1 FPS 是否同机复测无法从纯文本确认，引用时注明。
 
 ## 待验证
 
@@ -64,9 +64,9 @@ signoff: null
 - 用官方实现在同一 GPU 上复测 Hourglass-104 与 DLA-34 的 FPS，与 CornerNet 官方实现对齐口径对比（同范围复现）。
 - 拆分提速来源：关闭/打开 NMS 与配对模块分别计时，验证"fewer output heads + simpler decoding"归因（机制辨别）。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
-成立：无配对 + 无 NMS 的单点检测范式在推理速度上有实质收益，边缘实时检测选型可引用（需先补口径核对，进方案前仍需 verified）。
+成立：无配对 + 无 NMS 的单点检测范式在推理速度上有实质收益，边缘实时检测选型可引用（口径残留见 falsifier 1，进方案前仍需 verified）。
 不成立：速度差异依赖未注明的测量口径或骨干差异，本卡收窄为定性主张或改为记录笔记数字存疑。
 
 ## 核查记录

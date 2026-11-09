@@ -3,7 +3,7 @@ id: claim-cornernet-associative-embedding-pull-push
 title: "CornerNet 论文声称：以 1 维 Associative Embedding 加 pull/push 损失（push 间隔 Δ=1）完成左上-右下角点配对分组"
 type: claim
 status: asserted
-scope: "设计层面主张：角点分组机制——每个角点预测 1 维嵌入向量，pull 损失拉近同物体角点、push 损失以 Δ=1 间隔推开不同物体，总损失中 pull/push 权重均为 0.1（检测损失为主导）；依据笔记转述；2026-11-05 实抓 arXiv 1808.01244v2 补核：1 维嵌入、Δ=1、α=β=0.1（γ=1）三处均在原文命中；笔记未载配对质量消融与性能数字"
+scope: "设计层面主张：角点分组机制——每个角点预测 1 维嵌入向量，pull 损失拉近同物体角点、push 损失以 Δ=1 间隔推开不同物体，总损失中 pull/push 权重均为 0.1（检测损失为主导）；依据笔记转述，2026-11-05 已按 arXiv 1808.01244v2 原文补核命中（见 falsifier 1）；笔记未载配对质量消融与性能数字"
 tags: [object-detection, associative-embedding, keypoint-grouping, cornernet, eccv2018]
 note: library/Classical_Detection/CornerNet.md#embeddings--预测配对
 paper: "ECCV 2018, CornerNet: Detecting Objects as Paired Keypoints（代码 https://github.com/princeton-vl/CornerNet，笔记头部出处）"
@@ -50,11 +50,11 @@ related: [claim-cornernet-paired-keypoints-anchor-free, claim-cornernet-corner-p
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称（笔记所载）：CornerNet 用 Associative Embedding 解决"哪个左上角属于哪个右下角"的分组问题——网络为每个角点输出 1 维嵌入向量；pull 损失把同一物体两角点的嵌入拉近到其均值，push 损失把不同物体的嵌入推开至少 Δ=1；总损失 L = L_det + α·L_pull + β·L_push + γ·L_off 中 α=β=0.1（检测损失权重 1，为主导项）。
 
-限定：笔记未载配对质量的消融或指标（如按嵌入距离匹配的成功率），本卡不主张"AE 配对优于其他配对方式"——CenterNet 已改用回归替代配对，见 related 卡。2026-11-05 原文补核：1 维嵌入、Δ=1、α=β=0.1（γ=1）三处均在 arXiv v2 原文命中，且论文自报 α/β 取 1 或更大时性能变差（即分组损失必须保持小权重，检测损失为主导）。
+限定：笔记未载配对质量的消融或指标（如按嵌入距离匹配的成功率），本卡不主张"AE 配对优于其他配对方式"——CenterNet 已改用回归替代配对，见 related 卡。论文另自报 α/β 取 1 或更大时性能变差，分组损失因此保持小权重、由检测损失主导（补核命中明细见 falsifier 1）。
 
 ## 待验证
 
@@ -62,7 +62,7 @@ signoff: null
 - 读 princeton-vl/CornerNet 损失与推理代码：核对 pull/push 公式实现、配对按嵌入距离做 top-k 匹配，而非其他启发式（代码侧，falsifier 2/3 保留）。
 - 补记评测数据集版本（笔记未载；论文消融/主结果在 MS COCO 上，具体 split 未在笔记展开，未逐字核对，暂不立卡）。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立："嵌入分组"是无锚框成对关键点检测器处理多物体组合的代表做法，可作为后续方法（CenterNet 以回归替代配对）对比的基准点。
 不成立：笔记转述与实现不符，需修订笔记并复核本卡。

@@ -29,7 +29,7 @@ related: [claim-fastrcnn-roipooling-arbitrary-to-fixed-feature]
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 笔记声称：Fast R-CNN 用单一多任务损失 L = L_cls + λ·[u≥1]·L_loc（分类为 log loss，回归为 smooth L1，背景 RoI 不计回归项），一次反向传播同时更新分类器与边界框回归器，实现单阶段训练；消融（Table 6）在 S、M、L 三个模型上比较了仅分类损失、多任务联合、stage-wise 三种设置，结论是多任务训练在三个模型上都优于仅分类损失。
 
@@ -41,7 +41,7 @@ signoff: null
 - 同设置复现三种训练方式（cls-only / multi-task / stage-wise），比较 mAP。
 - 核对 smooth L1 定义（|x|<1 时 0.5x²，否则 |x|-0.5）与“L2 易梯度爆炸、L1 尖角难收敛”的动机描述。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：分类与框回归可共享表征联合优化，无需分阶段训练或独立 SVM 分类器，这是检测头“一个损失、两个分支”设计的依据。
 不成立：联合训练仅在某类 backbone 或某些数据集上占优，则选型时需按模型规模分开评估；笔记结论需按论文 Table 6 修订。
