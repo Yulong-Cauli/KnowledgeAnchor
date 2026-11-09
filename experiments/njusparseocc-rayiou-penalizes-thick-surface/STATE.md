@@ -1,6 +1,5 @@
 # STATE — K-probe-2（ka-verify-probe-rayiou-nf4-flops）
 
-- phase: **running**（v1，2026-11-09 04:5x push）
-- 预注册: eafa8a0（EXP/README，先于 push）
-- 本地冒烟: P1 RayIoU toy 全跑 SUPPORT（mIoU 0.171→0.773 获利、RayIoU delta=0.0）；P3 论文侧 CONSISTENT；P2 管线通（bnb 真源码 Kaggle 内抓取，本机 GitHub 不通用 stub 验管线）
-- 下一动作: complete → 收割（RESULTS 四件套 → 三卡核查记录 → #48 材料追加 QUESTIONS）
+- **2026-11-09 收回 v3，部分完成。** Kaggle 状态为 `COMPLETE`。P1 合成对照和 P3 论文算术已归档，P1b 的官方评测器核对仍有缺口。
+- **P2 NF4 阻塞。** v3 下载了源码，执行时遇到相对导入错误，四项数值均未产出。两次修复额度已用完。
+- 预注册为 `eafa8a0`。分项结果、环境快照和校验记录见 [RESULTS.md](RESULTS.md)。

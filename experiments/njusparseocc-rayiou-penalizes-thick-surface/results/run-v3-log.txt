@@ -1,0 +1,58 @@
+[{"stream_name":"stderr","time":11.39737356,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":11.397433959,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":11.397439385,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":11.397442549,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":12.324881535,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":12.324921008,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":12.324926623,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":12.324930892,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":16.850475723,"data":"{\"kernel\": \"ka-verify-probe-rayiou-nf4-flops\", \"started\": \"2026-11-09 00:22:23\", \"numpy\": \"2.1.3\"}\n"}
+,{"stream_name":"stdout","time":17.46283409,"data":"rays intersecting GT sphere: 5011 / 8192\n"}
+,{"stream_name":"stdout","time":18.101132098,"data":"{\"rays_hit_gt\": 5011, \"delta_rayiou\": 0.0, \"delta_miou\": 0.6020583190394511, \"verdict\": \"SUPPORT: mIoU 获利 \u003e0.05 而 RayIoU 不升（加厚换不了分）\"}\n"}
+,{"stream_name":"stdout","time":18.101178608,"data":"thin : {'rayiou': 0.9897818824916488, 'per_tau': {'1.0': 0.969345647474946, '2.0': 1.0, '4.0': 1.0}, 'miou': 0.17066895368782162, 'voxels': 3712}\n"}
+,{"stream_name":"stdout","time":18.101184782,"data":"thick: {'rayiou': 0.9897818824916488, 'per_tau': {'1.0': 0.969345647474946, '2.0': 1.0, '4.0': 1.0}, 'miou': 0.7727272727272727, 'voxels': 9328}\n"}
+,{"stream_name":"stdout","time":18.101189454,"data":"=== P1 === SUPPORT: mIoU 获利 \u003e0.05 而 RayIoU 不升（加厚换不了分）\n"}
+,{"stream_name":"stdout","time":19.190260188,"data":"{\"repo\": \"https://github.com/MCG-NJU/SparseOcc\", \"checked_at\": \"2026-11-09 00:22:27\", \"clone_rc\": 0, \"head\": \"af4d9df83bfd1b82c2b095fca793ff7ba49d5e9f\", \"rayiou_files\": \"loaders/nuscenes_occ_dataset.py\\nloaders/ray_metrics.py\\nray_metrics.py\", \"operator_facts_grep\": \"loaders/ray_metrics.py:139:    thresholds = [1, 2, 4]\\nloaders/ray_metrics.py:143:    tp_cnt = np.zeros([len(thresholds), len(occ_class_names)])\\nloaders/ray_metrics.py:146:        for j, threshold in enumerate(thresholds):\\nloaders/ray_metrics.py:151:            tp_dist_mask = (l1_error \u003c threshold)\\nloaders/ray_metrics.py-166-                tp_cnt[j][i] += tp_mask.sum()\\nloaders/ray_metrics.py:169:    for j, threshold in enumerate(thresholds):\\nloaders/ray_metrics.py-170-        iou_list.append((tp_cnt[j] / (gt_cnt + pred_cnt - tp_cnt[j]))[:-1])\\nloaders/ray_metrics.py:237:        thresholds=[1, 2, 4]\", \"note\": \"四项核对（硬阈值/\n"}
+,{"stream_name":"stdout","time":19.464915127,"data":"fetched bnb functional.py 520a9e9d3afba111\n"}
+,{"stream_name":"stdout","time":24.098367499,"data":"verdict_1 = SKIPPED: ImportError('attempted relative import with no known parent package')\n"}
+,{"stream_name":"stdout","time":24.099712205,"data":"verdict_2 = SKIPPED: ImportError('attempted relative import with no known parent package')\n"}
+,{"stream_name":"stdout","time":24.100926653,"data":"verdict_4 = SKIPPED: ImportError('attempted relative import with no known parent package')\n"}
+,{"stream_name":"stdout","time":24.102250192,"data":"max_err_formula_vs_table = None\n"}
+,{"stream_name":"stdout","time":24.103294889,"data":"eq4_first_positive = None\n"}
+,{"stream_name":"stdout","time":24.104456338,"data":"nf4_bin_rel_dev_max = None\n"}
+,{"stream_name":"stdout","time":24.113529079,"data":"int4_bin_rel_dev_max = None\n"}
+,{"stream_name":"stdout","time":24.11355711,"data":"eq_err_nf4 = None\n"}
+,{"stream_name":"stdout","time":24.11359956,"data":"eq_err_int4 = None\n"}
+,{"stream_name":"stdout","time":24.113604292,"data":"eq_err_af4 = None\n"}
+,{"stream_name":"stdout","time":24.126408122,"data":"{\n"}
+,{"stream_name":"stdout","time":24.126443532,"data":" \"paper\": {\n"}
+,{"stream_name":"stdout","time":24.126447706,"data":"  \"sparseocc_G\": 455,\n"}
+,{"stream_name":"stdout","time":24.126450723,"data":"  \"cconet_G\": 1810,\n"}
+,{"stream_name":"stdout","time":24.126453526,"data":"  \"claimed_reduction\": 74.9\n"}
+,{"stream_name":"stdout","time":24.126457035,"data":" },\n"}
+,{"stream_name":"stdout","time":24.126459935,"data":" \"recomputed_reduction_pct\": 74.86187845303867,\n"}
+,{"stream_name":"stdout","time":24.126462735,"data":" \"ratio\": 0.2513812154696133,\n"}
+,{"stream_name":"stdout","time":24.126465429,"data":" \"arithmetic_consistent\": true,\n"}
+,{"stream_name":"stdout","time":24.126468232,"data":" \"ratio_about_quarter\": true,\n"}
+,{"stream_name":"stdout","time":24.126471075,"data":" \"scope_note\": \"缩范围：本夜只闭合论文侧算术自洽（falsifier c 方向的转引结构核对另由卡片历史覆盖）；455G 运行时复算需 mmdet3d 栈，留池\",\n"}
+,{"stream_name":"stdout","time":24.126475335,"data":" \"verdict\": \"PAPER-SIDE CONSISTENT\"\n"}
+,{"stream_name":"stdout","time":24.126478233,"data":"}\n"}
+,{"stream_name":"stdout","time":24.126480946,"data":"=== P3 === PAPER-SIDE CONSISTENT\n"}
+,{"stream_name":"stdout","time":24.146218635,"data":"=== CONCLUSION 1 (P1 rayiou toy) === SUPPORT: mIoU 获利 \u003e0.05 而 RayIoU 不升（加厚换不了分）\n"}
+,{"stream_name":"stdout","time":24.146254124,"data":"=== CONCLUSION 2 (P2 nf4) === SKIPPED: ImportError('attempted relative import with no known parent package') | SKIPPED: ImportError('attempted relative import with no known parent package') | SKIPPED: ImportError('attempted relative import with no known parent package')\n"}
+,{"stream_name":"stdout","time":24.146261711,"data":"=== CONCLUSION 3 (P3 flops paper-side) === PAPER-SIDE CONSISTENT\n"}
+,{"stream_name":"stdout","time":24.146266069,"data":"/kaggle/working/results/experiment-summary.json 3113 7d4053b06bfbfcf9\n"}
+,{"stream_name":"stdout","time":24.146270563,"data":"/kaggle/working/results/nf4/bnb_functional_fetched.py 65287 520a9e9d3afba111\n"}
+,{"stream_name":"stdout","time":24.146275656,"data":"/kaggle/working/results/nf4/metrics.json 604 8914f9f2714d82ba\n"}
+,{"stream_name":"stdout","time":24.146280048,"data":"/kaggle/working/results/rayiou/metrics.json 726 60297c88f71e9caf\n"}
+,{"stream_name":"stdout","time":24.146284515,"data":"/kaggle/working/results/rayiou/official_code_check.json 1109 154268b460ed93c7\n"}
+,{"stream_name":"stdout","time":24.146289052,"data":"/kaggle/working/results/flops/metrics.json 586 38fa56a7da9327b1\n"}
+,{"stream_name":"stderr","time":28.270060387,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":28.270096397,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":28.520333901,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":28.520428066,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":29.492790625,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":29.588371883,"data":"[NbConvertApp] Writing 25294 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":33.041938027,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":33.825776868,"data":"[NbConvertApp] Writing 362979 bytes to __results__.html\n"}
+]

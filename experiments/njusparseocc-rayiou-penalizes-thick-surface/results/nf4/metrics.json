@@ -1,0 +1,9 @@
+{
+ "url": "https://raw.githubusercontent.com/bitsandbytes-foundation/bitsandbytes/main/bitsandbytes/functional.py",
+ "fetched_at": "2026-11-09 00:22:28",
+ "sha256": "520a9e9d3afba11124734df60e48a27e38b6389305df888834405b435e285817",
+ "error": "ImportError('attempted relative import with no known parent package')",
+ "verdict_1": "SKIPPED: ImportError('attempted relative import with no known parent package')",
+ "verdict_2": "SKIPPED: ImportError('attempted relative import with no known parent package')",
+ "verdict_4": "SKIPPED: ImportError('attempted relative import with no known parent package')"
+}

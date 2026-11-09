@@ -1,0 +1,13 @@
+{
+ "paper": {
+  "sparseocc_G": 455,
+  "cconet_G": 1810,
+  "claimed_reduction": 74.9
+ },
+ "recomputed_reduction_pct": 74.86187845303867,
+ "ratio": 0.2513812154696133,
+ "arithmetic_consistent": true,
+ "ratio_about_quarter": true,
+ "scope_note": "\u7f29\u8303\u56f4\uff1a\u672c\u591c\u53ea\u95ed\u5408\u8bba\u6587\u4fa7\u7b97\u672f\u81ea\u6d3d\uff08falsifier c \u65b9\u5411\u7684\u8f6c\u5f15\u7ed3\u6784\u6838\u5bf9\u53e6\u7531\u5361\u7247\u5386\u53f2\u8986\u76d6\uff09\uff1b455G \u8fd0\u884c\u65f6\u590d\u7b97\u9700 mmdet3d \u6808\uff0c\u7559\u6c60",
+ "verdict": "PAPER-SIDE CONSISTENT"
+}

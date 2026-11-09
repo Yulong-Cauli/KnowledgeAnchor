@@ -1,0 +1,9 @@
+{
+ "repo": "https://github.com/MCG-NJU/SparseOcc",
+ "checked_at": "2026-11-09 00:22:27",
+ "clone_rc": 0,
+ "head": "af4d9df83bfd1b82c2b095fca793ff7ba49d5e9f",
+ "rayiou_files": "loaders/nuscenes_occ_dataset.py\nloaders/ray_metrics.py\nray_metrics.py",
+ "operator_facts_grep": "loaders/ray_metrics.py:139:    thresholds = [1, 2, 4]\nloaders/ray_metrics.py:143:    tp_cnt = np.zeros([len(thresholds), len(occ_class_names)])\nloaders/ray_metrics.py:146:        for j, threshold in enumerate(thresholds):\nloaders/ray_metrics.py:151:            tp_dist_mask = (l1_error < threshold)\nloaders/ray_metrics.py-166-                tp_cnt[j][i] += tp_mask.sum()\nloaders/ray_metrics.py:169:    for j, threshold in enumerate(thresholds):\nloaders/ray_metrics.py-170-        iou_list.append((tp_cnt[j] / (gt_cnt + pred_cnt - tp_cnt[j]))[:-1])\nloaders/ray_metrics.py:237:        thresholds=[1, 2, 4]",
+ "note": "\u56db\u9879\u6838\u5bf9\uff08\u786c\u9608\u503c/\u9996\u4e2d/tau \u96c6\u5408/\u805a\u5408\uff09\u7531\u6536\u5272\u65f6\u6309 operator_facts_grep \u4eba\u5de5\u5b9a\u8bba\uff1bgrep \u539f\u6587\u7167\u5f55"
+}

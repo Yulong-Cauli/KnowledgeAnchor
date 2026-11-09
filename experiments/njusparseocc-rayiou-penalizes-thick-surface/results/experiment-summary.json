@@ -1,0 +1,78 @@
+{
+ "kernel": "ka-verify-probe-rayiou-nf4-flops",
+ "started": "2026-11-09 00:22:23",
+ "git_note": "preregister commit eafa8a0 (EXP/README)",
+ "pip_freeze_file": "/kaggle/working/pip-freeze.txt",
+ "numpy": "2.1.3",
+ "p1": {
+  "params": {
+   "grid": 64,
+   "voxel_m": 0.25,
+   "sphere_r_m": 3.0,
+   "n_rays_per_site": 1024,
+   "n_sites": 8,
+   "step_m": 0.125,
+   "tau_m": [
+    1.0,
+    2.0,
+    4.0
+   ]
+  },
+  "rays_hit_gt": 5011,
+  "thin": {
+   "rayiou": 0.9897818824916488,
+   "per_tau": {
+    "1.0": 0.969345647474946,
+    "2.0": 1.0,
+    "4.0": 1.0
+   },
+   "miou": 0.17066895368782162,
+   "voxels": 3712
+  },
+  "thick_in": {
+   "rayiou": 0.9897818824916488,
+   "per_tau": {
+    "1.0": 0.969345647474946,
+    "2.0": 1.0,
+    "4.0": 1.0
+   },
+   "miou": 0.7727272727272727,
+   "voxels": 9328
+  },
+  "delta_rayiou": 0.0,
+  "delta_miou": 0.6020583190394511,
+  "verdict": "SUPPORT: mIoU 获利 >0.05 而 RayIoU 不升（加厚换不了分）"
+ },
+ "p1b": {
+  "repo": "https://github.com/MCG-NJU/SparseOcc",
+  "checked_at": "2026-11-09 00:22:27",
+  "clone_rc": 0,
+  "head": "af4d9df83bfd1b82c2b095fca793ff7ba49d5e9f",
+  "rayiou_files": "loaders/nuscenes_occ_dataset.py\nloaders/ray_metrics.py\nray_metrics.py",
+  "operator_facts_grep": "loaders/ray_metrics.py:139:    thresholds = [1, 2, 4]\nloaders/ray_metrics.py:143:    tp_cnt = np.zeros([len(thresholds), len(occ_class_names)])\nloaders/ray_metrics.py:146:        for j, threshold in enumerate(thresholds):\nloaders/ray_metrics.py:151:            tp_dist_mask = (l1_error < threshold)\nloaders/ray_metrics.py-166-                tp_cnt[j][i] += tp_mask.sum()\nloaders/ray_metrics.py:169:    for j, threshold in enumerate(thresholds):\nloaders/ray_metrics.py-170-        iou_list.append((tp_cnt[j] / (gt_cnt + pred_cnt - tp_cnt[j]))[:-1])\nloaders/ray_metrics.py:237:        thresholds=[1, 2, 4]",
+  "note": "四项核对（硬阈值/首中/tau 集合/聚合）由收割时按 operator_facts_grep 人工定论；grep 原文照录"
+ },
+ "p2": {
+  "url": "https://raw.githubusercontent.com/bitsandbytes-foundation/bitsandbytes/main/bitsandbytes/functional.py",
+  "fetched_at": "2026-11-09 00:22:28",
+  "sha256": "520a9e9d3afba11124734df60e48a27e38b6389305df888834405b435e285817",
+  "error": "ImportError('attempted relative import with no known parent package')",
+  "verdict_1": "SKIPPED: ImportError('attempted relative import with no known parent package')",
+  "verdict_2": "SKIPPED: ImportError('attempted relative import with no known parent package')",
+  "verdict_4": "SKIPPED: ImportError('attempted relative import with no known parent package')"
+ },
+ "p3": {
+  "paper": {
+   "sparseocc_G": 455,
+   "cconet_G": 1810,
+   "claimed_reduction": 74.9
+  },
+  "recomputed_reduction_pct": 74.86187845303867,
+  "ratio": 0.2513812154696133,
+  "arithmetic_consistent": true,
+  "ratio_about_quarter": true,
+  "scope_note": "缩范围：本夜只闭合论文侧算术自洽（falsifier c 方向的转引结构核对另由卡片历史覆盖）；455G 运行时复算需 mmdet3d 栈，留池",
+  "verdict": "PAPER-SIDE CONSISTENT"
+ },
+ "finished": "2026-11-09 00:22:33"
+}
