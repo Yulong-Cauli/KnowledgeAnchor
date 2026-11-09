@@ -121,3 +121,4 @@
 2026-11-10 02:21:37 | fire-0220 | 班次开始 | 接管守门（POOL mtime 00:44 >40min）| 白天补班推了 K-fcos/K-lingo；主人双授权 B v6 + probe-2 NF4 配方
 2026-11-10 02:28:59 | fire-0220 | probe-2 v4 推送 | 配方执行：三模块 stub+符号适配+布局修正（[:16]→[0:8]+[248:256]）；本地真源码冒烟 max_err=0.0；P2 三 verdict 落位（SUPPORT/Eq.4 确认/NF4 非最低如实记） | 判定带不动
 2026-11-10 02:29:33 | fire-0220 | env-v2 收割定论 | 双路线 OK（A 新栈 import✓+env-routeA.sh；B 旧栈 mmdet2.25✓，mmdet3d 留 T4）；组 2/3 解锁 | recon 文档已更新
+2026-11-10 02:29:47 | fire-0220 | 收尾 | B v6 状态见上；probe-2 v4 RUNNING（04:20 火收）；fcos v2 修复排 B v6 完成后（06:20 火执行）| CPU 1/2（probe-2 v4）
