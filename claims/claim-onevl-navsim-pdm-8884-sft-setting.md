@@ -38,11 +38,11 @@ related: [claim-onevl-latent-cot-surpasses-explicit-four-benchmarks]
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称：NAVSIM 的 supervised fine-tuning 设定下，OneVL 拿到 88.84 PDM-score，比前 SOTA AdaThinkDrive（86.20）高 +2.64、比 LaST-VLA（87.30）高 +1.54；推理延迟 4.46s 与 answer-only 基线（4.49s）基本相同，即「CoT 的精度、answer-only 的延迟」。
 
-引用时必须带的三点限定：
+三点限定：
 1. 两个前 SOTA 数值在 Table 1 带 ∗——caption 声明 "the result is derived from the corresponding paper"，来源与训练/评测口径与作者自训基线不同（⚠①），+2.64/+1.54 是跨口径比较。
 2. 论文正文的显式 CoT 增益句写 "+0.80 PDM-score"（88.29−87.47），但按 Table 1 数字是 0.82——笔记已注「+0.80 与表差 0.02 口径差」，引用该句时注明（本卡 evidence 第 5 条）。
 3. NAVSIM 对比限定 "supervised fine-tuning setting"（§5.2），不覆盖其它训练范式；延迟测量的硬件/批大小在 HTML 正文中未见说明（笔记 TODO），跨论文延迟不可直接比。
@@ -56,7 +56,7 @@ signoff: null
 - 原文核查：向 AdaThinkDrive、LaST-VLA 原文核对其 NAVSIM 数字与评测协议，确认 ∗ 转引值的可比性。
 - 原文核查 + 同范围复测：查明 4.46s 延迟的硬件环境（GPU 型号/批大小），同硬件下复测与 AR Answer 4.49s / AR CoT+Answer 6.58s 的相对关系。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：4B 模型以 SFT 设定刷新 NAVSIM 且延迟达 answer-only 水平，可作为 NAVSIM 排行的新参照点。
 不成立：领先依赖跨口径转引，则需同口径重赛后再引用。

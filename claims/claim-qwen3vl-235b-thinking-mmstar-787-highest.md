@@ -34,11 +34,11 @@ related: [claim-qwen3vl-length-adaptive-sampling-pretraining]
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
-论文声称：Qwen3-VL-235B-A22B-Thinking 在 MMStar 上取得 78.7 的最高分（§5.1 prose）。这是窄快照卡——只绑定「该模型规格 + MMStar + arXiv v2」这一个点，不外推到其它基准。
+论文声称：Qwen3-VL-235B-A22B-Thinking 在 MMStar 上取得 78.7 的最高分（§5.1 prose）。该声称只绑定「该模型规格 + MMStar + arXiv v2」这一个点，不外推到其它基准。
 
-两个必须记住的限定：
+两个限定：
 1. 同报告的 MMMU 上 Qwen3-VL-Thinking 是 80.6，而 GPT-5(high) 是 84.2*——即在 MMMU 上它并非第一；SOTA 声明是分基准的，MMStar 78.7 这一格不能代表「全面 SOTA」。
 2. 多模态结果大表未随 arXiv HTML v2 提供（§5.1–5.10 有 10 处空交叉引用），MMStar 78.7 目前只有 prose 一个来源；独立核对需查 PDF Table 2（笔记做过抽查，MMStar 78.7 与 prose 一致，但未逐格重建整表）。
 
@@ -50,7 +50,7 @@ signoff: null
 - 原文核查（第三方榜单）：MMStar 官方 leaderboard（若可用）对照该版本下各模型分数。
 - 同范围复现（主张侧）：用开源权重（Apache-2.0，GitHub QwenLM/Qwen3-VL）复测 MMStar。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：选型时 Qwen3-VL-235B-A22B-Thinking 可作为多模态感知/推理底座的首批候选（但按 AGENTS.md 高风险决策仍需 verified）。
 不成立：SOTA 快照依赖自报口径，选型回到对多个基准的自行复测。

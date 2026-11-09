@@ -39,11 +39,11 @@ related: [claim-llava-visual-instruction-tuning-first-gpt4-pipeline, claim-llava
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
-论文声称：在自建的 LLaVA-Bench (COCO)（30 图 90 问）上，LLaVA 拿到 85.1 的 overall 相对分——这是「相对使用 GT caption+box 的 text-only GPT-4」的百分比（GPT-4 作 judge 打 1-10 分后归一），不是绝对准确率；分项为 conversation 83.1 / detail 75.3 / complex reasoning 96.5。同框架下更难的 In-the-Wild 基准上 overall 只有 67.3（complex reasoning 81.7）。
+论文声称：在自建的 LLaVA-Bench (COCO)（30 图 90 问）上，LLaVA 取得 85.1 的 overall 相对分——这是「相对使用 GT caption+box 的 text-only GPT-4」的百分比（GPT-4 作 judge 打 1-10 分后归一），不是绝对准确率；分项为 conversation 83.1 / detail 75.3 / complex reasoning 96.5。同框架下更难的 In-the-Wild 基准上 overall 只有 67.3（complex reasoning 81.7）。
 
-引用时必须带的三点限定（笔记 ⚠ 原注）：
+三点限定（笔记 ⚠ 原注）：
 1. 85.1% 是相对分，不是「答对率」；
 2. In-the-Wild 的 overall 只有 67.3%，COCO 90 问是论文自己数据 pipeline 生成的同分布问题；
 3. 相对分评测依赖 GPT-4 judge 的稳定性，论文仅自证一致（Table 5 脚注），无第三方核验。
@@ -56,7 +56,7 @@ signoff: null
 - 机制辨别（judge 稳定性）：重跑 GPT-4 judge 三次（论文做法）检验打分方差；更换 judge 模型（如 Claude/Gemini）看排序是否稳定——排序不稳则相对分框架本身存疑，先于数字争议处理。
 - 原文核查：核对 arXiv v2 PDF Table 4 与笔记转抄逐格一致（笔记已声明逐单元格核验过，2026-11-03 抓取 abs 页确认 Abstract 的 85.1% 表述，2026-11-05 复抓命中）。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：GPT-4 作 judge 的相对分框架可作为多模态对话能力的低成本评测口径，但引用本文数字时必须写「相对分」。
 不成立：judge 框架有偏（整理者读法：COCO complex reasoning 96.5 高于 In-the-Wild 的 81.7，而 COCO 问题为同管线生成，最值得先查），则该论文及后续沿用该评测的工作（含本库 VLA 组相关笔记中的 judge 类数字）都要降权处理。

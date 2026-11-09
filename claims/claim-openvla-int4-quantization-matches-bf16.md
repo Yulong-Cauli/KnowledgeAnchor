@@ -38,7 +38,7 @@ related: [claim-openvla-7b-outperforms-rt2x-55b-16p5, claim-openvla-lora-rank32-
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称：OpenVLA 可用 int4 量化部署——8 个代表性 BridgeData V2 任务（80 rollouts）上 int4 成功率 71.9±4.7% 与 bfloat16 的 71.3±4.8% 持平，显存从 16.8 GB 降到 7.0 GB（A5000 上 3Hz）。反直觉的 int8 掉点（58.1±5.1%）论文归因于推理速度：A5000 上 int8 只能跑 1.2Hz，改变了 5Hz non-blocking 控制的系统动力学；§D.4 用 blocking control 去掉速度影响后 int8 与 bfloat16/int4 相当，支持该解释。离线 token accuracy 三种精度相当（脚注 5）。
 
@@ -50,7 +50,7 @@ signoff: null
 - 在 15Hz Franka-DROID 设置上验证 int4（该设置对延迟更敏感）。
 - 核对量化实现（代码库支持的 quantized inference 路径）与论文所用 bit 精度方案一致。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：7B VLA 可下放到 8GB 级消费 GPU 做实时操作控制，边缘部署路线可行。
 不成立：量化成功率损失与任务/控制频率强耦合，部署前必须逐场景实测。

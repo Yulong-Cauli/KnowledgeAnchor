@@ -38,16 +38,16 @@ related: [claim-onevl-navsim-pdm-8884-sft-setting, claim-alpamayo-r1-coc-reasoni
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称：把推理压进紧凑 latent token（视觉 4 逻辑位/35 vocab token + 语言 2 逻辑位/20 vocab token），用「未来帧预测」世界模型监督 + 语言 CoT 重建双辅助解码器约束 latent 内容，推理期全部 prefill——OneVL 在其四个 benchmark 上全部优于同底座的显式 AR CoT+Answer，且延迟等同 answer-only（NAVSIM 4.46s vs 4.49s）。此前 latent CoT（COCONUT/CODI/SIM-CoT 移植版）几乎全面低于 answer-only 基线——论文原句自带例外："All three adapted latent CoT methods perform substantially worse than answer-only AR prediction, except for the Alpamayo-R1 dataset"（§5.3；Table 5 中 CODI ADE 3.22 / FDE 9.25 优于 AR Answer 3.27/9.59）。
 
-三个必须记住的限定（笔记 ⚠）：
+三个限定（笔记 ⚠）：
 1. "first/唯一"限于本文的四个 benchmark 与其自训基线设定（⚠⑧），且 latent 基线未用三阶段配方（论文自己承认这是混杂因素，§5.3）。
 2. Alpamayo-R1 benchmark 的 CoT 标签用其公开 checkpoint 自行复现、测试集为作者自建（700 例抽样子集）——Table 5 数字建立在这套自制协议上；OneVL 的 FDE（7.53）其实输给 Cosmos-Reason（7.42）。
 3. 解释质量上显式 AR CoT 仍三项指标全最高（Table 6），OneVL 只是缩小差距。
 
-主干谱系：OneVL 主干即 Qwen3-VL-4B-Instruct（本库 Qwen3-VL 笔记所记家族的 4B 成员）；其第四个 benchmark 即 Alpamayo-R1（CoC 标签复用其 checkpoint，见 claim-alpamayo-r1-coc-reasoning-beats-trajonly-hard-set）。
+主干谱系：OneVL 主干即 Qwen3-VL-4B-Instruct；其第四个 benchmark 即 Alpamayo-R1（CoC 标签复用 Alpamayo-R1 checkpoint，见 claim-alpamayo-r1-coc-reasoning-beats-trajonly-hard-set）。
 
 ## 待验证
 
@@ -57,7 +57,7 @@ signoff: null
 - 同范围复现（对照侧）：给 SIM-CoT/COCONUT 移植版补三阶段训练，检验「配方混杂因素」是否解释 latent 基线的失败；移植版反超则本卡的增益归因（统一表征 vs 训练配方）要改写。
 - 跨条件迁移（不充当原范围反证）：换更大主干（如 8B）验证结论是否随规模保持。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：驾驶 VLA 的推理不必在解码期逐 token 生成——latent + prefill 路线可同时拿到可解释性与 answer-only 延迟，对实时闭环部署有直接价值。
 不成立：显式 CoT 仍不可替代，或增益来自训练配方，则该框架降级为普通多任务训练变体。

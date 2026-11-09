@@ -34,21 +34,21 @@ related: [claim-llava-visual-instruction-tuning-first-gpt4-pipeline, claim-llava
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
-论文声称：数据效率主张——158K 条 GPT-4 生成的指令样本（对应 80K 独立图像）加 595K 图文对的轻量预训练，在 8×A100 上数小时内即可把 CLIP+Vicuna 调成具备多模态对话与推理能力的助手；在 In-the-Wild 24 图基准上 overall 相对分 67.3、complex reasoning 81.7（均为 GPT-4 作 judge、相对 text-only GPT-4 上界的相对分），论文据此称其推理表现与 multimodal GPT-4「相当接近」。Table 4 消融同时显示：同架构不做指令微调只有 21.5（-63.6），指令微调是主要增益来源。
+论文声称：158K 条 GPT-4 生成的指令样本（对应 80K 独立图像）加 595K 图文对的轻量预训练，在 8×A100 上数小时内即可把 CLIP+Vicuna 调成具备多模态对话与推理能力的助手；在 In-the-Wild 24 图基准上 overall 相对分 67.3、complex reasoning 81.7（均为 GPT-4 作 judge、相对 text-only GPT-4 上界的相对分），论文据此称其推理表现与 multimodal GPT-4「相当接近」。Table 4 消融同时显示：同架构不做指令微调只有 21.5（-63.6），指令微调是主要增益来源。
 
-注意「接近 GPT-4」的口径：只在这 24 张图的样例集合上、且以相对分衡量；这是论文自己的表述（"quite similar reasoning results ... on these examples"），不是普适结论。
+「接近 GPT-4」的口径限定：只在这 24 张图的样例集合上、且以相对分衡量；这是论文自己的表述（"quite similar reasoning results ... on these examples"），不是普适结论。
 
 ## 待验证
 
 当前 stance：watch；原卡未记录立场依据，按未记录处理。
 
-- 同范围复现（主张侧）：复现两阶段训练（论文给出全部超参：lr 2e-3/2e-5、batch 128/32、3 epochs），在 LLaVA-Bench (In-the-Wild) 上重算 GPT-4-judge 相对分。
+- 同范围复现（主张侧）：复现两阶段训练（论文给出全部超参：lr 2e-3/2e-5、batch 128/32、3 epochs），在 LLaVA-Bench (In-the-Wild) 上重算 GPT-4-judge 相对分（判据见 falsifier 1）。
 - 原文核查：抽检 LLaVA-Instruct-158K 数据质量（三类比例 58K/23K/77K 是否如论文）。
 - 同范围复现（对照侧）：仅用 conversation 数据（Table 4 行 4：73.8）与全量数据（85.1，COCO 基准）的差距是否可复现；差距不复现则「指令数据配比」这一增益来源解释要重估。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：多模态指令微调的数据门槛是「十万级生成样本」量级，研究迭代可不必依赖大规模人工标注；复现/二次开发成本按 8×A100·单日估。
 不成立：表现依赖未披露成分或 judge 偏置，则该数据效率结论不能作为新 VLM 项目的数据规划依据。

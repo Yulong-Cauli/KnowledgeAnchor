@@ -33,7 +33,7 @@ related: [claim-llava-158k-instructions-sufficient-multimodal-chat, claim-llava-
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称：视觉指令微调的完整 pipeline 首次由本文提出——用 language-only GPT-4 以 caption + bounding box 符号化表示图像，生成 conversation / detailed description / complex reasoning 三类共 158K 指令样本（人工只写种子示例），再对 CLIP ViT-L/14 + 线性投影 + Vicuna 做两阶段端到端训练（Stage 1 仅训投影矩阵做特征对齐，Stage 2 微调投影+LLM、视觉编码器全程冻结）。
 
@@ -49,7 +49,7 @@ signoff: null
 - 同范围复现（主张侧）：按论文 Appendix 的种子示例复现数据生成，抽检 158K 样本的三类比例（58K/23K/77K）与质量。
 - 原文核查：复核两阶段训练成本口径：8×A100，预训练 4 小时 + 微调 10 小时（Appendix C），确认视觉编码器两阶段均冻结。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：『通用 VLM + 机器生成指令数据即可低成本做出多模态助手』的方法论成立，是后续 VLA（OpenVLA、驾驶 VLA 等）直接复用 VLM 底座的依据。
 不成立：首创性或数据自足性有假（如依赖大量未披露人工标注），则引用该方法时需降级为『范式之一』，且数据成本估计要重算。

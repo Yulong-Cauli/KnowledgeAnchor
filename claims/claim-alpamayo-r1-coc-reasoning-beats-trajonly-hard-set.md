@@ -39,11 +39,11 @@ related: [claim-alpamayo-r1-rl-consistency-reward-gains, claim-alpamayo-r1-10b-p
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称：以「决策闭集 + 因果因素开集 + 关键帧切分历史/未来」的 Chain of Causation 结构化推理数据做 SFT，在 0.5B 模型上带来开环规划增益——挑战集 𝒟_hard 上 minADE6@6.4s 0.868m vs 仅轨迹微调 0.994m（12%）；常规集含 route 输入时 0.794m vs 0.834m（4.8%）；meta-action（弱推理）中间档 0.928m。增益随场景难度上升（论文定位是长尾/安全关键场景）。
 
-三条必须记住的限定：
+三条限定：
 1. 对照基线是**自家 trajectory-only 版本**，不是外部 SOTA；12% 是「加推理」的增益，不是「超过业界」的排位。
 2. 全部数字来自内部数据（80,000 小时、geo-fenced）与自建 CoC 评测集；公开可复现的只有 PhysicalAI-AV 644 例 / AlpaSim 公开 920 场景 / LingoQA 三处（前两处见本组快照卡 claim-alpamayo-r1-10b-physicalai-av-public-snapshot；LingoQA 本组未建卡）。
 3. 谱系：论文 §2.1 引用并批评 OpenDriveVLA 一类自回归反应式 VLA "largely operate reactively without explicit reasoning"，但未在公开基准上与其比数字；OneVL 则复用本文 checkpoint 生成 CoT 标签并把 Alpamayo-R1 列为其第四个 benchmark。
@@ -54,7 +54,7 @@ signoff: null
 - 核对 𝒟_hard 的构建协议（论文 §6.1）是否公开足够细节以复现划分。
 - 用 OneVL 论文的 Table 5（Alpamayo-R1 benchmark）交叉检验 0.5B 量级在该数据上的成绩量级。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：结构化因果推理数据是驾驶 VLA 在长尾场景的主要杠杆，值得投入标注管线。
 不成立：增益是数据工程假象，则 CoC 管线降级为普通数据清洗。

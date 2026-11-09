@@ -38,11 +38,11 @@ related: [claim-opendrivevla-multistage-projector-alignment-lowers-collision, cl
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称：OpenDriveVLA 把 ego 未来轨迹（3 秒、6 个 waypoints、0.5s 间隔）token 化为离散文本 token，用 LLM 自回归解码，在 nuScenes 开环规划上 ST-P3 口径 3B/7B 平均 L2 0.33m、UniAD 口径 7B 平均 L2 0.66m、0.5B 平均碰撞率低至 0.09%（ST-P3）/0.26%（UniAD），自称 "state-of-the-art ... across both settings"（TABLE I caption 另限定为 "best-in-class results among open-source models"）。
 
-三个必须记住的限定：
+三个限定：
 1. 仅开环：Abstract 的 SOTA 只覆盖 nuScenes 开环规划与驾驶 VQA；论文 §VIII-D2/D3 自述开环“may lead to overly optimistic conclusions”、闭环是 future work。本库 BEV-Planner 系列 claim（status: asserted / stance: watch，论文声称）讨论 ego status 与评测口径影响；OpenDriveVLA 自己的消融（TABLE IV）也报告 ego state 作用关键。另见 [nuScenes 六步低横向位移卡](claim-nuscenes-three-second-ego-motion-distribution.md)（asserted / adopt，本库普查）：它只描述数据属性，不证明指标被直行分布主导，也不直接支持 OpenDriveVLA 性能结论。
 2. 规模不单调：Nu-X 上 0.5B（CIDEr 32.3）优于 7B（26.2），TABLE I 内三档互有胜负，勿写「越大越好」。
 3. 推理延迟 1.36–1.85 s/样本（TABLE IX，A100 BF16），论文自认是高速场景部署瓶颈（自回归解码的代价）。
@@ -51,9 +51,9 @@ signoff: null
 
 - 用官方仓库（Apache-2.0，0.5B checkpoint 已发布；训练脚本截至 2026-11-02 未发布）在 nuScenes val 复现 TABLE I 三行。
 - 用 UniAD 官方评测实现重算碰撞率（0.1m 网格等口径），对照 0.26/0.30/0.25 三格。
-- 若可复现：换 CCR 口径重评（对齐 claim-bevplanner-unidad-postprocessing-raises-ccr 的教训）。
+- 若可复现：换 CCR 口径重评（对齐 claim-bevplanner-unidad-postprocessing-raises-ccr 的教训），看开环领先是否保持。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：自回归 token 化是小参数量（0.5B 级）开环规划的可行路线，可与 VAD 类 VA 模型同台比较。
 不成立：领先依赖对比行口径差异，则驾驶 VLA 选型需回到统一实现下的重测。

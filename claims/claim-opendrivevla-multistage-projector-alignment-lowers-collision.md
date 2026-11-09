@@ -38,7 +38,7 @@ related: [claim-opendrivevla-autoregressive-waypoint-planning-nuscenes, claim-be
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称：参数高效的多阶段适配配方——Stage 1 用三个 token 专属 projector（scene/agent/map）做层级视觉-语言对齐，此阶段视觉编码器与 LLM 全冻结、仅 3.1 MB 可训参数；逐阶段消融（TABLE V）显示仅 Stage 3 时 UniAD 口径平均碰撞率 0.37%，+Stage 1 降到 0.32%，再 +Stage 2 到 0.31%、+Stage 2.5（agent 轨迹预测辅助任务）后到 0.26%，全四阶段 L2 0.68/碰撞 0.26 为最优。
 
@@ -53,7 +53,7 @@ signoff: null
 - 固定各阶段数据量重跑消融，分离「阶段机制」与「数据量」的贡献。
 - 检查 Stage 1 对齐质量：agent token 逐实例 caption 匹配的收敛情况（3.1 MB 参数上限下的对齐容量）。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：驾驶 VLM 的对齐可以极便宜（MB 级 projector）完成，四阶段课程值得作为 VLA 后训练模板。
 不成立：收益主要来自数据量或 LLM 解冻，则配方简化为「直接端到端 + 好数据」。

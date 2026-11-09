@@ -38,11 +38,11 @@ related: [claim-drivepi-unified-text-vision-joint-gains, claim-opendrivevla-auto
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称（CVPR 2026）：仅 0.5B 的统一 4D MLLM 在三个基准上同时拿到达标线以上的表现——nuScenes-QA 60.7%（超 OpenDriveVLA-7B 的 58.2% 共 2.5 个点）、OpenOcc RayIoU 49.3%（超 FB-OCC 10.3）、nuScenes 开环规划（有 ego status）L2 avg 0.40 m / 碰撞率 0.11%（较 ORION 0.37% 降 70%）。
 
-两个必须记住的口径差异（读表注意，笔记已注）：
+两个口径差异（笔记已注）：
 1. DrivePI 规划默认**不用** ego status 训练（caption 称避免 shortcut learning）：无 ego 行碰撞率 0.38%，有 ego 行才 0.11%；而对比行 OpenDriveVLA-7B / OmniDrive / ORION 全部是有 ego status 配置——0.11% 对 0.25%（OpenDriveVLA-7B）的跨行比较携带设定差。
 2. 感知侧 DrivePI 输入含 LiDAR（+多视角相机，论文自述的差异化特征第一条）；表 1 各占据基线的输入模态构成笔记未逐行记载，「10.3 RayIoU 领先含模态红利」是本卡整理者推断、尚未验证，需逐基线核对输入后才能定性。且表 4 的 Occ3D 46.0 RayIoU 来自「仅 3D 占据单任务训练」的 DrivePI*，不能与统一模型混读。
 3. 口径迁移提醒（整理者注）：本库驾驶侧 nuScenes 相关分数分三族口径——nuScenes 开环 L2/碰撞率（本卡表 2 与 bevplanner / OpenDriveVLA 系卡）、NAVSIM PDMS（nuPlan 衍生，OneVL 卡）、nuScenes-QA 文本准确率（本卡表 3）——三族不可互换；related 挂链是条件差异与共享待检验问题的提醒，不是互相支持（相关卡均为 asserted）。
@@ -55,7 +55,7 @@ signoff: null
 - 同范围复现（对照侧）：用 OpenDriveVLA 官方 0.5B/7B checkpoint 在 DrivePI 的 nuScenes-QA 评测脚本下重测，统一实现后再比。
 - 同范围复现（对照侧，设定统一）：做「无 ego」同设对比：DrivePI 0.38% vs OpenDriveVLA-7B 无 ego 行（本笔记表 2 无此行，需自行评测）。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：0.5B 统一模型可在理解/感知/规划三线同时压过 7B 级 VLA，驾驶 MLLM 的参数门槛大幅下降。
 不成立：领先是 ego-status 设定差或 LiDAR 模态红利，则对比回到同模态同设定重测。

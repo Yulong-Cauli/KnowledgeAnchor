@@ -1,6 +1,6 @@
 ---
 id: claim-autovla-nuscenes-waymo-competitive-not-first
-title: "AutoVLA 论文自报的开环表现为 competitive 而非榜首：NAVSIM Post-RFT PDMS 89.11 低于 TrajHF 93.95（Table 1，Best-of-N 92.12 亦然且依赖 oracle 选优）；nuScenes（UniAD 口径）avg.Col. 0.31% 劣于 OpenDriveVLA-3B 的 0.30%（Table S2）；Waymo E2E 挑战榜（截至 2025-05-22）RFS Overall 7.5566 列所录 17 行第 5、RFS Spotlight 6.9436 为所录最高（Table S3）"
+title: "AutoVLA 论文自报的开环表现为 competitive 而非榜首：NAVSIM Post-RFT PDMS 89.11 低于 TrajHF 93.95；nuScenes（UniAD 口径）avg.Col. 0.31% 劣于 OpenDriveVLA-3B 的 0.30%；Waymo E2E 挑战榜（截至 2025-05-22）RFS Overall 列所录 17 行第 5、RFS Spotlight 6.9436 为所录最高（Table 1/S2/S3）"
 type: claim
 status: asserted
 scope: "AutoVLA arXiv v3（arXiv:2506.13757，html/2506.13757v3），三张表的快照口径：① Table 1 = NAVSIM（nuPlan navtest，12.1k 测试样本，PDMS 越高越好），引 Post-RFT 与 Best-of-N 行（RFT 增益与 runtime 另有专卡）；② Table S2 = nuScenes 开环规划（ST-P3 与 UniAD 双协议并存、1/2/3s 分列不平均，Appendix E.2 'We follow the UniAD protocol'），本卡引 UniAD 口径 avg.L2/avg.Col.（w/ CoT 行）；③ Table S3 = Waymo Vision-based End-to-End Driving Challenge leaderboard，论文限定 'As of May 22, 2025'，按论文所录 17 行计名次；⚠ 原表存在两行同名 DriveTraj（RFS Overall 7.4957 与 7.2787，笔记照抄待核），本卡不引该两行（两行数字均低于 AutoVLA，不影响第 5 名次）；'competitive / 部分基准第一'为论文自述措辞 + 笔记事实核对的合并口径；论文自报数字"
@@ -79,9 +79,9 @@ related: [claim-autovla-rft-raises-pdms-cuts-runtime, claim-autovla-action-token
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
-这张卡是 AutoVLA 的"表现定位"诚实注记卡：论文 §1 自称 "superior performance across various benchmarks"，但三张表的实际相对位置是 competitive / 部分指标第一，笔记 ⚠ 已做事实核对，本卡把核对结论钉成可证伪主张：
+论文 §1 自称 "superior performance across various benchmarks"，但笔记 ⚠ 事实核对显示三张表的实际相对位置是 competitive / 部分指标第一：
 
 1. **NAVSIM（Table 1）**：Post-RFT 89.11 在表中非 AutoVLA 方法里列第 4（高于它的只有 TrajHF 93.95 / Centaur 92.10 / Hydra-MDP 91.26；表中另一更高行 Best-of-N 92.12 是 AutoVLA 自身，若按全部行计名次则列第 5）；Best-of-N 92.12 也不是第一，且依赖 oracle 打分器从 6 个候选里选优（§4.2），不能当在线能力引用。RFT 自身带来的 80.54→89.11 增益是另一码事，见 related RFT 专卡。
 2. **nuScenes（Table S2）**：UniAD 协议口径（1/2/3s 分列不平均）下 AutoVLA (w/ CoT) avg.L2 0.70 m 好于 UniAD 的 1.03、与碰撞率 0.31% 持平，但两项都劣于 OpenDriveVLA-3B（0.67 / 0.30）；ST-P3 口径下劣于 VAD 与 EMMA（L2）。结论：nuScenes 上无一项全面领先。
@@ -97,7 +97,7 @@ signoff: null
 - 用官方 checkpoint（2026/05 已发布）在 nuScenes val 复跑 Table S2 的 UniAD 口径指标，核对 0.70/0.31。
 - 查清 Table S3 两行同名 DriveTraj 是否为同一方法两次提交（转 QUESTIONS 由人工决定是否需要向作者/榜方求证）。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：AutoVLA 的正确引用姿势是"competitive + RFT 效率卖点 + Waymo Spotlight 榜内第一"，任何"SOTA VLA 驾驶模型"的笼统说法都不成立；做 VLA 驾驶选型对比时应逐基准逐口径引用（NAVSIM/nuScenes 双协议/Waymo 榜）。
 不成立：三表中任一基准 AutoVLA 实为榜首（或名次核对有误），则笔记 ⚠ 与本卡的"非榜首"定位需反转，"superior performance" 的论文自述反而成立，本卡作废并需审计 related 两卡的表述边界。

@@ -38,7 +38,7 @@ related: [claim-openvla-7b-outperforms-rt2x-55b-16p5, claim-openvla-int4-quantiz
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称：对 OpenVLA 做下游任务适配时，LoRA（r=32，作用于全部线性层，97.6M 可训参数 ≈ 1.4%）成功率 68.2±7.5%，与全参微调（7,188.1M，69.7±7.2%）在 StdErr 内持平，VRAM 从 163.3 GB 降到 59.7 GB（batch 16），且单卡 A100 10-15 小时即可完成（8 倍省算力）。论文还称 rank 在 32/64 间对性能影响可忽略，推荐默认 r=32。
 
@@ -48,9 +48,9 @@ signoff: null
 
 - 用官方 fine-tuning notebook 在最终发布权重上跑 LoRA r=32 vs Full FT 对照（select Franka-Tabletop 同任务）。
 - 核对 97.6M 可训参数与 r=32 全线性层的理论量级。
-- 测 rank=16 是否也够（论文只给了 32/64）。
+- 测 rank=16 成功率是否仍与全参微调持平（论文只给了 32/64）。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：实验室单卡即可把 OpenVLA 适配到新任务，VLA 微调门槛与 LLM 的 LoRA 生态对齐。
 不成立：需 8×A100 全参微调，落地成本按 8 倍重估。
