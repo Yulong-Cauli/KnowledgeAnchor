@@ -134,3 +134,5 @@ Kaggle 账号未接受 ImageNet 比赛规则（imagenet-object-localization-chal
 
 ## #100（班B qwt-r2-gate，fire-0620 06:2x，BLOCKED 待主人裁定）
 v5 败于 QwT vendor `utils.utils.create_loader` 缺位置参数 `re_prob`（TypeError，cell 2 L71；eval loader 拟补 `re_prob=0.0`——eval 不做 random erasing，方法层含义待主人确认是否照补）。**已实测全通**：timm 兼容 shim 四件套、repo clone（pinned 8a927da）、CLS-LOC 探测、val XML 排序 50,000、train 1,281,167 载入——v6 只差一个 kwarg 即达 Phase 1 锚点复现（DeiT-T 58.2→61.4）。修复预算按任务书 ≤2 次已用尽（v3 val 路径；v4/v5 vendor shim 记一次），班次按 STATE 承诺停手。**主人三选一**：①授权 v6（预计一次直达 Phase 1）；②亲自修改；③维持 BLOCKED。若授权，任何火次/手动：改 notebook 一行 → `kaggle kernels push -p experiments/qwt-r2-gate-nonregression`。
+
+**2026-11-10 00:0x 回执：主人授权 ①。v6 已由主会话推送（T4 QUEUED）。修复实况与 BLOCKED.md 指令有两处偏差，留痕**：① 补的不止一行——vendor `create_loader` 签名 `re_prob` 系无默认必填位置参数，cell2 eval（L71，v5 已知）与 **cell3 train（L17，v5 死于 cell2 未暴露）两处同缺**，只补 cell2 会在 cell3 再炸；② 数值照官方 `qwt_vit_and_deit.py`（DeiT-T 锚点脚本）双臂均传 `re_prob=0.0` 的口径补齐——官方 train/eval 都关 Random Erasing，方法层语义与原 kernel 意图一致。签名级冒烟（ast 解析 vendor 签名：7 个 kwargs 全合法）通过后 push。#100 状态：**已解除（授权落地）**。
