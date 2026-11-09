@@ -1,6 +1,6 @@
 ---
 id: claim-rcbevdet-dmsa-gaussian-mask-early-convergence
-title: "RCBEVDet 的 DMSA 以距离越近权重越高的高斯掩码聚合邻域信息、加速训练初期收敛（论文声称，尚未独立验证）"
+title: "RCBEVDet 的 DMSA 以距离越近权重越高的高斯掩码聚合邻域信息、加速训练初期收敛（论文声称）"
 type: claim
 status: asserted
 scope: "RCBEVDet（CVPR 2024）的方法/训练动态声明；口径：RadarBEVNet transformer 流的距离调制自注意力 DMSA（笔记 §二.1）；掩码形式已对照 arXiv:2403.16440v1 公式 (2)(3) 核实（G_ij=exp(−D_ij²/σ²)，σ 可学习，以 log G 加进注意力 logits；2026-11-02 抓取，2026-11-05 二次实抓更正——原卡内转写漏了 D_ij 的平方，原文 alttext 为 \\exp(-D_{i,j}^{2}/\\sigma^{2})）；『加速收敛』限定训练初期（原文 early training iteration），笔记未给出收敛曲线、数据集、epoch 预算或硬件口径，收敛增益尚未独立复现"
@@ -39,7 +39,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（尚未独立验证）：雷达点上的标准全局自注意力计算量大且难以收敛；DMSA（distance-modulated self-attention）在注意力中引入随距离衰减的高斯权重掩码——距离近的点权重高、远的点权重低——让网络在训练初期优先聚合邻域信息，从而加速收敛。注意这是训练动态声明（收敛速度），不是精度声明；笔记未给收敛曲线，也未说明该结论在什么数据集/训练长度下得出，属窄卡。
+论文声称：雷达点上的标准全局自注意力计算量大且难以收敛；DMSA（distance-modulated self-attention）在注意力中引入随距离衰减的高斯权重掩码——距离近的点权重高、远的点权重低——让网络在训练初期优先聚合邻域信息，从而加速收敛。注意这是训练动态声明（收敛速度），不是精度声明；笔记未给收敛曲线，也未说明该结论在什么数据集/训练长度下得出，属窄卡。
 
 **复审更新（2026-11-02；2026-11-05 二次实抓更正公式）**：掩码形式已对照 arXiv v1 公式 (2)(3) 核实——G_ij=exp(−D_ij²/σ²)（σ 为可学习带宽参数，训练中重参数化为可训练 β），以 **log G 加进注意力 logits**（Softmax(QKᵀ/√d + log G)V，等价于 Softmax(QKᵀ/√d − D²/σ²)V），β=0 时退化为标准自注意力；「距离越近权重越高」与原文 high/low weight 表述一致（见 evidence）。更正说明：2026-11-02 版卡内把公式转写为 exp(−D_ij/σ²)，漏了 D_ij 的平方；2026-11-05 二次实抓原文 alttext 为 G_{i,j}=\exp(-D_{i,j}^{2}/\sigma^{2})，扩展版笔记 RCBEVDetPP.md §2.1 的转写同样含平方，已据此更正。收敛增益本身仍未独立复现。
 

@@ -3,7 +3,7 @@ id: claim-echofusion-radial-ap-ar-tradeoff
 title: "EchoFusion 在 RADIal 原始协议下的主要收益是 AR/F1，AP 仅与 FFTRadNet 持平"
 type: claim
 status: asserted
-scope: "RADIal test split；original protocol；AP/AR/F1/RE/AE；EchoFusion RT+C vs FFTRadNet RD / ADCNet ADC；数字为论文自报（Table 2，arXiv:2307.16532v2 PDF 文本层，2026-11-05 实抓逐值核对；笔记 §3.1 主表同值），尚未独立验证"
+scope: "RADIal test split；original protocol；AP/AR/F1/RE/AE；EchoFusion RT+C vs FFTRadNet RD / ADCNet ADC；数字为论文自报（Table 2，arXiv:2307.16532v2 PDF 文本层，2026-11-05 实抓逐值核对；笔记 §3.1 主表同值）"
 tags: [radar, sensor-fusion, echofusion, radial, evaluation]
 note: library/3D_Occupancy/EchoFusion.md#31-radial-数据集主要性能对比
 paper: "NeurIPS 2023, Echoes Beyond Points: Unleashing the Power of Raw Radar Data in Multi-modality Fusion"
@@ -39,7 +39,7 @@ signoff: null
 
 ## 我的理解
 
-论文 Table 2 报告（数字尚未独立验证）：EchoFusion 的 AP 是 **96.95**，仅比 FFTRadNet 的 **96.84** 高 0.11；真正的差距在 AR（**93.43 vs 82.18**）和 F1（**95.16 vs 88.91**）。同时 RE **0.12** / AE **0.18** 不如 FFTRadNet 的 0.11 / 0.17，AE 也不如 ADCNet 的 0.11。论文自己指出 RE/AE 对高召回模型不公平（§5.2.1 原句已于 2026-11-05 实抓核实），因此“主要收益是召回/F1”比“全面领先”更准确。
+论文 Table 2 报告：EchoFusion 的 AP 是 **96.95**，仅比 FFTRadNet 的 **96.84** 高 0.11；真正的差距在 AR（**93.43 vs 82.18**）和 F1（**95.16 vs 88.91**）。同时 RE **0.12** / AE **0.18** 不如 FFTRadNet 的 0.11 / 0.17，AE 也不如 ADCNet 的 0.11。论文自己指出 RE/AE 对高召回模型不公平（§5.2.1 原句已于 2026-11-05 实抓核实），因此“主要收益是召回/F1”比“全面领先”更准确。
 
 这张表也不是受控的模态比较：FFTRadNet 用 RD、ADCNet 用 ADC、EchoFusion 用 RT+C。要判断方法本身的贡献，应看 [受控消融卡](claim-echofusion-rt-vs-rp-radial.md)。笔记 §3.1 主表数字与论文 Table 2 一致（96.95/93.43/95.16 等逐值相同，见 evidence；笔记省略 CMS、T-FFTRadNet 两行）。
 

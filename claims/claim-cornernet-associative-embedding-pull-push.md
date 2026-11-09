@@ -3,7 +3,7 @@ id: claim-cornernet-associative-embedding-pull-push
 title: "CornerNet 论文声称：以 1 维 Associative Embedding 加 pull/push 损失（push 间隔 Δ=1）完成左上-右下角点配对分组"
 type: claim
 status: asserted
-scope: "设计层面主张：角点分组机制——每个角点预测 1 维嵌入向量，pull 损失拉近同物体角点、push 损失以 Δ=1 间隔推开不同物体，总损失中 pull/push 权重均为 0.1（检测损失为主导）；依据笔记转述；2026-11-05 实抓 arXiv 1808.01244v2 补核：1 维嵌入、Δ=1、α=β=0.1（γ=1）三处均在原文命中；笔记未载配对质量消融与性能数字，复现/代码侧尚未独立验证"
+scope: "设计层面主张：角点分组机制——每个角点预测 1 维嵌入向量，pull 损失拉近同物体角点、push 损失以 Δ=1 间隔推开不同物体，总损失中 pull/push 权重均为 0.1（检测损失为主导）；依据笔记转述；2026-11-05 实抓 arXiv 1808.01244v2 补核：1 维嵌入、Δ=1、α=β=0.1（γ=1）三处均在原文命中；笔记未载配对质量消融与性能数字"
 tags: [object-detection, associative-embedding, keypoint-grouping, cornernet, eccv2018]
 note: library/Classical_Detection/CornerNet.md#embeddings--预测配对
 paper: "ECCV 2018, CornerNet: Detecting Objects as Paired Keypoints（代码 https://github.com/princeton-vl/CornerNet，笔记头部出处）"
@@ -52,7 +52,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（笔记所载，尚未独立验证）：CornerNet 用 Associative Embedding 解决"哪个左上角属于哪个右下角"的分组问题——网络为每个角点输出 1 维嵌入向量；pull 损失把同一物体两角点的嵌入拉近到其均值，push 损失把不同物体的嵌入推开至少 Δ=1；总损失 L = L_det + α·L_pull + β·L_push + γ·L_off 中 α=β=0.1（检测损失权重 1，为主导项）。
+论文声称（笔记所载）：CornerNet 用 Associative Embedding 解决"哪个左上角属于哪个右下角"的分组问题——网络为每个角点输出 1 维嵌入向量；pull 损失把同一物体两角点的嵌入拉近到其均值，push 损失把不同物体的嵌入推开至少 Δ=1；总损失 L = L_det + α·L_pull + β·L_push + γ·L_off 中 α=β=0.1（检测损失权重 1，为主导项）。
 
 限定：笔记未载配对质量的消融或指标（如按嵌入距离匹配的成功率），本卡不主张"AE 配对优于其他配对方式"——CenterNet 已改用回归替代配对，见 related 卡。2026-11-05 原文补核：1 维嵌入、Δ=1、α=β=0.1（γ=1）三处均在 arXiv v2 原文命中，且论文自报 α/β 取 1 或更大时性能变差（即分组损失必须保持小权重，检测损失为主导）。
 

@@ -3,7 +3,7 @@ id: claim-qlora-nf4-dq-recovers-16bit-lora-mmlu
 title: "QLoRA 自报：NF4+双量化的 4-bit 底座微调完全恢复 16-bit LoRA 的 MMLU 性能（Mean 53.1 vs 53.0；65B FLAN v2 63.9 vs 62.5），FP4 落后约 1 点"
 type: claim
 status: asserted
-scope: "LLaMA 7B/13B/33B/65B；微调数据 Alpaca 与 FLAN v2；评测 5-shot MMLU（平均）；QLoRA 配置：NF4 存储 + FP8 量化常数（DQ，blocksize 64/256）+ LoRA 挂全部线性层（r 不敏感，Appendix A）；对照是 16-bit（BF16）LoRA 微调——不是全量微调：论文 §8 自述 33B/65B 未建全量 16-bit 微调基线，全量微调对照只在 ≤3B（Table 3，GLUE/ Super-NaturalInstructions）；论文自报，尚未独立验证"
+scope: "LLaMA 7B/13B/33B/65B；微调数据 Alpaca 与 FLAN v2；评测 5-shot MMLU（平均）；QLoRA 配置：NF4 存储 + FP8 量化常数（DQ，blocksize 64/256）+ LoRA 挂全部线性层（r 不敏感，Appendix A）；对照是 16-bit（BF16）LoRA 微调——不是全量微调：论文 §8 自述 33B/65B 未建全量 16-bit 微调基线，全量微调对照只在 ≤3B（Table 3，GLUE/ Super-NaturalInstructions）；论文自报"
 tags: [quantization, llm, qlora, nf4, double-quantization, mmlu, lora]
 note: library/Quantization/QLoRA.md#34-k-bit-qlora-匹配-16-bit-全量微调与-16-bit-lora4-table-3table-4
 paper: "NeurIPS 2023（arXiv:2305.14314）, QLoRA: Efficient Finetuning of Quantized LLMs（开源：https://github.com/artidoro/qlora 、https://github.com/TimDettmers/bitsandbytes）"
@@ -36,7 +36,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（asserted，尚未独立验证）：4-bit（NF4+DQ）底座 + LoRA 微调能"完全恢复"16-bit LoRA 微调的 MMLU 性能——Table 4 平均 53.1 vs 53.0（NF4+DQ 甚至高 0.1），单点上 65B/FLAN v2 63.9 vs 62.5（+1.4）、7B/Alpaca 39.0 vs 38.4；而 FP4 平均 52.2，落后 16-bit 约 1 点——数据类型（NF4 vs FP4）是 4-bit 能否无损的关键变量。
+论文声称（asserted）：4-bit（NF4+DQ）底座 + LoRA 微调能"完全恢复"16-bit LoRA 微调的 MMLU 性能——Table 4 平均 53.1 vs 53.0（NF4+DQ 甚至高 0.1），单点上 65B/FLAN v2 63.9 vs 62.5（+1.4）、7B/Alpaca 39.0 vs 38.4；而 FP4 平均 52.2，落后 16-bit 约 1 点——数据类型（NF4 vs FP4）是 4-bit 能否无损的关键变量。
 
 必须记住的口径限定：
 

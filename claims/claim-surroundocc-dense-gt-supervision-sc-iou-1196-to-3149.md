@@ -3,7 +3,7 @@ id: claim-surroundocc-dense-gt-supervision-sc-iou-1196-to-3149
 title: "SurroundOcc 声称：nuScenes 消融中把监督信号从稀疏点云换成密集真值后，SC IoU 从 11.96% 升至 31.49%"
 type: claim
 status: asserted
-scope: "nuScenes 上 SurroundOcc 自身消融（单一变量：稀疏点云监督 → 密集真值监督）；论文自报数字，据库内笔记 §5.2 转述，尚未独立验证；笔记未注明数据集划分、评测协议版本、消融两侧的具体训练配置（输入帧数 / 迭代数 / 监督层级数）"
+scope: "nuScenes 上 SurroundOcc 自身消融（单一变量：稀疏点云监督 → 密集真值监督）；论文自报数字，据库内笔记 §5.2 转述；笔记未注明数据集划分、评测协议版本、消融两侧的具体训练配置（输入帧数 / 迭代数 / 监督层级数）"
 tags: [occupancy-prediction, dense-gt, nuscenes, surroundocc, ablation]
 note: library/3D_Occupancy/SurroundOcc.md#52-关键消融实验结论
 paper: "ICCV 2023 · SurroundOcc: Multi-Camera 3D Occupancy Prediction for Autonomous Driving · arXiv:2303.09551 · https://github.com/weiyithu/SurroundOcc"
@@ -28,7 +28,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（据笔记 §5.2 转述，尚未独立验证）：在 nuScenes 上，其余配置不变、仅把监督信号从原始稀疏点云替换为离线生成的密集占用真值，SC IoU（几何）从 11.96% 升至 31.49%（约 2.6 倍）。这是本篇笔记里幅度最大的一处消融，也是笔记总结「数据是王道」的依据。密集真值本身由 §3 的离线 pipeline 生成，见 [pipeline 卡](claim-surroundocc-poisson-reconstruction-dense-gt-pipeline.md)。
+论文声称（据笔记 §5.2 转述）：在 nuScenes 上，其余配置不变、仅把监督信号从原始稀疏点云替换为离线生成的密集占用真值，SC IoU（几何）从 11.96% 升至 31.49%（约 2.6 倍）。这是本篇笔记里幅度最大的一处消融，也是笔记总结「数据是王道」的依据。密集真值本身由 §3 的离线 pipeline 生成，见 [pipeline 卡](claim-surroundocc-poisson-reconstruction-dense-gt-pipeline.md)。
 
 限定与注意：
 1. 11.96% 是「稀疏点云监督下的 SurroundOcc」的绝对值，不能当作任何其他方法或设置的基线读数。

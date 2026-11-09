@@ -3,7 +3,7 @@ id: claim-onevl-latent-cot-surpasses-explicit-four-benchmarks
 title: "OneVL 论文声称：首个也是唯一在四个 benchmark 上超越显式自回归 CoT 的 latent CoT 方法（统一 VLA+世界模型表征，answer-only 延迟）"
 type: claim
 status: asserted
-scope: "OneVL（Qwen3-VL-4B-Instruct 主干 + 双辅助解码器：语言 CoT 重建 + 视觉未来帧预测；推理期 latent token 全部 prefill、辅助解码器丢弃）；四个 benchmark 为 NAVSIM / ROADWork / Impromptu / Alpamayo-R1；对比基线为作者自训的同底座（4B Qwen3-VL）AR Answer / AR CoT+Answer 与三个移植版 latent CoT；数字为论文自报（arXiv:2604.18486v3），尚未独立验证"
+scope: "OneVL（Qwen3-VL-4B-Instruct 主干 + 双辅助解码器：语言 CoT 重建 + 视觉未来帧预测；推理期 latent token 全部 prefill、辅助解码器丢弃）；四个 benchmark 为 NAVSIM / ROADWork / Impromptu / Alpamayo-R1；对比基线为作者自训的同底座（4B Qwen3-VL）AR Answer / AR CoT+Answer 与三个移植版 latent CoT；数字为论文自报（arXiv:2604.18486v3）"
 tags: [vla, latent-cot, onevl, world-model, autonomous-driving]
 note: library/VLM_VLA/OneVL.md#3-实验
 paper: "arXiv 2026, Xiaomi OneVL: One-Step Latent Reasoning and Planning with Vision-Language Explanation (arXiv:2604.18486)"
@@ -40,7 +40,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（尚未独立验证）：把推理压进紧凑 latent token（视觉 4 逻辑位/35 vocab token + 语言 2 逻辑位/20 vocab token），用「未来帧预测」世界模型监督 + 语言 CoT 重建双辅助解码器约束 latent 内容，推理期全部 prefill——OneVL 在其四个 benchmark 上全部优于同底座的显式 AR CoT+Answer，且延迟等同 answer-only（NAVSIM 4.46s vs 4.49s）。此前 latent CoT（COCONUT/CODI/SIM-CoT 移植版）几乎全面低于 answer-only 基线——论文原句自带例外："All three adapted latent CoT methods perform substantially worse than answer-only AR prediction, except for the Alpamayo-R1 dataset"（§5.3；Table 5 中 CODI ADE 3.22 / FDE 9.25 优于 AR Answer 3.27/9.59）。
+论文声称：把推理压进紧凑 latent token（视觉 4 逻辑位/35 vocab token + 语言 2 逻辑位/20 vocab token），用「未来帧预测」世界模型监督 + 语言 CoT 重建双辅助解码器约束 latent 内容，推理期全部 prefill——OneVL 在其四个 benchmark 上全部优于同底座的显式 AR CoT+Answer，且延迟等同 answer-only（NAVSIM 4.46s vs 4.49s）。此前 latent CoT（COCONUT/CODI/SIM-CoT 移植版）几乎全面低于 answer-only 基线——论文原句自带例外："All three adapted latent CoT methods perform substantially worse than answer-only AR prediction, except for the Alpamayo-R1 dataset"（§5.3；Table 5 中 CODI ADE 3.22 / FDE 9.25 优于 AR Answer 3.27/9.59）。
 
 三个必须记住的限定（笔记 ⚠）：
 1. "first/唯一"限于本文的四个 benchmark 与其自训基线设定（⚠⑧），且 latent 基线未用三阶段配方（论文自己承认这是混杂因素，§5.3）。

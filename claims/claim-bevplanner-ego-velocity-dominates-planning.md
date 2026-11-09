@@ -3,7 +3,7 @@ id: claim-bevplanner-ego-velocity-dominates-planning
 title: "BEV-Planner 论文声称：ego status 在场（VAD-Base，planner 注入）时，相机 corruption 显著降感知但仅小幅影响规划，扰动 ego 速度才显著改变规划轨迹"
 type: claim
 status: asserted
-scope: "nuScenes val；官方 VAD-Base checkpoint（planner 注入 ego status）；Table 2 扰动实验：图像退化（Snow/Fog/Glare/Rain/Blank）vs ego 速度扰动（v×0.0 / v×0.5 / v×1.5 / v=100 m/s）；指标为 L2 距离(m)、碰撞率(%)、CCR(%) 及感知 NDS/mAP；论文自报数字，尚未独立验证"
+scope: "nuScenes val；官方 VAD-Base checkpoint（planner 注入 ego status）；Table 2 扰动实验：图像退化（Snow/Fog/Glare/Rain/Blank）vs ego 速度扰动（v×0.0 / v×0.5 / v×1.5 / v=100 m/s）；指标为 L2 距离(m)、碰撞率(%)、CCR(%) 及感知 NDS/mAP；论文自报数字"
 tags: [end-to-end-driving, open-loop, ego-status, nuscenes, bev-planner, robustness]
 note: library/ADe2e/BEV-Planner.md#34-图像退化-vs-ego-status-扰动
 paper: "CVPR 2024, Is Ego Status All You Need for Open-Loop End-to-End Autonomous Driving? (BEV-Planner, arXiv:2312.03031)"
@@ -32,7 +32,7 @@ signoff: null
 
 ## 这条主张是什么意思
 
-开环端到端规划模型的评测里，L2/碰撞率这类指标区分度存疑——AD-MLP 表明只用 ego status 的 MLP 就能打平 SOTA。这篇论文用一组扰动实验给出更直接的证据：在 planner 注入 ego status 的官方 VAD-Base 上，把相机输入置黑（感知 NDS/mAP 崩到 0.0/0.0），L2-Avg 只从 0.37 变到 0.46；而把 ego 速度乘 0.5 或设为 100 m/s，L2-Avg 恶化到 3.19 / 208，感知 NDS/mAP（45.5/47.0）完全不变（Table 2）。也就是说：在这个配置下，最终轨迹主要由速度输入决定，视觉输入对规划的贡献被压得很低。这是论文报告的行为观察，尚未独立验证；"为什么"（见下节）与"是否跨模型"（见迁移限制）要分开看。
+开环端到端规划模型的评测里，L2/碰撞率这类指标区分度存疑——AD-MLP 表明只用 ego status 的 MLP 就能打平 SOTA。这篇论文用一组扰动实验给出更直接的证据：在 planner 注入 ego status 的官方 VAD-Base 上，把相机输入置黑（感知 NDS/mAP 崩到 0.0/0.0），L2-Avg 只从 0.37 变到 0.46；而把 ego 速度乘 0.5 或设为 100 m/s，L2-Avg 恶化到 3.19 / 208，感知 NDS/mAP（45.5/47.0）完全不变（Table 2）。也就是说：在这个配置下，最终轨迹主要由速度输入决定，视觉输入对规划的贡献被压得很低。这是论文报告的行为观察；"为什么"（见下节）与"是否跨模型"（见迁移限制）要分开看。
 
 ## 证据支持到哪里
 

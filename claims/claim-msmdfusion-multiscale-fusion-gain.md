@@ -3,7 +3,7 @@ id: claim-msmdfusion-multiscale-fusion-gain
 title: "MSMDFusion 论文声称（Table 5 消融）：C2–C5 四尺度全部做 LiDAR-相机交互优于任何单尺度——比最佳单尺度（C2）高 1.42 mAP / 1.01 NDS（66.93/68.93 vs 65.51/67.92），论文将该增益口径写作 '~2% mAP / ~1% NDS'"
 type: claim
 status: asserted
-scope: "nuScenes 训练集随机 1/4 子集（'Following UVTR' 的消融降规模口径，§4.3），TransFusion-L 为基线（#1 60.26/65.62），各行均含 MDU+GMA-Conv、仅交互发生的尺度不同（C2 空间分辨率最大、C5 最小，Table 5 表题）；'最佳单尺度'指 Table 5 中单尺度行（#2–#5）的最高 mAP 行即 #2（仅 C2，65.51/67.92）；增益按表内行差验算为 +1.42 mAP / +1.01 NDS，论文正文口径为 '~2% mAP / ~1% NDS'（约整表述，本卡两种口径并写）；nuScenes test SOTA 数字（71.5/74.0）与 MDU/GMA-Conv 组件消融另有专卡，不在此卡；论文自报数字，尚未独立验证"
+scope: "nuScenes 训练集随机 1/4 子集（'Following UVTR' 的消融降规模口径，§4.3），TransFusion-L 为基线（#1 60.26/65.62），各行均含 MDU+GMA-Conv、仅交互发生的尺度不同（C2 空间分辨率最大、C5 最小，Table 5 表题）；'最佳单尺度'指 Table 5 中单尺度行（#2–#5）的最高 mAP 行即 #2（仅 C2，65.51/67.92）；增益按表内行差验算为 +1.42 mAP / +1.01 NDS，论文正文口径为 '~2% mAP / ~1% NDS'（约整表述，本卡两种口径并写）；nuScenes test SOTA 数字（71.5/74.0）与 MDU/GMA-Conv 组件消融另有专卡，不在此卡；论文自报数字"
 tags: [msmdfusion, lidar-camera-fusion, multi-scale, ablation, nuscenes]
 note: library/Multimodal_Fusion/MSMDFusion.md#36-多尺度交互的作用
 paper: "CVPR 2023, MSMDFusion: Fusing LiDAR and Camera at Multiple Scales with Multi-Depth Seeds for 3D Object Detection (arXiv:2209.03102)"

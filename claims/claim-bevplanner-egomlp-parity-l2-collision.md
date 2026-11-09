@@ -3,7 +3,7 @@ id: claim-bevplanner-egomlp-parity-l2-collision
 title: "BEV-Planner 论文声称：无感知的 Ego-MLP 仅靠 ego status 在 nuScenes 开环 L2/碰撞率上与 SOTA 持平"
 type: claim
 status: asserted
-scope: "nuScenes val（有效样本 5119/6019，Appendix B）；开环规划评测，论文统一实现（Union Implementation，碰撞率默认 0.1m 网格）；Ego-MLP 仅输入 ego velocity / acceleration / yaw angle / driving command，无任何相机/LiDAR 感知；比较基线为同表 UniAD（ID-1/2/3）与 VAD-Base（ID-4/5/6）各行；Table 1 自报数字（复现 AD-MLP 时修复 issue #4、去除历史轨迹 GT 防标签泄露后的配置），尚未独立验证"
+scope: "nuScenes val（有效样本 5119/6019，Appendix B）；开环规划评测，论文统一实现（Union Implementation，碰撞率默认 0.1m 网格）；Ego-MLP 仅输入 ego velocity / acceleration / yaw angle / driving command，无任何相机/LiDAR 感知；比较基线为同表 UniAD（ID-1/2/3）与 VAD-Base（ID-4/5/6）各行；Table 1 自报数字（复现 AD-MLP 时修复 issue #4、去除历史轨迹 GT 防标签泄露后的配置）"
 tags: [end-to-end-driving, open-loop, ego-status, nuscenes, bev-planner, benchmark]
 note: library/ADe2e/BEV-Planner.md#33-主结果
 paper: "CVPR 2024, Is Ego Status All You Need for Open-Loop End-to-End Autonomous Driving? (BEV-Planner, arXiv:2312.03031)"
@@ -21,13 +21,13 @@ falsifiers:
   - "同范围复现（主张侧）：在 nuScenes val 同口径（统一指标实现、0.1m 网格碰撞率）复现中，Ego-MLP 的 L2-Avg 或 Colli-Avg 显著差于 UniAD/VAD 同表配置（例如高出 2 倍以上——预设判据，无既有统计锚点），而非持平"
   - "原文核查与配置核查：发现 Ego-MLP 的持平依赖历史轨迹 GT 等标签泄露（论文声称已通过修复 AD-MLP issue #4 去除），或其输入实际包含 ego status 之外的未来信息"
 review_due: 2026-12-02
-related: [claim-bevplanner-egostatus-injection-closes-gap, claim-bevplanner-unidad-postprocessing-raises-ccr, claim-bevplanner-ego-velocity-dominates-planning, claim-nuscenes-three-second-low-lateral-displacement-majority]
+related: [claim-bevplanner-egostatus-injection-closes-gap, claim-bevplanner-unidad-postprocessing-raises-ccr, claim-bevplanner-ego-velocity-dominates-planning, claim-nuscenes-three-second-ego-motion-distribution]
 signoff: null
 ---
 
 ## 这条主张是什么意思
 
-论文声称（尚未独立验证）：在 nuScenes 开环评测的 L2 距离与碰撞率两个旧指标口径下，完全不用感知模块、只吃 ego status 的 Ego-MLP（Table 1 ID-8：L2-Avg 0.35 m / Colli-Avg 0.37%）与 UniAD、VAD 等 SOTA 方法持平。该 Ego-MLP 是论文作者复现 AD-MLP 时修复其 issue #4、去掉历史轨迹 GT 以防标签泄露之后的版本，对应笔记 §1 "Yes 的一面"。这是 bevplanner 机制系的“现象”卡，关联注入位置、速度扰动与指标后果等检查。另关联 nuScenes 数据集性质卡，但数据分布普查不以本卡的模型持平现象为前提，两者不能互相替代验证。
+论文声称：在 nuScenes 开环评测的 L2 距离与碰撞率两个旧指标口径下，完全不用感知模块、只吃 ego status 的 Ego-MLP（Table 1 ID-8：L2-Avg 0.35 m / Colli-Avg 0.37%）与 UniAD、VAD 等 SOTA 方法持平。该 Ego-MLP 是论文作者复现 AD-MLP 时修复其 issue #4、去掉历史轨迹 GT 以防标签泄露之后的版本，对应笔记 §1 "Yes 的一面"。这是 bevplanner 机制系的“现象”卡，关联注入位置、速度扰动与指标后果等检查。另关联 nuScenes 数据集性质卡，但数据分布普查不以本卡的模型持平现象为前提，两者不能互相替代验证。
 
 ## 证据支持到哪里
 
@@ -39,7 +39,7 @@ signoff: null
 ## 可能的解释与未排除的因素
 
 - 现象本身（Table 1 直接报告）：无感知模型在旧指标上与感知 SOTA 同档。这是本卡标题的主张本身。
-- 论文的解释框架（作者立场，非本库复核）：直行场景主导 + ego status 注入让模型无需感知即可拿到低误差——即“持平”反映指标/数据的区分度问题，而非“感知无用”（论文自己用 CCR 与 Appendix E 反例区分了这两件事）。注入位置见 claim-bevplanner-egostatus-injection-closes-gap。数据背景见 [claim-nuscenes-three-second-low-lateral-displacement-majority](claim-nuscenes-three-second-low-lateral-displacement-majority.md)（asserted / watch，尚未独立验证）；该卡仅描述六步低横向位移占比，不证明论文成因解释。
+- 论文的解释框架（作者立场，非本库复核）：直行场景主导 + ego status 注入让模型无需感知即可拿到低误差——即“持平”反映指标/数据的区分度问题，而非“感知无用”（论文自己用 CCR 与 Appendix E 反例区分了这两件事）。注入位置见 claim-bevplanner-egostatus-injection-closes-gap。数据背景见 [claim-nuscenes-three-second-ego-motion-distribution](claim-nuscenes-three-second-ego-motion-distribution.md)（asserted / adopt，本库普查）；该卡描述约 3 秒轨迹窗口的横向位移与速度分布，不证明论文成因解释。
 - 未排除因素：① "持平"无显著性检验——ID-8 的 0.35/0.37 与 ID-3 的 0.46/0.37、ID-6 的 0.37/0.33 之间差距无方差报告，"持平"的判读区间未定义；② Ego-MLP 防泄露配置只有论文自述，未独立核对；③ "持平"只覆盖旧指标——按 CCR，Ego-MLP（2.93）差于 UniAD（1.93）/VAD（2.47），结论在新指标下已不同。
 
 ## 适用范围与迁移限制

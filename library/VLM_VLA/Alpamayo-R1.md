@@ -14,7 +14,7 @@
 > - 全文 arXiv 官方 HTML v2 https://arxiv.org/html/2511.00088v2 （LaTeXML 渲染，页面自标 “arXiv:2511.00088v2”，本次抓取）。以下 locator（§x.y / TABLE x）指该 v2 的章节与表格编号（正文 §1–§7，附录仅 A 贡献者/致谢）。引文中 «…» 为 HTML 数学元素，内为 alttext 属性原文（如 «\mathcal{D}_{\text{overall}}» 渲染为 𝒟_overall、«\checkmark» 为 ✓、«\times» 为 ×、«\pm» 为 ±、«\downarrow»/«\uparrow» 为 ↓/↑）；引号内为本次实际抓取文本的逐字摘录（含原文笔误），全部经脚本对照抓取文本验证存在（含表格逐单元格）。
 > - 表格：HTML v2 含全部 14 张表（TABLE 1–14），无「PDF 专属而 HTML 缺失」的表；本笔记全抄 TABLE 6/7/8/9/10/11/12/13/14（实验数字表）并逐单元格脚本核验；TABLE 1–5 为标注指南类长表（16/8/17/5/5 行），仅摘录示例行。`library/assets/Alpamago/` 预存 4 张表图已逐张查看并与 HTML 解析对照（分别对应 TABLE 7/9/11/12，数值逐格一致）。
 > - GitHub 仓库页面、raw README（main 分支）本次实际抓取；Hugging Face 模型页与 API 本次多次抓取均超时/SSL 失败，开源状态以论文 §7 原文 + GitHub 仓库与 README 为准（权重 gated 一事来自 README 原文）。
-> - 本笔记 2026-11-03 经入库前逐字 QA（quote 自洽 + 数字抽查）后自 nightshift/drafts/ 入库至 library/VLM_VLA/（Alpamago.md → Alpamayo-R1.md），未经用户核阅前所有结论均属「论文声称 / 尚未独立验证」。
+> - 本笔记 2026-11-03 经入库前逐字 QA（quote 自洽 + 数字抽查）后自 nightshift/drafts/ 入库至 library/VLM_VLA/（Alpamago.md → Alpamayo-R1.md）。
 
 ------
 
@@ -234,7 +234,7 @@
   2. 离散轨迹 token 用于训练/RL、flow matching action-expert 用于推理的双表征，兼顾「统一自回归训练 + RL 梯度可通」与「实时连续解码」（§5.1，TABLE 12：AR 312ms vs FM 99ms 总延迟）。
   3. RL 三奖励互补且缺一不可：只优化推理质量会同时劣化 ADE 与一致性（TABLE 9 行 2），reasoning + consistency 联合才拿到 9.4% ADE 下降与 45%/37% 提升（§6.3），再加 safety 奖励把 close encounter 压到最低 3.7（TABLE 9 行 4）。
   4. 底座选择上，Physical AI 预训练（Cosmos-Reason）在 LingoQA 上优于同量级通用 VLM（TABLE 11：66.2 vs Qwen2.5-VL-7B 62.2 等），与纯 scale（0.5B→7B，Fig. 12）是互补的两个维度（§6.5）。
-- ⚠ 措辞提示：①头条数字（12%/35%/45%/37%/99ms）全部来自内部数据（80,000 小时、 geo-fenced）与内部仿真 AlpaSim/自建 CoC 评测，公开可复现的只有 PhysicalAI-AV 644 例、AlpaSim 公开 920 场景与 LingoQA 零样本三处（§6.1、§6.4）；②12%/35% 的对照基线是 trajectory-only 版本而非外部 SOTA（§6.2、Abstract）；③TABLE 8 中 off-road rate 均值 4.0±3.0 vs 3.0±2.0（正文称 “comparable”），引用「闭环更安全」时勿写成全指标占优；④RL 读数基于 0.5B 模型（§6.3 原句自述），10B 公开模型的闭环数字见 TABLE 10；⑤§4.2 写 “2-second history to predict a 6-second future”，§3/§6.1 的轨迹/评测时域为 6.4 s，两处口径差 0.4 s（照抄原文，未强解）；⑥§6.5.1 的 0.5B/3B/7B scaling 用的是通用 VLM 底座（DINOv2+Qwen2.5-0.5B、Qwen2.5-VL-3B/7B）且 “reduced training budget”，与主模型（Cosmos-Reason 底座）不可直接比；⑦Abstract 的 “Model scaling from 0.5B to 7B parameters shows consistent improvements” 即指该消融；⑧发布权重 gated（README 原文要求申请访问），复现依赖 HF 权限。引用本文时建议写「论文声称 / 尚未独立验证」。
+- ⚠ 措辞提示：①头条数字（12%/35%/45%/37%/99ms）全部来自内部数据（80,000 小时、 geo-fenced）与内部仿真 AlpaSim/自建 CoC 评测，公开可复现的只有 PhysicalAI-AV 644 例、AlpaSim 公开 920 场景与 LingoQA 零样本三处（§6.1、§6.4）；②12%/35% 的对照基线是 trajectory-only 版本而非外部 SOTA（§6.2、Abstract）；③TABLE 8 中 off-road rate 均值 4.0±3.0 vs 3.0±2.0（正文称 “comparable”），引用「闭环更安全」时勿写成全指标占优；④RL 读数基于 0.5B 模型（§6.3 原句自述），10B 公开模型的闭环数字见 TABLE 10；⑤§4.2 写 “2-second history to predict a 6-second future”，§3/§6.1 的轨迹/评测时域为 6.4 s，两处口径差 0.4 s（照抄原文，未强解）；⑥§6.5.1 的 0.5B/3B/7B scaling 用的是通用 VLM 底座（DINOv2+Qwen2.5-0.5B、Qwen2.5-VL-3B/7B）且 “reduced training budget”，与主模型（Cosmos-Reason 底座）不可直接比；⑦Abstract 的 “Model scaling from 0.5B to 7B parameters shows consistent improvements” 即指该消融；⑧发布权重 gated（README 原文要求申请访问），复现依赖 HF 权限。
 
 ## TODO
 

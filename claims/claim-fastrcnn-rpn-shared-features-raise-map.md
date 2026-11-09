@@ -3,7 +3,7 @@ id: claim-fastrcnn-rpn-shared-features-raise-map
 title: "Faster R-CNN 声称 RPN 与检测器共享卷积特征（4 步交替训练）比独立训练两个网络 mAP 更高（笔记载 58.7%→59.9%）"
 type: claim
 status: asserted
-scope: "Faster R-CNN 消融实验（笔记 §消融实验-实验一：共享特征的重要性，对应论文 Table 2）；RPN 为 3×3 滑窗 + 3 尺度×3 长宽比共 k=9 anchors；笔记未标注数据集与评测划分；数字为笔记所载 mAP：不共享 58.7% → 共享 59.9%；尚未独立验证"
+scope: "Faster R-CNN 消融实验（笔记 §消融实验-实验一：共享特征的重要性，对应论文 Table 2）；RPN 为 3×3 滑窗 + 3 尺度×3 长宽比共 k=9 anchors；笔记未标注数据集与评测划分；数字为笔记所载 mAP：不共享 58.7% → 共享 59.9%"
 tags: [detection, faster-rcnn, rpn, shared-features, alternating-training]
 note: "library/Classical_Detection/Fast R-CNN 和 Faster R-CNN .md#消融实验-1"
 paper: "TPAMI 2017, Faster R-CNN（开源：https://github.com/ShaoqingRen/faster_rcnn）"
@@ -35,7 +35,7 @@ signoff: null
 
 ## 我的理解
 
-笔记声称（尚未独立验证）：Faster R-CNN 用 RPN（3×3 滑窗 + anchors 回归）在共享卷积特征图上生成候选框，替代约 2 秒/张的 Selective Search；消融（Table 2）比较“RPN 提框 + 独立训练 Fast R-CNN”（不共享，58.7%）与“4 步交替训练共享卷积层”（共享，59.9%），结论是共享特征既省去两次卷积计算，又提升精度，原因是检测器微调后的特征反过来优化了 RPN 的 proposal 质量。
+笔记声称：Faster R-CNN 用 RPN（3×3 滑窗 + anchors 回归）在共享卷积特征图上生成候选框，替代约 2 秒/张的 Selective Search；消融（Table 2）比较“RPN 提框 + 独立训练 Fast R-CNN”（不共享，58.7%）与“4 步交替训练共享卷积层”（共享，59.9%），结论是共享特征既省去两次卷积计算，又提升精度，原因是检测器微调后的特征反过来优化了 RPN 的 proposal 质量。
 
 限定：笔记未标注该消融的数据集与评测划分，mAP 数字按笔记所载写入 scope；本卡只主张“共享 ≥ 不共享”这一消融结论，不把 2 秒/张当作可复现的精确耗时（笔记未注明测量硬件）。
 

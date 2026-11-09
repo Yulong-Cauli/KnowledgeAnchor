@@ -3,7 +3,7 @@ id: claim-llava-158k-instructions-sufficient-multimodal-chat
 title: "LLaVA 论文声称：仅 158K 条机器生成指令样本（80K 独立图像）微调即获得接近 multimodal GPT-4 的推理表现，指令微调本身贡献 50+ 相对分"
 type: claim
 status: asserted
-scope: "LLaVA（CLIP ViT-L/14 + 线性投影 + Vicuna，13B）；LLaVA-Bench (In-the-Wild) 24 图像 60 问（GPT-4 作 judge 的相对分，相对 text-only GPT-4 + GT 标注上界）与 LLaVA-Bench (COCO) 30 图像 90 问消融；训练 8×A100（CC-595K 预训练 1 epoch + Instruct-158K 微调 3 epochs）；论文自报数字（NeurIPS 2023，arXiv:2304.08485v2），尚未独立验证"
+scope: "LLaVA（CLIP ViT-L/14 + 线性投影 + Vicuna，13B）；LLaVA-Bench (In-the-Wild) 24 图像 60 问（GPT-4 作 judge 的相对分，相对 text-only GPT-4 + GT 标注上界）与 LLaVA-Bench (COCO) 30 图像 90 问消融；训练 8×A100（CC-595K 预训练 1 epoch + Instruct-158K 微调 3 epochs）；论文自报数字（NeurIPS 2023，arXiv:2304.08485v2）"
 tags: [vlm, visual-instruction-tuning, llava, data-efficiency, gpt4-judge]
 note: library/VLM_VLA/LLaVA.md#3-实验
 paper: "NeurIPS 2023, Visual Instruction Tuning (LLaVA, arXiv:2304.08485)"
@@ -36,7 +36,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（尚未独立验证）：数据效率主张——158K 条 GPT-4 生成的指令样本（对应 80K 独立图像）加 595K 图文对的轻量预训练，在 8×A100 上数小时内即可把 CLIP+Vicuna 调成具备多模态对话与推理能力的助手；在 In-the-Wild 24 图基准上 overall 相对分 67.3、complex reasoning 81.7（均为 GPT-4 作 judge、相对 text-only GPT-4 上界的相对分），论文据此称其推理表现与 multimodal GPT-4「相当接近」。Table 4 消融同时显示：同架构不做指令微调只有 21.5（-63.6），指令微调是主要增益来源。
+论文声称：数据效率主张——158K 条 GPT-4 生成的指令样本（对应 80K 独立图像）加 595K 图文对的轻量预训练，在 8×A100 上数小时内即可把 CLIP+Vicuna 调成具备多模态对话与推理能力的助手；在 In-the-Wild 24 图基准上 overall 相对分 67.3、complex reasoning 81.7（均为 GPT-4 作 judge、相对 text-only GPT-4 上界的相对分），论文据此称其推理表现与 multimodal GPT-4「相当接近」。Table 4 消融同时显示：同架构不做指令微调只有 21.5（-63.6），指令微调是主要增益来源。
 
 注意「接近 GPT-4」的口径：只在这 24 张图的样例集合上、且以相对分衡量；这是论文自己的表述（"quite similar reasoning results ... on these examples"），不是普适结论。
 

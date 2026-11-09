@@ -3,7 +3,7 @@ id: claim-qlora-nf4-info-theoretic-optimal-datatype
 title: "QLoRA 声称：NF4 数据类型由零均值正态分布的 2^k+1 分位数构造（Eq.4 相邻均值；非对称化保证精确零点），对零均值正态权重'信息论最优'（每量化 bin 等期望填充）"
 type: claim
 status: asserted
-scope: "4-bit NormalFloat（NF4）数据类型本身的设计/理论主张；前提假设：预训练神经网络权重零均值正态（σ 任意，absmax 缩放归一到 [-1,1]，论文 §3 + Appendix F）；'信息论最优' 指分位数量化的等期望填充性质（论文声称，非本库推导复核）；码点表：论文 Appendix E 16 值，官方 bitsandbytes 实现硬编码表与之逐字节一致（main 分支 2026-11-05 实抓；同作者实现，非独立验证）；公式读法 2^k+1 / 2^{k-1} / 2^{k-1}+1 经原文 HTML alttext 核对（2026-11-05 实抓）；实证优越性（PPL/精度）归 [NF4+DQ 恢复卡]；尚未独立验证"
+scope: "4-bit NormalFloat（NF4）数据类型本身的设计/理论主张；前提假设：预训练神经网络权重零均值正态（σ 任意，absmax 缩放归一到 [-1,1]，论文 §3 + Appendix F）；'信息论最优' 指分位数量化的等期望填充性质（论文声称，非本库推导复核）；码点表：论文 Appendix E 16 值，官方 bitsandbytes 实现硬编码表与之逐字节一致（main 分支 2026-11-05 实抓；同作者实现，非独立验证）；公式读法 2^k+1 / 2^{k-1} / 2^{k-1}+1 经原文 HTML alttext 核对（2026-11-05 实抓）；实证优越性（PPL/精度）归 [NF4+DQ 恢复卡]"
 tags: [quantization, llm, qlora, nf4, data-type, information-theory]
 note: library/Quantization/QLoRA.md#22-4-bit-normalfloatnf43-之-4-bit-normalfloat-quantization-小节
 paper: "NeurIPS 2023（arXiv:2305.14314）, QLoRA: Efficient Finetuning of Quantized LLMs（开源：https://github.com/artidoro/qlora 、https://github.com/TimDettmers/bitsandbytes）"
@@ -44,7 +44,7 @@ signoff: null
 
 ## 这条主张是什么意思
 
-QLoRA 冻结 4-bit 底座做微调，其权重存储类型 NF4 是专门设计的：利用"预训练权重近似零均值正态"的假设（Appendix F），把分位数量化中昂贵的在线分位数估计换成固定分布的离线构造；并通过负侧 2^{k−1} / 正侧 2^{k−1}+1 的非对称分位设计保证 0 是精确码点（零值元素零误差）。论文由此声称 NF4 对零均值正态权重"信息论最优"——每个量化 bin 等期望填充。这是**类型设计层面的主张**；"NF4 实测优于 FP4/Int4"是另一类证据（Table 2/Figure 3，归 [NF4+DQ 恢复卡](claim-qlora-nf4-dq-recovers-16bit-lora-mmlu.md)），两者可分开证伪。本卡主张均为论文声称，尚未独立验证。
+QLoRA 冻结 4-bit 底座做微调，其权重存储类型 NF4 是专门设计的：利用"预训练权重近似零均值正态"的假设（Appendix F），把分位数量化中昂贵的在线分位数估计换成固定分布的离线构造；并通过负侧 2^{k−1} / 正侧 2^{k−1}+1 的非对称分位设计保证 0 是精确码点（零值元素零误差）。论文由此声称 NF4 对零均值正态权重"信息论最优"——每个量化 bin 等期望填充。这是**类型设计层面的主张**；"NF4 实测优于 FP4/Int4"是另一类证据（Table 2/Figure 3，归 [NF4+DQ 恢复卡](claim-qlora-nf4-dq-recovers-16bit-lora-mmlu.md)），两者可分开证伪。本卡主张均为论文声称。
 
 ## 假设与推导
 

@@ -4,7 +4,7 @@
 **是否开源：** 官方开源——https://github.com/megvii-model/ShuffleNet-Series （README 自述 "ShuffleNet Series by Megvii Research"，ShuffleNetV1 条目链接即 arXiv:1707.01083，含预训练模型下载；2026-11-02 访问核验。arXiv abs 页与 ar5iv 全文本身无代码链接；`Megvii-BaseDetection/ShuffleNet` 已 404）  
 **关键词：** 轻量级 CNN、pointwise 组卷积 (pointwise group convolution)、channel shuffle、深度可分离卷积 (depthwise separable convolution)、MobileNet 对比、ImageNet 分类、MS COCO 检测、ARM 实测加速
 
-> **Locator 约定：** 本笔记章节号（§1–§4，含 §3.1–§3.3、§4.1–§4.5）、图号（Figure 1–2）、表号（Table 1–8）均指 arXiv:1707.01083 v2 的 ar5iv HTML 版（https://ar5iv.labs.arxiv.org/html/1707.01083 ，抓取日期 2026-11-02；LaTeXML 渲染）。该版 §1 自称 "This report"（2026-11-03 复核：CVPR 2018 camera-ready 同句亦作 "This report"，措辞并非 v2 独有，见文末抓取记录）。英文引号内文字为本次实际抓取的逐字原文（ar5iv 将未解析的参考文献渲染为原 cite key，如 `howard2017mobilenets`，个别引文中此类键已删去并以 … 标示删除处，其余逐字）；行内数学按渲染结果转写（$\times$→×、$\sim$→∼、$\%$→%）。所有数字均为论文声称，未经独立验证。表格逐行照抄，并经脚本对抓取文本逐行核验。
+> **Locator 约定：** 本笔记章节号（§1–§4，含 §3.1–§3.3、§4.1–§4.5）、图号（Figure 1–2）、表号（Table 1–8）均指 arXiv:1707.01083 v2 的 ar5iv HTML 版（https://ar5iv.labs.arxiv.org/html/1707.01083 ，抓取日期 2026-11-02；LaTeXML 渲染）。该版 §1 自称 "This report"（2026-11-03 复核：CVPR 2018 camera-ready 同句亦作 "This report"，措辞并非 v2 独有，见文末抓取记录）。英文引号内文字为本次实际抓取的逐字原文（ar5iv 将未解析的参考文献渲染为原 cite key，如 `howard2017mobilenets`，个别引文中此类键已删去并以 … 标示删除处，其余逐字）；行内数学按渲染结果转写（$\times$→×、$\sim$→∼、$\%$→%）。所有数字均为论文声称。表格逐行照抄，并经脚本对抓取文本逐行核验。
 
 ---
 

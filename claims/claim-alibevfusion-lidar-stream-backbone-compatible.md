@@ -32,7 +32,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（尚未独立验证）：LiDAR 流通过参数化体素化 + 3D 稀疏卷积骨干，把原始点云转成与相机流同一 BEV 空间的 $F_{LiDAR}$；且框架对 LiDAR 检测网络不可知，可兼容 PointPillars、CenterPoint、TransFusion。这与笔记 §4"检测头可灵活挂载 Anchor-based / Anchor-free / Transformer 头"共同构成该框架的通用性主张：换 LiDAR 骨干或换检测头，融合模块本身不动。
+论文声称：LiDAR 流通过参数化体素化 + 3D 稀疏卷积骨干，把原始点云转成与相机流同一 BEV 空间的 $F_{LiDAR}$；且框架对 LiDAR 检测网络不可知，可兼容 PointPillars、CenterPoint、TransFusion。这与笔记 §4"检测头可灵活挂载 Anchor-based / Anchor-free / Transformer 头"共同构成该框架的通用性主张：换 LiDAR 骨干或换检测头，融合模块本身不动。
 
 注意口径：笔记 §2 没有骨干维度的实验数据，本卡是"论文声称可兼容"的窄卡；"兼容"到什么程度（开箱即跑 vs 需要适配）只能靠仓库与原文判定。
 

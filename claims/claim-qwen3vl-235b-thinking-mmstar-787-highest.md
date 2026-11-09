@@ -3,7 +3,7 @@ id: claim-qwen3vl-235b-thinking-mmstar-787-highest
 title: "Qwen3-VL 论文声称：Qwen3-VL-235B-A22B-Thinking 以 78.7 取得 MMStar 最高分（多模态 SOTA 快照，绑定模型规格与 arXiv v2）"
 type: claim
 status: asserted
-scope: "Qwen3-VL-235B-A22B-Thinking（MoE：235B 总参 / 22B 激活，SigLIP2-SO-400M 视觉编码器 + Qwen3 骨干）；基准 MMStar（单图 VQA，评测采样 temperature 0.6 / top-p 0.95 / top-k 20）；数字来源为 arXiv:2511.21631v2（2025-11-27）§5.1 prose；『最高』为论文声称，未含第三方榜单核验，尚未独立验证"
+scope: "Qwen3-VL-235B-A22B-Thinking（MoE：235B 总参 / 22B 激活，SigLIP2-SO-400M 视觉编码器 + Qwen3 骨干）；基准 MMStar（单图 VQA，评测采样 temperature 0.6 / top-p 0.95 / top-k 20）；数字来源为 arXiv:2511.21631v2（2025-11-27）§5.1 prose；『最高』为论文声称，未含第三方榜单核验"
 tags: [vlm, qwen3-vl, mmstar, benchmark-snapshot, sota-claim]
 note: library/VLM_VLA/Qwen3-VL.md#3-实验
 paper: "arXiv 2025, Qwen3-VL Technical Report (arXiv:2511.21631)"
@@ -36,7 +36,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（尚未独立验证）：Qwen3-VL-235B-A22B-Thinking 在 MMStar 上取得 78.7 的最高分（§5.1 prose）。这是窄快照卡——只绑定「该模型规格 + MMStar + arXiv v2」这一个点，不外推到其它基准。
+论文声称：Qwen3-VL-235B-A22B-Thinking 在 MMStar 上取得 78.7 的最高分（§5.1 prose）。这是窄快照卡——只绑定「该模型规格 + MMStar + arXiv v2」这一个点，不外推到其它基准。
 
 两个必须记住的限定：
 1. 同报告的 MMMU 上 Qwen3-VL-Thinking 是 80.6，而 GPT-5(high) 是 84.2*——即在 MMMU 上它并非第一；SOTA 声明是分基准的，MMStar 78.7 这一格不能代表「全面 SOTA」。

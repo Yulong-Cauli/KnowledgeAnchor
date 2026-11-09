@@ -3,7 +3,7 @@ id: claim-hgsfusion-2d-spatial-mode-beats-3d
 title: "HGSFusion 自报：管线内空间模式预测 2D（BEV）优于 3D（显式监督下 RoI AP 79.46 vs 75.58，EAA AP 58.96 vs 56.41）；作者归因于 4D 雷达高度角分辨率不足"
 type: claim
 status: asserted
-scope: "VoD（2026-11-05 实抓 arXiv:2412.11489v1 核对：Table 7 位于附录 Exploration of Spatial Pattern Paradigm 节，caption「Effects of spatial pattern types and supervision」未标数据集；紧邻上文为 VoD 附录段、下文为 TJ4DRadSet 段，按上下文推定 VoD，仍未获 caption 级确认）；HGSFusion 管线内 DSM 空间模式预测（S_R）模块的消融（论文附录 Table 7，2026-11-05 实抓与笔记转录逐格一致）；2D/3D 指该模块输出占据图的形式（BEV 平面 vs 含高度）；指标 EAA AP / RoI AP，笔记未定义口径（cross 文档 M1）；只主张本管线内的消融排序，不主张「4D 雷达俯仰维普遍无用」；自报数字，尚未独立验证"
+scope: "VoD（2026-11-05 实抓 arXiv:2412.11489v1 核对：Table 7 位于附录 Exploration of Spatial Pattern Paradigm 节，caption「Effects of spatial pattern types and supervision」未标数据集；紧邻上文为 VoD 附录段、下文为 TJ4DRadSet 段，按上下文推定 VoD，仍未获 caption 级确认）；HGSFusion 管线内 DSM 空间模式预测（S_R）模块的消融（论文附录 Table 7，2026-11-05 实抓与笔记转录逐格一致）；2D/3D 指该模块输出占据图的形式（BEV 平面 vs 含高度）；指标 EAA AP / RoI AP，笔记未定义口径（cross 文档 M1）；只主张本管线内的消融排序，不主张「4D 雷达俯仰维普遍无用」；自报数字"
 tags: [4d-radar, radar-camera-fusion, hgsfusion, vod, ablation, bev, elevation, radarocc]
 note: library/Multimodal_Fusion/HGSFusion.md#45-空间模式类型与监督消融-table-7
 paper: "AAAI 2025 · HGSFusion（带混合生成与同步的雷达-相机融合 3D 目标检测；笔记未记录英文原题与 arXiv 号；开源：https://github.com/garfield-cpp/HGSFusion）"
@@ -40,7 +40,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（据笔记 §4.5 转录，尚未独立验证）：在 HGSFusion 自己的消融中，2D（BEV）空间模式预测优于 3D——带显式监督时 RoI AP 79.46 vs 75.58（+3.88），EAA AP 58.96 vs 56.41（+2.55）；无监督侧同向（2D 78.77 vs 3D 74.70）。同表显式监督在 2D 下 +0.69 RoI AP（79.46 vs 78.77），与 R4Det / SGDet3D 的「中间几何量显式监督有增益」同向（cross 文档 S5）。
+论文声称（据笔记 §4.5 转录）：在 HGSFusion 自己的消融中，2D（BEV）空间模式预测优于 3D——带显式监督时 RoI AP 79.46 vs 75.58（+3.88），EAA AP 58.96 vs 56.41（+2.55）；无监督侧同向（2D 78.77 vs 3D 74.70）。同表显式监督在 2D 下 +0.69 RoI AP（79.46 vs 78.77），与 R4Det / SGDet3D 的「中间几何量显式监督有增益」同向（cross 文档 S5）。
 
 口径张力（引用本卡时必须带上）：论文与笔记把 2D 优势归因于 4D 雷达高度角分辨率不足（论文原文：「the insufficient elevation information of radar points prevents it from determining accurate heights」，2026-11-05 实抓核对；笔记分析段为同向转述），这与 RadarOcc 的立场相反——RadarOcc 整条 pipeline 建立在 4D 雷达张量的俯仰维（球坐标 r/a/e）之上，并称其特征图「保持了雷达原始的分辨率优势」（cross 文档 C1）。两者任务不同（纯雷达 4DRT 占据预测 vs 融合检测管线内的空间模式预测），笔记层面无法仲裁。因此本卡只立「HGSFusion 管线内 2D > 3D 的消融排序」这条窄主张；「4D 雷达俯仰维信息价值低」**不立卡**——它需要同一硬件/数据集上的对照实验才能裁决（cross 文档 §6 遗留问题 6.5 方向）。库内 claim-radarocc-s2c-deformable-avoids-interp-degradation 卡正文已同步记录此张力。
 

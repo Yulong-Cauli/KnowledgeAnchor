@@ -3,7 +3,7 @@ id: claim-omniquant-w4a16g128-llama13b-a100-913toks
 title: "OmniQuant 论文自报：LLaMA-13B W4A16g128 经 MLC-LLM 部署在 A100-80G 上，量化权重显存 7.0 GB、512-token 生成吞吐 91.3 tokens/s"
 type: claim
 status: asserted
-scope: "LLaMA-13B（camera-ready Table 3 表头仅写 LLaMA，未细分 1/2 代）；W4A16g128（128 分组 weight-only，非逐通道）；NVIDIA A100-80G；MLC-LLM 部署；WM 为量化权重存储 7.0 GB、RM 为运行显存 10.0 GB；吞吐为生成 512 tokens 的平均速度 91.3 tokens/s，未报告批大小与 P99；FP16 基线（同表）WM 24.3 GB / RM 27.1 GB / 52.5 tokens/s——笔记记的基线 ~26 GB、~40 tokens/s、加速 >2 倍与原表不符（实际加速约 1.74 倍）；数字为论文自报；尚未独立验证"
+scope: "LLaMA-13B（camera-ready Table 3 表头仅写 LLaMA，未细分 1/2 代）；W4A16g128（128 分组 weight-only，非逐通道）；NVIDIA A100-80G；MLC-LLM 部署；WM 为量化权重存储 7.0 GB、RM 为运行显存 10.0 GB；吞吐为生成 512 tokens 的平均速度 91.3 tokens/s，未报告批大小与 P99；FP16 基线（同表）WM 24.3 GB / RM 27.1 GB / 52.5 tokens/s——笔记记的基线 ~26 GB、~40 tokens/s、加速 >2 倍与原表不符（实际加速约 1.74 倍）；数字为论文自报"
 tags: [quantization, ptq, omniquant, llm, w4a16, deployment, a100, mlc-llm]
 note: library/Quantization/OmniQuant.md#4-实验与分析-experiments
 paper: "ICLR 2024, OmniQuant: Omnidirectionally Calibrated Quantization for Large Language Models (arXiv:2308.13137)"
@@ -38,7 +38,7 @@ signoff: null
 
 > 修订注记 2026-11-03：笔记实验 4 的 FP16 基线行已按论文原表修正——修正前「~26 GB / ~40 tokens/s / 加速 > 2倍」，修正后「WM 24.3 GB / RM 27.1 GB / 52.5 tokens/s、加速约 1.74×、WM 口径节省 ~71%」，与本卡 scope 既有描述（同表 FP 行 24.3/27.1/52.5、实际加速约 1.74 倍）一致；本卡 evidence 中笔记两行 quote 已同步更新。修正依据：https://arxiv.org/pdf/2308.13137v3 Table 3 p.9（pdftotext 提取，2026-11-03 抓取核对，与本卡下方论文引文一致）。量化侧 7.0 GB / 91.3 tokens/s 未变，本卡主张与 status 不受影响。
 
-论文声称（asserted，尚未独立验证）：LLaMA-13B 经 W4A16g128 量化并完成参数融合（LET 吸收进 LayerNorm、LWC 融合进权重，推理零额外算子）后，用 MLC-LLM 部署在 NVIDIA A100-80G 上：量化权重存储 (WM) 7.0 GB（运行显存 RM 10.0 GB），512-token 生成吞吐 91.3 tokens/s。
+论文声称（asserted）：LLaMA-13B 经 W4A16g128 量化并完成参数融合（LET 吸收进 LayerNorm、LWC 融合进权重，推理零额外算子）后，用 MLC-LLM 部署在 NVIDIA A100-80G 上：量化权重存储 (WM) 7.0 GB（运行显存 RM 10.0 GB），512-token 生成吞吐 91.3 tokens/s。
 
 两个必须记住的限定：
 

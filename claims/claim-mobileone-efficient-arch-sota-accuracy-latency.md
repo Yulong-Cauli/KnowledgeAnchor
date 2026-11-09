@@ -3,7 +3,7 @@ id: claim-mobileone-efficient-arch-sota-accuracy-latency
 title: "MobileOne 论文声称 iPhone12 实测口径下高效架构内 SOTA：S1 75.9 top-1 @0.89ms（<1ms）、S4 79.4 @1.86ms，后者比 79.3 @70.76ms 的 MobileFormer 变体快约 38×"
 type: claim
 status: asserted
-scope: "MobileOne Table 9（ImageNet-1k val；对比集限定同分辨率、参数 <20M、均不用蒸馏）；延迟为 iPhone12 CoreML round-trip 最小值口径（预热后多次运行取 min，§3.5）；「快约 38×」由 70.76/1.86≈38 换算，且该 MobileFormer 变体（79.3@70.76ms）未列于 Table 9（表内 Mobileformer-96 为 72.8@16.95ms）；论文声称口径，尚未独立验证"
+scope: "MobileOne Table 9（ImageNet-1k val；对比集限定同分辨率、参数 <20M、均不用蒸馏）；延迟为 iPhone12 CoreML round-trip 最小值口径（预热后多次运行取 min，§3.5）；「快约 38×」由 70.76/1.86≈38 换算，且该 MobileFormer 变体（79.3@70.76ms）未列于 Table 9（表内 Mobileformer-96 为 72.8@16.95ms）；论文声称口径"
 tags: [mobileone, imagenet, latency, iphone12, efficient-backbone]
 note: library/Efficient_Backbone/MobileOne.md#31-imagenet-1k-分类4-table-9
 paper: "CVPR 2023, MobileOne: An Improved One millisecond Mobile Backbone (arXiv:2206.04040)"
@@ -64,7 +64,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（尚未独立验证）：在「同分辨率、参数 <20M、不用蒸馏」的高效架构集合内，MobileOne 于 iPhone12 真机延迟口径下取得精度-延迟 SOTA——Table 9 中五个变体为 S0 71.4@0.79ms、S1 75.9@0.89ms、S2 77.4@1.18ms、S3 78.1@1.53ms、S4 79.4@1.86ms（Mobile 列）；摘要头条即 S1 的 <1ms / 75.9。跨架构头条：S4 对 79.3@70.76ms 的 MobileFormer 变体快约 38×（70.76/1.86 换算；该变体未列于 Table 9，表内可比的 Mobileformer-96 为 72.8@16.95ms，约 9.1×，见笔记 §4 核心结论 5）。
+论文声称：在「同分辨率、参数 <20M、不用蒸馏」的高效架构集合内，MobileOne 于 iPhone12 真机延迟口径下取得精度-延迟 SOTA——Table 9 中五个变体为 S0 71.4@0.79ms、S1 75.9@0.89ms、S2 77.4@1.18ms、S3 78.1@1.53ms、S4 79.4@1.86ms（Mobile 列）；摘要头条即 S1 的 <1ms / 75.9。跨架构头条：S4 对 79.3@70.76ms 的 MobileFormer 变体快约 38×（70.76/1.86 换算；该变体未列于 Table 9，表内可比的 Mobileformer-96 为 72.8@16.95ms，约 9.1×，见笔记 §4 核心结论 5）。
 
 两条引用纪律：
 1. **MNASNet-A1 双口径**：其 Top-1 在 Table 9 为 75.2、在 Table 14 为 75.8（论文自不一致，笔记两处照抄）——引用 MNASNet 数字必须注明表号；本次实抓 ar5iv 确认两处原文即如此。

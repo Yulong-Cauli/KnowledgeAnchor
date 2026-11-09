@@ -3,7 +3,7 @@ id: claim-surroundocc-3d-voxel-query-vertical-structure-advantage
 title: "SurroundOcc 声称：显式 3D 体素查询在捕捉立交桥、电线杆等垂直结构上优于高度压缩的 BEV 查询"
 type: claim
 status: asserted
-scope: "nuScenes 上 SurroundOcc 的显式 3D 体素查询 vs 高度压缩 BEV 查询的对比分析；笔记 §5.2 仅给定性结论，未附定量消融数字、指标与场景切片口径；本卡为窄卡，主张限定为「论文声称存在该优势」这一转述本身，不含优势幅度；尚未独立验证"
+scope: "nuScenes 上 SurroundOcc 的显式 3D 体素查询 vs 高度压缩 BEV 查询的对比分析；笔记 §5.2 仅给定性结论，未附定量消融数字、指标与场景切片口径；本卡为窄卡，主张限定为「论文声称存在该优势」这一转述本身，不含优势幅度"
 tags: [occupancy-prediction, 3d-voxel, bev, surroundocc, vertical-structure]
 note: library/3D_Occupancy/SurroundOcc.md#52-关键消融实验结论
 paper: "ICCV 2023 · SurroundOcc: Multi-Camera 3D Occupancy Prediction for Autonomous Driving · arXiv:2303.09551 · https://github.com/weiyithu/SurroundOcc"
@@ -24,7 +24,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（据笔记 §5.2 转述，尚未独立验证）：以显式 3D 体素为查询（保留高度维）优于把高度压缩掉的 BEV 查询，差别集中体现在立交桥、电线杆等垂直结构上。这是笔记对「3D vs BEV」消融的定性总结——笔记没有给出任何数字，因此本卡只立窄主张：论文声称存在该优势；优势的幅度、指标（SC IoU？召回？）与场景切片口径笔记均未记录，须回原文。
+论文声称（据笔记 §5.2 转述）：以显式 3D 体素为查询（保留高度维）优于把高度压缩掉的 BEV 查询，差别集中体现在立交桥、电线杆等垂直结构上。这是笔记对「3D vs BEV」消融的定性总结——笔记没有给出任何数字，因此本卡只立窄主张：论文声称存在该优势；优势的幅度、指标（SC IoU？召回？）与场景切片口径笔记均未记录，须回原文。
 
 限定与注意：
 1. 「明显优势」是笔记措辞，非量化结论；不能直接引用「3D 查询比 BEV 好 X」这类量化表述。

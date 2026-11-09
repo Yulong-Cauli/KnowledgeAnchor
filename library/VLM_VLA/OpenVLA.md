@@ -10,7 +10,7 @@
 > - 出处核对：PMLR 第 270 卷目录页 https://proceedings.mlr.press/v270/ （本次抓取）含上述 OpenVLA 条目，卷信息见头部「出处会议」行；该条目另给出 OpenReview 链接。CoRL 2024 = The 8th Conference on Robot Learning。
 > - 开源核对：GitHub API https://api.github.com/repos/openvla/openvla （本次抓取）返回 full_name "openvla/openvla"、license spdx "MIT"；项目页 https://openvla.github.io/ 本次抓取 title 为 "OpenVLA: An Open-Source Vision-Language-Action Model"。
 > - 摘要引文核对对象为 abs 页 abstract blockquote；正文引文核对对象为上述 HTML 全文的规范化提取文本（脚本已生成）。规范化约定（两侧同规则，见文末「表格与引文核验」）：①数学元素以 ⟨MATH:alttext⟩ 标出，alttext 为 HTML 属性原文（如 ± 的 alttext 为 \pm，⟨MATH:\pm⟩ 即渲染后的 ±）；②LaTeXML 引文空格 "[ 7 , 1 ]" 规范化为 "[7, 1]"；③行内标签边界产生的标点前空格（"closed ,"→"closed,"）、"(" 后空格、"⟨MATH:x⟩ -" 连字、" %" 空格一并规范化；④上/下标直接粘连（"1 st"→"1st"）。
-> - 表格逐行照抄自 HTML 解析结果并经脚本逐单元格核验（见文末）；本笔记 2026-11-03 经入库前逐字 QA（quote 自洽 + 数字抽查）后自 nightshift/drafts/ 入库至 library/VLM_VLA/，未经用户核阅前所有结论均属「论文声称 / 尚未独立验证」。
+> - 表格逐行照抄自 HTML 解析结果并经脚本逐单元格核验（见文末）；本笔记 2026-11-03 经入库前逐字 QA（quote 自洽 + 数字抽查）后自 nightshift/drafts/ 入库至 library/VLM_VLA/。
 
 ------
 
@@ -220,7 +220,7 @@
   3. VLA 与 VLM 的两条经验相反：①分辨率 224×224 即可，384×384 无收益但训练 3 倍耗时（§3.4）；②视觉编码器要微调不要冻结（VLM 侧文献通常反着说；§3.4、§D.3：80.0% vs 46.7%）。
   4. 数据多样性是第一杠杆：去掉 OpenX 预训练掉 30 个绝对点，去掉 DinoV2 只掉 5 个点（§D.1/§D.2，Table 9）；数据清洗（去 no-op/all-zero 动作）对单步表达力策略至关重要（§5.2、Appendix C/E）。
   5. 算力账本：预训练 64×A100×14 天（21,500 A100-hours，batch 2048，27 epochs，lr 2e-5）；下游 LoRA rank=32 只训 1.4% 参数、单卡 A100 10-15 小时（8 倍省）；int4 量化推理 7.0 GB 无成功率损失（§3.5、§5.3、§5.4）。
-- ⚠ 措辞提示：①16.5% 是 "absolute task success rate across 29 tasks"（WidowX + Google Robot 两平台，Fig. 3/4 汇总，明细在 Table 4/6），并非单一 benchmark 分数；RT-2-X 的 Bridge 评测数字依赖「取次优动作」的 workaround（Appendix C），对比口径由 OpenVLA 作者执行。②20.4%（Abstract，对 Diffusion Policy）对应 §5.2 Franka 微调实验，Diffusion Policy 在窄任务上仍更准、轨迹更平滑（§5.2 自述）。③LIBERO 仿真上 OpenVLA 优势收窄（76.5% vs Octo 75.1%、DP 72.4%，Table 12），且预训练纯真实数据，作者归因 sim-to-real 域差（§E.2）。④Table 1/2/9/12 的 "±" 均为 StdErr（⟨MATH:\pm⟩，alttext "\pm"）；各表 rollout 数不同（33/80/每任务 10/500×3 seeds），不可横向比较。⑤§5.3/§5.4 用的是「小混合预训练 + SigLIP-only」的简化版 OpenVLA（§5.3 脚注 4 原句："we experiment with a version of the OpenVLA model that is pretrained with a smaller robot data mixture (the same OpenX dataset mixture as Octo) and has a slightly smaller architecture which only uses a SigLIP [79] vision backbone instead of the fused DinoSigLIP encoder."），与最终发布模型并非同一配置。引用本文时建议写「论文声称 / 尚未独立验证」。
+- ⚠ 措辞提示：①16.5% 是 "absolute task success rate across 29 tasks"（WidowX + Google Robot 两平台，Fig. 3/4 汇总，明细在 Table 4/6），并非单一 benchmark 分数；RT-2-X 的 Bridge 评测数字依赖「取次优动作」的 workaround（Appendix C），对比口径由 OpenVLA 作者执行。②20.4%（Abstract，对 Diffusion Policy）对应 §5.2 Franka 微调实验，Diffusion Policy 在窄任务上仍更准、轨迹更平滑（§5.2 自述）。③LIBERO 仿真上 OpenVLA 优势收窄（76.5% vs Octo 75.1%、DP 72.4%，Table 12），且预训练纯真实数据，作者归因 sim-to-real 域差（§E.2）。④Table 1/2/9/12 的 "±" 均为 StdErr（⟨MATH:\pm⟩，alttext "\pm"）；各表 rollout 数不同（33/80/每任务 10/500×3 seeds），不可横向比较。⑤§5.3/§5.4 用的是「小混合预训练 + SigLIP-only」的简化版 OpenVLA（§5.3 脚注 4 原句："we experiment with a version of the OpenVLA model that is pretrained with a smaller robot data mixture (the same OpenX dataset mixture as Octo) and has a slightly smaller architecture which only uses a SigLIP [79] vision backbone instead of the fused DinoSigLIP encoder."），与最终发布模型并非同一配置。
 
 ## TODO
 

@@ -12,7 +12,7 @@
 > - 全文 arXiv 官方 HTML v2 https://arxiv.org/html/2503.23463v2 （LaTeXML 渲染，页面自标 “arXiv:2503.23463v2”，本次抓取）。以下 locator（§x / TABLE x）均指该 v2 的章节与表格编号（正文 I–V，附录 VI–VIII）；引号为本次实际抓取文本的逐字摘录；数学记号在 HTML 中为数学元素，摘录按其 alttext 还原并另行注明（〔…〕标记处即数学插入点；反引号内为 alttext 属性原文），引文以脚本对照抓取文本验证存在。
 > - 开源核对：GitHub 仓库页面与 raw README、GitHub API repo metadata（license: Apache License 2.0 / spdx_id Apache-2.0，default_branch main）均本次实际抓取。
 > - 表格：HTML v2 含全部 11 张表（TABLE I–XI，LaTeXML `ltx_tabular`），无「PDF 专属而 HTML 缺失」的表；本笔记转抄的表格均逐行照抄解析结果并经脚本逐单元格核验（见文末「表格核验」）。`library/assets/OpenDriveVLA/` 已有用户预存的 Table4.png / Table5.png / TableB.png（2026-11-01 存入），本次逐张查看并与 HTML 解析对照：分别对应 TABLE IV、TABLE V、TABLE XI（「TableB」文件名疑为旧版编号，数值与 v2 TABLE XI 逐格一致）。
-> - 本笔记 2026-11-03 经入库前逐字 QA（quote 自洽 + 数字抽查）后自 nightshift/drafts/ 入库至 library/VLM_VLA/，未经用户核阅前所有结论均属「论文声称 / 尚未独立验证」。
+> - 本笔记 2026-11-03 经入库前逐字 QA（quote 自洽 + 数字抽查）后自 nightshift/drafts/ 入库至 library/VLM_VLA/。
 
 ------
 
@@ -238,7 +238,7 @@
   2. 四段式训练各阶段冻结/解冻安排：Stage 1 仅训 projector（3.1 MB 可训参数），Stage 2/2.5 训 projector+LLM（496.9 MB），Stage 3 全模型（除 2D encoder，552.6 MB）；各阶段均 1 epoch、4×H100、per-GPU batch 1（TABLE VIII、§IV-C）。
   3. Stage 2.5 的 agent 轨迹预测辅助任务与 Stage 1 对齐是碰撞率下降的主要来源（TABLE V：0.37→0.32→0.26，§IV-E）。
   4. 输入消融显示视觉输入与 ego state 都不可省（TABLE IV），且 ego state 在 nuScenes 开环基准上作用关键（§IV-E，引 [53]）。
-- ⚠ 措辞提示：①Abstract 的 “state-of-the-art results” 仅指 nuScenes 开环规划与驾驶 VQA，未含闭环（§VIII-D2/D3 自述）；②TABLE I 中 OpenDriveVLA 的 ST-P3 口径 L2 Avg. 0.33 与 VAD（0.37）、RDA-Driver（0.40）同量级，UniAD 口径下 0.5B 的 Avg. L2 0.68/Col. 0.26 与 UniAD 基线（1.03/0.31）接近；③各规模互有胜负（Nu-X 上 0.5B 优于 7B），引用规模结论时勿写「越大越好」；④推理延迟 1.36–1.85 s/样本（TABLE IX，A100 BF16），§VIII-D2 自认是高速场景部署瓶颈；⑤训练脚本截至本次抓取未发布（GitHub README TODO List 未勾选），训练复现受限。引用本文时建议写「论文声称 / 尚未独立验证」。
+- ⚠ 措辞提示：①Abstract 的 “state-of-the-art results” 仅指 nuScenes 开环规划与驾驶 VQA，未含闭环（§VIII-D2/D3 自述）；②TABLE I 中 OpenDriveVLA 的 ST-P3 口径 L2 Avg. 0.33 与 VAD（0.37）、RDA-Driver（0.40）同量级，UniAD 口径下 0.5B 的 Avg. L2 0.68/Col. 0.26 与 UniAD 基线（1.03/0.31）接近；③各规模互有胜负（Nu-X 上 0.5B 优于 7B），引用规模结论时勿写「越大越好」；④推理延迟 1.36–1.85 s/样本（TABLE IX，A100 BF16），§VIII-D2 自认是高速场景部署瓶颈；⑤训练脚本截至本次抓取未发布（GitHub README TODO List 未勾选），训练复现受限。
 
 ## TODO
 

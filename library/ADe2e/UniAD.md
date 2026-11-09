@@ -7,7 +7,7 @@
 > 来源与核验（抓取日期 2026-11-02）：
 > - arXiv abs 页 https://arxiv.org/abs/2212.10156 ，标题 "Planning-oriented Autonomous Driving"，与任务给定标题一致，允许使用。作者：Yihan Hu, Jiazhi Yang, Li Chen, Keyu Li, Chonghao Sima, Xizhou Zhu, Siqi Chai, Senyao Du, Tianwei Lin, Wenhai Wang, Lewei Lu, Xiaosong Jia, Qiang Liu, Jifeng Dai, Yu Qiao, Hongyang Li（v1 2022-12-20，v2 2023-03-23）。
 > - 全文 ar5iv https://ar5iv.labs.arxiv.org/html/2212.10156 （title 核对一致），并与 arXiv 官方 HTML v2 https://arxiv.org/html/2212.10156v2 交叉核对关键表格数字一致。以下 locator（§x / Table x / Appendix x）均指该论文 v2 的章节与表格编号；引号为本次实际抓取文本的逐字摘录，以 arXiv 官方 HTML v2 的渲染为准，方括号数字（如 [104]）为该版参考文献编号、照抄未改，正文数学符号（Q、t 等）按该渲染保留单个字符。
-> - 本笔记 2026-11-03 自 nightshift/drafts/UniAD.md 草稿入库（草稿保留）：入库前做了逐字自洽 QA——45 处引号内引文全部配对且逐字在文中、⚠ 自不一致注记原样保留、正文数字与表格行抽查一致。未经用户核阅前所有结论均属"论文声称 / 尚未独立验证"。
+> - 本笔记 2026-11-03 自 nightshift/drafts/UniAD.md 草稿入库（草稿保留）：入库前做了逐字自洽 QA——45 处引号内引文全部配对且逐字在文中、⚠ 自不一致注记原样保留、正文数字与表格行抽查一致。
 
 ------
 
@@ -16,7 +16,7 @@
 - 论文动机：级联式独立模型存在误差累积，多任务学习（MTL）存在负迁移。摘要原句："However, they might suffer from accumulative errors or deficient task coordination."（Abstract）
 - 论文核心主张是"面向规划"（planning-oriented）来设计整个栈，摘要原句："we argue that a favorable framework should be devised and optimized in pursuit of the ultimate goal, i.e., planning of the self-driving car."（Abstract）
 - UniAD 把五个任务放进一个网络：检测+跟踪（TrackFormer）、在线建图（MapFormer）、运动预测（MotionFormer）、占用预测（OccFormer）、规划（Planner）。任务之间用 query 作为接口通信（Abstract: "Tasks are communicated with unified query interfaces to facilitate each other toward planning."）。
-- 论文声称的首创性（§1，注意这是论文自述、尚未独立验证）："To the best of our knowledge, UniAD is the first work to comprehensively investigate the joint cooperation of such a variety of tasks including perception, prediction and planning in the field of autonomous driving."
+- 论文声称的首创性（§1，注意这是论文自述）："To the best of our knowledge, UniAD is the first work to comprehensively investigate the joint cooperation of such a variety of tasks including perception, prediction and planning in the field of autonomous driving."
 - 选 query 作为节点接口的理由（§1）："A key component is the query-based design to connect all nodes. Compared to the classic bounding box representation, queries benefit from a larger receptive field to soften the compounding error from upstream predictions."
 - 框架对比（Table 1 逐字转录；列：Design / Approach / Det. / Track / Map / Motion / Occ. / Plan；✓=具备该模块）：
 
@@ -253,7 +253,7 @@ Table 13（复杂度与运行时，A100 上测量）逐字行（列：ID / Det.,
 
 ## 4. 核心结论
 
-1. 论文声称：以规划为最终目标重新组织感知/预测任务（五任务全栈 + query 接口）能在 nuScenes 上同时改善各任务与规划指标，优于独立模型与朴素 MTL（Table 2/3/5/7；Abstract）。注意此为论文声称、尚未独立验证。
+1. 论文声称：以规划为最终目标重新组织感知/预测任务（五任务全栈 + query 接口）能在 nuScenes 上同时改善各任务与规划指标，优于独立模型与朴素 MTL（Table 2/3/5/7；Abstract）。注意此为论文声称。
 2. 两种预测表示互补：agent 级 motion forecasting 提供带身份的稀疏轨迹，scene 级 occupancy 提供稠密未来场景，二者同时引入时规划 L2 与碰撞率最好（§3.1，Table 2 Exp.10-12；Appendix B 原句 "to benefit from the two complementary types of prediction tasks for safe planning, we incorporate both agent-centric motion and whole-scene occupancy in UniAD"）。
 3. 代价：完整模型 125.0M 参数 / 1709 GFLOPs / A100 上 1.8 FPS（Table 13）；论文自述局限（§4）："Coordinating such a comprehensive system with multiple tasks is non-trivial and needs extensive computational power, especially trained with temporal history. How to devise and curate the system for a lightweight deployment deserves future exploration."
 4. 规划结果的评价语境：nuScenes 开环指标（L2 / collision rate），与 ST-P3 等同口径（Appendix F.2 Planning: "We adopt the same metrics as in ST-P3 [38], i.e., L2 error and collision rate at various timestamps."）。

@@ -3,7 +3,7 @@ id: claim-pointnetpillars-pointnet-maxpool-skeleton-noise-robustness
 title: "PointNet 声称：Max Pooling 只保留各特征维上响应最大的点（关键骨架），非关键点或少量噪声点的扰动不影响全局特征"
 type: claim
 status: asserted
-scope: "3D 点云分类/分割的机制解释层面（PointNet，CVPR 2017）；对 Max Pooling 选择的原因主张；笔记该节未载任何扰动/噪声实验数据，不涉及定量鲁棒性结论；尚未独立验证"
+scope: "3D 点云分类/分割的机制解释层面（PointNet，CVPR 2017）；对 Max Pooling 选择的原因主张；笔记该节未载任何扰动/噪声实验数据，不涉及定量鲁棒性结论"
 tags: [pointnet, point-cloud, max-pooling, robustness, classical-detection]
 note: library/Classical_Detection/PointNet & PointPillars.md#pointnet
 paper: "CVPR 2017, PointNet: Deep Learning on Point Sets for 3D Classification and Segmentation (arXiv:1612.00593)"
@@ -32,7 +32,7 @@ signoff: null
 
 ## 我的理解
 
-笔记声称（尚未独立验证）：Max Pooling 在所有点的特征维度上取最大值（如 1024 维中每维取 $N$ 个点响应最强值），实际捕捉的是点云的关键骨架——只有最显著的点会激活最大值；由于只取最大值，非关键区域的点或少量噪声点即使扰动也不会改变最终的全局特征。
+笔记声称：Max Pooling 在所有点的特征维度上取最大值（如 1024 维中每维取 $N$ 个点响应最强值），实际捕捉的是点云的关键骨架——只有最显著的点会激活最大值；由于只取最大值，非关键区域的点或少量噪声点即使扰动也不会改变最终的全局特征。
 
 限定：这是对"为什么选 Max Pooling"的机制解释主张，比[置换不变性卡](claim-pointnetpillars-pointnet-permutation-invariance-symmetric-function.md)的"结构保证不变性"更弱一层：笔记该节没有任何扰动/噪声实验数据支撑，属于论证而非实验结论，验证时必须补鲁棒性实验。
 

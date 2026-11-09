@@ -1,6 +1,6 @@
 ---
 id: claim-rcbevdet-camf-alignment-then-fusion-robust
-title: "RCBEVDet 的 alignment-then-fusion CAMF 在鲁棒性上稳于 fusion-then-alignment 的 CRN（论文声称，尚未独立验证）"
+title: "RCBEVDet 的 alignment-then-fusion CAMF 在鲁棒性上稳于 fusion-then-alignment 的 CRN（论文声称）"
 type: claim
 status: asserted
 scope: "RCBEVDet（CVPR 2024）的鲁棒性声明；口径：CAMF（双向 deformable 交叉注意力先对齐、再 concat+CBR 融合）对比 CRN 的 MDCA（先融合后对齐）（笔记 §三 总结）；雷达失效数字 CVPR 原文 §4.4/Table 7 已含（nuScenes，随机丢 1/3/全部视角雷达输入，Car class mAP），CRN 降 4.5/11.8/25.0、RCBEVDet 仅降 0.9/6.4/10.4，与扩展版草稿转录一致（nightshift/drafts/RCBEVDetPP.md §3.7）；雷达坐标噪声实验仍只在扩展版论文（待人工核对）"
@@ -40,7 +40,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（尚未独立验证）：雷达在水平方位角上有抖动误差，直接 concat 两张未对齐的特征图会让网络学到重影。CAMF 采用『先对齐、后融合』（alignment-then-fusion）：先用双向 deformable cross-attention 让雷达/相机特征互相纠错对齐（雷达 query 查相机纹理、相机 query 查雷达反射点），再 concat + CBR（带残差）融合；对比对象 CRN 的 MDCA 是『先融合、后对齐』（fusion-then-alignment）。笔记给出的结论是：鲁棒性实验中 CAMF 比 CRN 更稳。本卡是机制归因 + 鲁棒性排序的窄主张——笔记只有定性表述，没有数据集与数字，故 scope 收窄为『论文声称的排序』。
+论文声称：雷达在水平方位角上有抖动误差，直接 concat 两张未对齐的特征图会让网络学到重影。CAMF 采用『先对齐、后融合』（alignment-then-fusion）：先用双向 deformable cross-attention 让雷达/相机特征互相纠错对齐（雷达 query 查相机纹理、相机 query 查雷达反射点），再 concat + CBR（带残差）融合；对比对象 CRN 的 MDCA 是『先融合、后对齐』（fusion-then-alignment）。笔记给出的结论是：鲁棒性实验中 CAMF 比 CRN 更稳。本卡是机制归因 + 鲁棒性排序的窄主张——笔记只有定性表述，没有数据集与数字，故 scope 收窄为『论文声称的排序』。
 
 关联：CAMF 的两路输入分别来自 RadarBEVNet 的双流骨干（[claim-rcbevdet-dualstream-injection-extraction-interactive](claim-rcbevdet-dualstream-injection-extraction-interactive.md)）与其 RCS-aware BEV 编码器（[claim-rcbevdet-rcs-aware-scattering-dense-bev](claim-rcbevdet-rcs-aware-scattering-dense-bev.md)）。**复审更新（2026-11-02）**：雷达失效的鲁棒性数字并非只在扩展版——CVPR 原文（arXiv v1）§4.4/Table 7 已含同一组数字（CRN −4.5/−11.8/−25.0 mAP vs RCBEVDet −0.9/−6.4/−10.4，随机丢 1/3/全部视角雷达输入），已核入 evidence；雷达坐标噪声实验（−1.3 vs −2.3 NDS 等）仍只在扩展版论文（草稿转录，待人工核对）。
 

@@ -3,7 +3,7 @@ id: claim-mobilenetv2-inverted-residual-linear-bottleneck
 title: "MobileNetV2 论文声称倒残差+线性瓶颈块（shortcut 接窄 bottleneck、bottleneck 处去非线性、扩张率 t=6）优于经典残差连接方式"
 type: claim
 status: asserted
-scope: "MobileNetV2（arXiv:1801.04381，CVPR 2018）§3.2/§3.3 设计主张 + §6.4 消融自报（数值曲线在其 Figure 6，ar5iv 未给数值表）；ImageNet 分类、224 输入主网络；块计算量按 hw·d′·t(d′+k²+d″) 理论口径；论文声称口径，尚未独立验证"
+scope: "MobileNetV2（arXiv:1801.04381，CVPR 2018）§3.2/§3.3 设计主张 + §6.4 消融自报（数值曲线在其 Figure 6，ar5iv 未给数值表）；ImageNet 分类、224 输入主网络；块计算量按 hw·d′·t(d′+k²+d″) 理论口径；论文声称口径"
 tags: [mobilenetv2, inverted-residual, linear-bottleneck, efficient-backbone]
 note: library/Efficient_Backbone/MobileNet.md#223-inverted-residualsv2-33
 paper: "CVPR 2018, MobileNetV2: Inverted Residuals and Linear Bottlenecks (arXiv:1801.04381)"
@@ -52,7 +52,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（尚未独立验证）：V2 的块设计与经典残差「两头宽中间窄」相反——shortcut 直接接在两个窄 bottleneck 之间，块内先 1×1 扩张（主实验固定 t=6）、3×3 depthwise、再 linear 1×1 投影；linear（bottleneck 处去非线性）来自「ReLU 在低维会不可逆丢信息」的论证（§3.2）。两个设计各自的消融自报在 §6.4：shortcut 接 bottleneck 优于接扩张层；linear bottleneck 提升性能。注意该消融的数值只在其 Figure 6 曲线上（ar5iv 未给数值表），本卡不引用具体消融数字。
+论文声称：V2 的块设计与经典残差「两头宽中间窄」相反——shortcut 直接接在两个窄 bottleneck 之间，块内先 1×1 扩张（主实验固定 t=6）、3×3 depthwise、再 linear 1×1 投影；linear（bottleneck 处去非线性）来自「ReLU 在低维会不可逆丢信息」的论证（§3.2）。两个设计各自的消融自报在 §6.4：shortcut 接 bottleneck 优于接扩张层；linear bottleneck 提升性能。注意该消融的数值只在其 Figure 6 曲线上（ar5iv 未给数值表），本卡不引用具体消融数字。
 
 块的收益另一面是内存：倒残差使推理期只需物化 bottleneck 端张量（V2 §5.1：分块累加时中间表示只需驻留 n/t 通道），见笔记 §2.2.5（Table 3：V2 峰值 400K 通道 vs V1 1600K）。
 

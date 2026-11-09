@@ -3,7 +3,7 @@ id: claim-hgsfusion-rhgm-dsm-superadditive-roi-gain
 title: "HGSFusion 自报：VoD 消融中 RHGM 与 DSM 同时启用的 RoI AP 增益（73.27 → 79.46，+6.19）大于两模块单独增益之和（+1.56 与 +1.18）"
 type: claim
 status: asserted
-scope: "VoD validation set（2026-11-05 实抓 arXiv:2412.11489v1 核对：Table 3 caption「Ablation study results of proposed components on the validation set of VoD dataset」，原卡按笔记上下文的推定获原文确认）；HGSFusion 管线内模块消融（论文 Table 3，2026-11-05 实抓六行与笔记转录逐格一致）；基线为 R+C 无 RHGM/DSM 行（RoI AP 73.27）；指标 RoI AP，笔记未定义口径（cross 文档 M1）；自报数字，尚未独立验证；「大于单独增益之和」为笔记表格数字的直接算术比较，非笔记原文措辞"
+scope: "VoD validation set（2026-11-05 实抓 arXiv:2412.11489v1 核对：Table 3 caption「Ablation study results of proposed components on the validation set of VoD dataset」，原卡按笔记上下文的推定获原文确认）；HGSFusion 管线内模块消融（论文 Table 3，2026-11-05 实抓六行与笔记转录逐格一致）；基线为 R+C 无 RHGM/DSM 行（RoI AP 73.27）；指标 RoI AP，笔记未定义口径（cross 文档 M1）；自报数字；「大于单独增益之和」为笔记表格数字的直接算术比较，非笔记原文措辞"
 tags: [4d-radar, radar-camera-fusion, hgsfusion, vod, ablation, roi-ap]
 note: library/Multimodal_Fusion/HGSFusion.md#42-模块消融实验-table-3
 paper: "AAAI 2025 · HGSFusion（带混合生成与同步的雷达-相机融合 3D 目标检测；笔记未记录英文原题与 arXiv 号；开源：https://github.com/garfield-cpp/HGSFusion）"
@@ -36,7 +36,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（据笔记 §4.2 转录，尚未独立验证）：R+C 基线（无 RHGM/DSM）RoI AP 73.27；单加 RHGM 74.83（+1.56），单加 DSM 74.45（+1.18），两者同开 79.46（+6.19）。「联合增益（6.19）> 单独增益之和（1.56 + 1.18 = 2.74）」由笔记表格数字直接算术得出；笔记原文只说「两者结合实现了最大的增益」，未使用「协同 / 超可加」一词，故本卡把超可加性作为主张立出、由复现裁决。EAA AP 侧同表同向：全量 58.96 − 基线 54.82 = +4.14，大于 RHGM 单独 +2.41 与 DSM 单独 +1.17 之和 +3.58。
+论文声称（据笔记 §4.2 转录）：R+C 基线（无 RHGM/DSM）RoI AP 73.27；单加 RHGM 74.83（+1.56），单加 DSM 74.45（+1.18），两者同开 79.46（+6.19）。「联合增益（6.19）> 单独增益之和（1.56 + 1.18 = 2.74）」由笔记表格数字直接算术得出；笔记原文只说「两者结合实现了最大的增益」，未使用「协同 / 超可加」一词，故本卡把超可加性作为主张立出、由复现裁决。EAA AP 侧同表同向：全量 58.96 − 基线 54.82 = +4.14，大于 RHGM 单独 +2.41 与 DSM 单独 +1.17 之和 +3.58。
 
 若成立，说明两模块处理的瓶颈（点云稀疏 + DOA 峰值偏移 vs 图像深度失配 + 模态权重失衡）近似正交且互促：RHGM 生成的点要靠 DSM 的空间/模态同步才被有效利用。
 

@@ -3,7 +3,7 @@ id: claim-r4det-pdf-depth-supervision-monotonic-gain
 title: "R4Det 声称：TJ4DRadSet 上 PDF 三重深度监督每引入一项 BEV mAP 单调增长（45.15 → 46.08 → 46.86）"
 type: claim
 status: asserted
-scope: "TJ4DRadSet（validation set 口径，同论文 §4.4 消融节）；4D 雷达-相机 3D 检测，R4Det 管线内 PDF（全景深度融合）模块的深度监督消融（论文 Table 5，据库内笔记 §2.1 转录，2026-11-05 已实抓原文逐格核实）；基线为仅 L_prob + L_abs（Table 5 设置 A：λ1=0.1、λabs=0.01，BEV mAP 45.15），依次叠加 L_dense（λdense=0.03，46.08）与 L_relative（λ3=0.05，46.86）；Table 5 仅 A→B→C 一种逐级叠加顺序，无换序消融；指标为 BEV mAP；R4Det 自报数字，尚未独立验证；笔记未记录 VoD 上的对应消融"
+scope: "TJ4DRadSet（validation set 口径，同论文 §4.4 消融节）；4D 雷达-相机 3D 检测，R4Det 管线内 PDF（全景深度融合）模块的深度监督消融（论文 Table 5，据库内笔记 §2.1 转录，2026-11-05 已实抓原文逐格核实）；基线为仅 L_prob + L_abs（Table 5 设置 A：λ1=0.1、λabs=0.01，BEV mAP 45.15），依次叠加 L_dense（λdense=0.03，46.08）与 L_relative（λ3=0.05，46.86）；Table 5 仅 A→B→C 一种逐级叠加顺序，无换序消融；指标为 BEV mAP；R4Det 自报数字；笔记未记录 VoD 上的对应消融"
 tags: [4d-radar, radar-camera-fusion, r4det, depth-fusion, depth-supervision, tj4dradset, ablation]
 note: library/Classical_Detection/R4Det.md#211-三重监督的实验支撑
 paper: "CVPR 2026 · R4Det: 4D Radar-Camera Fusion for High-Performance 3D Object Detection（笔记标注未开源，未记录 arXiv 号）"
@@ -48,7 +48,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（据笔记 §2.1 转述，尚未独立验证）：PDF 模块的深度监督从「仅概率监督 + 雷达稀疏绝对深度」（$\mathcal{L}_{prob} + \mathcal{L}_{abs}$，BEV mAP 45.15）出发，每引入一项监督 BEV mAP 严格单调增长——加基础模型密集伪标签监督 $\mathcal{L}_{dense}$（笔记记为「视觉基础模型（如 Metric3D）」，作用在全图像素 $\mathcal{M}_{all}$）到 46.08（+0.93），再加结构化排序监督 $\mathcal{L}_{relative}$ 到 46.86（+0.78）。
+论文声称（据笔记 §2.1 转述）：PDF 模块的深度监督从「仅概率监督 + 雷达稀疏绝对深度」（$\mathcal{L}_{prob} + \mathcal{L}_{abs}$，BEV mAP 45.15）出发，每引入一项监督 BEV mAP 严格单调增长——加基础模型密集伪标签监督 $\mathcal{L}_{dense}$（笔记记为「视觉基础模型（如 Metric3D）」，作用在全图像素 $\mathcal{M}_{all}$）到 46.08（+0.93），再加结构化排序监督 $\mathcal{L}_{relative}$ 到 46.86（+0.78）。
 
 一致性交叉核对：笔记 §3.1 系统消融表中 Baseline 45.15、+PDF 46.86，与 Table 5 的首尾两档一致（PDF 全量 = prob+abs+dense+relative），两表数字自洽。
 

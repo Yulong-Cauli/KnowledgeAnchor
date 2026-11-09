@@ -429,7 +429,7 @@ RCBEVDet++ 不是一篇全新方法的论文，而是 RCBEVDet（CVPR 2024）的
    - 鲁棒性场景（雷达失效/雷达错位）下 alignment-then-fusion 的 CAMF 比 CRN 的 fusion-then-alignment 稳（Table XI/XII，§V-E3）。
    - 论文还有一个中间设计结论：RadarBEVNet 的 transformer 流单独加几乎无效（+0.1 NDS），必须与 point 流经 Injection & Extraction 交互才有效（Table VI，§V-C2）。
 
-3. **本笔记与 claim 的边界**：以上结果均为论文声称（nuScenes val/test、未做 TTA/ensemble 的 Table II 条目），尚未独立验证。若后续要建 claim 卡，需按 `templates/claim.md` 独立成卡并附 falsifiers，本笔记不承载 verified 结论。
+3. **本笔记与 claim 的边界**：以上结果均为论文声称（nuScenes val/test、未做 TTA/ensemble 的 Table II 条目）。若后续要建 claim 卡，需按 `templates/claim.md` 独立成卡并附 falsifiers，本笔记不承载 verified 结论。
 
 ---
 

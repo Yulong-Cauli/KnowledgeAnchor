@@ -8,7 +8,7 @@
 > - arXiv abs 页 https://arxiv.org/abs/1510.00149 ，标题 "Deep Compression: Compressing Deep Neural Networks with Pruning, Trained Quantization and Huffman Coding"，与任务给定标题逐字一致，允许使用。作者：Song Han（Stanford）、Huizi Mao（Tsinghua）、William J. Dally（Stanford / NVIDIA）；Comments 字段 "Published as a conference paper at ICLR 2016 (oral)"；v1 2015-10-01，最新 v5 2016-02-15。
 > - 全文 ar5iv https://ar5iv.labs.arxiv.org/html/1510.00149 （title 核对一致；页面未标注所渲染的具体 arXiv 版本号），并与 arXiv v5 PDF https://arxiv.org/pdf/1510.00149v5 （首页印有 "Published as a conference paper at ICLR 2016"）交叉核对：摘要核心数字与 Table 1/2/3/4/5/6/7 全部行逐项一致。以下 locator（§x / Eq.x / Table x / Figure x / Appendix A）指该论文 ICLR 2016 版章节与表格编号。
 > - 引号内为本次实际抓取文本的逐字摘录（以 ar5iv 渲染为底本）。技术性转写约定（内容不变）：ar5iv 中数学对象以“可见符号 + LaTeX 源码注释”双重渲染且夹零宽空格，此处取可见渲染形式（如 35×、20%−30%、2a+n+1）；数学粗体数字字符（𝟑𝟓 等）按字面转写为普通数字；下标（如 conv1_1、W_ij、c_i）以下划线转写；论文内部弯引号 “ ” 与原文一致保留。以上转写均经脚本对两源文本归一化核验。
-> - 本笔记经入库前逐字 QA 后存入库内（2026-11-03，入库与 QA 记录见文末 TODO；草稿保留于 nightshift/drafts/ 未删除）；未经用户核阅前所有结论均属“论文声称 / 尚未独立验证”。
+> - 本笔记经入库前逐字 QA 后存入库内（2026-11-03，入库与 QA 记录见文末 TODO；草稿保留于 nightshift/drafts/ 未删除）。
 
 ------
 
@@ -199,13 +199,13 @@ Table 7（§7，AlexNet 上与其他压缩方法对比，逐行照抄；列：Ne
 | Pruning+Quantization | 42.78% | 19.70% | 8.9MB | 27× |
 | Pruning+Quantization+Huffman | 42.78% | 19.70% | 6.9MB | 35× |
 
-Related work 定位（§7，注意均为论文自述对比、尚未独立验证）：HashedNets（Chen et al. 2015）用哈希函数随机分组共享权重，但 binning 由哈希预先决定、非训练学得；Gong et al. 2014 用向量量化压缩 convnet、"resulted in 1% accuracy loss"；两者"studied only the fully connected layer, ignoring the convolutional layers"（§7）。更早的量化工作：Vanhoucke et al. 2011 的 8-bit 定点实现、Hwang & Sung 2014 的三值权重 + 3-bit 激活、Denton et al. 2014 的低秩近似（§7）。
+Related work 定位（§7，注意均为论文自述对比）：HashedNets（Chen et al. 2015）用哈希函数随机分组共享权重，但 binning 由哈希预先决定、非训练学得；Gong et al. 2014 用向量量化压缩 convnet、"resulted in 1% accuracy loss"；两者"studied only the fully connected layer, ignoring the convolutional layers"（§7）。更早的量化工作：Vanhoucke et al. 2011 的 8-bit 定点实现、Hwang & Sung 2014 的三值权重 + 3-bit 激活、Denton et al. 2014 的低秩近似（§7）。
 
 ## 4. 核心结论
 
 - 结论（§9 原句）："We have presented “Deep Compression” that compressed neural networks without affecting accuracy. Our method operates by pruning the unimportant connections, quantizing the network using weight sharing, and then applying Huffman coding."
 - 量化数字口径（§9）："We highlight our experiments on AlexNet which reduced the weight storage by 35× without loss of accuracy. We show similar results for VGG-16 and LeNet networks compressed by 49× and 39× without loss of accuracy." 并重申能效逻辑（§9）："After Deep Compression the size of these networks fit into on-chip SRAM cache (5pJ/access) rather than requiring off-chip DRAM memory (640pJ/access)."
-- 方法层面的关键结论（论文声称，尚未独立验证）：剪枝与训练量化互不干扰、可叠加（§1）；k-means 质心 + 反传微调的“训练量化”在不掉精度前提下把 CONV 压到 8bit、FC 压到 5bit（§3、§5.2、Table 6）；Huffman 再省 20%–30%（§4）；batch=1 实时场景下稀疏化带来 3×–4× 加速与 3×–7× 能效，但 batching 场景优势消失（§6.3）。
+- 方法层面的关键结论（论文声称）：剪枝与训练量化互不干扰、可叠加（§1）；k-means 质心 + 反传微调的“训练量化”在不掉精度前提下把 CONV 压到 8bit、FC 压到 5bit（§3、§5.2、Table 6）；Huffman 再省 20%–30%（§4）；batch=1 实时场景下稀疏化带来 3×–4× 加速与 3×–7× 能效，但 batching 场景优势消失（§6.3）。
 - 局限与后续（§8 Future Work）：量化+稀疏的完整收益未被现成库释放（§8）："While the pruned network has been benchmarked on various hardware, the quantized network with weight sharing has not, because off-the-shelf cuSPARSE or MKL SPBLAS library does not support indirect matrix entry lookup, nor is the relative index in CSC or CSR format supported." 出路是定制 GPU kernel 或 ASIC（§8）："A hardware solution is to build custom ASIC architecture specialized to traverse the sparse and quantized network structure, which also supports customized quantization bit width."（即后来的 EIE，§1）。
 
 ## 5. 与库内 Quantization/ 笔记的关系（笔记作者评述，非论文原文表述）

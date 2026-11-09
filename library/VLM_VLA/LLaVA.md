@@ -9,7 +9,7 @@
 > - 歧义检查：arXiv API 检索标题 "Visual Instruction Tuning"（http://export.arxiv.org/api/query?search_query=ti:%22Visual%20Instruction%20Tuning%22&max_results=30 ，本次抓取）中精确同名仅 2304.08485v2 一篇，其余命中均为含 "Visual Instruction Tuning" 的变体标题（Comparison/Generative/Reconstructive/Personalized 等前缀，另如 "SVIT: Scaling up Visual Instruction Tuning"、"Improved Baselines with Visual Instruction Tuning"），无同名异文。
 > - 全文 arXiv 官方 HTML v2 https://arxiv.org/html/2304.08485v2 （LaTeXML 渲染，页面自标 "arXiv:2304.08485v2 [cs.CV] 11 Dec 2023"，License: CC BY 4.0，本次抓取）。以下 locator（§x / Table x / Appendix x）均指该 v2 的章节与表格编号；引号为本次实际抓取文本的逐字摘录；数学记号（如 X_v、Z_v、φ、±）在 HTML 中为数学元素，摘录按其 alttext 还原并另行注明（〔…〕标记处即数学插入点；反引号内为 alttext 属性原文，属性内的换行/多空格折叠，均以脚本对照原始 HTML 验证），引文以片段 grep 验证存在。
 > - 开源核对：GitHub 仓库 https://github.com/haotian-liu/LLaVA 本次实际抓取确认存在（title 见上），Apache-2.0 license badge 存在。
-> - 表格逐行照抄自 HTML 解析结果并经脚本逐单元格核验（见文末「表格核验」）；本笔记 2026-11-03 经入库前逐字 QA（quote 自洽 + 数字抽查）后自 nightshift/drafts/ 入库至 library/VLM_VLA/，未经用户核阅前所有结论均属「论文声称 / 尚未独立验证」。
+> - 表格逐行照抄自 HTML 解析结果并经脚本逐单元格核验（见文末「表格核验」）；本笔记 2026-11-03 经入库前逐字 QA（quote 自洽 + 数字抽查）后自 nightshift/drafts/ 入库至 library/VLM_VLA/。
 
 ------
 
@@ -169,7 +169,7 @@
   3. 两阶段训练中特征对齐预训练不可省（Table 8：跳过掉 5.11 个点），视觉编码器两阶段全程冻结（§4.2）。
   4. text-only GPT-4 当 judge 的模型集成在 ScienceQA 上把 90.92% 提到 92.53%（Table 7），且相对分评测（GPT-4 打分 1-10、相对 text-only GPT-4 上界）是本文提出的评测框架（§5.1）。
 - 风险与局限（Appendix A Broader Impact 原句）："Similar to LLMs, LLaVA might generate outputs that aren’t grounded in facts or input data. This raises concerns about inferences made, especially in critical applications (e.g., medical)." 偏差来源（Appendix A）："Bias can be transferred from the base models to LLaVA, both from the vision encoder (CLIP) and the language decoder (LLaMA/Vicuna)." §5.1 的 “bag of patches” 失败模式见 3.4 节。
-- ⚠ 措辞提示：①85.1%（Table 4）是 GPT-4 作 judge 的 relative score（相对使用 GT caption+box 的 text-only GPT-4），不是绝对准确率；In-the-Wild 的 overall 也只有 67.3%（Table 5）。②ScienceQA 的 92.53% 依赖 text-only GPT-4 作 judge 的集成，不是 LLaVA 单模型（单模型 90.92%，仍低于 MM-CoT Large 的 91.68%）。③相对分评测本身依赖 GPT-4 的稳定性，论文仅自证 "GPT-4 gives a consistent evaluation"（Table 5 脚注）。引用本文时建议写「论文声称 / 尚未独立验证」。
+- ⚠ 措辞提示：①85.1%（Table 4）是 GPT-4 作 judge 的 relative score（相对使用 GT caption+box 的 text-only GPT-4），不是绝对准确率；In-the-Wild 的 overall 也只有 67.3%（Table 5）。②ScienceQA 的 92.53% 依赖 text-only GPT-4 作 judge 的集成，不是 LLaVA 单模型（单模型 90.92%，仍低于 MM-CoT Large 的 91.68%）。③相对分评测本身依赖 GPT-4 的稳定性，论文仅自证 "GPT-4 gives a consistent evaluation"（Table 5 脚注）。
 
 ## TODO
 

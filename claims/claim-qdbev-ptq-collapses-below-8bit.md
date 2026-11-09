@@ -3,7 +3,7 @@ id: claim-qdbev-ptq-collapses-below-8bit
 title: "QD-BEV 论文声称：BEVFormer-Base 直接 PTQ 在低于 8-bit 后性能崩塌（W4A6 NDS 0.226、下降 56.3%，W4A4 近乎失效 mAP 0.000）"
 type: claim
 status: asserted
-scope: "nuScenes；BEVFormer-Base；对称线性量化、不训练的 PTQ（笔记 §3.2 Table 2 口径；是否用校准集及校准方法笔记未注明）；FP32 基线 NDS 0.517 / mAP 0.416；数字为论文自报；尚未独立验证"
+scope: "nuScenes；BEVFormer-Base；对称线性量化、不训练的 PTQ（笔记 §3.2 Table 2 口径；是否用校准集及校准方法笔记未注明）；FP32 基线 NDS 0.517 / mAP 0.416；数字为论文自报"
 tags: [quantization, ptq, bev, bevformer, nuscenes, qd-bev]
 note: library/Quantization/QD-BEV.md#32-ptq-不同位宽的表现-table-2
 paper: "ICCV 2023, QD-BEV: Quantization-aware View-guided Distillation for Multi-view 3D Object Detection (arXiv:2308.10515)"
@@ -40,7 +40,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（asserted，尚未独立验证）：BEVFormer-Base 不训练直接量化时，W8A8 尚可（NDS 0.487，相对 FP32 0.517 下降 5.8%），但 W4A6 崩塌至 NDS 0.226（下降 56.3%、mAP 0.076），W4A4 近乎失效（NDS 0.023、mAP 0.000）。表内下降比与原始数字换算一致（(0.517−0.487)/0.517≈5.8%，(0.517−0.226)/0.517≈56.3%），无错位迹象。
+论文声称（asserted）：BEVFormer-Base 不训练直接量化时，W8A8 尚可（NDS 0.487，相对 FP32 0.517 下降 5.8%），但 W4A6 崩塌至 NDS 0.226（下降 56.3%、mAP 0.076），W4A4 近乎失效（NDS 0.023、mAP 0.000）。表内下降比与原始数字换算一致（(0.517−0.487)/0.517≈5.8%，(0.517−0.226)/0.517≈56.3%），无错位迹象。
 
 限定：
 1. 这是朴素对称线性 PTQ 的结果，不代表所有 PTQ 方法。[RepQ-ViT](claim-repqvit-w4a4-imagenet-leads-ptq-baselines.md) 在 ImageNet 分类 W4A4、[OmniQuant](claim-omniquant-w4a4-llama7b-zeroshot-5265.md) 在 LLM W4A4 都能撑住，说明「低比特必崩」与任务域和激活分布强相关，跨域结论不可直接移植。

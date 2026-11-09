@@ -3,7 +3,7 @@ id: claim-echofusion-rt-vs-rp-radial
 title: "在 RADIal 的受控消融中，RT+C 的 BEV AP 高于 RP+C，优势主要在中远距"
 type: claim
 status: asserted
-scope: "RADIal test split；refined 3D 标注；BEV AP@0.7；RT+C vs RP+C；同一 EchoFusion 架构（同一论文 Table 6 内比较）；每组实验重复 3 次、模态消融报 mean 与 variance（论文 §5.1 所述设置）；论文自报数字，尚未独立验证"
+scope: "RADIal test split；refined 3D 标注；BEV AP@0.7；RT+C vs RP+C；同一 EchoFusion 架构（同一论文 Table 6 内比较）；每组实验重复 3 次、模态消融报 mean 与 variance（论文 §5.1 所述设置）；论文自报数字"
 tags: [radar, sensor-fusion, echofusion, radial]
 note: library/3D_Occupancy/EchoFusion.md#32-消融实验雷达数据格式与模态影响
 paper: "NeurIPS 2023, Echoes Beyond Points: Unleashing the Power of Raw Radar Data in Multi-modality Fusion"
@@ -37,7 +37,7 @@ signoff: null
 
 论文 Table 6 在同一 EchoFusion 架构下比较了多种模态组合：RT+C 的总体 BEV AP@0.7 为 **84.92**，RP+C 为 **82.35**；50–100m 分别为 **91.06** 和 **86.39**。因此“原始雷达优于 CFAR 点云”在这张表里有直接证据，但总体差距约 2.6 个点，远距约 4.7 个点；论文正文对 RT/RA vs 点云只给了「差距最大约 4 个点」的量级表述，未对 RT vs RP 单独给增量句。笔记 §3.2 的 42.4 vs 33.1（mAP）无法在论文原表中找到对应数据，见 [笔记偏差卡](claim-echofusion-note-table-mismatch.md)。
 
-证据边界：数字为论文自报（尚未独立验证）；每组实验重复 3 次、模态消融报 mean 与 variance（论文 §5.1），±值的统计口径未进一步定义。RP 行的 ✓ 组合由 PDF 文本层 ✓ 落位列判读（C、RP 两列）。RT 与 RP 分支的容量/预处理对等性论文未说明（见待验证）。
+证据边界：数字为论文自报；每组实验重复 3 次、模态消融报 mean 与 variance（论文 §5.1），±值的统计口径未进一步定义。RP 行的 ✓ 组合由 PDF 文本层 ✓ 落位列判读（C、RP 两列）。RT 与 RP 分支的容量/预处理对等性论文未说明（见待验证）。
 
 ## 待验证
 

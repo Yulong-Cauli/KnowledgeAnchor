@@ -25,7 +25,7 @@ falsifiers:
   - "这些编号在笔记语境中确有指代（有意保留的参考文献编号且正文标明 [17]/[18]/[20] 的指向），并非复制残留"
   - "笔记经用户同意修复后三处孤立数字消失（届时本卡按已修复改写或删除）"
 review_due: 2026-12-02
-related: [claim-centernetpoints-heatmap-peaks-replace-nms, claim-centernetpoints-center-collision-rare-on-coco]
+related: [claim-centernetpoints-heatmap-peaks-replace-nms, claim-centernetpoints-coco-train2017-same-class-center-collision-rare]
 signoff: null
 ---
 
@@ -35,7 +35,7 @@ signoff: null
 
 ## 当前状态与历史记录
 
-**当前状态（2026-11-03 已修复）**：三处残留已按 fix-list F23 删除（当班获 library/ 直写授权后执行），正文文字未改；2026-11-05 本班 Grep 复核，「清理 17」「后处理 18」「忽略不计 20」在笔记中均 0 命中。修复不影响任何既有卡证据：[claim-centernetpoints-heatmap-peaks-replace-nms](claim-centernetpoints-heatmap-peaks-replace-nms.md) 的 quote 止于"作用。"、[claim-centernetpoints-center-collision-rare-on-coco](claim-centernetpoints-center-collision-rare-on-coco.md) 的 quote 止于"（约 20%）。"，两处锚点 2026-11-05 复核仍在笔记中。
+**当前状态（2026-11-03 已修复）**：三处残留已按 fix-list F23 删除（当班获 library/ 直写授权后执行），正文文字未改；2026-11-05 本班 Grep 复核，「清理 17」「后处理 18」「忽略不计 20」在笔记中均 0 命中。修复不影响任何既有卡证据：[claim-centernetpoints-heatmap-peaks-replace-nms](claim-centernetpoints-heatmap-peaks-replace-nms.md) 的 quote 止于"作用。"、[claim-centernetpoints-coco-train2017-same-class-center-collision-rare](claim-centernetpoints-coco-train2017-same-class-center-collision-rare.md) 的 quote 止于"（约 20%）。"，两处锚点 2026-11-05 复核仍在笔记中。
 
 **历史记录（修复前行文，即本卡 evidence 三条 quote 所指原文，现笔记已无此残留）**：
 

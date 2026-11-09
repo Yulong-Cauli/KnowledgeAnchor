@@ -3,7 +3,7 @@ id: claim-echofusion-kradar-gain
 title: "EchoFusion 在 KRadar-20 上显著优于 RTNH 点云基线"
 type: claim
 status: asserted
-scope: "KRadar-20 trainval/test；KITTI protocol（40 recall positions）；EchoFusion RA+C vs RTNH 点云基线；数字为论文自报（Table 4，arXiv:2307.16532v2 PDF 文本层，2026-11-05 实抓逐值核对），尚未独立验证"
+scope: "KRadar-20 trainval/test；KITTI protocol（40 recall positions）；EchoFusion RA+C vs RTNH 点云基线；数字为论文自报（Table 4，arXiv:2307.16532v2 PDF 文本层，2026-11-05 实抓逐值核对）"
 tags: [radar, sensor-fusion, echofusion, kradar]
 note: library/3D_Occupancy/EchoFusion.md#3-实验结果
 paper: "NeurIPS 2023, Echoes Beyond Points: Unleashing the Power of Raw Radar Data in Multi-modality Fusion"
@@ -28,7 +28,7 @@ signoff: null
 
 ## 我的理解
 
-论文 Table 4 报告（数字尚未独立验证）：KRadar-20 test split 上 EchoFusion（RA map+图像）的 BEV AP@0.7 是 **33.07 vs 10.47**，3D AP@0.7 是 **14.00 vs 3.03**（vs RTNH 点云基线）。这是论文除 RADIal 外的第二个数据集证据，说明“原始/半原始雷达 + 图像”在 4D 雷达数据上也有明显增益。但绝对 3D AP 仍只有 14.00，且 RTNH 在 AP@0.7 上本身很弱，不能据此宣称已接近 LiDAR。
+论文 Table 4 报告：KRadar-20 test split 上 EchoFusion（RA map+图像）的 BEV AP@0.7 是 **33.07 vs 10.47**，3D AP@0.7 是 **14.00 vs 3.03**（vs RTNH 点云基线）。这是论文除 RADIal 外的第二个数据集证据，说明“原始/半原始雷达 + 图像”在 4D 雷达数据上也有明显增益。但绝对 3D AP 仍只有 14.00，且 RTNH 在 AP@0.7 上本身很弱，不能据此宣称已接近 LiDAR。
 
 ## 待验证
 

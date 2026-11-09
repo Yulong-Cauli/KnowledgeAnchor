@@ -3,7 +3,7 @@ id: claim-fcos-anchorfree-pixelwise-formulation
 title: "FCOS 声称检测可重构为无锚框逐像素预测：GT 框内特征点全为正样本，直接回归到框四边的距离"
 type: claim
 status: asserted
-scope: "2D 目标检测（FCOS，ICCV 2019）；formulation 层面设计主张，不涉及精度对比；笔记未载任何数据集性能数字（仅以 COCO 80 类说明正负样本悬殊的动机）；2026-11-05 实抓 arXiv 1904.01355v5（ICCV camera-ready 同源）补核：§3 方法陈述即『框内即正样本』+ 回归到四边距离；中心采样（ctr. sampling）仅作为 'after our submission' 的 Table 3 改进行与 center-ness 的替代方案讨论出现，不属正文方法；复现/代码侧尚未独立验证"
+scope: "2D 目标检测（FCOS，ICCV 2019）；formulation 层面设计主张，不涉及精度对比；笔记未载任何数据集性能数字（仅以 COCO 80 类说明正负样本悬殊的动机）；2026-11-05 实抓 arXiv 1904.01355v5（ICCV camera-ready 同源）补核：§3 方法陈述即『框内即正样本』+ 回归到四边距离；中心采样（ctr. sampling）仅作为 'after our submission' 的 Table 3 改进行与 center-ness 的替代方案讨论出现，不属正文方法"
 tags: [fcos, anchor-free, detection, per-pixel-prediction]
 note: library/Classical_Detection/FCOS.md#anchor-free-的逐像素回归
 paper: "ICCV 2019, FCOS: Fully Convolutional One-Stage Object Detection（开源：https://github.com/tianzhi0549/FCOS）"
@@ -56,7 +56,7 @@ signoff: null
 
 ## 我的理解
 
-笔记声称（尚未独立验证）：FCOS 把检测从 anchor-based 回归重构为全卷积逐像素预测——特征图位置映射回原图后只要落在 GT 框内部就是正样本，回归目标直接是该点到框四边的距离 $(l,t,r,b)$，全程不需要 anchor 先验与尺寸/长宽比超参。
+笔记声称：FCOS 把检测从 anchor-based 回归重构为全卷积逐像素预测——特征图位置映射回原图后只要落在 GT 框内部就是正样本，回归目标直接是该点到框四边的距离 $(l,t,r,b)$，全程不需要 anchor 先验与尺寸/长宽比超参。
 
 限定：这是 formulation 层面的设计主张。笔记未载任何数据集性能数字，因此本卡不涉及“比 anchor-based 更好”之类的精度结论，只主张 formulation 本身。
 

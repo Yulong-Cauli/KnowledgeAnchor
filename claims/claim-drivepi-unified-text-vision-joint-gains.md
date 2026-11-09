@@ -3,7 +3,7 @@ id: claim-drivepi-unified-text-vision-joint-gains
 title: "DrivePI 论文声称：文本头与视觉头端到端联合训练提升感知/预测/规划——较 vision-only RayIoU +1.8、mAVE −0.18、规划 L2 −0.52"
 type: claim
 status: asserted
-scope: "DrivePI 0.5B 统一模型（Qwen2.5-0.5B MLLM 底座 + 四个输出头：text / 3D occupancy / occupancy flow / action diffusion，损失权重全 1.0）；消融为表 5（OpenOcc 3D 占据与流 + nuScenes 规划；vision head = occupancy+flow+planning 三头组合，text head = QA 文本）；数字为论文自报（CVPR 2026，arXiv:2512.12799v1），尚未独立验证"
+scope: "DrivePI 0.5B 统一模型（Qwen2.5-0.5B MLLM 底座 + 四个输出头：text / 3D occupancy / occupancy flow / action diffusion，损失权重全 1.0）；消融为表 5（OpenOcc 3D 占据与流 + nuScenes 规划；vision head = occupancy+flow+planning 三头组合，text head = QA 文本）；数字为论文自报（CVPR 2026，arXiv:2512.12799v1）"
 tags: [end-to-end-driving, mllm, drivepi, multi-task-learning, occupancy-prediction]
 note: library/VLM_VLA/DrivePI.md#3-实验
 paper: "CVPR 2026, DrivePI: Spatial-aware 4D MLLM for Unified Autonomous Driving Understanding, Perception, Prediction and Planning (arXiv:2512.12799)"
@@ -40,7 +40,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（尚未独立验证）：在 0.5B MLLM 上把「语言空间理解」与「3D 占据 + 占据流 + 轨迹规划」三个视觉头端到端联合优化（损失权重全 1.0），相比只用视觉头的配置：3D 占据 RayIoU 47.5→49.3（+1.8）、占据流 mAVE 0.69→0.51（−0.18）、规划 L2 1.02→0.50（−0.52）；作者归因是「文本理解帮助视觉任务对齐到更合适的特征空间」。这是「感知-预测-规划知识注入」主张的直接证据——语言监督改善了空间任务。
+论文声称：在 0.5B MLLM 上把「语言空间理解」与「3D 占据 + 占据流 + 轨迹规划」三个视觉头端到端联合优化（损失权重全 1.0），相比只用视觉头的配置：3D 占据 RayIoU 47.5→49.3（+1.8）、占据流 mAVE 0.69→0.51（−0.18）、规划 L2 1.02→0.50（−0.52）；作者归因是「文本理解帮助视觉任务对齐到更合适的特征空间」。这是「感知-预测-规划知识注入」主张的直接证据——语言监督改善了空间任务。
 
 注意一个反向数据点：仅文本头时 QA acc 61.2，加入视觉头联合训练后 QA acc 降到 60.7（表 5 行 III）——知识注入在文本侧是微损的，增益集中在视觉侧；引用时应双向呈现。
 

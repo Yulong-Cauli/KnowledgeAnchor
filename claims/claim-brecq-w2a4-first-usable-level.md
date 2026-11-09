@@ -3,7 +3,7 @@ id: claim-brecq-w2a4-first-usable-level
 title: "BRECQ 自报：首次把 PTQ 的 W2A4 精度推到可用水平（ResNet-18 64.80 / ResNet-50 70.29），表中其余方法同设置全部崩塌（≤0.21）"
 type: claim
 status: asserted
-scope: "ImageNet top-1；ResNet-18/50、MobileNetV2、RegNet-600MF/3.2GF、MNasNet-2.0 六个 CNN；权重 2-bit / 激活 4-bit 全量化（首末层 8-bit）；『崩塌』指 BRECQ Table 3 内 ZeroQ/LAPQ/AdaQuant 的 2/4 行（0.05–0.21）；『首次/first』为论文自报（作者所知范围）；跨方法对比为 BRECQ 论文自报口径，尚未独立验证"
+scope: "ImageNet top-1；ResNet-18/50、MobileNetV2、RegNet-600MF/3.2GF、MNasNet-2.0 六个 CNN；权重 2-bit / 激活 4-bit 全量化（首末层 8-bit）；『崩塌』指 BRECQ Table 3 内 ZeroQ/LAPQ/AdaQuant 的 2/4 行（0.05–0.21）；『首次/first』为论文自报（作者所知范围）；跨方法对比为 BRECQ 论文自报口径"
 tags: [quantization, ptq, brecq, low-bit, w2a4]
 note: library/Quantization/BRECQ.md#33-imagenet全量化-w4a4--w2a42-table-3
 paper: "ICLR 2021（arXiv:2102.05426）, BRECQ: Pushing the Limit of Post-Training Quantization by Block Reconstruction（开源：https://github.com/yhhhli/BRECQ）"
@@ -36,7 +36,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（asserted，尚未独立验证）：激活压到 4-bit 后（W2A4），既有 PTQ 方法（ZeroQ / LAPQ / AdaQuant，部分为 BRECQ 作者复现，标 *）精度全部崩到 0.05–0.21（对照全精度 71.08–78.36），而 BRECQ 达到 53.34–70.29——论文据此自称首次把 PTQ 的 2W4A 精度推到"可用水平"（usable level）。这是摘要贡献 3（"quantize weights to INT2 without significant accuracy loss for the first time"）在激活 4-bit 设置下的证据。
+论文声称（asserted）：激活压到 4-bit 后（W2A4），既有 PTQ 方法（ZeroQ / LAPQ / AdaQuant，部分为 BRECQ 作者复现，标 *）精度全部崩到 0.05–0.21（对照全精度 71.08–78.36），而 BRECQ 达到 53.34–70.29——论文据此自称首次把 PTQ 的 2W4A 精度推到"可用水平"（usable level）。这是摘要贡献 3（"quantize weights to INT2 without significant accuracy loss for the first time"）在激活 4-bit 设置下的证据。
 
 必须记住的口径限定：
 

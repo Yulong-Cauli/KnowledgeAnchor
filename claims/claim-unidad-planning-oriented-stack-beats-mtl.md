@@ -3,7 +3,7 @@ id: claim-unidad-planning-oriented-stack-beats-mtl
 title: "UniAD 论文声称：planning-oriented 五任务联合栈在 nuScenes val 上全面优于同模块朴素 MTL（各任务独立头）方案（Table 2 Exp.12 vs Exp.0）"
 type: claim
 status: asserted
-scope: "nuScenes val；UniAD arXiv v2（arXiv:2212.10156，html/2212.10156v2）主文 Table 2 联合消融；消融训练 8 epochs（Appendix E.6 口径）；对比 Exp.0∗（MTL scheme with separate heads for each task，五任务模块全开但各自独立头）与 Exp.12（完整 UniAD，query 接口联合）；指标 minADE/minFDE/MR/IoU-f/VPQ-f/avg.L2/avg.Col.；论文自报数字，尚未独立验证"
+scope: "nuScenes val；UniAD arXiv v2（arXiv:2212.10156，html/2212.10156v2）主文 Table 2 联合消融；消融训练 8 epochs（Appendix E.6 口径）；对比 Exp.0∗（MTL scheme with separate heads for each task，五任务模块全开但各自独立头）与 Exp.12（完整 UniAD，query 接口联合）；指标 minADE/minFDE/MR/IoU-f/VPQ-f/avg.L2/avg.Col.；论文自报数字"
 tags: [end-to-end-driving, open-loop, nuscenes, planning-oriented, multi-task-learning, unidad]
 note: library/ADe2e/UniAD.md#31-联合消融
 paper: "CVPR 2023 Best Paper, Planning-oriented Autonomous Driving (UniAD, arXiv:2212.10156)"
@@ -36,7 +36,7 @@ signoff: null
 
 ## 这条主张是什么意思
 
-论文声称（尚未独立验证）：同样配备五个任务模块，用 query 接口把 Track/Map/Motion/Occ/Plan 联合成一个网络（Exp.12），在 nuScenes val 上全面优于各任务独立头的朴素 MTL 方案（Exp.0∗）——minADE 0.858→0.728（-15.2%）、minFDE 1.270→1.054（-17.0%）、avg.L2 1.154→1.004（-0.15 m）、avg.Col. 0.941→0.430（-0.51）。两行模块列全勾，隔离的变量是"任务联合方式"而非"是否加任务"，这正是"统一范式多任务堆叠"主张的核心证据（Table 2，arXiv v2）。
+论文声称：同样配备五个任务模块，用 query 接口把 Track/Map/Motion/Occ/Plan 联合成一个网络（Exp.12），在 nuScenes val 上全面优于各任务独立头的朴素 MTL 方案（Exp.0∗）——minADE 0.858→0.728（-15.2%）、minFDE 1.270→1.054（-17.0%）、avg.L2 1.154→1.004（-0.15 m）、avg.Col. 0.941→0.430（-0.51）。两行模块列全勾，隔离的变量是"任务联合方式"而非"是否加任务"，这正是"统一范式多任务堆叠"主张的核心证据（Table 2，arXiv v2）。
 
 ## 证据支持到哪里
 

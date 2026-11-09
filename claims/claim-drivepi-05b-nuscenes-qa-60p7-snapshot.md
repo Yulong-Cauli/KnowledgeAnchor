@@ -3,7 +3,7 @@ id: claim-drivepi-05b-nuscenes-qa-60p7-snapshot
 title: "DrivePI 论文声称（CVPR 2026）：0.5B 统一模型 nuScenes-QA 60.7% 超 OpenDriveVLA-7B 2.5 个点；OpenOcc RayIoU 49.3；nuScenes 规划（有 ego）碰撞率 0.11%"
 type: claim
 status: asserted
-scope: "DrivePI 0.5B 统一模型（Qwen2.5-0.5B 底座，UniLION 视觉编码器，LiDAR+多视角相机输入；除注明外均为此统一权重）；基准：nuScenes-QA val（文本）、OpenOcc 验证集（3D 占据+流）、nuScenes val 开环规划（表 2 有 ego status 行）；对比行 OpenDriveVLA-7B 为 ego status ✓ 行；数字为论文自报（CVPR 2026，arXiv:2512.12799v1），尚未独立验证"
+scope: "DrivePI 0.5B 统一模型（Qwen2.5-0.5B 底座，UniLION 视觉编码器，LiDAR+多视角相机输入；除注明外均为此统一权重）；基准：nuScenes-QA val（文本）、OpenOcc 验证集（3D 占据+流）、nuScenes val 开环规划（表 2 有 ego status 行）；对比行 OpenDriveVLA-7B 为 ego status ✓ 行；数字为论文自报（CVPR 2026，arXiv:2512.12799v1）"
 tags: [end-to-end-driving, mllm, drivepi, nuscenes-qa, benchmark-snapshot]
 note: library/VLM_VLA/DrivePI.md#3-实验
 paper: "CVPR 2026, DrivePI: Spatial-aware 4D MLLM for Unified Autonomous Driving Understanding, Perception, Prediction and Planning (arXiv:2512.12799)"
@@ -40,12 +40,12 @@ signoff: null
 
 ## 我的理解
 
-论文声称（尚未独立验证，CVPR 2026）：仅 0.5B 的统一 4D MLLM 在三个基准上同时拿到达标线以上的表现——nuScenes-QA 60.7%（超 OpenDriveVLA-7B 的 58.2% 共 2.5 个点）、OpenOcc RayIoU 49.3%（超 FB-OCC 10.3）、nuScenes 开环规划（有 ego status）L2 avg 0.40 m / 碰撞率 0.11%（较 ORION 0.37% 降 70%）。
+论文声称（CVPR 2026）：仅 0.5B 的统一 4D MLLM 在三个基准上同时拿到达标线以上的表现——nuScenes-QA 60.7%（超 OpenDriveVLA-7B 的 58.2% 共 2.5 个点）、OpenOcc RayIoU 49.3%（超 FB-OCC 10.3）、nuScenes 开环规划（有 ego status）L2 avg 0.40 m / 碰撞率 0.11%（较 ORION 0.37% 降 70%）。
 
 两个必须记住的口径差异（读表注意，笔记已注）：
 1. DrivePI 规划默认**不用** ego status 训练（caption 称避免 shortcut learning）：无 ego 行碰撞率 0.38%，有 ego 行才 0.11%；而对比行 OpenDriveVLA-7B / OmniDrive / ORION 全部是有 ego status 配置——0.11% 对 0.25%（OpenDriveVLA-7B）的跨行比较携带设定差。
 2. 感知侧 DrivePI 输入含 LiDAR（+多视角相机，论文自述的差异化特征第一条）；表 1 各占据基线的输入模态构成笔记未逐行记载，「10.3 RayIoU 领先含模态红利」是本卡整理者推断、尚未验证，需逐基线核对输入后才能定性。且表 4 的 Occ3D 46.0 RayIoU 来自「仅 3D 占据单任务训练」的 DrivePI*，不能与统一模型混读。
-3. 口径迁移提醒（整理者注）：本库驾驶侧 nuScenes 相关分数分三族口径——nuScenes 开环 L2/碰撞率（本卡表 2 与 bevplanner / OpenDriveVLA 系卡）、NAVSIM PDMS（nuPlan 衍生，OneVL 卡）、nuScenes-QA 文本准确率（本卡表 3）——三族不可互换；related 挂链是条件差异与共享待检验问题的提醒，不是互相支持（相关卡均 asserted / 尚未独立验证）。
+3. 口径迁移提醒（整理者注）：本库驾驶侧 nuScenes 相关分数分三族口径——nuScenes 开环 L2/碰撞率（本卡表 2 与 bevplanner / OpenDriveVLA 系卡）、NAVSIM PDMS（nuPlan 衍生，OneVL 卡）、nuScenes-QA 文本准确率（本卡表 3）——三族不可互换；related 挂链是条件差异与共享待检验问题的提醒，不是互相支持（相关卡均为 asserted）。
 
 ## 待验证
 

@@ -3,7 +3,7 @@ id: claim-hgsfusion-cyclist-roi-ap-below-all-baselines
 title: "HGSFusion 自报：VoD 上 Car/Pedestrian (RoI) 为同表最高（88.28 / 87.49），但 Cyclist (RoI) 79.46 低于同表全部四个对比方法（含纯雷达基线）"
 type: claim
 status: asserted
-scope: "VoD 数据集（笔记未记录验证集划分与评测协议）；4D 毫米波雷达-相机 3D 目标检测；指标为 RoI AP，笔记未定义 RoI 口径（cross 文档 M1）；HGSFusion 自报数字（AAAI 2025），据库内笔记 §4.1 转录，尚未独立验证；对比行为笔记转录，其中 LXL 行 Pedestrian (RoI) 与 mAP (RoI) 同为 72.93、疑有转录错位（cross 文档 §6.3），本卡将其与另三行一并只用于「Cyclist 低于全部对比方法」的同表排序"
+scope: "VoD 数据集（笔记未记录验证集划分与评测协议）；4D 毫米波雷达-相机 3D 目标检测；指标为 RoI AP，笔记未定义 RoI 口径（cross 文档 M1）；HGSFusion 自报数字（AAAI 2025），据库内笔记 §4.1 转录；对比行为笔记转录，其中 LXL 行 Pedestrian (RoI) 与 mAP (RoI) 同为 72.93、疑有转录错位（cross 文档 §6.3），本卡将其与另三行一并只用于「Cyclist 低于全部对比方法」的同表排序"
 tags: [4d-radar, radar-camera-fusion, hgsfusion, vod, roi-ap, cyclist, failure-mode]
 note: library/Multimodal_Fusion/HGSFusion.md#41-vod-数据集-sota-对比-table-1
 paper: "AAAI 2025 · HGSFusion（带混合生成与同步的雷达-相机融合 3D 目标检测；笔记未记录英文原题与 arXiv 号；开源：https://github.com/garfield-cpp/HGSFusion）"

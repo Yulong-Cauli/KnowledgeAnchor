@@ -3,7 +3,7 @@ id: claim-pointnetpillars-pointnet-permutation-invariance-symmetric-function
 title: "PointNet 声称：共享权重的逐点 MLP 提取单点特征后经对称函数（Max Pooling）聚合，使网络对输入点的 N! 种排列置换不变"
 type: claim
 status: asserted
-scope: "3D 点云分类/分割的 formulation 层面（PointNet，CVPR 2017）；架构设计主张；笔记该节未载任何数据集性能数字与消融实验，不涉及精度结论；尚未独立验证"
+scope: "3D 点云分类/分割的 formulation 层面（PointNet，CVPR 2017）；架构设计主张；笔记该节未载任何数据集性能数字与消融实验，不涉及精度结论"
 tags: [pointnet, point-cloud, permutation-invariance, symmetric-function, max-pooling, classical-detection]
 note: library/Classical_Detection/PointNet & PointPillars.md#pointnet
 paper: "CVPR 2017, PointNet: Deep Learning on Point Sets for 3D Classification and Segmentation (arXiv:1612.00593)"
@@ -36,7 +36,7 @@ signoff: null
 
 ## 我的理解
 
-笔记声称（尚未独立验证）：点云本质是无序集合，重排后形状不变，但传统网络（RNN、全连接）对输入顺序敏感，因此 PointNet 采用 $f(\{x_i\}) \approx g(h(x_i))$ 结构：$h$ 为权重共享的逐点 MLP（$N \times 3$ 逐点映射到如 $N \times 1024$，点与点之间尚无交互），$g$ 为对称函数（输入顺序改变、输出不变），PointNet 选 Max Pooling 在所有点的特征维度上取最大值，由此对 $N!$ 种排列保持置换不变。
+笔记声称：点云本质是无序集合，重排后形状不变，但传统网络（RNN、全连接）对输入顺序敏感，因此 PointNet 采用 $f(\{x_i\}) \approx g(h(x_i))$ 结构：$h$ 为权重共享的逐点 MLP（$N \times 3$ 逐点映射到如 $N \times 1024$，点与点之间尚无交互），$g$ 为对称函数（输入顺序改变、输出不变），PointNet 选 Max Pooling 在所有点的特征维度上取最大值，由此对 $N!$ 种排列保持置换不变。
 
 限定：这是 formulation 层面的设计主张。笔记该节未给出任何数据集性能数字或消融结果，本卡只主张"共享 MLP + 对称聚合 → 置换不变"这一结构与性质的对应关系，不主张"因此精度更好"。
 

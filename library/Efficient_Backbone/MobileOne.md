@@ -4,7 +4,7 @@
 **是否开源：** 官方开源（Abstract 末句明示 "Code and models are available at https://github.com/apple/ml-mobileone"；§1 另声称将发布训练模型与 iOS 基准应用；该 GitHub 仓库本次连通性确认 HTTP 200，2026-11-02）  
 **关键词：** 移动端骨干网络（mobile backbone）、结构重参数化（structural re-parameterization）、平凡过参数化（trivial over-parameterization）、延迟-精度权衡、iPhone12 真机延迟基准、ImageNet / MS-COCO / Pascal-VOC / ADE20k
 
-> **Locator 约定：** 本笔记章节号（§1–§5、Appendix A–F）、表号（Table 1–19）、图号（Figure 1–9）均指 arXiv:2206.04040 的 ar5iv HTML 版（https://ar5iv.labs.arxiv.org/html/2206.04040 ，抓取日期 2026-11-02；ar5iv 渲染对应 arXiv v2，内容与 CVPR 2023 接收版一致——abs 页 Comments 字段为证）。英文引号内文字为本次实际抓取的逐字原文；其中形如 `sandler2018mobilenetv2` 的小写键是 ar5iv 未解析的参考文献 cite 元素（正式版应为编号引用），按原样保留。正文与表格中的数学片段按 ar5iv 的 LaTeX alttext 以 `$...$` 转写（如 `$224\times 224$`、`$\bm{\mu}$`），与论文 LaTeX 源一致。ar5iv 把多行表头/跨行跨列单元格展平为逐行 `<tr>`，本笔记照抄展平结果并用空单元格补齐跨列占位（非空单元格逐字照抄）；原文粗体照抄；Table 4 源行末的 colspan 残留空列已省略。全部表格逐行、全部引文均经脚本对抓取文本逐字核验。所有数字均为论文声称，未经独立验证。
+> **Locator 约定：** 本笔记章节号（§1–§5、Appendix A–F）、表号（Table 1–19）、图号（Figure 1–9）均指 arXiv:2206.04040 的 ar5iv HTML 版（https://ar5iv.labs.arxiv.org/html/2206.04040 ，抓取日期 2026-11-02；ar5iv 渲染对应 arXiv v2，内容与 CVPR 2023 接收版一致——abs 页 Comments 字段为证）。英文引号内文字为本次实际抓取的逐字原文；其中形如 `sandler2018mobilenetv2` 的小写键是 ar5iv 未解析的参考文献 cite 元素（正式版应为编号引用），按原样保留。正文与表格中的数学片段按 ar5iv 的 LaTeX alttext 以 `$...$` 转写（如 `$224\times 224$`、`$\bm{\mu}$`），与论文 LaTeX 源一致。ar5iv 把多行表头/跨行跨列单元格展平为逐行 `<tr>`，本笔记照抄展平结果并用空单元格补齐跨列占位（非空单元格逐字照抄）；原文粗体照抄；Table 4 源行末的 colspan 残留空列已省略。全部表格逐行、全部引文均经脚本对抓取文本逐字核验。所有数字均为论文声称。
 
 ---
 
@@ -510,7 +510,7 @@ $$\mathbf{W}=\sum_{i}^{M}\widehat{\mathbf{W}}_{i},\qquad \mathbf{b}=\sum_{i}^{M}
 2. **瓶颈清单可量化**：同一 30 层 CNN 仅换激活，DynamicReLU-A 273.49ms vs ReLU 1.53ms（178×）；加 skip / SE 分别把延迟从 1.53ms 推到 2.62 / 2.10ms（§3.2，Table 2/3）→ MobileOne 推理期只用 ReLU、无分支、SE 仅限最大变体。
 3. **重参数化 + 平凡过参数化 = 优化增益**：去重参数化分支三个变体掉 1.8/1.3/0.9 个点（Table 5）；trivial over-parameterization 对小模型更有效（S0 +0.5 个点，大变体收益递减）（§3.3，Table 6/19）。
 4. **训练侧（AWD）与小模型适配**：小模型需要更少正则，cosine 退火权重衰减 +0.5 个点（§3.4，Table 8）；该配方套用到 EfficientNet/MobileNetV3-L/MixNet-S 无提升（Appendix C.2）——与架构设计配套，非通用免费午餐。
-5. **效率 SOTA（论文声称，均未独立验证）**：S4 79.4 top-1 @ 1.86ms（§4 称比取得 79.3% 的 MobileFormer 变体快 38×——该 70.76ms 变体未列于 Table 9，笔记按 70.76/1.86≈38 换算；对 Table 9 所列 Mobileformer-96/52 则约 9.1×/4.9×）；蒸馏后 81.4 超 ResNet-50；TPU (int8) 上同为最优 trade-off（Table 9/10/14）。
+5. **效率 SOTA（论文声称）**：S4 79.4 top-1 @ 1.86ms（§4 称比取得 79.3% 的 MobileFormer 变体快 38×——该 70.76ms 变体未列于 Table 9，笔记按 70.76/1.86≈38 换算；对 Table 9 所列 Mobileformer-96/52 则约 9.1×/4.9×）；蒸馏后 81.4 超 ResNet-50；TPU (int8) 上同为最优 trade-off（Table 9/10/14）。
 6. **泛化与代价**：检测/分割同步领先（Table 11）；OOD 鲁棒性（IN-R/IN-SK）更好但 IN-C 腐蚀鲁棒性差于 MobileNetV3-L（Table 12）；精度仍落后大型模型（§5）：
 
 > "Although, our models are state-of-the-art within the regime of efficient architectures, the accuracy lags large models liu2022convnext; liu2021swin. Future work will aim at improving the accuracy of these lightweight models."

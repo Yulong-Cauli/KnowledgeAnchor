@@ -13,7 +13,7 @@
 > - 引文约定：引号内为本次实际抓取文本的逐字摘录，并经脚本对照抓取文本验证存在（见文末「表格核验与引文自查」）；「〔…〕」标记处为数学插入点（内容为该数学元素 alttext 属性原文）或引用编号插入点（纯数字，对应 HTML 中 [ n ] 式引用标记）；原文拼写错误照抄并注明（§4.1 “reuslts”、§4.3 小节标题 “3D Ocuupancy”、§3.2 “that arises”、§3.1 Note “point clouds contains”、§4.4 “we not use”、§1 特征句首词小写 “first”）。
 > - 开源核对：GitHub API repo metadata 与 raw README（https://raw.githubusercontent.com/happinesslz/DrivePI/main/README.md ）均本次实际抓取；仓库无 license 字段（license: None），引用代码前需注意授权缺失。
 > - 表格：HTML v1 含全部 13 张表；表 1–9 为数值表，本笔记逐行照抄解析结果并经脚本逐单元格核验（见文末）；表 10–13 为数据引擎 prompt 示例与定性可视化表（含图片与生成文本，其图片部分 HTML 中为空白图位），本笔记不逐行硬转抄、仅逐字摘录少量文字行并核验（EMC2 表格错位教训：只抄经核验的行，图位内容跳过）。
-> - 本笔记 2026-11-03 经入库前逐字 QA（quote 自洽 + 数字抽查）后自 nightshift/drafts/ 入库至 library/VLM_VLA/，未经用户核阅前所有结论均属「论文声称 / 尚未独立验证」。
+> - 本笔记 2026-11-03 经入库前逐字 QA（quote 自洽 + 数字抽查）后自 nightshift/drafts/ 入库至 library/VLM_VLA/。
 
 ------
 

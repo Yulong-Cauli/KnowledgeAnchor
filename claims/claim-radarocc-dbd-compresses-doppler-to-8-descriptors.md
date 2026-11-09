@@ -3,7 +3,7 @@ id: claim-radarocc-dbd-compresses-doppler-to-8-descriptors
 title: "RadarOcc 声称：DBD 将每个距离-角度单元的多普勒轴压缩为 8 维统计描述符，数据量降至 8/D 且保留速度线索"
 type: claim
 status: asserted
-scope: "RadarOcc（NeurIPS 2024）论文自述方法描述，据库内笔记转述，尚未独立验证；对象为 4D 雷达张量（R×A×E×D）沿多普勒轴 D 的逐（距离-角度）单元压缩，具体为 8 个统计描述符（Top-3 功率值、Top-3 多普勒索引、均值与标准差）；立卡时笔记无实验章节，2026-11-03 笔记已补实验章节（§3.3 Table 2 转录含 w/o DBD 消融，见正文触发记录），压缩后精度影响有了论文自报数字（仍未独立验证）"
+scope: "RadarOcc（NeurIPS 2024）论文自述方法描述，据库内笔记转述；对象为 4D 雷达张量（R×A×E×D）沿多普勒轴 D 的逐（距离-角度）单元压缩，具体为 8 个统计描述符（Top-3 功率值、Top-3 多普勒索引、均值与标准差）；立卡时笔记无实验章节，2026-11-03 笔记已补实验章节（§3.3 Table 2 转录含 w/o DBD 消融，见正文触发记录），压缩后精度影响有了论文自报数字"
 tags: [4d-radar, radar-tensor, doppler, compression, radarocc]
 note: library/3D_Occupancy/RadarOcc.md#2-方法
 paper: "NeurIPS 2024 · RadarOcc: Robust 3D Occupancy Prediction with 4D Imaging Radar · https://github.com/Toytiny/RadarOcc"
@@ -28,7 +28,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（据笔记 §2 方法转述，尚未独立验证）：DBD 对每个距离-角度单元 $(r, a, e)$ 沿多普勒维提取 8 个统计描述符（Top-3 功率值、Top-3 多普勒索引、均值、标准差），把 $D$ 维向量映射为 $\mathbb{R}^8$，数据量压缩至原来的 $8/D$，并声称保留的运动学特征可用于区分动态行人与静态背景。
+论文声称（据笔记 §2 方法转述）：DBD 对每个距离-角度单元 $(r, a, e)$ 沿多普勒维提取 8 个统计描述符（Top-3 功率值、Top-3 多普勒索引、均值、标准差），把 $D$ 维向量映射为 $\mathbb{R}^8$，数据量压缩至原来的 $8/D$，并声称保留的运动学特征可用于区分动态行人与静态背景。
 
 限定：这是一条「方法事实 + 功能声称」的窄卡，笔记没有实验章节，8/D 之外没有任何数字；「保留关键运动学特征」是论文的说法，不等于压缩无精度代价。
 

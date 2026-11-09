@@ -3,7 +3,7 @@ id: claim-bevplanner-egostatus-injection-closes-gap
 title: "BEV-Planner 论文声称：UniAD/VAD 仅在 planner 注入 ego status 后才追平无感知 Ego-MLP，含 ego status 的方法间不可直接比较"
 type: claim
 status: asserted
-scope: "nuScenes val；Table 1 统一评测口径（L2 距离、碰撞率、0.1m 网格）；对比对象为 UniAD（ID-1 无注入 / ID-2 仅 BEV 注入 / ID-3 BEV+planner 注入）与 VAD-Base（ID-4 无注入 / ID-5 仅 BEV 注入 / ID-6 BEV+planner 注入），参照系为无感知 Ego-MLP（ID-8）；论文自报数字（UniAD/VAD 部分为复现或官方 ckpt，详见 ckpt. source 列），尚未独立验证"
+scope: "nuScenes val；Table 1 统一评测口径（L2 距离、碰撞率、0.1m 网格）；对比对象为 UniAD（ID-1 无注入 / ID-2 仅 BEV 注入 / ID-3 BEV+planner 注入）与 VAD-Base（ID-4 无注入 / ID-5 仅 BEV 注入 / ID-6 BEV+planner 注入），参照系为无感知 Ego-MLP（ID-8）；论文自报数字（UniAD/VAD 部分为复现或官方 ckpt，详见 ckpt. source 列）"
 tags: [end-to-end-driving, open-loop, ego-status, nuscenes, bev-planner, benchmark]
 note: library/ADe2e/BEV-Planner.md#35-讨论
 paper: "CVPR 2024, Is Ego Status All You Need for Open-Loop End-to-End Autonomous Driving? (BEV-Planner, arXiv:2312.03031)"
@@ -31,7 +31,7 @@ signoff: null
 
 ## 这条主张是什么意思
 
-论文声称（尚未独立验证）：nuScenes 开环 Table 1 上，UniAD/VAD 只有把 ego status 注入 planner 后（ID-3：L2-Avg 0.46 / Colli-Avg 0.37；ID-6：0.37 / 0.33）才追平无感知的 Ego-MLP（0.35 / 0.37）；只靠相机输入的版本（ID-1：1.03 / 0.77；ID-4：1.25 / 1.09）显著更差。论文据此声称"利用 ego status 的方法之间不具直接可比性，不应由这类比较得出结论"（§4.3）。这张卡是机制系的"注入位置"卡：它给 egomlp-parity 现象卡提供第一层机制解释。
+论文声称：nuScenes 开环 Table 1 上，UniAD/VAD 只有把 ego status 注入 planner 后（ID-3：L2-Avg 0.46 / Colli-Avg 0.37；ID-6：0.37 / 0.33）才追平无感知的 Ego-MLP（0.35 / 0.37）；只靠相机输入的版本（ID-1：1.03 / 0.77；ID-4：1.25 / 1.09）显著更差。论文据此声称"利用 ego status 的方法之间不具直接可比性，不应由这类比较得出结论"（§4.3）。这张卡是机制系的"注入位置"卡：它给 egomlp-parity 现象卡提供第一层机制解释。
 
 ## 证据支持到哪里
 

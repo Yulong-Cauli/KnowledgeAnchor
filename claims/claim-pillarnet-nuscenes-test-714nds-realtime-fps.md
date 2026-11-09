@@ -3,7 +3,7 @@ id: claim-pillarnet-nuscenes-test-714nds-realtime-fps
 title: "PillarNet 论文声称（nuScenes test 快照，截至 arXiv v5 2022-08-26）：PillarNet-vgg/18/34 达 69.6/70.8/71.4 NDS（63.3/65.0/66.0 mAP），以 14/13/12 FPS 实时运行，超过 2022-03-07 榜上全部已发表 LiDAR-only 非集成方法"
 type: claim
 status: asserted
-scope: "nuScenes test set（官方 700/150/150 划分的 test split，150 序列）；LiDAR-only 单模型，无模型 ensemble（唯一例外是 CenterPoint 式 double-flip test-time augmentation，§4）；三变体 PillarNet-vgg / PillarNet-18 / PillarNet-34（复杂度分别对齐 VGGNet / ResNet-18 / ResNet-34，§3.2）；FPS 为论文自报推理速度，硬件口径 = i9 CPU + RTX 3090 桌面机（§4 runtime 对比设置），不是车规平台实测；'超过全部已发表 LiDAR-only 非集成方法'是论文对 2022-03-07 leaderboard 快照的自报说法，不主张当前仍成立；论文声称，尚未独立验证；Waymo 结果（Table 2/3）与 encoder/OD-IoU 消融不在此卡（另有专卡）"
+scope: "nuScenes test set（官方 700/150/150 划分的 test split，150 序列）；LiDAR-only 单模型，无模型 ensemble（唯一例外是 CenterPoint 式 double-flip test-time augmentation，§4）；三变体 PillarNet-vgg / PillarNet-18 / PillarNet-34（复杂度分别对齐 VGGNet / ResNet-18 / ResNet-34，§3.2）；FPS 为论文自报推理速度，硬件口径 = i9 CPU + RTX 3090 桌面机（§4 runtime 对比设置），不是车规平台实测；'超过全部已发表 LiDAR-only 非集成方法'是论文对 2022-03-07 leaderboard 快照的自报说法，不主张当前仍成立；论文声称；Waymo 结果（Table 2/3）与 encoder/OD-IoU 消融不在此卡（另有专卡）"
 tags: [pillarnet, 3d-detection, nuscenes, lidar, pillar-based, real-time, benchmark-snapshot]
 note: library/BEV_Detection/PillarNet.md#32-nuscenes-test-set
 paper: "ECCV 2022, PillarNet: Real-Time and High-Performance Pillar-based 3D Object Detection (arXiv:2205.07403)"

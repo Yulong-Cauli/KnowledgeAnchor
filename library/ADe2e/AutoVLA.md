@@ -9,7 +9,7 @@
 > - 歧义检查：arXiv API 检索标题 "AutoVLA"（http://export.arxiv.org/api/query?search_query=ti:%22AutoVLA%22&max_results=20 ，本次抓取）仅命中此一篇（2506.13757v3），无同名异文。
 > - 全文 arXiv 官方 HTML v3 https://arxiv.org/html/2506.13757v3 （LaTeXML 渲染，本次抓取）。以下 locator（§x / Table x / Fig. x / Appendix A-G / Eq. Sx）均指该 v3 的章节、表格与公式编号；引号为本次实际抓取文本的逐字摘录；HTML 内夹带的粗体/等宽 span（如 AutoVLA、trainval、nuX 等词被 span 包裹）在摘录句中按渲染文本还原，均以片段 grep 验证存在；LaTeX 数学数值按该渲染的 alttext 记录（如 λ_a=1、λ_cot=40、β=0.04、δ=0.05、γ=2×10⁻³、L_tol=400、λ_r=0.3、δ=2、κ=10）。方括号编号（如 [21]、[51]）为该版参考文献编号，照抄未改。
 > - GitHub 仓库 https://github.com/ucla-mobility/AutoVLA 本次实际抓取确认存在（页面 title 原文 "GitHub - ucla-mobility/AutoVLA: [NeurIPS 2025] AutoVLA: A Vision-Language-Action Model for End-to-End Autonomous Driving with Adaptive Reasoning and Reinforcement Fine-Tuning · GitHub"）。
-> - 本笔记 2026-11-03 自 nightshift/drafts/AutoVLA.md 草稿入库（草稿保留）：入库前做了逐字自洽 QA——150 处引号内引文全部配对且逐字在文中（5 处带省略号引文均有"省略号处为原文"注记）、⚠ 自不一致注记原样保留、正文数字与表格行抽查一致。开源状态以上方 GitHub 实抓记录为准（代码 2026/02、checkpoint 2026/05 已发布，推理数据 TBD；License 为 Academic Software License，GitHub 识别 NOASSERTION）。未经用户核阅前所有结论均属"论文声称 / 尚未独立验证"。
+> - 本笔记 2026-11-03 自 nightshift/drafts/AutoVLA.md 草稿入库（草稿保留）：入库前做了逐字自洽 QA——150 处引号内引文全部配对且逐字在文中（5 处带省略号引文均有"省略号处为原文"注记）、⚠ 自不一致注记原样保留、正文数字与表格行抽查一致。开源状态以上方 GitHub 实抓记录为准（代码 2026/02、checkpoint 2026/05 已发布，推理数据 TBD；License 为 Academic Software License，GitHub 识别 NOASSERTION）。
 
 ------
 
@@ -246,7 +246,7 @@ Table 6 逐字行（caption: "Performance Comparison across Different Tokenizati
 
 ## 4. 核心结论
 
-1. 论文声称：用单个自回归 VLA 模型（Qwen2.5-VL-3B + 2048 动作 codebook）统一场景推理与轨迹生成，配合"SFT 双模式数据 + GRPO 强化微调"可在真实与仿真、开环与闭环多基准上取得 competitive 表现（Abstract；§4；Table 1/3/S2/S3）。注意此为论文声称、尚未独立验证。
+1. 论文声称：用单个自回归 VLA 模型（Qwen2.5-VL-3B + 2048 动作 codebook）统一场景推理与轨迹生成，配合"SFT 双模式数据 + GRPO 强化微调"可在真实与仿真、开环与闭环多基准上取得 competitive 表现（Abstract；§4；Table 1/3/S2/S3）。注意此为论文声称。
 2. 快/慢思考的代价差约一个数量级：平均单次推理 Fast 1.072 s vs Slow 10.518 s（Table 2）；RFT 以 CoT 长度惩罚削减不必要推理，换来 PDMS +10.6%、运行时 −66.8%（500 测试场景平均；§4.2，Fig. 5(a)）。这是本文区别于固定 CoT 的 VLA（如 EMMA 类）与双模块双过程方案（如 DriveVLM）的核心卖点。
 3. 物理动作 token 化优于文本 waypoint 输出：PDM Score 80.54 vs 71.31、Avg. L2 0.70 vs 0.89 m、Runtime 3.95 vs 7.65 s（Table 5）；token 化方案中 K-disk 优于 RT-1 动作分桶与 FAST DCT（Table 4/6）。论文归因见 §4.3 原句："This shows the limitation of language models in handling precise numerical reasoning."
 4. CoT 推理数据的收益依赖数据规模：nuPlan 上 <50k 样本时 CoT 不优于 action-only，全量 185k 时反超（§4.2，Fig. 4）；Waymo 消融中 CoT-enhanced 一致优于 Action-only（Table S4，RFS 7.127 vs 6.938 等四组）；但 nuScenes 上 w/ CoT 的碰撞率（0.20）反而高于 action-only（0.18）（Table S2），论文解释是该基准场景偏简单（Appendix F.1）。

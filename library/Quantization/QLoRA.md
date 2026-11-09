@@ -9,7 +9,7 @@
 > - 全文引文底本为 arXiv 原生 HTML（LaTeXML 渲染）https://arxiv.org/html/2305.14314v1 ，并与 ar5iv https://ar5iv.labs.arxiv.org/html/2305.14314 与 arXiv v1 PDF https://arxiv.org/pdf/2305.14314v1 （26 页，2023-05-24 生成）交叉核对：全部 13 张表的行与 caption 在两个 HTML 源逐格一致；引文在两个 HTML 源中逐字存在；表格数字另做 PDF 抽查（v1 PDF 为双栏/侧浮动排版，正文引文的 PDF 逐句对齐不作为通过标准）。
 > - 技术性转写约定（内容不变）：数学对象取 LaTeXML 可见渲染形式（如 K=32、τ=0.43、2k−1、[−1,1]、N(0,1)、NFk；下标/上标按可见顺序平写，如 c2、NFk），并将 ⋅ 统一为 ·、数学负号 − 与连字符 - 不区分；引文内方括号数字（如 [57]）为原文引用标记，ar5iv 将部分同类标记渲染为作者-年份（如 Chiang et al. 2023），脚本核验时两侧按机械规则剥离引用标记后比对，原生 HTML 与 PDF 中 [n] 逐字存在；原文拼写/语法问题（如 "wich does"、"the the Vicuna benchmark"、"to date finetunable"、"hown in Table 12"）保留原样。以上转写均经脚本对多源文本归一化核验。
 > - 机构：v1 PDF 首页印 "University of Washington"（四位作者邮箱 @cs.washington.edu）；本次抓取的全部材料（abs 页、两个 HTML、PDF、NeurIPS proceedings 页）中均未出现 Meta 署名，任务给定"华盛顿大学 & Meta"中的 Meta 未能从本次素材证实，见 TODO。
-> - 本笔记源自草稿（nightshift/drafts/QLoRA.md，保留不删；2026-11-03 经入库前 QA 后写入 library/Quantization/），未经用户核阅前所有结论均属"论文声称 / 尚未独立验证"。
+> - 本笔记源自草稿（nightshift/drafts/QLoRA.md，保留不删；2026-11-03 经入库前 QA 后写入 library/Quantization/）。
 
 ------
 
@@ -278,7 +278,7 @@ Table 13（Appendix D，GPT-4 成对判定诱导的完全排序，逐行照抄�
 - 论文自述边界（§8 Limitations and Discussion 首段）："We have shown evidence that our method, QLoRA, can replicate 16-bit full finetuning performance with a 4-bit base model and Low-rank Adapters (LoRA). Despite this evidence, we did not establish that QLoRA can match full 16-bit finetuning performance at 33B and 65B scales. Due to the immense resource costs, we leave this study to future work."（即 16-bit 复现的直接证据在 ≤3B（全量微调对照）与 7B–65B（16-bit LoRA 对照）上，33B/65B 无全量微调基线。）
 - 基准泛化自述（§8）："While we provide evaluations on MMLU, the Vicuna benchmark, and the OA benchmark, we did not evaluate on other benchmarks such as BigBench, RAFT, and HELM, and it is not ensured that our evaluations generalize to these benchmarks."
 - 更激进度量的可能性（§8）："Since finetuning after quantization seems to recover most of the information that is lost during quantization this might enable much more aggressive quantization. For example, 3-bit GPTQ quantization of the basemodel with LoRA might also yield 16-bit full finetuning performance after finetuning."
-- 方法层面的关键结论（论文声称，尚未独立验证）：(1) 分位数对固定分布（零均值正态）可离线精确算出，NF4 以信息论最优的 4-bit 数据类型超过 FP4/Int4（§3、§4 Table 2、Figure 3）；(2) 量化常数本身可再量化（DQ，0.5→0.127 bit/参数）而不掉点（§3、Figure 3）；(3) 量化后经 adapter 微调可恢复量化损失——LoRA 要挂全部线性层、r 不敏感（§4、Table 3/4、Appendix A）；(4) 存储用 NF4 4-bit、计算用 BF16，只对 adapter 反传（§3 Eq.5/6）；(5) 4-bit QLoRA 可产出与 ChatGPT 相当的聊天模型（Guanaco 65B，Table 1/6/7），但 GPT-4/人类评估分歧与置信区间宽度是评估方法的明确限制（§5.3、§6.2）。
+- 方法层面的关键结论（论文声称）：(1) 分位数对固定分布（零均值正态）可离线精确算出，NF4 以信息论最优的 4-bit 数据类型超过 FP4/Int4（§3、§4 Table 2、Figure 3）；(2) 量化常数本身可再量化（DQ，0.5→0.127 bit/参数）而不掉点（§3、Figure 3）；(3) 量化后经 adapter 微调可恢复量化损失——LoRA 要挂全部线性层、r 不敏感（§4、Table 3/4、Appendix A）；(4) 存储用 NF4 4-bit、计算用 BF16，只对 adapter 反传（§3 Eq.5/6）；(5) 4-bit QLoRA 可产出与 ChatGPT 相当的聊天模型（Guanaco 65B，Table 1/6/7），但 GPT-4/人类评估分歧与置信区间宽度是评估方法的明确限制（§5.3、§6.2）。
 - 硬件相关：Paged Optimizers 用 NVIDIA unified memory 兜显存尖峰，batch size 16 时 65B 训练速度与常规优化器相同（§3、§4）；显存账：7B 底座 4-bit 权重 5,048 MB vs LoRA 参数 26 MB vs 输入梯度 567 MB（§2、Appendix G）。
 
 ## 5. 与库内 Quantization/ 笔记的关系（笔记作者评述，非论文原文表述）

@@ -3,7 +3,7 @@ id: claim-deepcompression-conv8-fc5-quantization-no-loss
 title: "Deep Compression 自报：剪枝后 AlexNet 权重量化到 CONV 8-bit / FC 5-bit 精度无损（Top-1 Error Increase 0.00%），CONV 低于 4-bit 才显著掉点（4/2 掉 1.99%/2.60%）"
 type: claim
 status: asserted
-scope: "AlexNet on ImageNet ILSVRC-2012（Caffe 参考模型）；量化对象是剪枝后网络（60M→6.7M 权重）的权重；只量化权重、激活 32-bit；质心数 CONV 256（8-bit）/ FC 32（5-bit），k-means + 反传微调（'trained quantization'）；位宽敏感性边界只测了 AlexNet 的 CONV/FC 两类层；论文自报，尚未独立验证"
+scope: "AlexNet on ImageNet ILSVRC-2012（Caffe 参考模型）；量化对象是剪枝后网络（60M→6.7M 权重）的权重；只量化权重、激活 32-bit；质心数 CONV 256（8-bit）/ FC 32（5-bit），k-means + 反传微调（'trained quantization'）；位宽敏感性边界只测了 AlexNet 的 CONV/FC 两类层；论文自报"
 tags: [quantization, weight-sharing, kmeans, deepcompression, bitwidth]
 note: library/Quantization/DeepCompression.md#35-讨论6-discussions
 paper: "ICLR 2016 (oral)（arXiv:1510.00149）, Deep Compression: Compressing Deep Neural Networks with Pruning, Trained Quantization and Huffman Coding"
@@ -36,7 +36,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（asserted，尚未独立验证）：对剪枝后的 AlexNet，k-means 质心 + 反传微调的"训练量化"可以把 CONV 层压到 8-bit（256 质心）、FC 层压到 5-bit（32 质心）而不损精度——Table 6 给出 8/5 bits 档 Top-1 Error Increase 0.00%（top-5 还降 0.03%）；更硬件友好的 8/4 档也只有 0.01%；最激进的 4/2 档掉 1.99%/2.60%。位宽敏感性分层：CONV 低于 4-bit 才显著掉点，FC 到 2-bit 才显著。
+论文声称（asserted）：对剪枝后的 AlexNet，k-means 质心 + 反传微调的"训练量化"可以把 CONV 层压到 8-bit（256 质心）、FC 层压到 5-bit（32 质心）而不损精度——Table 6 给出 8/5 bits 档 Top-1 Error Increase 0.00%（top-5 还降 0.03%）；更硬件友好的 8/4 档也只有 0.01%；最激进的 4/2 档掉 1.99%/2.60%。位宽敏感性分层：CONV 低于 4-bit 才显著掉点，FC 到 2-bit 才显著。
 
 必须记住的口径限定：
 

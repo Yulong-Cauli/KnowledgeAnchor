@@ -3,7 +3,7 @@ id: claim-radarocc-s2c-deformable-avoids-interp-degradation
 title: "RadarOcc 声称：硬性球转直坐标插值因采样非均匀导致特征退化，改用可学习可变形交叉注意力聚合避免"
 type: claim
 status: asserted
-scope: "RadarOcc（NeurIPS 2024）论文自述设计动机，据库内笔记转述，尚未独立验证；对象为球坐标特征图到笛卡尔占据体素的 S2C 转换环节，比较对象为三线性插值等硬性几何变换 vs 可学习 Voxel Queries + 3D 可变形交叉注意力；2026-11-03 前笔记无实验章节（nightshift/cross/4d-radar.md M5 为当时状况记录），2026-11-03 笔记 §3 补写后：原文无 S2C 单独消融（Table 2 行 (d) 同时改动「转笛卡尔编码」与「省略 S2C 聚合」两处，只能合并归因 mIoU +1.5~+3.9），另有 Table 1 的 4DRT-XYZ 跨框架插值基线"
+scope: "RadarOcc（NeurIPS 2024）论文自述设计动机，据库内笔记转述；对象为球坐标特征图到笛卡尔占据体素的 S2C 转换环节，比较对象为三线性插值等硬性几何变换 vs 可学习 Voxel Queries + 3D 可变形交叉注意力；2026-11-03 前笔记无实验章节（nightshift/cross/4d-radar.md M5 为当时状况记录），2026-11-03 笔记 §3 补写后：原文无 S2C 单独消融（Table 2 行 (d) 同时改动「转笛卡尔编码」与「省略 S2C 聚合」两处，只能合并归因 mIoU +1.5~+3.9），另有 Table 1 的 4DRT-XYZ 跨框架插值基线"
 tags: [4d-radar, occupancy-prediction, spherical-coordinates, deformable-attention, radarocc]
 note: library/3D_Occupancy/RadarOcc.md#2-方法
 paper: "NeurIPS 2024 · RadarOcc: Robust 3D Occupancy Prediction with 4D Imaging Radar · https://github.com/Toytiny/RadarOcc"
@@ -36,7 +36,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（据笔记 §2 方法转述，尚未独立验证）：雷达物理采样在球坐标、占据任务定义在笛卡尔体素，直接用三线性插值等硬性几何变换会因采样非均匀（近处体素对应极多采样点、远处极少）导致特征退化或走样；RadarOcc 的对策是保持球坐标特征提取，并用可学习 Voxel Queries + 3D 可变形交叉注意力把坐标转换纳入端到端学习。
+论文声称（据笔记 §2 方法转述）：雷达物理采样在球坐标、占据任务定义在笛卡尔体素，直接用三线性插值等硬性几何变换会因采样非均匀（近处体素对应极多采样点、远处极少）导致特征退化或走样；RadarOcc 的对策是保持球坐标特征提取，并用可学习 Voxel Queries + 3D 可变形交叉注意力把坐标转换纳入端到端学习。
 
 TODO 提示方向是「球坐标编码是否稳定优于笛卡尔基线」——2026-11-03 笔记 §3 补写前没有任何「球坐标 vs 笛卡尔」的对比数字，故本卡**不立** stable-beats-Cartesian 类性能主张，只立「插值退化动机 + 可学习聚合对策」这条窄主张。是否成立须由消融（S2C 替换为插值）或同框架笛卡尔基线实验裁决。另注意 `nightshift/cross/4d-radar.md` C1：HGSFusion 笔记称 4D 雷达高度角分辨率不足、3D 占据引入噪声，与本篇倚重俯仰维的路线表态相反，两处口径（纯雷达张量占据 vs 融合检测中的空间模式）不同，横向引用时必须带各自的 scope。
 

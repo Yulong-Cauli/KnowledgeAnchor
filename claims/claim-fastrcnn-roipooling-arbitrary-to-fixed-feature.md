@@ -3,7 +3,7 @@ id: claim-fastrcnn-roipooling-arbitrary-to-fixed-feature
 title: "Fast R-CNN 声称 RoI Pooling 经“网格划分→子窗口最大池化”把特征图上任意尺寸 RoI 变为固定尺寸特征，配合整图共享卷积实现端到端训练"
 type: claim
 status: asserted
-scope: "Fast R-CNN 架构机制主张（ICCV 2015）；笔记示例参数：输出 7×7、VGG16 步长 16、512 通道逐通道独立池化；机制层面主张，不涉及具体数据集与精度数字；尚未独立验证"
+scope: "Fast R-CNN 架构机制主张（ICCV 2015）；笔记示例参数：输出 7×7、VGG16 步长 16、512 通道逐通道独立池化；机制层面主张，不涉及具体数据集与精度数字"
 tags: [detection, fast-rcnn, roi-pooling, shared-convolution, two-stage]
 note: "library/Classical_Detection/Fast R-CNN 和 Faster R-CNN .md#方法-整体架构"
 paper: "ICCV 2015, Fast R-CNN；TPAMI 2017, Faster R-CNN（开源：https://github.com/ShaoqingRen/faster_rcnn）"
@@ -32,7 +32,7 @@ signoff: null
 
 ## 我的理解
 
-笔记声称（尚未独立验证）：Fast R-CNN 的关键设计是（1）整图只做一次 CNN 前向得到共享特征图，取代 R-CNN 对每个候选框单独卷积；（2）RoI Pooling 把特征图上任意 h×w 的 RoI 先按 stride 映射到特征图坐标，再切成 H×W 网格、每个子窗口（约 h/H × w/W）内取最大值、逐通道独立进行，从而输出固定尺寸（如 7×7）特征供全连接头使用。笔记认为正是这一机制使固定尺寸的分类/回归头能挂在共享卷积特征上，实现端到端训练。
+笔记声称：Fast R-CNN 的关键设计是（1）整图只做一次 CNN 前向得到共享特征图，取代 R-CNN 对每个候选框单独卷积；（2）RoI Pooling 把特征图上任意 h×w 的 RoI 先按 stride 映射到特征图坐标，再切成 H×W 网格、每个子窗口（约 h/H × w/W）内取最大值、逐通道独立进行，从而输出固定尺寸（如 7×7）特征供全连接头使用。笔记认为正是这一机制使固定尺寸的分类/回归头能挂在共享卷积特征上，实现端到端训练。
 
 限定：本卡只主张机制路径（任意尺寸 RoI → 固定尺寸特征 + 共享卷积计算），不主张任何具体加速倍数或精度数字——笔记该节未载数字。
 

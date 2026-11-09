@@ -3,7 +3,7 @@ id: claim-gaussianfusion-val-2p6nds-over-bevfusion
 title: "GaussianFusion 论文声称：nuScenes 3D 检测 val 74.0 NDS / 71.7 mAP，同配置下超 BEVFusion(M) +2.6 NDS / +3.2 mAP"
 type: claim
 status: asserted
-scope: "nuScenes 3D 检测 val split（非 test）；GaussianFusion（C+L 多模态，Swin-T 相机 + VoxelNet LiDAR，follow BEVFusion(M)；输入 704×256、点云体素 0.075m、BEV 200×200、20 epochs、8×A800，§4.2）；比较基线为同表 BEVFusion(M) 行（704×256/Swin-T/VoxelNet，71.4/68.5）；指标 NDS/mAP（Table 2）；数字为论文自报（arXiv HTML v1，2026-11-04 抓取），尚未独立验证"
+scope: "nuScenes 3D 检测 val split（非 test）；GaussianFusion（C+L 多模态，Swin-T 相机 + VoxelNet LiDAR，follow BEVFusion(M)；输入 704×256、点云体素 0.075m、BEV 200×200、20 epochs、8×A800，§4.2）；比较基线为同表 BEVFusion(M) 行（704×256/Swin-T/VoxelNet，71.4/68.5）；指标 NDS/mAP（Table 2）；数字为论文自报（arXiv HTML v1，2026-11-04 抓取）"
 tags: [lidar-camera-fusion, gaussianfusion, iclr2026, nuscenes, 3d-detection]
 note: library/Multimodal_Fusion/GaussianFusion.md#3-实验
 paper: "ICLR 2026, GaussianFusion: Unified 3D Gaussian Representation for Multi-Modal Fusion Perception (arXiv:2607.00746)"
@@ -37,7 +37,7 @@ signoff: null
 
 ## 这条主张是什么意思
 
-多模态融合的主流做法是把相机/LiDAR 特征统一到离散 BEV 网格再融合。这篇论文改用连续 3D 高斯集合做统一空间（前向投影初始化 + 共享高斯编码器 + GMM 聚合），最后才投影到 BEV 送任务头。论文声称在 nuScenes 3D 检测 val 上拿到 74.0 NDS / 71.7 mAP，比配置列一致的 BEVFusion(M)（71.4/68.5）高 +2.6 NDS / +3.2 mAP（§4.3、Table 2）。如果成立，说明"融合统一空间"不必是 BEV 网格，离散化时机和表示形式本身是有收益的设计维度。本卡主张均为论文自报，尚未独立验证；笔记检索未见公开代码（2026-11-04）。
+多模态融合的主流做法是把相机/LiDAR 特征统一到离散 BEV 网格再融合。这篇论文改用连续 3D 高斯集合做统一空间（前向投影初始化 + 共享高斯编码器 + GMM 聚合），最后才投影到 BEV 送任务头。论文声称在 nuScenes 3D 检测 val 上拿到 74.0 NDS / 71.7 mAP，比配置列一致的 BEVFusion(M)（71.4/68.5）高 +2.6 NDS / +3.2 mAP（§4.3、Table 2）。如果成立，说明"融合统一空间"不必是 BEV 网格，离散化时机和表示形式本身是有收益的设计维度。本卡主张均为论文自报；笔记检索未见公开代码（2026-11-04）。
 
 ## 证据支持到哪里
 

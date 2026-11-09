@@ -50,7 +50,7 @@ signoff: null
 
 > 修订注记（2026-11-03 基线行修正）：笔记 §3 对比表两条基线行已按 arXiv:2312.17118v5（ECCV 2024 camera-ready）Table 1 逐格修正——BEVFormer 32.2 / 2.3 → **32.4 / 3.0**、FB-Occ 33.7 / 5.2 → **33.5 / 10.3**（旧 32.2 系混入 v5 Fig.4 单场景可视化面板数；抓取 URL https://arxiv.org/pdf/2312.17118v5 ，2026-11-03，pdftotext 提取核对）。本卡 title、scope、evidence（笔记两行 quote 换新 + 补 v5 Table 1 两行）、falsifier 1 阈值（33.7→33.5）与 FPS 倍数（3.3×→**1.68×**、7.5×→**5.77×**）已同步；falsifier 2 的「引用各自原文」分支经原文结构性排除（RayIoU 为本文提出的指标，BEVFormer / FB-Occ 原文不可能报告）后改写，详见卡内注。方向性主张不变（v5 下 34.0 > 33.5 > 32.4，17.3 > 10.3 > 3.0），status 不动。依据：`nightshift/reports/njusparseocc-rayiou-deep-read.md` 与 `nightshift/cross/occupancy-sparsification.md` §3-M6。
 
-论文声称（据笔记 §3 转述，尚未独立验证）：在 Occ3D-nuScenes、Tesla A100 (fp32) 口径下，全稀疏架构的 SparseOcc 以 7 历史帧时序输入（摘要口径；Table 1 行标 8f=7+1）取得 RayIoU 34.0、17.3 FPS；同表两条稠密基线为 BEVFormer 4f 32.4 / 3.0 FPS、FB-Occ 16f 33.5 / 10.3 FPS。注意差距的结构：FPS 为 FB-Occ 的约 1.68 倍（17.3 vs 10.3）、BEVFormer 的约 5.77 倍（17.3 vs 3.0），RayIoU 只高 0.5–1.6——本卡主张是「同表高于稠密基线」，不是 SOTA。
+论文声称（据笔记 §3 转述）：在 Occ3D-nuScenes、Tesla A100 (fp32) 口径下，全稀疏架构的 SparseOcc 以 7 历史帧时序输入（摘要口径；Table 1 行标 8f=7+1）取得 RayIoU 34.0、17.3 FPS；同表两条稠密基线为 BEVFormer 4f 32.4 / 3.0 FPS、FB-Occ 16f 33.5 / 10.3 FPS。注意差距的结构：FPS 为 FB-Occ 的约 1.68 倍（17.3 vs 10.3）、BEVFormer 的约 5.77 倍（17.3 vs 3.0），RayIoU 只高 0.5–1.6——本卡主张是「同表高于稠密基线」，不是 SOTA。
 
 限定与注意：
 1. 基线数字的产生方式：已排除「引用各自原文」（RayIoU 为本文提出指标，2026-11-03 原文核查），但论文未写明基线是否作者复训、FPS 是否含数据加载；FPS 跨论文对比口径常不可比（[EMC2 卡](claim-emc2-orin-sub400ms-leading-accuracy.md)的前车之鉴），故 scope 写明「自报对比表」。

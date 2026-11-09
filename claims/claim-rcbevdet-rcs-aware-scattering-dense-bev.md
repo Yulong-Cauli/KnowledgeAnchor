@@ -1,6 +1,6 @@
 ---
 id: claim-rcbevdet-rcs-aware-scattering-dense-bev
-title: "RCBEVDet 的 RCS-aware BEV 编码器以 RCS 为物体尺寸先验，把稀疏雷达点散射为高斯圆斑得到稠密 BEV 特征（论文声称，尚未独立验证）"
+title: "RCBEVDet 的 RCS-aware BEV 编码器以 RCS 为物体尺寸先验，把稀疏雷达点散射为高斯圆斑得到稠密 BEV 特征（论文声称）"
 type: claim
 status: asserted
 scope: "RCBEVDet（CVPR 2024）的方法设计声明；口径：RadarBEVNet 的 RCS 感知 BEV 编码器（笔记 §二.2）；散射半径含 (cx²+cy²)×v_RCS 距离项与 Sum Pooling 聚合已对照 arXiv:2403.16440v1 原文核实（2026-11-02 抓取）；CVPR 原文 Table 5 已含消融数字（+1.4 NDS / +1.9 mAP，nuScenes），与扩展版草稿转录一致；本卡只主张『设计存在与形式』，不主张增益幅度"
@@ -48,7 +48,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（尚未独立验证）：雷达点在 BEV 网格上极度稀疏（笔记举例：128×128 的 BEV 图约 16000 像素，雷达点可能只有几百个），normal scattering 后 CNN 难以提取形状。RadarBEVNet 的 RCS-aware BEV 编码器把 RCS 当作物体尺寸先验——RCS 越大物体通常越大——对每个雷达点以半径 r=(cx²+cy²)×V_RCS 铺开一个中心权重最高的高斯圆斑（半径里的坐标平方项是距离补偿），点特征乘高斯权重图后叠加到 BEV 网格，重叠处 Sum Pooling 聚合；再把散射特征与高斯权重图本身（作空间注意力图）拼接过 MLP，得到稠密的 RCS-aware BEV 特征。
+论文声称：雷达点在 BEV 网格上极度稀疏（笔记举例：128×128 的 BEV 图约 16000 像素，雷达点可能只有几百个），normal scattering 后 CNN 难以提取形状。RadarBEVNet 的 RCS-aware BEV 编码器把 RCS 当作物体尺寸先验——RCS 越大物体通常越大——对每个雷达点以半径 r=(cx²+cy²)×V_RCS 铺开一个中心权重最高的高斯圆斑（半径里的坐标平方项是距离补偿），点特征乘高斯权重图后叠加到 BEV 网格，重叠处 Sum Pooling 聚合；再把散射特征与高斯权重图本身（作空间注意力图）拼接过 MLP，得到稠密的 RCS-aware BEV 特征。
 
 关联：RCS-aware 编码器是 RadarBEVNet 的组成部分，双流骨干与逐层交互见 [claim-rcbevdet-dualstream-injection-extraction-interactive](claim-rcbevdet-dualstream-injection-extraction-interactive.md)。**复审更新（2026-11-02）**：CVPR 原文（arXiv v1）§3.1 已核实散射阈值含 (cx²+cy²)×v_RCS 距离项、重叠像素用 summation pooling 聚合（见 evidence）；消融 +1.4 NDS / +1.9 mAP 在 v1 Table 5 已含（此前认为只在扩展版）。扩展版 RCBEVDet++ 的草稿笔记 nightshift/drafts/RCBEVDetPP.md §2.1 转录了论文英文原句 "leverages the RCS as a prior estimate of the object's size"（§III-A2，抓取自 arXiv HTML v1，待人工核对），与本卡口径一致。
 

@@ -3,7 +3,7 @@ id: claim-echofusion-3d-ap-below-lidar
 title: "EchoFusion 在 RADIal 上的 3D AP 仍远低于 LiDAR"
 type: claim
 status: asserted
-scope: "RADIal test split；refined 3D 标注；3D AP@0.5；ATE/ASE/AOE；论文 Table 7 行名 RT&C vs L / L&C；数字为论文自报（Table 7，arXiv:2307.16532v2 PDF 文本层，2026-11-05 实抓逐值核对），尚未独立验证"
+scope: "RADIal test split；refined 3D 标注；3D AP@0.5；ATE/ASE/AOE；论文 Table 7 行名 RT&C vs L / L&C；数字为论文自报（Table 7，arXiv:2307.16532v2 PDF 文本层，2026-11-05 实抓逐值核对）"
 tags: [radar, sensor-fusion, echofusion, radial, lidar]
 note: library/3D_Occupancy/EchoFusion.md#3-实验结果
 paper: "NeurIPS 2023, Echoes Beyond Points: Unleashing the Power of Raw Radar Data in Multi-modality Fusion"
@@ -31,7 +31,7 @@ signoff: null
 
 ## 我的理解
 
-论文表格报告（数字尚未独立验证）：EchoFusion 的 BEV AP 接近 LiDAR（Table 6：RT+C 84.92 vs L 84.47），但 Table 7 的 **3D AP@0.5** 是 **39.81**（行名 RT&C），远低于 LiDAR 的 **62.69**（L）和 **68.36**（L&C）；ATE 也更高（**0.301 vs 0.243 / 0.239**）。论文把差距归因于 RADIal 的 16 线 LiDAR 标注粗糙和雷达俯仰分辨率低（作者解释，§5.5 原句已于 2026-11-05 实抓核实），但这仍是“方法有效”的边界：BEV 好不等于 3D 定位好。
+论文表格报告：EchoFusion 的 BEV AP 接近 LiDAR（Table 6：RT+C 84.92 vs L 84.47），但 Table 7 的 **3D AP@0.5** 是 **39.81**（行名 RT&C），远低于 LiDAR 的 **62.69**（L）和 **68.36**（L&C）；ATE 也更高（**0.301 vs 0.243 / 0.239**）。论文把差距归因于 RADIal 的 16 线 LiDAR 标注粗糙和雷达俯仰分辨率低（作者解释，§5.5 原句已于 2026-11-05 实抓核实），但这仍是“方法有效”的边界：BEV 好不等于 3D 定位好。
 
 ## 待验证
 

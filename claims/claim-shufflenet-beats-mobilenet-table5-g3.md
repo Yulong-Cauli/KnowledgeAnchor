@@ -3,7 +3,7 @@ id: claim-shufflenet-beats-mobilenet-table5-g3
 title: "ShuffleNet 论文自报（Table 5，窄口径绑定 g=3 行与三个浮点档）：同量级复杂度下 g=3 配置的 ImageNet top-1 错误率均低于对应 MobileNet 档——2×(g=3) 26.3 vs 1.0 MobileNet-224 29.4（524 vs 569 MFLOPs）、1.5×(g=3) 28.5 vs 0.75 MobileNet-224 31.6（292 vs 325）、0.5×(shallow, g=3) 42.8 vs 0.25 MobileNet-224 49.4（40 vs 41）"
 type: claim
 status: asserted
-scope: "ImageNet 2012 分类、top-1 分类错误率（越小越好；单 crop，256 输入取 224 中心 crop，§4）；ShuffleNet V1（arXiv:1707.01083 v2，CVPR 2018）自报对比；窄口径只绑 Table 5 中 g=3 的三行（524 / 292 / 40 MFLOPs 档），非 g=3 行（1×(g=8) 32.4、0.5×(g=4) 41.6）、COCO 检测（Table 7）与 ARM 实测（Table 8）不在本卡；错误率为浮点（fp32）口径，含量化后精度不在此卡；Table 5 的 MobileNet 数字来源表内未明示，但其 MFLOPs 与错误率同 MobileNet 原论文 Table 6 自报值逐项相符（2026-11-05 对库内 MobileNet 笔记核验，支持取自原论文报告值的推断，见正文）；对照侧为 MobileNet 原配方报告值、主张侧为 ShuffleNet 配方，训练配方差异的归因风险仍在；论文声称，尚未独立验证"
+scope: "ImageNet 2012 分类、top-1 分类错误率（越小越好；单 crop，256 输入取 224 中心 crop，§4）；ShuffleNet V1（arXiv:1707.01083 v2，CVPR 2018）自报对比；窄口径只绑 Table 5 中 g=3 的三行（524 / 292 / 40 MFLOPs 档），非 g=3 行（1×(g=8) 32.4、0.5×(g=4) 41.6）、COCO 检测（Table 7）与 ARM 实测（Table 8）不在本卡；错误率为浮点（fp32）口径，含量化后精度不在此卡；Table 5 的 MobileNet 数字来源表内未明示，但其 MFLOPs 与错误率同 MobileNet 原论文 Table 6 自报值逐项相符（2026-11-05 对库内 MobileNet 笔记核验，支持取自原论文报告值的推断，见正文）；对照侧为 MobileNet 原配方报告值、主张侧为 ShuffleNet 配方，训练配方差异的归因风险仍在；论文声称"
 tags: [shufflenet, mobilenet, efficient-backbone, imagenet, group-convolution, comparison]
 note: library/Efficient_Backbone/ShuffleNet.md#35-与-mobilenet-及其他框架对比
 paper: "CVPR 2018, ShuffleNet: An Extremely Efficient Convolutional Neural Network for Mobile Devices (arXiv:1707.01083)"

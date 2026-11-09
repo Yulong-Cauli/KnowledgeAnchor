@@ -3,7 +3,7 @@ id: claim-radardistill-lidar-teacher-boosts-radar-only-detection
 title: "RadarDistill 声称 LiDAR 特征蒸馏大幅提升 radar-only 3D 检测（nuScenes 自报 mAP 20.5 / NDS 43.7，基线 8.6 / 34.7）"
 type: claim
 status: asserted
-scope: "nuScenes testset（论文 Table 1 口径，2026-11-02 复审抓取核对；笔记本身未记录数据集与任何实验数字）；radar-only 学生为 PillarNet (Radar)，LiDAR 教师分支仅训练期使用、推理不需要；mAP 20.5 / NDS 43.7 与基线 8.6 / 34.7 在 README Model Zoo 与论文 Table 1 一致，数字为论文/README 自报（抓取于 2026-11-02）；基线 PillarNet* 为作者复现且无 test-time augmentation（Table 1 脚注 *）；不覆盖 camera-radar fusion 提升设置；尚未独立验证"
+scope: "nuScenes testset（论文 Table 1 口径，2026-11-02 复审抓取核对；笔记本身未记录数据集与任何实验数字）；radar-only 学生为 PillarNet (Radar)，LiDAR 教师分支仅训练期使用、推理不需要；mAP 20.5 / NDS 43.7 与基线 8.6 / 34.7 在 README Model Zoo 与论文 Table 1 一致，数字为论文/README 自报（抓取于 2026-11-02）；基线 PillarNet* 为作者复现且无 test-time augmentation（Table 1 脚注 *）；不覆盖 camera-radar fusion 提升设置"
 tags: [knowledge-distillation, cross-modal, radar, lidar, radar-only-detection, nuscenes, cvpr2024, radardistill]
 note: "library/Multimodal_Fusion/RadarDistill.md#radardistill"
 paper: "CVPR 2024, RadarDistill: Boosting Radar-based Object Detection Performance via Knowledge Distillation from LiDAR Features (arXiv:2403.05061)"
@@ -48,7 +48,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（尚未独立验证）：以 LiDAR 检测器为教师、radar-only PillarNet 为学生做跨模态特征蒸馏，蒸馏后推理不再需要 LiDAR；官方 README 自报 nuScenes radar-only SOTA 为 mAP 20.5 / NDS 43.7，对比基线学生 8.6 / 34.7（约 +11.9 mAP）。
+论文声称：以 LiDAR 检测器为教师、radar-only PillarNet 为学生做跨模态特征蒸馏，蒸馏后推理不再需要 LiDAR；官方 README 自报 nuScenes radar-only SOTA 为 mAP 20.5 / NDS 43.7，对比基线学生 8.6 / 34.7（约 +11.9 mAP）。
 
 必须记住的口径限制：
 1. 本笔记 `library/Multimodal_Fusion/RadarDistill.md` 只有方法梳理（CMA/AFD/PFD/损失函数），**没有实验章节、没有任何指标数字**。2026-11-02 复审已对照 arXiv:2403.05061v3：本卡数字为 **nuScenes testset** 口径（Table 1），README Model Zoo 与论文 Table 1 逐格一致（8.6/34.7、20.5/43.7）；但基线 PillarNet* 带脚注「*」——是作者自己复现、且**未用 test-time augmentation**，与论文中其他已发表方法的口径可能不完全对等。

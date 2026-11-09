@@ -3,7 +3,7 @@ id: claim-pillarnet-sparse2dcnn-encoder-decouple-pillar-size
 title: "PillarNet 声称 pillar 系精度瓶颈在弱 pillar 特征编码，用可拆卸多 stage 稀疏 2D CNN encoder 替代 PointPillars 浅 backbone 并解耦 pillar size 与特征图尺寸：nuScenes val 对 CenterPoint-PointPillars 基线 +7.61 mAP / +5.94 NDS"
 type: claim
 status: asserted
-scope: "PillarNet（ECCV 2022，arXiv:2205.07403，笔记按 ar5iv 渲染版转写、推断对应 v5 2022-08-26）的方法设计+消融声明（论文声称，尚未独立验证）；口径：nuScenes val、Table 4（训练日程同 SECOND、0.075m pillar）、PillarNet-18(neckv1) 57.87 mAP / 66.16 NDS 对 †CenterPoint-PointPillars 50.26 / 60.22（行差验算 +7.61/+5.94 一致，† 为同 codebase 复现口径）；『瓶颈归因』是论文的观察性主张；精度-效率旁证：PillarNet-18 全配置 16 FPS / 59.90 / 67.39 对 CenterPoint-SECOND 8 FPS / 59.56 / 66.76（Table 4，i9 CPU + RTX 3090 桌面机口径）；不主张该增益对 Waymo、其他基线或更粗 pillar 配置同样成立（粗 pillar 配置受 cuda atomic max 全局内存操作拖慢，见笔记 §3.4）；不涉及 IoU-Aware rectification 的 +0.34% 争议数字（笔记遗留 #3，另行处理）"
+scope: "PillarNet（ECCV 2022，arXiv:2205.07403，笔记按 ar5iv 渲染版转写、推断对应 v5 2022-08-26）的方法设计+消融声明（论文声称）；口径：nuScenes val、Table 4（训练日程同 SECOND、0.075m pillar）、PillarNet-18(neckv1) 57.87 mAP / 66.16 NDS 对 †CenterPoint-PointPillars 50.26 / 60.22（行差验算 +7.61/+5.94 一致，† 为同 codebase 复现口径）；『瓶颈归因』是论文的观察性主张；精度-效率旁证：PillarNet-18 全配置 16 FPS / 59.90 / 67.39 对 CenterPoint-SECOND 8 FPS / 59.56 / 66.76（Table 4，i9 CPU + RTX 3090 桌面机口径）；不主张该增益对 Waymo、其他基线或更粗 pillar 配置同样成立（粗 pillar 配置受 cuda atomic max 全局内存操作拖慢，见笔记 §3.4）；不涉及 IoU-Aware rectification 的 +0.34% 争议数字（笔记遗留 #3，另行处理）"
 tags: [pillarnet, pillar-based, sparse-conv, encoder, pillar-size, nuscenes]
 note: library/BEV_Detection/PillarNet.md#22-encoder-design32
 paper: "ECCV 2022, PillarNet: Real-Time and High-Performance Pillar-based 3D Object Detection (arXiv:2205.07403)"
@@ -60,7 +60,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（尚未独立验证）：pillar 系方法（PointPillars 类）精度远落后于 voxel 系的根因是 pillar 特征编码太弱——PointPillars 把浅 backbone 直接架在粗 pillar 伪图像上，且输出特征图尺寸与初始 pillar 尺寸耦合（pillar 越细计算/显存代价急剧上升）。PillarNet 的方案是：先用细 pillar（nuScenes 上 0.075m）投影，再用 VGG/ResNet 式的稀疏 2D CNN 多 stage encoder（stage 1–4 可拆卸、逐级下采样，stage 5 用稠密 2D CNN 提语义）做深层特征学习。消融（nuScenes val，Table 4）：同 codebase 的 CenterPoint-PointPillars 基线 50.26 mAP / 60.22 NDS，换成该 encoder 后（neckv1）57.87 / 66.16，+7.61 mAP / +5.94 NDS。精度-效率旁证：PillarNet-18 全配置 16 FPS 达 59.90 / 67.39，而 CenterPoint-SECOND 8 FPS 仅 59.56 / 66.76——同精度下约 2 倍速度（RTX 3090 桌面机口径）。
+论文声称：pillar 系方法（PointPillars 类）精度远落后于 voxel 系的根因是 pillar 特征编码太弱——PointPillars 把浅 backbone 直接架在粗 pillar 伪图像上，且输出特征图尺寸与初始 pillar 尺寸耦合（pillar 越细计算/显存代价急剧上升）。PillarNet 的方案是：先用细 pillar（nuScenes 上 0.075m）投影，再用 VGG/ResNet 式的稀疏 2D CNN 多 stage encoder（stage 1–4 可拆卸、逐级下采样，stage 5 用稠密 2D CNN 提语义）做深层特征学习。消融（nuScenes val，Table 4）：同 codebase 的 CenterPoint-PointPillars 基线 50.26 mAP / 60.22 NDS，换成该 encoder 后（neckv1）57.87 / 66.16，+7.61 mAP / +5.94 NDS。精度-效率旁证：PillarNet-18 全配置 16 FPS 达 59.90 / 67.39，而 CenterPoint-SECOND 8 FPS 仅 59.56 / 66.76——同精度下约 2 倍速度（RTX 3090 桌面机口径）。
 
 ## 待验证
 

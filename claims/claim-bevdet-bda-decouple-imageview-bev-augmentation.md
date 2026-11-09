@@ -56,7 +56,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（尚未独立验证）：Lift-Splat-Shoot 型视图变换按像素把 image-view 特征搬到 BEV，这使两个空间在数据增强意义上相互孤立——只加 image-view 增强（IDA）时，BEV encoder 等后续模块得不到正则，BEV 空间有效样本数少（nuScenes 每样本 6 张图只对应 1 个 BEV 样本）而严重过拟合。BEVDet 的对策是把翻转/旋转/缩放同步施加到视图变换的输出特征与 3D 检测目标上（BDA）。Table 4（nuScenes val，BEVDet-Tiny，20 epochs）：无增强基线 A 最佳 0.230 mAP 且末轮掉到 0.174；仅 IDA 的 B 行最佳 0.205 反而低于 A；仅 BDA 的 C 行 0.262；IDA+BDA 的 D 行 0.316、末轮退化缩到 -0.4%。结论句：IDA 只在 BDA 存在时才有正作用。
+论文声称：Lift-Splat-Shoot 型视图变换按像素把 image-view 特征搬到 BEV，这使两个空间在数据增强意义上相互孤立——只加 image-view 增强（IDA）时，BEV encoder 等后续模块得不到正则，BEV 空间有效样本数少（nuScenes 每样本 6 张图只对应 1 个 BEV 样本）而严重过拟合。BEVDet 的对策是把翻转/旋转/缩放同步施加到视图变换的输出特征与 3D 检测目标上（BDA）。Table 4（nuScenes val，BEVDet-Tiny，20 epochs）：无增强基线 A 最佳 0.230 mAP 且末轮掉到 0.174；仅 IDA 的 B 行最佳 0.205 反而低于 A；仅 BDA 的 C 行 0.262；IDA+BDA 的 D 行 0.316、末轮退化缩到 -0.4%。结论句：IDA 只在 BDA 存在时才有正作用。
 
 注意两点边界：① 消融数字以 Table 4 表格行为准——原文 §4.3 正文写 C 行 "peaks at epoch 15" 而表格作 e11，原文自相矛盾（本库笔记已照抄加注），本卡不引该正文句；② 原文明确 BDA 的前提是 view transformer 解耦两空间，属 BEVDet 特有性质，不能默认迁移到其他框架。
 

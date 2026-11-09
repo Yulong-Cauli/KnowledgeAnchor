@@ -3,7 +3,7 @@ id: claim-radarocc-sss-rangewise-preserves-lowrcs
 title: "RadarOcc 声称：逐距离单元 Top-Nr 稀疏化（SSS）相比全局百分比筛选可保留低 RCS 弱信号并抑制旁瓣"
 type: claim
 status: asserted
-scope: "RadarOcc（NeurIPS 2024）论文自述设计动机，据库内笔记转述，尚未独立验证；对象为原始 4D 雷达张量（R×A×E×D）输入端的功率稀疏化，比较对象为全局百分比（Global Percentile）筛选 vs 每个距离单元内独立 Top-Nr 筛选；2026-11-03 前笔记无实验章节（nightshift/cross/4d-radar.md M5 为当时状况记录），2026-11-03 笔记 §3 补写后已有对应消融数字（K-Radar well-condition test、自定义 IoU/mIoU 协议：SSS 换 percentile 后 mIoU@12.8m −10.2、FG IoU −14.8，见 claim-radarocc-sss-ablation-gain-10p2）；本卡仍只立设计动机主张，性能主张归 sss-ablation 卡"
+scope: "RadarOcc（NeurIPS 2024）论文自述设计动机，据库内笔记转述；对象为原始 4D 雷达张量（R×A×E×D）输入端的功率稀疏化，比较对象为全局百分比（Global Percentile）筛选 vs 每个距离单元内独立 Top-Nr 筛选；2026-11-03 前笔记无实验章节（nightshift/cross/4d-radar.md M5 为当时状况记录），2026-11-03 笔记 §3 补写后已有对应消融数字（K-Radar well-condition test、自定义 IoU/mIoU 协议：SSS 换 percentile 后 mIoU@12.8m −10.2、FG IoU −14.8，见 claim-radarocc-sss-ablation-gain-10p2）；本卡仍只立设计动机主张，性能主张归 sss-ablation 卡"
 tags: [4d-radar, radar-tensor, occupancy-prediction, sidelobe, sparsification, radarocc]
 note: library/3D_Occupancy/RadarOcc.md#2-方法
 paper: "NeurIPS 2024 · RadarOcc: Robust 3D Occupancy Prediction with 4D Imaging Radar · https://github.com/Toytiny/RadarOcc"
@@ -36,7 +36,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（据笔记 §2 方法转述，尚未独立验证）：对 4D 雷达张量做功率稀疏化时，全局百分比筛选会把远处/低 RCS 目标（行人、自行车）的弱反射连同旁瓣噪声一起错误处理——弱信号被过滤、旁瓣被保留；而 SSS 改为在每个距离单元（Range bin）内独立取 Top-$N_r$，由于同一距离层级内主瓣功率必然高于其旁瓣，可以同时「保证召回率」并「抑制旁瓣」。
+论文声称（据笔记 §2 方法转述）：对 4D 雷达张量做功率稀疏化时，全局百分比筛选会把远处/低 RCS 目标（行人、自行车）的弱反射连同旁瓣噪声一起错误处理——弱信号被过滤、旁瓣被保留；而 SSS 改为在每个距离单元（Range bin）内独立取 Top-$N_r$，由于同一距离层级内主瓣功率必然高于其旁瓣，可以同时「保证召回率」并「抑制旁瓣」。
 
 必须记住的限定：本卡只立「设计动机」这一窄主张，「SSS 在实验上优于全局筛选」的性能主张由 [sss-ablation 卡](claim-radarocc-sss-ablation-gain-10p2.md) 单独立卡（2026-11-03 核查产出：Table 2 行 (c) 显示换成 percentile 后 FG IoU 从 20.7/18.7/15.8 塌到 5.9/4.7/3.5，与「全局百分比筛选丢低 RCS 弱信号」的机制叙述同向）。但注意：行 (c) 同时改变了稀疏分布与旁瓣保留，「旁瓣抑制」与「弱信号召回」两个子机制在该消融中未分离——同稀疏预算下随机筛选对照（待验证第 2 条）仍是区分机制的必要检查。
 

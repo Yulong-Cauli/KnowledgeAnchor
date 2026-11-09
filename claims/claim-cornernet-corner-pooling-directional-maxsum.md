@@ -3,7 +3,7 @@ id: claim-cornernet-corner-pooling-directional-maxsum
 title: "CornerNet 论文声称：角点池化用右→左与下→上两条方向性 max-pooling 路径相加，为缺乏局部特征的角点聚合边缘证据"
 type: claim
 status: asserted
-scope: "设计层面主张：CornerNet 预测模块内的角点池化结构（以左上角池化为例，该模块用作预测模块中改进残差块的第一部分）；依据笔记转述；2026-11-05 实抓 arXiv 1808.01244v2 补核：池化实现（两组方向性 max-pool 相加）与「替换改进残差块第一个 3×3 卷积」均在原文命中，且原文 Table 1 自报有/无角点池化消融（MS COCO validation 36.5→38.4，+2.0，笔记未载）；结构与动机为论文陈述，消融数字为论文自报，复现侧尚未独立验证"
+scope: "设计层面主张：CornerNet 预测模块内的角点池化结构（以左上角池化为例，该模块用作预测模块中改进残差块的第一部分）；依据笔记转述；2026-11-05 实抓 arXiv 1808.01244v2 补核：池化实现（两组方向性 max-pool 相加）与「替换改进残差块第一个 3×3 卷积」均在原文命中，且原文 Table 1 自报有/无角点池化消融（MS COCO validation 36.5→38.4，+2.0，笔记未载）；结构与动机为论文陈述，消融数字为论文自报"
 tags: [object-detection, corner-pooling, keypoint, cornernet, eccv2018]
 note: library/Classical_Detection/CornerNet.md#corner-pooling-角点池化
 paper: "ECCV 2018, CornerNet: Detecting Objects as Paired Keypoints（代码 https://github.com/princeton-vl/CornerNet，笔记头部出处）"
@@ -48,7 +48,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（笔记所载，尚未独立验证）：角点常位于物体外部、缺乏局部视觉特征（如圆球左上角是背景），因此判断某点是否为角点需要沿物体边缘方向聚合证据——左上角点向右找上边缘、向下找左边缘；实现为两条方向性 max-pooling 路径（右→左、下→上）再相加。该池化被嵌入预测模块，替换改进残差块的第一个 3×3 卷积。
+论文声称（笔记所载）：角点常位于物体外部、缺乏局部视觉特征（如圆球左上角是背景），因此判断某点是否为角点需要沿物体边缘方向聚合证据——左上角点向右找上边缘、向下找左边缘；实现为两条方向性 max-pooling 路径（右→左、下→上）再相加。该池化被嵌入预测模块，替换改进残差块的第一个 3×3 卷积。
 
 限定：笔记未载"有/无角点池化"的消融数字，本卡只立结构与动机，不立"角点池化带来多少精度提升"。2026-11-05 原文补核：论文 Table 1 其实自报了该消融（MS COCO validation：w/o 36.5 vs w/ 38.4，+2.0；AP_S +1.1 / AP_M +2.4 / AP_L +3.6），已作为论文自报锚点补入 falsifier，但本卡命题仍是结构与动机，消融有效性主张需独立复现才能立。
 

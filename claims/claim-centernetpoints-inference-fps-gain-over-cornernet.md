@@ -3,7 +3,7 @@ id: claim-centernetpoints-inference-fps-gain-over-cornernet
 title: "CenterNet 论文声称：同骨干下推理速度约为 CornerNet 两倍（Hourglass-104 7.8 vs 4.1 FPS），DLA-34 达 52 FPS"
 type: claim
 status: asserted
-scope: "笔记 §对比分析表所载推理速度对比：CornerNet Hourglass-104 4.1 FPS vs CenterNet Hourglass-104 7.8 FPS、CenterNet DLA-34 52 FPS；2026-11-05 实抓 arXiv 1904.07850v2 补核口径：三数字均在原文（COCO，§6.1 正文与 Table 1/2）——7.8 FPS 为 Hourglass-104 flip-test 口径（无翻转 14 FPS），52 FPS 为 DLA-34 无翻转单尺度口径（flip 后 28 FPS），测量硬件 Titan Xp（§6.1），训练输入 512×512、测试按 CornerNet 惯例保持原图分辨率；CornerNet 4.1 FPS 是否同机测量无法从纯文本确认（Table 2 caption 注明转引数字用斜体标示，纯文本提取丢失斜体信息）；数字为笔记/论文自报，复现侧尚未独立验证"
+scope: "笔记 §对比分析表所载推理速度对比：CornerNet Hourglass-104 4.1 FPS vs CenterNet Hourglass-104 7.8 FPS、CenterNet DLA-34 52 FPS；2026-11-05 实抓 arXiv 1904.07850v2 补核口径：三数字均在原文（COCO，§6.1 正文与 Table 1/2）——7.8 FPS 为 Hourglass-104 flip-test 口径（无翻转 14 FPS），52 FPS 为 DLA-34 无翻转单尺度口径（flip 后 28 FPS），测量硬件 Titan Xp（§6.1），训练输入 512×512、测试按 CornerNet 惯例保持原图分辨率；CornerNet 4.1 FPS 是否同机测量无法从纯文本确认（Table 2 caption 注明转引数字用斜体标示，纯文本提取丢失斜体信息）；数字为笔记/论文自报，本库未复测推理速度"
 tags: [centernet, latency, cornernet, fps]
 note: library/Classical_Detection/CenterNet：Objects as Points.md#对比分析centernet-vs-cornernet
 paper: "arXiv 2019, CenterNet: Objects as Points（开源：https://github.com/xingyizhou/CenterNet）"
@@ -52,7 +52,7 @@ signoff: null
 
 ## 我的理解
 
-笔记所载（论文声称，尚未独立验证）：CenterNet 移除了 CornerNet 的 embedding 配对与后处理清理，推理速度显著提升——同为 Hourglass-104 骨干时 4.1 FPS 提升到 7.8 FPS，DLA-34 骨干达 52 FPS。提速来源按笔记归因于：配对消失（纯前向传播）与峰值提取替代 NMS。
+笔记所载（论文声称）：CenterNet 移除了 CornerNet 的 embedding 配对与后处理清理，推理速度显著提升——同为 Hourglass-104 骨干时 4.1 FPS 提升到 7.8 FPS，DLA-34 骨干达 52 FPS。提速来源按笔记归因于：配对消失（纯前向传播）与峰值提取替代 NMS。
 
 两个限定：
 1. 该对比表只给了 FPS，没有同表给出两侧的精度数字；本卡只主张速度差，不主张"更快且更准"。（2026-11-05 补核：论文 §6.1 正文实际同时主张了同骨干下"both speed and accuracy"——CornerNet 40.6% AP in 4.1 FPS vs CenterNet 42.2% AP in 7.8 FPS，但该精度主张不在本卡命题内。）

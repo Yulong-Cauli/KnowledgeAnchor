@@ -3,7 +3,7 @@ id: claim-mitbevfusion-nuscenes-waymo-sota-snapshot
 title: "MIT BEVFusion 自报 nuScenes test 70.2 mAP / 72.9 NDS（比 TransFusion +1.3/+1.3、MACs 1/1.9）与 Waymo test 85.7 mAP/L1（3 帧、单模型+TTA），均为论文声称的 SOTA 快照"
 type: claim
 status: asserted
-scope: "MIT Han Lab BEVFusion（ICRA 2023，arXiv:2205.13542，笔记按官方 HTML v3 2024-09-01 转写）的基准快照声明（论文自报，尚未独立验证）；窄卡绑定：① nuScenes test——BEVFusion 70.2 mAP / 72.9 NDS，单模型无 TTA（Table I），对 TransFusion 68.9 / 71.6 为 +1.3/+1.3，MACs 253.2G 对 485.8G（1.9× 低）、RTX3090 延迟 119.2ms 对 156.6ms（1.3× 低）；nuScenes val 68.5 / 71.4；② Waymo test（提交快照）——3 帧、单模型+测试时增强（†），85.7 mAP/L1 / 84.4 mAPH/L1 / 80.8 mAP/L2 / 79.5 mAPH/L2，对比对象为当时提交（含 ensemble 方法 MPPNet-Ens 85.0/83.7、3DAM-Ens 85.3/83.8）；快照时点=论文 HTML v3（2024-09-01），非当前榜单状态；SOTA 措辞按论文 caption（nuScenes 'without bells and whistles'、Waymo 'among all submissions'），自报口径"
+scope: "MIT Han Lab BEVFusion（ICRA 2023，arXiv:2205.13542，笔记按官方 HTML v3 2024-09-01 转写）的基准快照声明（论文自报）；窄卡绑定：① nuScenes test——BEVFusion 70.2 mAP / 72.9 NDS，单模型无 TTA（Table I），对 TransFusion 68.9 / 71.6 为 +1.3/+1.3，MACs 253.2G 对 485.8G（1.9× 低）、RTX3090 延迟 119.2ms 对 156.6ms（1.3× 低）；nuScenes val 68.5 / 71.4；② Waymo test（提交快照）——3 帧、单模型+测试时增强（†），85.7 mAP/L1 / 84.4 mAPH/L1 / 80.8 mAP/L2 / 79.5 mAPH/L2，对比对象为当时提交（含 ensemble 方法 MPPNet-Ens 85.0/83.7、3DAM-Ens 85.3/83.8）；快照时点=论文 HTML v3（2024-09-01），非当前榜单状态；SOTA 措辞按论文 caption（nuScenes 'without bells and whistles'、Waymo 'among all submissions'），自报口径"
 tags: [bevfusion-mit, sota-snapshot, nuscenes, waymo, lidar-camera-fusion]
 note: library/Multimodal_Fusion/MIT-BEVFusion.md#31-nuscenes-3d-检测table-iiv-a
 paper: "ICRA 2023, BEVFusion: Multi-Task Multi-Sensor Fusion with Unified Bird's-Eye View Representation (arXiv:2205.13542, MIT Han Lab)"
@@ -52,7 +52,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（尚未独立验证）：BEVFusion 在两个基准上同时取得 SOTA 且计算更低——nuScenes test 70.2 mAP / 72.9 NDS（单模型、无 TTA），比此前领先的 TransFusion（68.9 / 71.6）高 1.3 点，而 MACs 只有其 1/1.9（253.2G vs 485.8G）、延迟 1/1.3（119.2ms vs 156.6ms @RTX3090，8.4 FPS）；nuScenes val 68.5 / 71.4。Waymo test 以 3 帧、单模型+TTA 提交 85.7 mAP/L1 / 84.4 mAPH/L1，超过当时全部提交（含多模型 ensemble 的 MPPNet-Ens 85.0、用 5 帧的 DeepFusion-Ens）。效率来源是论文的设计主张（共享 BEV 空间充分利用全部相机特征，故可用更小相机分辨率）+ BEV pooling 优化。
+论文声称：BEVFusion 在两个基准上同时取得 SOTA 且计算更低——nuScenes test 70.2 mAP / 72.9 NDS（单模型、无 TTA），比此前领先的 TransFusion（68.9 / 71.6）高 1.3 点，而 MACs 只有其 1/1.9（253.2G vs 485.8G）、延迟 1/1.3（119.2ms vs 156.6ms @RTX3090，8.4 FPS）；nuScenes val 68.5 / 71.4。Waymo test 以 3 帧、单模型+TTA 提交 85.7 mAP/L1 / 84.4 mAPH/L1，超过当时全部提交（含多模型 ensemble 的 MPPNet-Ens 85.0、用 5 帧的 DeepFusion-Ens）。效率来源是论文的设计主张（共享 BEV 空间充分利用全部相机特征，故可用更小相机分辨率）+ BEV pooling 优化。
 
 口径注意：两表均为论文自报（Waymo 为官方提交、nuScenes test 为官方榜口径，但本库未独立复核）；快照截至论文 HTML v3（2024-09-01），当前榜单大概率已被超越，引用时作历史快照使用。
 

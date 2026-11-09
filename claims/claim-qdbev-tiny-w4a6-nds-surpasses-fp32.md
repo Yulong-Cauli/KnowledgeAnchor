@@ -3,7 +3,7 @@ id: claim-qdbev-tiny-w4a6-nds-surpasses-fp32
 title: "QD-BEV 论文声称：W4A6 的 QD-BEV-T 以约 8 倍压缩（15.9 MB vs 126.8 MB）取得 NDS 0.372，反超 FP32 BEVFormer-T 的 0.354"
 type: claim
 status: asserted
-scope: "nuScenes；完整 QD-BEV（渐进式 QAT + 视点引导蒸馏 VGD）W4A6 vs FP32 基线，BEVFormer-Tiny（笔记 §3.4 Table 4 口径；Base 行为补充：QD-BEV-B NDS 0.509 vs FP32 0.517，32.9 MB vs 262.9 MB）；模型大小为论文自报存储占用；数字为论文自报；尚未独立验证"
+scope: "nuScenes；完整 QD-BEV（渐进式 QAT + 视点引导蒸馏 VGD）W4A6 vs FP32 基线，BEVFormer-Tiny（笔记 §3.4 Table 4 口径；Base 行为补充：QD-BEV-B NDS 0.509 vs FP32 0.517，32.9 MB vs 262.9 MB）；模型大小为论文自报存储占用；数字为论文自报"
 tags: [quantization, qat, distillation, bev, bevformer, nuscenes, qd-bev]
 note: library/Quantization/QD-BEV.md#34-qd-bev-综合对比实验-table-4
 paper: "ICCV 2023, QD-BEV: Quantization-aware View-guided Distillation for Multi-view 3D Object Detection (arXiv:2308.10515)"
@@ -36,7 +36,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（asserted，尚未独立验证）：完整 QD-BEV（渐进式 QAT + 视点引导蒸馏）在 W4A6 下，Tiny 版以 15.9 MB（相对 FP32 BEVFormer-T 的 126.8 MB 约 8 倍压缩）取得 NDS 0.372 > 0.354；Base 版 NDS 0.509 vs 0.517，损失 ≤1%。数字已与 arXiv 摘要（37.2% NDS、outperforming BevFormer-Tiny by 1.8%、8x compression）及 ar5iv HTML 版 Table 4 逐项核对一致（均抓取 2026-11-02）。
+论文声称（asserted）：完整 QD-BEV（渐进式 QAT + 视点引导蒸馏）在 W4A6 下，Tiny 版以 15.9 MB（相对 FP32 BEVFormer-T 的 126.8 MB 约 8 倍压缩）取得 NDS 0.372 > 0.354；Base 版 NDS 0.509 vs 0.517，损失 ≤1%。数字已与 arXiv 摘要（37.2% NDS、outperforming BevFormer-Tiny by 1.8%、8x compression）及 ar5iv HTML 版 Table 4 逐项核对一致（均抓取 2026-11-02）。
 
 三个必须记住的限定：
 1. **反超幅度很小**：NDS +0.018、mAP +0.002（0.255 vs 0.253），且 mASE 变差（0.294→0.321）。「反超」是单次自报结果，多种子下可能翻转；引用时表述为「论文声称反超」，不是已验证的结论。

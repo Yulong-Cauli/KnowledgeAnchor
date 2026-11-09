@@ -3,7 +3,7 @@ id: claim-mobileone-reparam-train-inference-asymmetry
 title: "MobileOne 论文声称训练期多分支、推理期重参数化折叠为无分支单路，Table 5 自报去分支掉 1.8/1.3/0.9 点（S0/S1/S3）"
 type: claim
 status: asserted
-scope: "MobileOne（arXiv:2206.04040，CVPR 2023）§3.3 设计 + Table 5 消融（MobileOne-S0/S1/S3，ImageNet top-1，论文 300 epochs 配方）；重参数化指结构分支折叠（RepVGG 系），参数量为推理期（折叠后）口径；训练期另含 trivial over-parameterization（k=1–5 复制分支）；论文声称口径，尚未独立验证"
+scope: "MobileOne（arXiv:2206.04040，CVPR 2023）§3.3 设计 + Table 5 消融（MobileOne-S0/S1/S3，ImageNet top-1，论文 300 epochs 配方）；重参数化指结构分支折叠（RepVGG 系），参数量为推理期（折叠后）口径；训练期另含 trivial over-parameterization（k=1–5 复制分支）；论文声称口径"
 tags: [mobileone, reparameterization, over-parameterization, efficient-backbone]
 note: library/Efficient_Backbone/MobileOne.md#23-mobileone-块训练期多分支推理期单路33
 paper: "CVPR 2023, MobileOne: An Improved One millisecond Mobile Backbone (arXiv:2206.04040)"
@@ -48,7 +48,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（尚未独立验证）：MobileOne 的训练-推理不对称体现在两层——(a) 结构重参数化：训练期每个卷积带可折叠的 BN 分支与带 BN 的 skip 分支，推理期全部线性折叠（卷积+BN 折叠为单卷积、M 个分支核逐元素求和）为无分支直筒；(b) 平凡过参数化：再复制 k 份同结构分支（k=1–5，小模型取大 k、大模型 k=1）。收益消融（Table 5）：去掉全部重参数化分支后 S0/S1/S3 的 top-1 从 71.4/75.9/78.1 掉到 69.6/74.6/77.2，即 +1.8/+1.3/+0.9 点；Figure 4 caption 另称加分支使训练 loss 降 3.4%（k=1）。
+论文声称：MobileOne 的训练-推理不对称体现在两层——(a) 结构重参数化：训练期每个卷积带可折叠的 BN 分支与带 BN 的 skip 分支，推理期全部线性折叠（卷积+BN 折叠为单卷积、M 个分支核逐元素求和）为无分支直筒；(b) 平凡过参数化：再复制 k 份同结构分支（k=1–5，小模型取大 k、大模型 k=1）。收益消融（Table 5）：去掉全部重参数化分支后 S0/S1/S3 的 top-1 从 71.4/75.9/78.1 掉到 69.6/74.6/77.2，即 +1.8/+1.3/+0.9 点；Figure 4 caption 另称加分支使训练 loss 降 3.4%（k=1）。
 
 与 RepVGG 的差异自述：MobileOne 引入 trivial over-parameterization branches，声称在低参数量区间与模型缩放上收益更大。注意 Table 5 的「with」行即各变体的最终报告精度（与 Table 9 一致：S0 71.4、S1 75.9、S3 78.1），消融与主表数字自洽。
 

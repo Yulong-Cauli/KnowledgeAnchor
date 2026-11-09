@@ -38,7 +38,7 @@ signoff: null
 
 论文声称：在同一基线与训练配置下，多帧信息在何处融合显著影响分数——late fusion（各帧独立过 CLIP+Q-Former，token 拼接交 LLM self-attention）60.80 > mid fusion（Q-Former 内 cross-attention 压缩）59.20 > early fusion（Q-Former 前平均池化）48.40。机理解释（笔记作者解读口径，笔记原句为"惨败原因直观"，非逐字论文表述）：平均池化抹掉时序方向（红灯变绿 vs 绿灯变红同色），固定 token 预算限制 mid fusion，late fusion 把时序关联交给 LLM 且不受 token 预算限制。
 
-必须记住的限定（尚未独立验证）：
+适用范围：
 1. 差距的主张主体是 early 与 late 之间的 12 分；late 与 mid 只差 1.6 分，接近噪声量级——"late 严格优于 mid"的说服力弱于"early 崩溃"。
 2. 论文未报告该消融的方差/多种子重复，单次训练的 1.6 分差异不可过度解读。
 3. 结论绑定 5 帧 @1Hz 与 Q-Former 架构；帧数更多、分辨率更高或不用 Q-Former 的设置不能直接外推。

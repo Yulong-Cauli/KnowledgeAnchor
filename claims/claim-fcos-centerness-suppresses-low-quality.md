@@ -3,7 +3,7 @@ id: claim-fcos-centerness-suppresses-low-quality
 title: "FCOS 声称 center-ness 分支以“分类置信度 × center-ness”打分，使低质量边缘框在 NMS 中被过滤"
 type: claim
 status: asserted
-scope: "2D 目标检测（FCOS，ICCV 2019）；center-ness 取值 0~1（到四边距离的 sqrt(min/max) 比值连乘），推理时与分类置信度相乘后参与 NMS；笔记未载 AP 数字，只主张机制层面（打分方式 + NMS 过滤路径），不主张具体涨点幅度；2026-11-05 实抓 arXiv 1904.01355v5 补核：打分相乘句、NMS 过滤句、sqrt 公式说明均命中，且原文 Table 6（RPN 设置）有 w/o center-ness 消融（AR100 48.0 vs 52.8），Table 3 Improvements 有 '+ ctr. on reg.'（37.1→37.4，挂载位置归另一卡）；机制描述为论文陈述，复现侧尚未独立验证"
+scope: "2D 目标检测（FCOS，ICCV 2019）；center-ness 取值 0~1（到四边距离的 sqrt(min/max) 比值连乘），推理时与分类置信度相乘后参与 NMS；笔记未载 AP 数字，只主张机制层面（打分方式 + NMS 过滤路径），不主张具体涨点幅度；2026-11-05 实抓 arXiv 1904.01355v5 补核：打分相乘句、NMS 过滤句、sqrt 公式说明均命中，且原文 Table 6（RPN 设置）有 w/o center-ness 消融（AR100 48.0 vs 52.8），Table 3 Improvements 有 '+ ctr. on reg.'（37.1→37.4，挂载位置归另一卡）；机制描述为论文陈述，本库未复跑同口径精度对比"
 tags: [fcos, anchor-free, detection, centerness, nms]
 note: library/Classical_Detection/FCOS.md#center-ness-分支
 paper: "ICCV 2019, FCOS: Fully Convolutional One-Stage Object Detection（开源：https://github.com/tianzhi0549/FCOS）"
@@ -60,7 +60,7 @@ signoff: null
 
 ## 我的理解
 
-笔记声称（尚未独立验证）：由于框内点全为正样本（见 [anchor-free formulation 卡](claim-fcos-anchorfree-pixelwise-formulation.md)），远离中心的边缘位置产生低质量预测框；FCOS 增加 center-ness 分支预测“位置离几何中心的程度”（0~1，sqrt(min/max) 公式，BCE 训练），推理时最终得分 = 分类置信度 × center-ness，使低质量边缘框得分变低、在 NMS 中被过滤，从而缓解精度损失。
+笔记声称：由于框内点全为正样本（见 [anchor-free formulation 卡](claim-fcos-anchorfree-pixelwise-formulation.md)），远离中心的边缘位置产生低质量预测框；FCOS 增加 center-ness 分支预测“位置离几何中心的程度”（0~1，sqrt(min/max) 公式，BCE 训练），推理时最终得分 = 分类置信度 × center-ness，使低质量边缘框得分变低、在 NMS 中被过滤，从而缓解精度损失。
 
 限定：笔记未载 AP 数字与“有无 center-ness”消融表，故本卡只主张机制路径（低质量框 → 得分压低 → NMS 过滤），不主张任何具体涨点幅度。2026-11-05 原文补核：打分相乘与 NMS 过滤两句均逐字命中；论文 Table 6 在 RPN 设置下有 w/o center-ness 消融（AR100 48.0 vs 52.8，AR 口径非 AP）；§3.2 还明确把“只用中心部分当正样本”列为 center-ness 的替代方案，并自报两者结合（投稿后）效果更好——即 center-ness 与中心采样是互补关系，不是二选一。
 

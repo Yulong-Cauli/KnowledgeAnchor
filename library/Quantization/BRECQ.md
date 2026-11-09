@@ -329,7 +329,7 @@ GPU hours 的口径（§4.3 原句）：
    >
    > "Brecq is compatible with mixed precision and can reduce the search cost. To our best knowledge, Brecq reaches the highest performance in post-training quantization and is the first to be on a par with quantization-aware training using 4-bit."（§6）
 
-2. **对工程选型的含义（均为论文声称，尚未独立验证）**：
+2. **对工程选型的含义（均为论文声称）**：
    - 重建粒度是 PTQ 的核心超参：block 粒度在 cross-layer dependency 与泛化误差之间取得最好折中（Table 1：ResNet-18 W2 65.19/66.39/66.01/54.15，MobileNetV2 W2 52.13/59.67/54.23/40.76；net-wise 崩到 54.15/40.76）。
    - 用输出元素平方梯度（FIM 对角）加权块输出重建，替代 AdaRound 的常数对角 Hessian 假设，是把 PTQ 推到 W2 的关键一步（§3.3，Eq. (10)）。
    - 成本极低：1024 张校准图、单卡 GTX 1080TI 20 分钟出 ResNet-18（§3.3）；W4A4 精度追平 QAT（Table 4：BRECQ 69.60/0.4 GPU hours vs PACT 69.2/100、DSQ 69.56/100、LSQ 71.1/100）。

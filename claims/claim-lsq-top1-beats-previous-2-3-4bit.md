@@ -3,7 +3,7 @@ id: claim-lsq-top1-beats-previous-2-3-4bit
 title: "LSQ 自报：ImageNet 上 2/3/4-bit 全量化网络 top-1 高于此前所有已报告方法（ResNet-18 2-bit 67.6 vs QIL 65.7 / LQ-Nets 64.9 / PACT 64.4）"
 type: claim
 status: asserted
-scope: "ImageNet；pre-activation ResNet-18/34/50/101/152、VGG-16bn、SqueezeNext-23-2x；权重与激活同 bit（W2A2/W3A3/W4A4 类，首末层恒 8-bit）；QAT 微调（2/3/4-bit 训 90 epochs、从全精度权重初始化）；对比方法 QIL/FAQ/LQ-Nets/PACT/NICE/Regularization 的数字为 LSQ 论文 Table 1 转引（各方法原论文口径未逐一核对）；『高于所有已报告方法』为论文自报口径，尚未独立验证"
+scope: "ImageNet；pre-activation ResNet-18/34/50/101/152、VGG-16bn、SqueezeNext-23-2x；权重与激活同 bit（W2A2/W3A3/W4A4 类，首末层恒 8-bit）；QAT 微调（2/3/4-bit 训 90 epochs、从全精度权重初始化）；对比方法 QIL/FAQ/LQ-Nets/PACT/NICE/Regularization 的数字为 LSQ 论文 Table 1 转引（各方法原论文口径未逐一核对）；『高于所有已报告方法』为论文自报口径"
 tags: [quantization, qat, lsq, low-bit, imagenet]
 note: library/Quantization/LSQ.md#31-与其他方法对比32-table-1
 paper: "ICLR 2020（arXiv:1902.08153）, Learned Step Size Quantization（IBM Research；论文未给官方代码链接）"
@@ -40,7 +40,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（asserted，尚未独立验证）：给每层权重/激活各加一个可学习步长（用对量化切换点敏感的分段梯度 + 步长梯度尺度 $1/\sqrt{NQ_P}$），在 ImageNet 上把 2/3/4-bit 全量化网络的 top-1 推到当时所有已报告方法之上。锚单表 ResNet-18：2-bit 67.6 / 3-bit 70.2 / 4-bit 71.1，对 QIL 65.7/69.2/70.1、PACT 64.4/68.1/69.2——2-bit 领先次优 1.9 点、4-bit 反超全精度基线（71.1 vs 70.5）。
+论文声称（asserted）：给每层权重/激活各加一个可学习步长（用对量化切换点敏感的分段梯度 + 步长梯度尺度 $1/\sqrt{NQ_P}$），在 ImageNet 上把 2/3/4-bit 全量化网络的 top-1 推到当时所有已报告方法之上。锚单表 ResNet-18：2-bit 67.6 / 3-bit 70.2 / 4-bit 71.1，对 QIL 65.7/69.2/70.1、PACT 64.4/68.1/69.2——2-bit 领先次优 1.9 点、4-bit 反超全精度基线（71.1 vs 70.5）。
 
 必须记住的口径限定：
 

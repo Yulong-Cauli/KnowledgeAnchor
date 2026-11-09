@@ -3,7 +3,7 @@ id: claim-r4det-dgtf-t1-single-step-best
 title: "R4Det 声称：DGTF 时序融合在单步长（t-1）下最佳（BEV mAP 50.41），跨帧（t-2/t-3）引发轨迹错位与误差累积"
 type: claim
 status: asserted
-scope: "TJ4DRadSet；R4Det 的 DGTF 模块（DCNv2 空间对齐 + ConvGRU 门控更新，无自车位姿先验）；帧距消融：单步长 t-1 融合 BEV mAP 50.41 最佳（与主消融 +DGTF 行同值，已对照论文 Table 4 核实），t-2 / t-3 跨帧融合更差；t-2 / t-3 具体数字已对照论文补充材料 Table 9 补核（BEV mAP 49.87 / 49.20，2026-11-05 实抓）；该消融出自补充材料 §B Table 9（Sensitivity to historical frame gap），主文无此表；论文未给重复实验或方差；R4Det 自报数字，尚未独立验证；单源结论（nightshift/cross/4d-radar.md C4，其余三篇 4D 雷达笔记无时序模块可交叉验证）"
+scope: "TJ4DRadSet；R4Det 的 DGTF 模块（DCNv2 空间对齐 + ConvGRU 门控更新，无自车位姿先验）；帧距消融：单步长 t-1 融合 BEV mAP 50.41 最佳（与主消融 +DGTF 行同值，已对照论文 Table 4 核实），t-2 / t-3 跨帧融合更差；t-2 / t-3 具体数字已对照论文补充材料 Table 9 补核（BEV mAP 49.87 / 49.20，2026-11-05 实抓）；该消融出自补充材料 §B Table 9（Sensitivity to historical frame gap），主文无此表；论文未给重复实验或方差；R4Det 自报数字；单源结论（nightshift/cross/4d-radar.md C4，其余三篇 4D 雷达笔记无时序模块可交叉验证）"
 tags: [4d-radar, radar-camera-fusion, r4det, temporal-fusion, dcn, convgru, tj4dradset]
 note: library/Classical_Detection/R4Det.md#32-关键机制分析
 paper: "CVPR 2026 · R4Det: 4D Radar-Camera Fusion for High-Performance 3D Object Detection（笔记标注未开源，未记录 arXiv 号）"
@@ -40,7 +40,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（据笔记 §3.2 转述，尚未独立验证）：DGTF 在无自车位姿先验下用 DCNv2 做空间对齐、ConvGRU 做门控状态更新；帧距消融里只用前一帧（t-1）效果最好（BEV mAP 50.41），拉长到 t-2 / t-3 跨帧融合反而因轨迹错位与误差累积变差。
+论文声称（据笔记 §3.2 转述）：DGTF 在无自车位姿先验下用 DCNv2 做空间对齐、ConvGRU 做门控状态更新；帧距消融里只用前一帧（t-1）效果最好（BEV mAP 50.41），拉长到 t-2 / t-3 跨帧融合反而因轨迹错位与误差累积变差。
 
 必须记住的限定：
 1. 笔记未记录 t-2 / t-3 的具体数字；2026-11-05 实抓论文补充材料 Table 9（Sensitivity to historical frame gap）已补核：BEV mAP t-1 50.41 > t-2 49.87 > t-3 49.20，3D mAP 44.86 > 43.12 > 42.74，随帧距单调下降。该消融表在补充材料 §B，主文没有帧距消融表。

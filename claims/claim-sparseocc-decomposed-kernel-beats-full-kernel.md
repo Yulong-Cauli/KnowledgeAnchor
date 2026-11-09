@@ -3,7 +3,7 @@ id: claim-sparseocc-decomposed-kernel-beats-full-kernel
 title: "SparseOcc 声称：单个补全块下，分解 3D 核比同数量 3×3×3 普通卷积高 IoU 0.7 / mIoU 0.9（36.5/13.1 vs 35.8/12.2），且两者均高于无补全块（35.5/12.1）"
 type: claim
 status: asserted
-scope: "笔记 §4.2 消融表（Table 3）；笔记未注明该消融的数据集、体素分辨率与训练配置；消融表数值区间（IoU 35.5-36.5 / mIoU 12.1-13.1）与主表（IoU 21.8 / mIoU 14.1）不一致，应为不同评测口径，故本卡只主张同表内三行的相对序（分解 > 普通 > 无补全，补全块数量对齐），不涉及绝对数值；自报数字，尚未独立验证"
+scope: "笔记 §4.2 消融表（Table 3）；笔记未注明该消融的数据集、体素分辨率与训练配置；消融表数值区间（IoU 35.5-36.5 / mIoU 12.1-13.1）与主表（IoU 21.8 / mIoU 14.1）不一致，应为不同评测口径，故本卡只主张同表内三行的相对序（分解 > 普通 > 无补全，补全块数量对齐），不涉及绝对数值；自报数字"
 tags: [occupancy-prediction, sparse-3d, sparse-conv, sparseocc, ablation]
 note: library/3D_Occupancy/SparseOcc.md#42-消融实验补全块设计-table-3
 paper: "CVPR 2024 · SparseOcc: Rethinking Sparse Latent Representation for Vision-Based Semantic Occupancy Prediction · arXiv:2404.09502 · https://github.com/VISION-SJTU/SparseOcc"
@@ -36,7 +36,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（据笔记 §4.2 Table 3 转述，尚未独立验证）：补全块数量同为 1 时，分解 3D 核（把 k×k×k 核分解为三个正交的 k×k×1、k×1×k、1×k×k 核）优于 full 3×3×3 核——IoU 36.5 vs 35.8（+0.7）、mIoU 13.1 vs 12.2（+0.9）；且两者均高于无补全块（35.5 / 12.1）。
+论文声称（据笔记 §4.2 Table 3 转述）：补全块数量同为 1 时，分解 3D 核（把 k×k×k 核分解为三个正交的 k×k×1、k×1×k、1×k×k 核）优于 full 3×3×3 核——IoU 36.5 vs 35.8（+0.7）、mIoU 13.1 vs 12.2（+0.9）；且两者均高于无补全块（35.5 / 12.1）。
 
 限定与注意（本卡为何立窄）：
 

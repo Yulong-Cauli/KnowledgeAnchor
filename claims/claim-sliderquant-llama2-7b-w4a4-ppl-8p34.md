@@ -3,7 +3,7 @@ id: claim-sliderquant-llama2-7b-w4a4-ppl-8p34
 title: "SliderQuant 论文自报：Llama2-7B W4A4 下 WikiText2/C4 PPL 8.34/11.10，低于同表全部无额外推理开销对照（最强 CBQ 12.73/14.45、OmniQuant 14.26/18.02）"
 type: claim
 status: asserted
-scope: "Llama2-7B；W4A4（权重 per-channel、激活 per-token，uniform 量化器，Softmax 保持高精度）；校准 WikiText2 128 样本 × 2048 tokens、20 epochs（AdamW，单卡 RTX A6000，量化耗时 6.14h）；指标 WikiText2/C4 困惑率（§4.1 Table 1）；对照组为同表无额外推理开销组（RTN / SmoothQuant / OmniQuant / AffineQuant / CBQ），对照数字部分取自原论文、部分自行复现（附录 F 自述，非统一重跑）；数字为论文自报（arXiv HTML v1，2026-11-04 抓取）；尚未独立验证"
+scope: "Llama2-7B；W4A4（权重 per-channel、激活 per-token，uniform 量化器，Softmax 保持高精度）；校准 WikiText2 128 样本 × 2048 tokens、20 epochs（AdamW，单卡 RTX A6000，量化耗时 6.14h）；指标 WikiText2/C4 困惑率（§4.1 Table 1）；对照组为同表无额外推理开销组（RTN / SmoothQuant / OmniQuant / AffineQuant / CBQ），对照数字部分取自原论文、部分自行复现（附录 F 自述，非统一重跑）；数字为论文自报（arXiv HTML v1，2026-11-04 抓取）"
 tags: [quantization, ptq, sliderquant, llm, w4a4, iclr2026]
 note: library/Quantization/SliderQuant.md#3-实验
 paper: "ICLR 2026, SliderQuant: Accurate Post-Training Quantization for LLMs (arXiv:2603.25284)"
@@ -28,7 +28,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（asserted，尚未独立验证）：把序列量化统一为滑窗形式后，按逐层敏感性分三段用不同滑窗（浅层渐进扩张 PESW、中间层固定 {s=2,i=1}、深层渐进收缩 PCSW），窗口内再按 γ=0.5 增量量化，Llama2-7B W4A4 从固定滑窗基线 12.73/14.45 降到 8.34/11.10（Wiki/C4），同表全部无额外推理开销对照中最强的是 CBQ 12.73/14.45。可学习参数只有 channel scaling + LoRA(r=4)，推理零开销（论文自报）。
+论文声称（asserted）：把序列量化统一为滑窗形式后，按逐层敏感性分三段用不同滑窗（浅层渐进扩张 PESW、中间层固定 {s=2,i=1}、深层渐进收缩 PCSW），窗口内再按 γ=0.5 增量量化，Llama2-7B W4A4 从固定滑窗基线 12.73/14.45 降到 8.34/11.10（Wiki/C4），同表全部无额外推理开销对照中最强的是 CBQ 12.73/14.45。可学习参数只有 channel scaling + LoRA(r=4)，推理零开销（论文自报）。
 
 引用时注意的限定：
 

@@ -3,7 +3,7 @@ id: claim-hgsfusion-dark-scene-gain-dominates
 title: "HGSFusion 自报：暗光（Dark）场景相对 Base-R+C 的 3D mAP 增益 +11.41 个百分点（4.27 → 15.68），远大于正常/强光场景的 +2.32 / +2.91"
 type: claim
 status: asserted
-scope: "TJ4DRadSet test set 的光照条件分组测试（2026-11-05 实抓 arXiv:2412.11489v1 核对：Table 5 caption「Performances under different lighting conditions on the test set of TJ4DRadSet dataset」——推翻原卡按笔记 §4 上下文所作的 VoD 推定，笔记未标数据集）；光照分组为论文按序列划分的 dark/normal/shiny 三子集；对照列为原文定义的 Base-R+C（不含 RHGM/DSM 的基线，输入为原始雷达点云+图像；表内另有 Base-R 雷达单模态行，笔记未转录）；指标 3D mAP（原文 Table 5 另有 BEV mAP 列，笔记未转录）；Table 5 数值 2026-11-05 与 arXiv v1 逐格一致；自报数字，尚未独立验证；本卡只主张增益排序（Dark ≫ Shiny ≈ Normal），不主张「暗光下可用」"
+scope: "TJ4DRadSet test set 的光照条件分组测试（2026-11-05 实抓 arXiv:2412.11489v1 核对：Table 5 caption「Performances under different lighting conditions on the test set of TJ4DRadSet dataset」——推翻原卡按笔记 §4 上下文所作的 VoD 推定，笔记未标数据集）；光照分组为论文按序列划分的 dark/normal/shiny 三子集；对照列为原文定义的 Base-R+C（不含 RHGM/DSM 的基线，输入为原始雷达点云+图像；表内另有 Base-R 雷达单模态行，笔记未转录）；指标 3D mAP（原文 Table 5 另有 BEV mAP 列，笔记未转录）；Table 5 数值 2026-11-05 与 arXiv v1 逐格一致；自报数字；本卡只主张增益排序（Dark ≫ Shiny ≈ Normal），不主张「暗光下可用」"
 tags: [4d-radar, radar-camera-fusion, hgsfusion, low-light, robustness, modality-sync]
 note: library/Multimodal_Fusion/HGSFusion.md#44-光照条件鲁棒性测试-table-5
 paper: "AAAI 2025 · HGSFusion（带混合生成与同步的雷达-相机融合 3D 目标检测；笔记未记录英文原题与 arXiv 号；开源：https://github.com/garfield-cpp/HGSFusion）"
@@ -40,7 +40,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（据笔记 §4.4 转录 + 2026-11-05 arXiv v1 核对，尚未独立验证）：在 TJ4DRadSet test set 上，相对 Base-R+C 的 3D mAP 增益按光照分组为——Dark +11.41（4.27 → 15.68）、Normal +2.32（33.50 → 35.82）、Shiny +2.91（22.37 → 25.28），Dark 增益约为另两组的 4–5 倍。论文自己的解释是：暗光下相机信息有限甚至含错（Base-R 13.19 → Base-R+C 4.27，加相机反而掉 8.9 点，同表未转录行），HGSFusion「能利用雷达特征增强图像特征」而获得 11.41% 提升；笔记进一步把这解读为 DSM 模态同步的证据（「视觉失效时切换到雷达主导」）——这一步是笔记的引申，论文该段未使用「模态同步切换」表述，也未给按光照分组的模态权重可视化或对应消融。
+论文声称（据笔记 §4.4 转录 + 2026-11-05 arXiv v1 核对）：在 TJ4DRadSet test set 上，相对 Base-R+C 的 3D mAP 增益按光照分组为——Dark +11.41（4.27 → 15.68）、Normal +2.32（33.50 → 35.82）、Shiny +2.91（22.37 → 25.28），Dark 增益约为另两组的 4–5 倍。论文自己的解释是：暗光下相机信息有限甚至含错（Base-R 13.19 → Base-R+C 4.27，加相机反而掉 8.9 点，同表未转录行），HGSFusion「能利用雷达特征增强图像特征」而获得 11.41% 提升；笔记进一步把这解读为 DSM 模态同步的证据（「视觉失效时切换到雷达主导」）——这一步是笔记的引申，论文该段未使用「模态同步切换」表述，也未给按光照分组的模态权重可视化或对应消融。
 
 两个口径注意：
 1. 笔记表内写「+11.41%」，按表内数字 15.68 − 4.27 = 11.41，实为**百分点**而非相对百分比（相对增幅约 2.7 倍）。论文正文亦沿用「11.41%」的百分比写法。引用时应写「+11.41 个百分点」。

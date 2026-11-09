@@ -3,7 +3,7 @@ id: claim-njusparseocc-decoder-pruning-complexity-onactive
 title: "SparseOcc 声称：稀疏体素解码器靠粗到细硬剪枝把计算复杂度从 O(L^3) 降至 O(N_active)，低分辨率阶段即抹除 >90% 背景节点"
 type: claim
 status: asserted
-scope: "SparseOcc（ECCV 2024）论文自述解码器设计，据库内笔记转述 + 2026-11-05 arXiv v5 原文核查，尚未独立验证；对象为相机输入占据任务的稀疏体素解码器：粗到细 L=3 层（Fig. 3 caption），每层先按 2×/轴上采样（一个体素细分 8 个）、再估占据得分并硬剪枝；剪枝准则原文给两种方案（阈值 or top-k），实现明确用 top-k（k 为数据集相关参数、按各分辨率最大非空体素数计；Fig. 8(a) 消融最优 k=32000 ≈ 5% 稀疏度）——笔记所写「仅保留 s>τ」对应原文阈值方案而非实现所用；『>90%』原文口径 = 数据集几何稀疏度（more than 90% of the voxels are empty，§1）与定性表述（SparseOcc discards over 90% of voxels，Fig. 7 讨论），「低分辨率阶段物理抹除 >90% 背景节点」与复杂度式 O(L^3)→O(N_active) 为笔记「底层逻辑支撑」节综合表述，原文无逐层剪枝率统计、亦未见该复杂度表达式"
+scope: "SparseOcc（ECCV 2024）论文自述解码器设计，据库内笔记转述 + 2026-11-05 arXiv v5 原文核查；对象为相机输入占据任务的稀疏体素解码器：粗到细 L=3 层（Fig. 3 caption），每层先按 2×/轴上采样（一个体素细分 8 个）、再估占据得分并硬剪枝；剪枝准则原文给两种方案（阈值 or top-k），实现明确用 top-k（k 为数据集相关参数、按各分辨率最大非空体素数计；Fig. 8(a) 消融最优 k=32000 ≈ 5% 稀疏度）——笔记所写「仅保留 s>τ」对应原文阈值方案而非实现所用；『>90%』原文口径 = 数据集几何稀疏度（more than 90% of the voxels are empty，§1）与定性表述（SparseOcc discards over 90% of voxels，Fig. 7 讨论），「低分辨率阶段物理抹除 >90% 背景节点」与复杂度式 O(L^3)→O(N_active) 为笔记「底层逻辑支撑」节综合表述，原文无逐层剪枝率统计、亦未见该复杂度表达式"
 tags: [occupancy-prediction, sparse-3d, coarse-to-fine, voxel-pruning, sparseocc]
 note: library/3D_Occupancy/NJU-SparseOcc.md#21-稀疏体素解码器-sparse-voxel-decoder
 paper: "ECCV 2024 · Fully Sparse 3D Occupancy Prediction (SparseOcc) · arXiv:2312.17118 · https://github.com/MCG-NJU/SparseOcc"
@@ -50,7 +50,7 @@ signoff: null
 
 > **原文核查注记（2026-11-05，02 任务书 P1-B5 整理班）**：回 arXiv:2312.17118v5（https://arxiv.org/html/2312.17118v5 ，本次实抓）核对出三处口径差：① **剪枝实现是 top-k 不是阈值**——原文明确 "In our implementation, we simply keep voxels with top-k occupancy scores for training efficiency"，阈值法是论文并列两种方案之一的可替换项（Fig. 8(b)，e.g. 0.7），笔记「仅保留 s>τ 的 Token」只对应阈值方案；② 原文的「>90%」是**数据集几何稀疏度统计**（§1）与 "discards over 90% of voxels" 定性表述（Fig. 7 讨论），不是逐层剪枝率——「低分辨率阶段物理抹除 >90% 背景节点」出自笔记「底层逻辑支撑」节，属笔记综合表述；③ O(L^3)→O(N_active) 复杂度表达式在 v5 全文未检得，论文以 "K=32000 ≪ 200×200×16、推理快近 4×"（Table 2 讨论）与 Fig. 8(a) 消融表达同一思想。卡内三条笔记引文保留为历史记录，原文句已补入 evidence；title 与命题不动，scope 已同步改写。
 
-论文声称（据笔记 §2.1 / §3 转述 + 2026-11-05 v5 原文核查，尚未独立验证）：稀疏体素解码器从极低分辨率均匀体素查询出发，粗到细 L=3 层，每层先 2×/轴上采样、再估占据得分并按 top-k 硬剪枝（k 数据集相关，Occ3D-nuScenes 最优 32000 ≈ 5% 稀疏度）；最终 token 列表只覆盖高分辨率物理表面，论文据此论证全稀疏管线的计算量由活跃 token 数而非稠密体积决定（O(L^3)→O(N_active) 为笔记对这一论证的形式化），并以数据集 >90% 体素为空作为稀疏化动机。
+论文声称（据笔记 §2.1 / §3 转述 + 2026-11-05 v5 原文核查）：稀疏体素解码器从极低分辨率均匀体素查询出发，粗到细 L=3 层，每层先 2×/轴上采样、再估占据得分并按 top-k 硬剪枝（k 数据集相关，Occ3D-nuScenes 最优 32000 ≈ 5% 稀疏度）；最终 token 列表只覆盖高分辨率物理表面，论文据此论证全稀疏管线的计算量由活跃 token 数而非稠密体积决定（O(L^3)→O(N_active) 为笔记对这一论证的形式化），并以数据集 >90% 体素为空作为稀疏化动机。
 
 限定：
 1. 「>90%」有两处原文出处但含义不同：§1 的 "more than 90% of the voxels are empty" 是数据集统计；Fig. 7 讨论的 "discards over 90% of voxels" 是与稠密方法对比的定性说法。笔记的「低分辨率阶段抹除 >90% 背景节点」把两者合成为逐层机制陈述，原文无逐层数字。k=32000（5% 稀疏度）对应相对 200×200×16=640000 稠密体素丢弃 95%——这一换算是本班整理者算术（640000×5%=32000），非原文句子，尚未验证。

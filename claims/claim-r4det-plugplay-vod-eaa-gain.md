@@ -3,7 +3,7 @@ id: claim-r4det-plugplay-vod-eaa-gain
 title: "R4Det 声称：其模块即插即用挂到 BEVFusion / RCBEVDet 上，在 VoD 的 mAP_EAA 分别 +6.34% / +5.34%"
 type: claim
 status: asserted
-scope: "VoD val set（论文 Table 3 caption 自述 'on the val set of VoD'）；宿主模型为 BEVFusion 与 RCBEVDet（各自叠加 R4Det 模块；原文未写明挂载的是 PDF/DGTF/IGDR 中哪些模块的组合，仅 IGDR 节自述为 plug-and-play refinement block）；指标 mAP_EAA 口径已按原文补核（2026-11-05 实抓）：论文 §4.1 自述 APEAA = Entire Annotated Area，统一 IoU 约定 0.50（Car/Truck）、0.25（Pedestrian/Cyclist）；挂载前后绝对值已补核：BEVFusion 49.25→55.59、RCBEVDet 49.99→55.33，+6.34 / +5.34 为绝对点数（非相对百分比）；与其他论文的 VoD 数字（mAP_DC / EAA AP / RoI AP 及各自 mAP_EAA）横向比较仍需逐篇核对 split 与 IoU 约定（cross M1 的比较禁令对跨论文比较仍适用）；R4Det 自报数字，尚未独立验证；单源结论（cross 文档 C5，其余 4D 雷达笔记无对应迁移实验）"
+scope: "VoD val set（论文 Table 3 caption 自述 'on the val set of VoD'）；宿主模型为 BEVFusion 与 RCBEVDet（各自叠加 R4Det 模块；原文未写明挂载的是 PDF/DGTF/IGDR 中哪些模块的组合，仅 IGDR 节自述为 plug-and-play refinement block）；指标 mAP_EAA 口径已按原文补核（2026-11-05 实抓）：论文 §4.1 自述 APEAA = Entire Annotated Area，统一 IoU 约定 0.50（Car/Truck）、0.25（Pedestrian/Cyclist）；挂载前后绝对值已补核：BEVFusion 49.25→55.59、RCBEVDet 49.99→55.33，+6.34 / +5.34 为绝对点数（非相对百分比）；与其他论文的 VoD 数字（mAP_DC / EAA AP / RoI AP 及各自 mAP_EAA）横向比较仍需逐篇核对 split 与 IoU 约定（cross M1 的比较禁令对跨论文比较仍适用）；R4Det 自报数字；单源结论（cross 文档 C5，其余 4D 雷达笔记无对应迁移实验）"
 tags: [4d-radar, radar-camera-fusion, r4det, plug-and-play, bevfusion, rcbevdet, vod]
 note: library/Classical_Detection/R4Det.md#32-关键机制分析
 paper: "CVPR 2026 · R4Det: 4D Radar-Camera Fusion for High-Performance 3D Object Detection（笔记标注未开源，未记录 arXiv 号）"
@@ -49,7 +49,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（据笔记 §3.2 转述，尚未独立验证）：R4Det 的模块（PDF / DGTF / IGDR）可以作为附加组件挂到已有的雷达-相机融合检测器上——挂到 BEVFusion 在 VoD 上 mAP_EAA 提升 +6.34%，挂到 RCBEVDet 提升 +5.34%，即「即插即用」的迁移性主张。2026-11-05 实抓原文补核：Table 3 给出挂载前后绝对值，BEVFusion 49.25 → 55.59（+6.34 点）、RCBEVDet 49.99 → 55.33（+5.34 点）。
+论文声称（据笔记 §3.2 转述）：R4Det 的模块（PDF / DGTF / IGDR）可以作为附加组件挂到已有的雷达-相机融合检测器上——挂到 BEVFusion 在 VoD 上 mAP_EAA 提升 +6.34%，挂到 RCBEVDet 提升 +5.34%，即「即插即用」的迁移性主张。2026-11-05 实抓原文补核：Table 3 给出挂载前后绝对值，BEVFusion 49.25 → 55.59（+6.34 点）、RCBEVDet 49.99 → 55.33（+5.34 点）。
 
 必须记住的限定：
 1. mAP_EAA 口径已按原文补核：论文 §4.1 自述 APEAA = Entire Annotated Area，统一 IoU 约定 0.50（Car/Truck）、0.25（Pedestrian/Cyclist）；+6.34 / +5.34 为绝对点数（非相对百分比）。跨论文横向比较禁令仍适用：cross 文档 M1 记录 VoD 上各家指标族（mAP_EAA / mAP_DC / EAA AP / RoI AP）口径不一，且 R4Det Table 2 中 SGDet3D 行报 mAP_EAA 59.75 / mAP_DC 77.42，与 SGDet3D 笔记自报 59.49 / 77.11（cross M1 转引 SGDet3D.md §5.1）相差 0.26 / 0.31——同一方法两个来源数字已不一致，任何跨论文 VoD 比较前必须核对 split 与 IoU 约定。

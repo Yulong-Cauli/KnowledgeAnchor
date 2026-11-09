@@ -277,7 +277,7 @@ Supplementary 正文："It’s worth noting that, since we only used the Coarse-
    - TD（Transformer decoder）单独加会掉 IoU（Table 2：−0.60），GOE+TD+CFSG 组合才同时拿到几何与语义收益（Table 2：72.08/41.39）。
    - 论文自己承认纯视觉方案在低光/重遮挡下失效，需要 "LiDAR or Radar" 等其他模态辅助（Supplementary）——与库内雷达、雷达-相机融合笔记的动机直接相关。
 
-3. **本笔记与 claim 的边界**：以上全部数字与结论均为论文声称（Occ3D-nuScenes 验证集、Table 1–7 抄录），尚未独立验证。若后续要建 claim 卡，需按 `templates/claim.md` 独立成卡并附 falsifiers，本笔记不承载 verified 结论。
+3. **本笔记与 claim 的边界**：以上全部数字与结论均为论文声称（Occ3D-nuScenes 验证集、Table 1–7 抄录）。若后续要建 claim 卡，需按 `templates/claim.md` 独立成卡并附 falsifiers，本笔记不承载 verified 结论。
 
 ---
 

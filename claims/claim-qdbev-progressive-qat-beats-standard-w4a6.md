@@ -3,7 +3,7 @@ id: claim-qdbev-progressive-qat-beats-standard-w4a6
 title: "QD-BEV 论文声称：BEVFormer-Base W4A6 下按模块敏感度分四阶段的渐进式 QAT 达 NDS 0.485，比标准一次性 QAT（0.224）高 0.261"
 type: claim
 status: asserted
-scope: "nuScenes；BEVFormer-Base；W4A6；渐进式 = 按 Backbone→Neck→Encoder→Decoder 分四阶段，每阶段仅量化当前模块并独立训练 N_i 个 epoch（epoch 数笔记未注明），未轮到模块保持高精度（笔记 §2 渐进式策略 + §3.3 Table 3 口径）；对比对象为同配置标准一次性全网 QAT；数字为论文自报；尚未独立验证"
+scope: "nuScenes；BEVFormer-Base；W4A6；渐进式 = 按 Backbone→Neck→Encoder→Decoder 分四阶段，每阶段仅量化当前模块并独立训练 N_i 个 epoch（epoch 数笔记未注明），未轮到模块保持高精度（笔记 §2 渐进式策略 + §3.3 Table 3 口径）；对比对象为同配置标准一次性全网 QAT；数字为论文自报"
 tags: [quantization, qat, progressive-quantization, bev, bevformer, nuscenes, qd-bev]
 note: library/Quantization/QD-BEV.md#33-渐进式-qat-与标准-qat-对比-table-3
 paper: "ICCV 2023, QD-BEV: Quantization-aware View-guided Distillation for Multi-view 3D Object Detection (arXiv:2308.10515)"
@@ -36,7 +36,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（asserted，尚未独立验证）：BEVFormer-Base 在 W4A6 下，标准一次性全网 QAT 仅 NDS 0.224（相对 FP32 0.517 下降 56.7%、mAP 0.071），而按 Backbone→Neck→Encoder→Decoder 四阶段渐进 QAT 达 NDS 0.485（下降 6.2%、mAP 0.376），两者相差 0.261 NDS——训练稳定性是分阶段策略的核心收益。
+论文声称（asserted）：BEVFormer-Base 在 W4A6 下，标准一次性全网 QAT 仅 NDS 0.224（相对 FP32 0.517 下降 56.7%、mAP 0.071），而按 Backbone→Neck→Encoder→Decoder 四阶段渐进 QAT 达 NDS 0.485（下降 6.2%、mAP 0.376），两者相差 0.261 NDS——训练稳定性是分阶段策略的核心收益。
 
 必须记住的限定：
 1. **差距主要体现在 Base**。据 ar5iv HTML 版论文 Table 3（抓取 2026-11-02；2026-11-05 复抓再核一致，表题原文 "Comparsion between progressive and standard QAT with W4A6" 确认 W4A6 且 "Comparsion" 为原文拼写；未对照 PDF）：Tiny 为标准 0.326 vs 渐进 0.348（差 0.022）、Small 为 0.421 vs 0.467（差 0.046）。小模型上标准 QAT 本来就不崩，收益随模型增大而放大；选型时不能把 0.261 的差距套到所有规模。

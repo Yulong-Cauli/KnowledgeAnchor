@@ -3,7 +3,7 @@ id: claim-gaussianfusion-c-occ-1p55-miou-vs-gaussianformer
 title: "GaussianFusion 论文声称：相机支路 GaussianFusion-C 以约 30% 高斯数（43,296 vs 140,000）与约 4.5× 推理速度（105ms vs 475ms）取得 20.65 vs 19.10 mIoU（+1.55）"
 type: claim
 status: asserted
-scope: "nuScenes 占用 val（语义场景补全口径，IoU/mIoU follow SurroundOcc，Table 5/Table 7）；camera-only（GaussianFusion-C 支路）；对照 GaussianFormer；延迟口径论文未注明硬件与 batch（Table 7 只有 ms）；数字为论文自报（arXiv HTML v1，2026-11-04 抓取）；尚未独立验证"
+scope: "nuScenes 占用 val（语义场景补全口径，IoU/mIoU follow SurroundOcc，Table 5/Table 7）；camera-only（GaussianFusion-C 支路）；对照 GaussianFormer；延迟口径论文未注明硬件与 batch（Table 7 只有 ms）；数字为论文自报（arXiv HTML v1，2026-11-04 抓取）"
 tags: [occupancy-prediction, gaussianfusion, iclr2026, nuscenes]
 note: library/Multimodal_Fusion/GaussianFusion.md#3-实验
 paper: "ICLR 2026, GaussianFusion: Unified 3D Gaussian Representation for Multi-Modal Fusion Perception (arXiv:2607.00746)"
@@ -32,7 +32,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（asserted，尚未独立验证）：同样是相机高斯路线，GaussianFusion-C 用"前向投影初始化 + 共享编码器增量更新"替代 GaussianFormer 的"随机初始化 + 每层重预测"，以约 30% 的高斯数和约 4.5× 的推理速度把 mIoU 从 19.10 提到 20.65。同表（Table 5）里它也高于 SurroundOcc 的 20.30 与 TPVFormer 的 17.10——即"高斯表示 + 好的初始化"在相机占用线上追平了 BEV/TPV 稠密路线。
+论文声称（asserted）：同样是相机高斯路线，GaussianFusion-C 用"前向投影初始化 + 共享编码器增量更新"替代 GaussianFormer 的"随机初始化 + 每层重预测"，以约 30% 的高斯数和约 4.5× 的推理速度把 mIoU 从 19.10 提到 20.65。同表（Table 5）里它也高于 SurroundOcc 的 20.30 与 TPVFormer 的 17.10——即"高斯表示 + 好的初始化"在相机占用线上追平了 BEV/TPV 稠密路线。
 
 注意两点：
 

@@ -3,7 +3,7 @@ id: claim-fastrcnn-multitask-loss-beats-cls-only
 title: "Fast R-CNN 声称单一多任务损失（分类 + 回归联合）在 S、M、L 三个模型上的 mAP 均高于仅用分类损失训练"
 type: claim
 status: asserted
-scope: "Fast R-CNN 消融实验（笔记 §消融实验-实验一，对应论文 Table 6）；S、M、L 三个模型；笔记未标注 backbone 具体型号、数据集与评测划分，且该消融仅载结论、未载具体 mAP 数字；尚未独立验证"
+scope: "Fast R-CNN 消融实验（笔记 §消融实验-实验一，对应论文 Table 6）；S、M、L 三个模型；笔记未标注 backbone 具体型号、数据集与评测划分，且该消融仅载结论、未载具体 mAP 数字"
 tags: [detection, fast-rcnn, multi-task-loss, smooth-l1, joint-training]
 note: "library/Classical_Detection/Fast R-CNN 和 Faster R-CNN .md#消融实验"
 paper: "ICCV 2015, Fast R-CNN"
@@ -31,7 +31,7 @@ signoff: null
 
 ## 我的理解
 
-笔记声称（尚未独立验证）：Fast R-CNN 用单一多任务损失 L = L_cls + λ·[u≥1]·L_loc（分类为 log loss，回归为 smooth L1，背景 RoI 不计回归项），一次反向传播同时更新分类器与边界框回归器，实现单阶段训练；消融（Table 6）在 S、M、L 三个模型上比较了仅分类损失、多任务联合、stage-wise 三种设置，结论是多任务训练在三个模型上都优于仅分类损失。
+笔记声称：Fast R-CNN 用单一多任务损失 L = L_cls + λ·[u≥1]·L_loc（分类为 log loss，回归为 smooth L1，背景 RoI 不计回归项），一次反向传播同时更新分类器与边界框回归器，实现单阶段训练；消融（Table 6）在 S、M、L 三个模型上比较了仅分类损失、多任务联合、stage-wise 三种设置，结论是多任务训练在三个模型上都优于仅分类损失。
 
 限定：笔记此消融只给结论、未给具体 mAP 数字，也未标注数据集与 S/M/L 对应的 backbone 型号，故本卡只主张方向性结论（多任务 > 仅分类，三模型一致），不主张任何涨点幅度。
 

@@ -3,7 +3,7 @@ id: claim-mobilenet-series-accuracy-latency-progression
 title: "MobileNet 系列论文自报同点演进：ImageNet top-1 70.6（V1，569M Mult-Adds）→ 72.0（V2，300M）→ 75.2（V3-Large，219M，Pixel-1 51ms）"
 type: claim
 status: asserted
-scope: "MobileNetV1/V2/V3 各自论文表格自报数字（V1 Table 6、V2 Table 4、V3 Table 3，均 224 输入 / width 1.0）；V3 时延为 Pixel-1 大核单线程 TFLite 口径（P-1）；跨论文 MAdds 口径不一（同一 V1-224 在 V1 Table 6 记 569M、在 V2 Table 4 记 575M），本卡各数字均标注出处表号；不含 V3 的 SE/h-swish/NAS 设计主张（以笔记 §2.3 为准，未立卡）；论文声称口径，尚未独立验证"
+scope: "MobileNetV1/V2/V3 各自论文表格自报数字（V1 Table 6、V2 Table 4、V3 Table 3，均 224 输入 / width 1.0）；V3 时延为 Pixel-1 大核单线程 TFLite 口径（P-1）；跨论文 MAdds 口径不一（同一 V1-224 在 V1 Table 6 记 569M、在 V2 Table 4 记 575M），本卡各数字均标注出处表号；不含 V3 的 SE/h-swish/NAS 设计主张（以笔记 §2.3 为准，未立卡）；论文声称口径"
 tags: [mobilenet, mobilenetv2, mobilenetv3, imagenet, latency, efficient-backbone]
 note: library/Efficient_Backbone/MobileNet.md#1-概述
 paper: "MobileNetV1 (arXiv:1704.04861); MobileNetV2 (CVPR 2018, arXiv:1801.04381); MobileNetV3 (ICCV 2019, arXiv:1905.02244)"
@@ -60,7 +60,7 @@ signoff: null
 
 ## 我的理解
 
-论文各自声称（尚未独立验证）：在 224 输入、width 1.0 的同点上，ImageNet top-1 / Mult-Adds 沿 V1→V2→V3 为 70.6%/569M → 72.0%/300M → 75.2%/219M（P-1 时延 64→51ms——两数均出自 V3 Table 3 的 V2 1.0 行与 V3-Large 行；V2 自家 Table 4 的 Pixel-1 CPU 为 75ms，属另一测量批次，不可混入本序列）。V3 摘要百分点采用 PDF 口径：V3-Large 比 V2 +3.2 点、时延 −20%；V3-Small 对可比延迟 V2 +6.6%（arXiv v5 PDF 与 CVF camera-ready 一致；arXiv abs 页的 15%/4.6% 是脱节元数据，verify 班 2026-11-03 已裁定，见笔记遗留问题 1/2）。
+论文各自声称：在 224 输入、width 1.0 的同点上，ImageNet top-1 / Mult-Adds 沿 V1→V2→V3 为 70.6%/569M → 72.0%/300M → 75.2%/219M（P-1 时延 64→51ms——两数均出自 V3 Table 3 的 V2 1.0 行与 V3-Large 行；V2 自家 Table 4 的 Pixel-1 CPU 为 75ms，属另一测量批次，不可混入本序列）。V3 摘要百分点采用 PDF 口径：V3-Large 比 V2 +3.2 点、时延 −20%；V3-Small 对可比延迟 V2 +6.6%（arXiv v5 PDF 与 CVF camera-ready 一致；arXiv abs 页的 15%/4.6% 是脱节元数据，verify 班 2026-11-03 已裁定，见笔记遗留问题 1/2）。
 
 三条引用纪律（本卡已按此执行）：
 1. **MAdds 跨论文口径差**：同一 V1-224 模型在 V1 Table 6 记 569M、在 V2 Table 4 记 575M——引用任一数字必须带表号，不得混用得出「V2 虚报」或「V3 口径漂移」类结论。

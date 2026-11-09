@@ -3,7 +3,7 @@ id: claim-sliderquant-adaptive-window-over-repeated-optimization
 title: "SliderQuant 论文声称：增益主要来自按层敏感性的自适应滑窗而非重复优化——固定滑窗每窗重复量化至多 4 次的增益不足 1 PPL，自适应默认相对全部固定滑窗及重复变体降低 1.54–3.60 PPL"
 type: claim
 status: asserted
-scope: "Llama2-7B / Qwen2.5-14B，W4A4；消融口径：固定滑窗每窗重复量化 1–4 次（Appendix G.2 Table P：s=2 12.73→12.11、s=4 11.13→10.67）；自适应默认相对全部固定滑窗及其重复变体降低 1.54–3.60（Llama2-7B）/ 1.23–4.42（Qwen2.5-14B）WikiText2 PPL（Appendix G.2）；数字为论文自报（arXiv HTML v1，2026-11-04 抓取）；尚未独立验证"
+scope: "Llama2-7B / Qwen2.5-14B，W4A4；消融口径：固定滑窗每窗重复量化 1–4 次（Appendix G.2 Table P：s=2 12.73→12.11、s=4 11.13→10.67）；自适应默认相对全部固定滑窗及其重复变体降低 1.54–3.60（Llama2-7B）/ 1.23–4.42（Qwen2.5-14B）WikiText2 PPL（Appendix G.2）；数字为论文自报（arXiv HTML v1，2026-11-04 抓取）"
 tags: [quantization, ptq, sliderquant, llm, ablation, iclr2026]
 note: library/Quantization/SliderQuant.md#3-实验
 paper: "ICLR 2026, SliderQuant: Accurate Post-Training Quantization for LLMs (arXiv:2603.25284)"
@@ -27,7 +27,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（asserted，尚未独立验证）：SliderQuant 相对固定滑窗的收益不能解释为"首末层被多优化了几次"。作者做了重复优化对照：把固定滑窗每窗重复量化至多 4 次，s=2 只从 12.73 降到 12.11、s=4 从 11.13 降到 10.67（W4A4 WikiText2），而自适应滑窗（PESW/FSSW/PCSW 三段 + 窗内 Intra-S）对全部固定滑窗及重复变体降低 1.54–3.60 PPL——量级差一个数量级。
+论文声称（asserted）：SliderQuant 相对固定滑窗的收益不能解释为"首末层被多优化了几次"。作者做了重复优化对照：把固定滑窗每窗重复量化至多 4 次，s=2 只从 12.73 降到 12.11、s=4 从 11.13 降到 10.67（W4A4 WikiText2），而自适应滑窗（PESW/FSSW/PCSW 三段 + 窗内 Intra-S）对全部固定滑窗及重复变体降低 1.54–3.60 PPL——量级差一个数量级。
 
 两个必须记住的限定：
 

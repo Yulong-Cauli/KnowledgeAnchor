@@ -3,7 +3,7 @@ id: claim-centernettriplets-ccp-ap-gain-large-objects
 title: "CenterNet（Keypoint Triplets）论文声称：角点池化替换为级联角点池化（先看边界再看内部）再 +0.5 AP（40.8%→41.3%），全配置 AP_L 达 55.8%"
 type: claim
 status: asserted
-scope: "笔记 §消融实验组件叠加消融的第三步（累计含 CRE+CTP）：将原 CornerNet 的角点池化替换为 Cascade Corner Pooling（先沿边界取最大值，再从该位置向物体内部取最大值，两者相加）；+0.5 AP 为该步增量（40.8→41.3）、AP_L 55.8% 为全配置值（相对 CRE+CTP 的 53.6 为 +2.2）；数据集已按原文补核：MS-COCO validation（Table 4 caption），基线 CornerNet511-52；2026-11-05 实抓 arXiv 1904.08189v3 补核：论文 Table 4 另有 CCP-only 行（不含 CRE/CTP）AP 38.3、AP_L 52.2 不变、AR_L（Table 4 ARL 列）74.0→75.8；数字均为论文自报，尚未独立验证"
+scope: "笔记 §消融实验组件叠加消融的第三步（累计含 CRE+CTP）：将原 CornerNet 的角点池化替换为 Cascade Corner Pooling（先沿边界取最大值，再从该位置向物体内部取最大值，两者相加）；+0.5 AP 为该步增量（40.8→41.3）、AP_L 55.8% 为全配置值（相对 CRE+CTP 的 53.6 为 +2.2）；数据集已按原文补核：MS-COCO validation（Table 4 caption），基线 CornerNet511-52；2026-11-05 实抓 arXiv 1904.08189v3 补核：论文 Table 4 另有 CCP-only 行（不含 CRE/CTP）AP 38.3、AP_L 52.2 不变、AR_L（Table 4 ARL 列）74.0→75.8；数字均为论文自报"
 tags: [centernet, cornernet, keypoint-triplets, cascade-corner-pooling, ablation, large-objects]
 note: library/Classical_Detection/CenterNet：Keypoint Triplets.md#消融实验
 paper: "ICCV 2019, CenterNet: Keypoint Triplets for Object Detection（开源：https://github.com/Duankaiwen/CenterNet）"
@@ -44,7 +44,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（尚未独立验证）：传统 Corner Pooling 只沿边界取最大值，角点对边缘敏感但缺乏物体内部信息；Cascade Corner Pooling 在此基础上再从边界最大值位置向物体内部取最大值、两者相加，让角点"既看边、又看里"。该步整卡增量 +0.5 AP（40.8→41.3），大物体收益更明显——全配置下 AP_L 达 55.8。
+论文声称：传统 Corner Pooling 只沿边界取最大值，角点对边缘敏感但缺乏物体内部信息；Cascade Corner Pooling 在此基础上再从边界最大值位置向物体内部取最大值、两者相加，让角点"既看边、又看里"。该步整卡增量 +0.5 AP（40.8→41.3），大物体收益更明显——全配置下 AP_L 达 55.8。
 
 关键限定：笔记明确说 AP_L 55.8 是"结合 CenterNet 使用时"的数值。2026-11-05 原文补核后该限定有了论文自己的分解：CCP-only（不加 CRE/CTP）仅 +0.7（37.6→38.3）且 AP_L 持平（52.2 vs 52.2），AR_L 反而 +1.8（74.0→75.8，"see more objects"但框不准；原文 prose 只写 the AR，数值按 Table 4 ARL 列）；叠在 CRE+CTP 上才是 +0.5（40.8→41.3），AP_L +2.2（53.6→55.8）且论文明确说有中心验证时错误框被抑制。所以 55.8 不能全部归因给 CCP 本身，它是 CCP 与 CRE（中心验证）协同后的全配置值；CCP 单独可独立主张的只有论文报出的两档：单独 +0.7 / 叠加步 +0.5。
 

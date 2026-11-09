@@ -3,7 +3,7 @@ id: claim-omniquant-w2a16g128-llama7b-ppl-beats-gptq-awq
 title: "OmniQuant 论文自报：LLaMA-1-7B W2A16g128 下 WikiText2 PPL 9.72，远低于失效级基线 GPTQ (44.01) 与 AWQ (2.6e5)"
 type: claim
 status: asserted
-scope: "LLaMA-1-7B；W2A16g128（2-bit 权重、16-bit 激活、128 分组权重；激活 per-token，Softmax 输出保持 16-bit）；WikiText2 PPL（camera-ready Table 1 口径）；校准数据为取自 WikiText2 的 128 段 2048-token 文本（论文 §4.1，未明说训练/测试 split），与评测集同语料，存在同源乐观风险；数字为论文自报，并按 ICLR 2024 camera-ready（arXiv v3）归因——笔记表头误标为 LLaMA-13B W2A16；尚未独立验证"
+scope: "LLaMA-1-7B；W2A16g128（2-bit 权重、16-bit 激活、128 分组权重；激活 per-token，Softmax 输出保持 16-bit）；WikiText2 PPL（camera-ready Table 1 口径）；校准数据为取自 WikiText2 的 128 段 2048-token 文本（论文 §4.1，未明说训练/测试 split），与评测集同语料，存在同源乐观风险；数字为论文自报，并按 ICLR 2024 camera-ready（arXiv v3）归因——笔记表头误标为 LLaMA-13B W2A16"
 tags: [quantization, ptq, omniquant, llm, w2a16, weight-only]
 note: library/Quantization/OmniQuant.md#4-实验与分析-experiments
 paper: "ICLR 2024, OmniQuant: Omnidirectionally Calibrated Quantization for Large Language Models (arXiv:2308.13137)"
@@ -47,7 +47,7 @@ signoff: null
 
 > 修订注记（2026-11-03）：OmniQuant 笔记实验 1 表头已按 camera-ready 归因修正为「LLaMA-1-7B W2A16g128」并补 RTN 1.9e3（GPTQ 44.01 / AWQ 2.6e5 / OmniQuant 9.72 三值不变，本卡三条笔记 quote 逐字仍有效），本卡 evidence 第一条 locator 的过期括注（「笔记表头标 LLaMA-13B」）已同步更新。修正依据与过程见 [笔记表格错位卡](claim-omniquant-note-table-mismatch.md)；限定 1 中「笔记表格待修正」至此完成，其余描述按历史记录保留。本卡主张、scope 与 status 不变。
 
-论文声称（asserted，尚未独立验证）：在 2-bit 权重、128 分组的 W2A16g128 设置下，OmniQuant 把 LLaMA-1-7B 的 WikiText2 PPL 做到 9.72，而 GPTQ (44.01) 与 AWQ (2.6e5) 均失效、RTN 完全乱码——即极低比特 weight-only 场景中，可学习裁剪阈值（LWC）相对手工规则有数量级优势。
+论文声称（asserted）：在 2-bit 权重、128 分组的 W2A16g128 设置下，OmniQuant 把 LLaMA-1-7B 的 WikiText2 PPL 做到 9.72，而 GPTQ (44.01) 与 AWQ (2.6e5) 均失效、RTN 完全乱码——即极低比特 weight-only 场景中，可学习裁剪阈值（LWC）相对手工规则有数量级优势。
 
 两个必须记住的限定：
 

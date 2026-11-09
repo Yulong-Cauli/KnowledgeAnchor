@@ -3,7 +3,7 @@ id: claim-radarocc-sss-ablation-gain-10p2
 title: "RadarOcc 原文消融（Table 2）：SSS 换成 percentile-based 稀疏化后 mIoU@12.8m 由 34.3 降至 24.1（-10.2）"
 type: claim
 status: asserted
-scope: "RadarOcc（NeurIPS 2024，arXiv:2405.14014 v4 camera-ready）原文 §5.3 Table 2 自报消融数字，尚未独立验证；数据集 K-Radar well-condition test split；单一变量为稀疏化策略——SSS（逐距离单元取多普勒均值功率 Top-Nr，Nr=250）vs percentile-based 全局稀疏化（K-Radar/Enhanced-K-Radar 做法，原文引 [42, 46]），其余 pipeline 相同；'w/o' 式消融（从完整模型替换，非从零累加）；指标为该文自定义协议 IoU/mIoU（前景/背景两类、LiDAR 叠加自生成 GT、0.4m 体素 RoI 128×128×14，非 RayIoU），与其他 benchmark 不可比"
+scope: "RadarOcc（NeurIPS 2024，arXiv:2405.14014 v4 camera-ready）原文 §5.3 Table 2 自报消融数字；数据集 K-Radar well-condition test split；单一变量为稀疏化策略——SSS（逐距离单元取多普勒均值功率 Top-Nr，Nr=250）vs percentile-based 全局稀疏化（K-Radar/Enhanced-K-Radar 做法，原文引 [42, 46]），其余 pipeline 相同；'w/o' 式消融（从完整模型替换，非从零累加）；指标为该文自定义协议 IoU/mIoU（前景/背景两类、LiDAR 叠加自生成 GT、0.4m 体素 RoI 128×128×14，非 RayIoU），与其他 benchmark 不可比"
 tags: [4d-radar, radar-tensor, occupancy-prediction, sparsification, sidelobe, ablation, radarocc]
 note: library/3D_Occupancy/RadarOcc.md#3-实验
 paper: "NeurIPS 2024 · RadarOcc: Robust 3D Occupancy Prediction with 4D Imaging Radar · arXiv:2405.14014 · https://arxiv.org/abs/2405.14014"
@@ -41,7 +41,7 @@ signoff: null
 
 ## 我的理解
 
-论文原文（§5.3 + Table 2，NeurIPS 2024 camera-ready v4，2026-11-03 实抓）声称（数字为论文自报，尚未独立验证）：在 K-Radar well-condition test split 上，把完整 RadarOcc 的旁瓣感知空间稀疏化（SSS，逐距离单元取多普勒均值功率 Top-$N_r$，Nr=250）替换为 K-Radar / Enhanced-K-Radar 的 percentile-based 全局稀疏化、其余 pipeline 不变，mIoU@12.8m 从 34.3 降至 24.1（-10.2 点），mIoU@25.6m/51.2m 同降 8.3/7.0 点；其中 FG IoU 三个距离从 20.7/18.7/15.8 跌至 5.9/4.7/3.5（-14.8/-14.0/-12.3），即低 RCS 前景在全局百分比稀疏化下几乎全部丢失。方向与 §2 方法「percentile 筛选把保留元素集中在少数强反射距离并混入旁瓣」的机制叙述一致。
+论文原文（§5.3 + Table 2，NeurIPS 2024 camera-ready v4，2026-11-03 实抓）声称（数字为论文自报）：在 K-Radar well-condition test split 上，把完整 RadarOcc 的旁瓣感知空间稀疏化（SSS，逐距离单元取多普勒均值功率 Top-$N_r$，Nr=250）替换为 K-Radar / Enhanced-K-Radar 的 percentile-based 全局稀疏化、其余 pipeline 不变，mIoU@12.8m 从 34.3 降至 24.1（-10.2 点），mIoU@25.6m/51.2m 同降 8.3/7.0 点；其中 FG IoU 三个距离从 20.7/18.7/15.8 跌至 5.9/4.7/3.5（-14.8/-14.0/-12.3），即低 RCS 前景在全局百分比稀疏化下几乎全部丢失。方向与 §2 方法「percentile 筛选把保留元素集中在少数强反射距离并混入旁瓣」的机制叙述一致。
 
 必须记住的限定：
 

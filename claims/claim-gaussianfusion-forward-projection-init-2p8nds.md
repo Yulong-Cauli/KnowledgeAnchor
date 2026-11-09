@@ -3,7 +3,7 @@ id: claim-gaussianfusion-forward-projection-init-2p8nds
 title: "GaussianFusion 论文自报消融：前向投影初始化比随机初始化 +2.8 NDS（74.0 vs 71.2），并优于 backward projection（72.4）"
 type: claim
 status: asserted
-scope: "nuScenes 3D 检测 val 消融（Table 8；注意 §4.5 正文把该表误称为 Table 9，本卡按表 caption 编号引用，见笔记遗留）；C+L 全配置，仅初始化策略不同；Lidar projection 初始化 73.6 与 forward 74.0 相当；随机初始化 71.2 / mAP 68.3；数字为论文自报（arXiv HTML v1，2026-11-04 抓取）；尚未独立验证"
+scope: "nuScenes 3D 检测 val 消融（Table 8；注意 §4.5 正文把该表误称为 Table 9，本卡按表 caption 编号引用，见笔记遗留）；C+L 全配置，仅初始化策略不同；Lidar projection 初始化 73.6 与 forward 74.0 相当；随机初始化 71.2 / mAP 68.3；数字为论文自报（arXiv HTML v1，2026-11-04 抓取）"
 tags: [lidar-camera-fusion, gaussianfusion, iclr2026, nuscenes, ablation]
 note: library/Multimodal_Fusion/GaussianFusion.md#3-实验
 paper: "ICLR 2026, GaussianFusion: Unified 3D Gaussian Representation for Multi-Modal Fusion Perception (arXiv:2607.00746)"
@@ -32,7 +32,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（asserted，尚未独立验证）：高斯初始化策略本身就是可观的收益来源——同一模型只换初始化，前向投影（LSS 深度分布直接作高斯中心初值）74.0 NDS > LiDAR 投影 73.6 > backward projection（BEVFormer 式）72.4 > 随机初始化 71.2。forward 对 random 的 +2.8 NDS 比很多结构改动都大，支撑"GaussianFormer 的随机初始化是高斯感知主要瓶颈"的论断。
+论文声称（asserted）：高斯初始化策略本身就是可观的收益来源——同一模型只换初始化，前向投影（LSS 深度分布直接作高斯中心初值）74.0 NDS > LiDAR 投影 73.6 > backward projection（BEVFormer 式）72.4 > 随机初始化 71.2。forward 对 random 的 +2.8 NDS 比很多结构改动都大，支撑"GaussianFormer 的随机初始化是高斯感知主要瓶颈"的论断。
 
 口径注记：论文 §4.5 正文把该表称为 Table 9，但表 caption 是 Table 8（HTML 内部矛盾，笔记遗留有记录）；backward projection / Lidar projection 的实现细节在未随 HTML 发布的 Appendix 里，独立复现需等代码。
 

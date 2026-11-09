@@ -3,7 +3,7 @@ id: claim-sparseocc-flops-749pct-below-dense
 title: "SparseOcc 声称：相对稠密基线 FLOPs 减少 74.9%（笔记 Table 1：455G vs C-CONet 1810G，约 1/4）"
 type: claim
 status: asserted
-scope: "nuScenes-Occupancy 验证集（笔记措辞，基准名口径同 claim-sparseocc-miou141-beats-dense-baselines）；相机输入；74.9% 为论文摘要口径（over the dense baseline，摘要未点名基线）；按笔记 Table 1 数字 1-455/1810 约等于 74.9% 推断对比对象为 C-CONet，笔记未明说；FLOPs 统计口径（是否含 2D 图像主干 / 深度网络）笔记未注明；自报数字，尚未独立验证"
+scope: "nuScenes-Occupancy 验证集（笔记措辞，基准名口径同 claim-sparseocc-miou141-beats-dense-baselines）；相机输入；74.9% 为论文摘要口径（over the dense baseline，摘要未点名基线）；按笔记 Table 1 数字 1-455/1810 约等于 74.9% 推断对比对象为 C-CONet，笔记未明说；FLOPs 统计口径（是否含 2D 图像主干 / 深度网络）笔记未注明；自报数字"
 tags: [occupancy-prediction, sparse-3d, sparse-conv, sparseocc, nuscenes, sparse-tokens]
 note: library/3D_Occupancy/SparseOcc.md#1-概述
 paper: "CVPR 2024 · SparseOcc: Rethinking Sparse Latent Representation for Vision-Based Semantic Occupancy Prediction · arXiv:2404.09502 · https://github.com/VISION-SJTU/SparseOcc"
@@ -40,7 +40,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（据笔记 §1 概述与 §4.1 转述，尚未独立验证）：相对稠密基线，SparseOcc 的 FLOPs 减少 74.9%。笔记 Table 1 给出 SparseOcc 455G、C-CONet 1810G，455/1810 约 25.1%，即约 1/4，与 74.9% 自洽；显存 13G vs 21G（约省 38.1%）、3D 延迟 0.19s vs 2.18s（延迟口径未注明，不进本卡主张）。
+论文声称（据笔记 §1 概述与 §4.1 转述）：相对稠密基线，SparseOcc 的 FLOPs 减少 74.9%。笔记 Table 1 给出 SparseOcc 455G、C-CONet 1810G，455/1810 约 25.1%，即约 1/4，与 74.9% 自洽；显存 13G vs 21G（约省 38.1%）、3D 延迟 0.19s vs 2.18s（延迟口径未注明，不进本卡主张）。
 
 限定与注意：
 

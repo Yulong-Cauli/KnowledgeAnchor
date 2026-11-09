@@ -3,7 +3,7 @@ id: claim-onevl-navsim-pdm-8884-sft-setting
 title: "OneVL 论文声称：NAVSIM SFT 设定 PDM-score 88.84，超前 SOTA AdaThinkDrive 86.20 / LaST-VLA 87.30（两者数值转引自原论文），延迟 4.46s≈answer-only"
 type: claim
 status: asserted
-scope: "NAVSIM benchmark，supervised fine-tuning setting（§5.2 限定），PDM-score（综合轨迹安全/舒适/进度的复合指标）；OneVL 4B（Qwen3-VL-4B-Instruct 主干，推理期仅计主 VLM 参数）；对比值 AdaThinkDrive 86.20（8B）/ LaST-VLA 87.30（8B）在原表带 ∗，为『derived from the corresponding paper』的转引值；数字为论文自报（arXiv:2604.18486v3 Table 1），尚未独立验证"
+scope: "NAVSIM benchmark，supervised fine-tuning setting（§5.2 限定），PDM-score（综合轨迹安全/舒适/进度的复合指标）；OneVL 4B（Qwen3-VL-4B-Instruct 主干，推理期仅计主 VLM 参数）；对比值 AdaThinkDrive 86.20（8B）/ LaST-VLA 87.30（8B）在原表带 ∗，为『derived from the corresponding paper』的转引值；数字为论文自报（arXiv:2604.18486v3 Table 1）"
 tags: [vla, onevl, navsim, pdm-score, benchmark-snapshot]
 note: library/VLM_VLA/OneVL.md#3-实验
 paper: "arXiv 2026, Xiaomi OneVL: One-Step Latent Reasoning and Planning with Vision-Language Explanation (arXiv:2604.18486)"
@@ -40,7 +40,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（尚未独立验证）：NAVSIM 的 supervised fine-tuning 设定下，OneVL 拿到 88.84 PDM-score，比前 SOTA AdaThinkDrive（86.20）高 +2.64、比 LaST-VLA（87.30）高 +1.54；推理延迟 4.46s 与 answer-only 基线（4.49s）基本相同，即「CoT 的精度、answer-only 的延迟」。
+论文声称：NAVSIM 的 supervised fine-tuning 设定下，OneVL 拿到 88.84 PDM-score，比前 SOTA AdaThinkDrive（86.20）高 +2.64、比 LaST-VLA（87.30）高 +1.54；推理延迟 4.46s 与 answer-only 基线（4.49s）基本相同，即「CoT 的精度、answer-only 的延迟」。
 
 引用时必须带的三点限定：
 1. 两个前 SOTA 数值在 Table 1 带 ∗——caption 声明 "the result is derived from the corresponding paper"，来源与训练/评测口径与作者自训基线不同（⚠①），+2.64/+1.54 是跨口径比较。

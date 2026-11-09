@@ -3,7 +3,7 @@ id: claim-radarocc-cfar-pointcloud-loses-lowrcs
 title: "RadarOcc 声称：CFAR 点云化丢失低 RCS 弱反射，直接处理原始 4D 雷达张量可避免该丢失"
 type: claim
 status: asserted
-scope: "RadarOcc（NeurIPS 2024）论文自述问题诊断，据库内笔记转述，尚未独立验证；对象为 4D 成像雷达的两种输入表示——CFAR 检测后的稀疏点云 vs 原始 4D 雷达张量（4DRT）；2026-11-03 前笔记无实验章节（nightshift/cross/4d-radar.md M5 为当时状况记录），2026-11-03 笔记 §3 实验章节授权补写后已有跨框架对比数字（Table 1：RPC 输入的 OpenOccupancy 基线 vs 4DRT 输入的 RadarOcc/4DRT-XYZ），但仍无同一模型两种输入的受控对照"
+scope: "RadarOcc（NeurIPS 2024）论文自述问题诊断，据库内笔记转述；对象为 4D 成像雷达的两种输入表示——CFAR 检测后的稀疏点云 vs 原始 4D 雷达张量（4DRT）；2026-11-03 前笔记无实验章节（nightshift/cross/4d-radar.md M5 为当时状况记录），2026-11-03 笔记 §3 实验章节授权补写后已有跨框架对比数字（Table 1：RPC 输入的 OpenOccupancy 基线 vs 4DRT 输入的 RadarOcc/4DRT-XYZ），但仍无同一模型两种输入的受控对照"
 tags: [4d-radar, radar-tensor, cfar, rcs, occupancy-prediction, radarocc]
 note: library/3D_Occupancy/RadarOcc.md#1-概述
 paper: "NeurIPS 2024 · RadarOcc: Robust 3D Occupancy Prediction with 4D Imaging Radar · https://github.com/Toytiny/RadarOcc"
@@ -36,7 +36,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（据笔记 §1 概述转述，尚未独立验证）：现有方法把雷达处理为稀疏点云，CFAR 检测这一步本身就丢失大量低 RCS 物体的弱反射；因此 RadarOcc 绕过点云化、直接处理原始 4D 雷达张量，把问题在输入端解决。
+论文声称（据笔记 §1 概述转述）：现有方法把雷达处理为稀疏点云，CFAR 检测这一步本身就丢失大量低 RCS 物体的弱反射；因此 RadarOcc 绕过点云化、直接处理原始 4D 雷达张量，把问题在输入端解决。
 
 限定：这是整条路线的「前提性诊断」窄卡。它只主张 CFAR 点云化丢失弱反射、原始张量输入可避免该丢失，**不主张**「直接处理张量在占据精度上优于点云方法」。诊断本身与库内其他三篇 4D 雷达笔记（R4Det / SGDet3D / HGSFusion）的稀疏性叙述同向（见 `nightshift/cross/4d-radar.md` S1），但只有 RadarOcc 把病因追溯到 CFAR 环节并给出绕开方案。
 

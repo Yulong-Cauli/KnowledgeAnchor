@@ -208,8 +208,8 @@ Batch Renormalization 原论文明确讨论了小批次和非独立样本下的 
 
 | Claim | status | stance | 主张 |
 | --- | --- | --- | --- |
-| [claim-bevplanner-kradar-seq13-ddp24-recipe-lowers-fit-ade](../../claims/claim-bevplanner-kradar-seq13-ddp24-recipe-lowers-fit-ade.md) | asserted（尚未独立验证） | watch | 指定两次训练的终点 ADE 比较 |
-| [claim-bevplanner-kradar-ddp24-image-noise-sensitivity](../../claims/claim-bevplanner-kradar-ddp24-image-noise-sensitivity.md) | asserted（尚未独立验证） | watch | 指定 checkpoint 在固定 50 帧干预中的平均轨迹位移 |
+| [claim-bevplanner-kradar-seq13-ddp24-recipe-lowers-fit-ade](../../claims/claim-bevplanner-kradar-seq13-ddp24-recipe-lowers-fit-ade.md) | asserted | watch | 指定两次训练的终点 ADE 比较 |
+| [claim-bevplanner-kradar-ddp24-image-noise-sensitivity](../../claims/claim-bevplanner-kradar-ddp24-image-noise-sensitivity.md) | asserted | watch | 指定 checkpoint 在固定 50 帧干预中的平均轨迹位移 |
 
 两张卡分别写明适用范围、原始来源、可推翻条件和进一步核查要求，signoff 均为 null；只有用户本人能签署并升级为 verified。建立卡片或通过结构校验不等于实证结论通过独立验证。
 

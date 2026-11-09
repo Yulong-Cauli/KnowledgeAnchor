@@ -3,7 +3,7 @@ id: claim-qlora-65b-finetune-single-48gb
 title: "QLoRA 声称：65B 模型微调显存从 >780GB 降到单卡 48GB 以内且不损运行时/预测性能（NF4 双数据类型 + Paged Optimizers；7B 4-bit 底座权重仅 5,048 MB）"
 type: claim
 status: asserted
-scope: "LLaMA-65B；QLoRA 完整配置（NF4 存储 / BF16 计算双数据类型、FP8 量化常数 DQ、LoRA 全线性层、Paged Optimizers）；>780GB 为 16-bit 全量微调的论文估算口径；48GB 为单卡上限（33B/65B 在 24/48GB 单卡上依赖 Paged Optimizers 兜长序列显存尖峰，§4 自述 paging 很少触发、未给硬测量）；'不损运行时'的实测口径：batch size 16 时 65B paged 与常规优化器同速；论文自报，尚未独立验证"
+scope: "LLaMA-65B；QLoRA 完整配置（NF4 存储 / BF16 计算双数据类型、FP8 量化常数 DQ、LoRA 全线性层、Paged Optimizers）；>780GB 为 16-bit 全量微调的论文估算口径；48GB 为单卡上限（33B/65B 在 24/48GB 单卡上依赖 Paged Optimizers 兜长序列显存尖峰，§4 自述 paging 很少触发、未给硬测量）；'不损运行时'的实测口径：batch size 16 时 65B paged 与常规优化器同速；论文自报"
 tags: [quantization, llm, qlora, memory, paged-optimizers, fine-tuning]
 note: library/Quantization/QLoRA.md#1-概述
 paper: "NeurIPS 2023（arXiv:2305.14314）, QLoRA: Efficient Finetuning of Quantized LLMs（开源：https://github.com/artidoro/qlora 、https://github.com/TimDettmers/bitsandbytes）"
@@ -36,7 +36,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（asserted，尚未独立验证）：QLoRA 用"NF4 4-bit 存储数据类型 + BF16 计算数据类型、只对 LoRA 参数反传"把微调显存大头（4-bit 权重 + 激活梯度）压下来，再靠 Paged Optimizers（NVIDIA unified memory 页切换）兜住梯度检查点的显存尖峰，使 LLaMA-65B 微调从 >780GB 降到 <48GB、单卡可跑，且运行时/预测性能不降。显存账的机理证据：7B 底座上 LoRA 参数只占 26 MB，而 LoRA 输入梯度 567 MB（gradient checkpointing 后 18 MB/序列）、4-bit 底座权重 5,048 MB——所以"激进砍 LoRA 参数省不了显存，可以每层都挂 adapter"（§2，这是全线性层 LoRA 策略的依据）。
+论文声称（asserted）：QLoRA 用"NF4 4-bit 存储数据类型 + BF16 计算数据类型、只对 LoRA 参数反传"把微调显存大头（4-bit 权重 + 激活梯度）压下来，再靠 Paged Optimizers（NVIDIA unified memory 页切换）兜住梯度检查点的显存尖峰，使 LLaMA-65B 微调从 >780GB 降到 <48GB、单卡可跑，且运行时/预测性能不降。显存账的机理证据：7B 底座上 LoRA 参数只占 26 MB，而 LoRA 输入梯度 567 MB（gradient checkpointing 后 18 MB/序列）、4-bit 底座权重 5,048 MB——所以"激进砍 LoRA 参数省不了显存，可以每层都挂 adapter"（§2，这是全线性层 LoRA 策略的依据）。
 
 必须记住的口径限定：
 

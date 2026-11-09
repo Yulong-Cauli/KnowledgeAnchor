@@ -214,7 +214,7 @@ Table 2 表头注：† initialized from a FCOS3D backbone；§ with test-time a
 ## 4. 核心结论
 
 1. BEVDet 证明可直接复用 BEV 语义分割的四模块范式做多相机 3D 目标检测，且性能主要来自两处定制：基于视图变换解耦性的 IDA+BDA 数据增强，与 Scale-NMS（§5 Conclusion；§3.2/§3.3）。
-2. 精度-效率权衡是其主打卖点：Tiny 版 31.2% mAP / 39.2% NDS @ 15.6 FPS、215.3 GFLOPs；Base 版 39.3% mAP / 47.2% NDS（val），test set 42.2% mAP / 48.2% NDS，为当时 nuScenes 视觉榜第一（§4.2，Table 2/3）。（以上为论文声称的基准快照，截至其 v3 提交日 2022-06-16，尚未独立验证。）
+2. 精度-效率权衡是其主打卖点：Tiny 版 31.2% mAP / 39.2% NDS @ 15.6 FPS、215.3 GFLOPs；Base 版 39.3% mAP / 47.2% NDS（val），test set 42.2% mAP / 48.2% NDS，为当时 nuScenes 视觉榜第一（§4.2，Table 2/3）。（以上为论文声称的基准快照，截至其 v3 提交日 2022-06-16。）
 3. 消融给出的方法论结论：BEV 空间学习易过拟合，BDA 是关键正则手段，IDA 只在 BDA 存在时对有 BE 的配置有正作用；BEV Encoder 贡献 +1.7% mAP；Scale-NMS 对小目标（行人 +4.8% AP、交通锥 +7.5% AP）收益最大（§4.3，Table 4/5）。
 4. BEV 表征的固有优势与短板：擅长 translation、scale、orientation、velocity（这些量在 BEV 空间定义），弱于 attribute（依赖外观线索，image-view 更易感知），作者提出的补救方向是两视图结合（§4.2；§5）。
 5. 论文自述后续工作：(1) 提升 attribute 预测；(2) 基于 BEVDet 的多任务学习（§5 Conclusion；原文将 benchmark 误拼为 "nuSenses"）。

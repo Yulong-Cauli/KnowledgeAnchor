@@ -48,7 +48,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（措辞按引用规则，尚未独立验证）：§5.4 说「By combining image and range-time data, we obtain BEV AP that is only 0.03 less than that of LiDAR only method.」，即 RT+C 的 BEV AP 只比 LiDAR only 方法低 0.03。但同一节 Table 6（本次实抓 arXiv v2 HTML 与 PDF，2026-11-03，两处逐字核对）给出：L（LiDAR only）行 Overall BEV AP@0.7 = **84.47±0.15**，C+RT 行 = **84.92±0.98**。实差 = 84.92 − 84.47 = **0.45**，且方向相反——RT+C 比 L **高** 0.45，不是低 0.03；量级差 15 倍。Table 6 的 BEV AP Overall 列中不存在与 L 差 0.03 的行（最近的是 RA+C 84.77，差 0.30）。同段后半句「LET-BEV-AP and long-range detection ability are even better」与 Table 6 一致，不自洽仅限 0.03 这一处。
+论文声称（措辞按引用规则）：§5.4 说「By combining image and range-time data, we obtain BEV AP that is only 0.03 less than that of LiDAR only method.」，即 RT+C 的 BEV AP 只比 LiDAR only 方法低 0.03。但同一节 Table 6（本次实抓 arXiv v2 HTML 与 PDF，2026-11-03，两处逐字核对）给出：L（LiDAR only）行 Overall BEV AP@0.7 = **84.47±0.15**，C+RT 行 = **84.92±0.98**。实差 = 84.92 − 84.47 = **0.45**，且方向相反——RT+C 比 L **高** 0.45，不是低 0.03；量级差 15 倍。Table 6 的 BEV AP Overall 列中不存在与 L 差 0.03 的行（最近的是 RA+C 84.77，差 0.30）。同段后半句「LET-BEV-AP and long-range detection ability are even better」与 Table 6 一致，不自洽仅限 0.03 这一处。
 
 三点边界说明：
 

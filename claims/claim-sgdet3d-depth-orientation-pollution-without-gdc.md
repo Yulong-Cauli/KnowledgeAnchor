@@ -3,7 +3,7 @@ id: claim-sgdet3d-depth-orientation-pollution-without-gdc
 title: "SGDet3D 自报：LACA 定向消融中无 GDC 增强的深度定向使 mAP_EAA 低于无定向基线（55.79 → 54.29），加 GDC 后反超至 58.19"
 type: claim
 status: asserted
-scope: "VoD 数据集；SGDet3D 管线内 LACA 内部定向机制消融（论文 Table，据库内笔记 §5.2 转录）；主张仅限 mAP_EAA 口径——同表 mAP_DC 上该行 73.25 略高于基线 73.19，方向与 EAA 相反；mAP_EAA/DC 口径笔记未定义，与 HGSFusion 的 EAA AP / RoI AP 口径互不可比（nightshift/cross/4d-radar.md M1）；「劣质深度概率污染 / 注意力采样坍塌」为论文归因措辞，笔记未提供注意力统计或分类别证据；自报数字，尚未独立验证"
+scope: "VoD 数据集；SGDet3D 管线内 LACA 内部定向机制消融（论文 Table，据库内笔记 §5.2 转录）；主张仅限 mAP_EAA 口径——同表 mAP_DC 上该行 73.25 略高于基线 73.19，方向与 EAA 相反；mAP_EAA/DC 口径笔记未定义，与 HGSFusion 的 EAA AP / RoI AP 口径互不可比（nightshift/cross/4d-radar.md M1）；「劣质深度概率污染 / 注意力采样坍塌」为论文归因措辞，笔记未提供注意力统计或分类别证据；自报数字"
 tags: [4d-radar, radar-camera-fusion, sgdet3d, vod, ablation, laca, depth-quality, failure-mode]
 note: library/Classical_Detection/SGDet3D.md#52-laca-内部定向机制消融
 paper: "RA-L 2025 · SGDet3D（面向 4D 雷达-相机融合的语义与几何融合 3D 目标检测；笔记未记录英文原题与 arXiv 号；开源：https://github.com/shawnnnkb/SGDet3D）"
@@ -36,7 +36,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（据笔记 §5.2 转录，尚未独立验证）：LACA 的深度定向（Depth-Ort）在没有 GDC 提供深度概率时，mAP_EAA 从无定向基线 55.79 降到 54.29（−1.50，低于基线）；同一 Depth-Ort 加上 GDC 后升至 58.19（+2.40，超基线）。论文把这归因为：劣质深度概率会污染 3D Key/Value 特征空间、导致注意力采样坍塌，因此高质量 GDC 是 3D 特征空间构建的必要前置条件。**归因是论文的解释**，笔记只有两行端点数字，没有注意力统计或分类别证据。
+论文声称（据笔记 §5.2 转录）：LACA 的深度定向（Depth-Ort）在没有 GDC 提供深度概率时，mAP_EAA 从无定向基线 55.79 降到 54.29（−1.50，低于基线）；同一 Depth-Ort 加上 GDC 后升至 58.19（+2.40，超基线）。论文把这归因为：劣质深度概率会污染 3D Key/Value 特征空间、导致注意力采样坍塌，因此高质量 GDC 是 3D 特征空间构建的必要前置条件。**归因是论文的解释**，笔记只有两行端点数字，没有注意力统计或分类别证据。
 
 引用前必读的两个限定：
 1. **指标方向不一致**：mAP_DC 口径下同一行是 73.25，略高于基线 73.19——「污染劣化」只在 mAP_EAA 出现，mAP_DC 下深度定向（无 GDC）并不劣于无定向基线。本卡主张仅限 mAP_EAA；不得笼统转述为「没有 GDC 深度定向就有害」。

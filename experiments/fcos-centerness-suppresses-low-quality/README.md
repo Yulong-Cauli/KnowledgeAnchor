@@ -1,6 +1,6 @@
 # FCOS center-ness 配对评测
 
-关联 `claim-fcos-centerness-suppresses-low-quality`（`asserted / watch`，论文声称，尚未独立验证）。本次预注册以 [四组验证池任务书 K-fcos](../../tmp_docs/05-夜间验证班任务书-四组验证池.md) 为准。
+关联 `claim-fcos-centerness-suppresses-low-quality`（`asserted / watch`）。待检验的机制来自 FCOS 论文。本次预注册以 [四组验证池任务书 K-fcos](../../tmp_docs/05-夜间验证班任务书-四组验证池.md) 为准。
 
 - 模型为 MMDetection v2.28.2 模型库的 `fcos_r50_caffe_fpn_gn-head_1x_coco`，使用对应官方 checkpoint `821213aa`。模型库 box AP 为 36.6。运行时记录 Git 提交、checkpoint、标注和图片 ID 列表的 SHA256，以及环境快照。
 - 数据为 `awsaf49/coco-2017-dataset` 的 COCO val2017。须有 5,000 张唯一图像、36,781 条实例标注、80 类，且所有图片路径存在。使用模型库的单尺度 1333×800、无翻转评测管线。

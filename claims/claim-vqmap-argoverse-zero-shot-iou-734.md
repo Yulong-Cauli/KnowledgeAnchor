@@ -3,7 +3,7 @@ id: claim-vqmap-argoverse-zero-shot-iou-734
 title: "论文声称：nuScenes 训练的阶段一 Codebook+Decoder 零样本迁移到 Argoverse 单目地图估计，Drivable 类 IoU 73.4（Argoverse 仅评此一类），高于前 SOTA 68.3（+5.1）"
 type: claim
 status: asserted
-scope: "Argoverse 数据集、单目（Monocular）BEV 地图估计；零样本跨数据集设定：阶段一离散表示学习产物（Codebook 与生成解码器）直接沿用 nuScenes 训练权重（论文正文称 off-the-shelf），阶段二（PV-BEV 对齐，backbone 换 ResNet50）在 Argoverse 训练；IoU 73.4 与前 SOTA 68.3 已对照 arXiv:2411.01618 核实与笔记一致（2026-11-02 抓取；「前 SOTA」为同表 TaDe [16]；2026-11-05 复抓澄清：73.4/68.3 为 Argoverse **Drivable 单类** IoU——论文 §4 明言 Argoverse 侧仅评 drivable area 一类，同表的 Drivable/Crossing/Walkway/Carpark 四类平均列属 nuScenes 单目部分、VQ-Map 该列为 47.6，11-02 曾误记为四类平均）；Argoverse val 为 24 序列（65 训练序列，Miami+Pittsburgh）；评测协议：VQ-Map 恒用 IoU 阈值 0.5、对比方法按原文各自最优阈值，LiDAR 不可达网格忽略（Table 2 原注）；数字为论文自报，尚未独立验证"
+scope: "Argoverse 数据集、单目（Monocular）BEV 地图估计；零样本跨数据集设定：阶段一离散表示学习产物（Codebook 与生成解码器）直接沿用 nuScenes 训练权重（论文正文称 off-the-shelf），阶段二（PV-BEV 对齐，backbone 换 ResNet50）在 Argoverse 训练；IoU 73.4 与前 SOTA 68.3 已对照 arXiv:2411.01618 核实与笔记一致（2026-11-02 抓取；「前 SOTA」为同表 TaDe [16]；2026-11-05 复抓澄清：73.4/68.3 为 Argoverse **Drivable 单类** IoU——论文 §4 明言 Argoverse 侧仅评 drivable area 一类，同表的 Drivable/Crossing/Walkway/Carpark 四类平均列属 nuScenes 单目部分、VQ-Map 该列为 47.6，11-02 曾误记为四类平均）；Argoverse val 为 24 序列（65 训练序列，Miami+Pittsburgh）；评测协议：VQ-Map 恒用 IoU 阈值 0.5、对比方法按原文各自最优阈值，LiDAR 不可达网格忽略（Table 2 原注）；数字为论文自报"
 tags: [bev, map-segmentation, vqvae, zero-shot-transfer, argoverse, nuscenes, vq-map]
 note: library/Quantization/VQ-Map.md#42-零样本跨数据集泛化-argoverse-monocular
 paper: "NeurIPS 2024, VQ-Map (arXiv:2411.01618)（代码：https://github.com/Z1zyw/VQ-Map）"
@@ -44,7 +44,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称：VQ-Map 阶段一学到的离散码本不是对 nuScenes 相机视角的过拟合——把在 nuScenes 上训练好的第一阶段 Codebook 与 Decoder 原封不动搬到 Argoverse 单目地图估计（只重训阶段二的 PV-BEV 对齐），拿到 IoU 73.4，比前 SOTA 68.3 高 5.1。即码本捕获的是跨数据集通用的道路拓扑结构。该主张尚未独立验证。
+论文声称：VQ-Map 阶段一学到的离散码本不是对 nuScenes 相机视角的过拟合——把在 nuScenes 上训练好的第一阶段 Codebook 与 Decoder 原封不动搬到 Argoverse 单目地图估计（只重训阶段二的 PV-BEV 对齐），拿到 IoU 73.4，比前 SOTA 68.3 高 5.1。即码本捕获的是跨数据集通用的道路拓扑结构。
 
 必须记住的限定（2026-11-05 复抓后更新）：73.4 的 IoU 只覆盖 Argoverse 的 Drivable 一类（该数据集侧仅评此一类），不能读作全类平均；"前 SOTA 68.3"为同表 TaDe [16]（单目方法，同 Drivable 列）。零样本严格性在论文正文层面已确认（off-the-shelf Codebook+Decoder 来自 nuScenes，阶段二在 Argoverse 训练），但"无任何目标域数据参与"仍属论文一面之词——早停、码本挑选等隐性泄漏只能靠代码/附录核查排除。评测协议上对比方法按各自最优阈值、VQ-Map 恒用 0.5（对 VQ-Map 偏保守），且 LiDAR 不可达网格被忽略。
 

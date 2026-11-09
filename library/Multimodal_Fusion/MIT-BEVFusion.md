@@ -11,7 +11,7 @@
 > - 全文 arXiv 官方 HTML v3 https://arxiv.org/html/2205.13542v3 （页面 title 核对一致），并与 ar5iv https://ar5iv.labs.arxiv.org/html/2205.13542 交叉核对：四张表逐行 diff 一致、正文段落 diff 一致（差异仅官方 HTML 页尾多一节 arXiv 平台的 "Instructions for reporting errors"）。以下 locator（§I、§III-B、Table I 等）均指该论文正文的 IEEE 风格罗马数字章节与表格编号。
 > - 已知差异：arXiv abs 页摘要与 HTML v3 正文摘要有少量措辞出入，逐字对照：abs 页作 "we break this deeply-rooted convention with BEVFusion"（HTML 正文作 "we propose BEVFusion"）、abs 页作 "lift key efficiency bottlenecks"（正文作 "lift the key efficiency bottlenecks"）、abs 页作 "reducing latency by more than 40x"（正文作 "reducing latency by more than 40 \times ."）、abs 页作 "on nuScenes"（正文作 "on the nuScenes benchmark"）。两处均为本次实际抓取文本；本笔记引摘要句时标注出自哪一页。
 > - 引句约定：引号内为本次抓取文本的逐字摘录；其中 `\times`、`[1,60]` 等为官方 HTML 的 math alttext 形态（未做排版还原），alttext 替换可能引入多余空格；方括号数字（如 [49]）为论文自身参考文献编号，照抄未改。表格中 – 为原文 dash（表示无该结果），照抄。
-> - 本笔记已入库（2026-11-03），未经用户独立核阅，所有结论均属"论文声称 / 尚未独立验证"。
+> - 本笔记已入库（2026-11-03）。
 
 ------
 
@@ -168,7 +168,7 @@ Table IV 逐字转录（原表两级表头：第一级表头行原文仅 6 个�
 
 ## 4. 核心结论
 
-1. 论文声称：把多传感器融合从 point-level 搬到统一 BEV 空间，可以同时改善几何导向任务（3D 检测：nuScenes test mAP/NDS 70.2/72.9，Table I）与语义导向任务（BEV 分割：mIoU 62.7，Table III），且计算更低（MACs 253.2G、RTX3090 延迟 119.2ms、8.4 FPS，Table I/§IV-A）。注意此为论文声称、尚未独立验证。
+1. 论文声称：把多传感器融合从 point-level 搬到统一 BEV 空间，可以同时改善几何导向任务（3D 检测：nuScenes test mAP/NDS 70.2/72.9，Table I）与语义导向任务（BEV 分割：mIoU 62.7，Table III），且计算更低（MACs 253.2G、RTX3090 延迟 119.2ms、8.4 FPS，Table I/§IV-A）。注意此为论文声称。
 2. 关键使能是 BEV pooling 的工程优化（预计算 + interval reduction 专用 kernel）：视图变换 500ms+ → 12ms（40×，§III-B），且"exact without any approximation"（§III-B）——这使得 BEV 空间融合从"算不起"变为可行。
 3. 模态权衡随任务改变：检测上 LiDAR 主导（Table I），分割上相机信息更关键（Table III 中 camera-only 56.6 已超 LiDAR-only 48.6）；融合收益在雨天/夜间、小/远物体、稀疏 LiDAR 下更大（Table IV、§V）。
 4. 结论段的量化总述原句（§VI）："BEVFusion rethinks the effectiveness of point-level fusion in multi-sensor perception systems and achieves superior performance on both nuScenes 3D detection and BEV map segmentation tasks with 1.5-1.9 \times less computation and 1.3-1.6 \times measured speedup over existing solutions. BEVFusion also outperforms all existing sensor fusion methods on Waymo open dataset."（注意：Table I caption 作 "1.5-2 \times"，§VI 作 "1.5-1.9 \times"，两处措辞不同，照抄保留）

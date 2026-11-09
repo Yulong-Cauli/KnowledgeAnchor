@@ -3,7 +3,7 @@ id: claim-r4det-tj4dradset-ablation-5407-bev-map
 title: "R4Det 声称：TJ4DRadSet 上 PDF/DGTF/IGDR 逐级叠加使 BEV mAP 从 45.15 增至 54.07、3D mAP 从 39.86 增至 47.29"
 type: claim
 status: asserted
-scope: "TJ4DRadSet validation set（论文 §4.4 自述 'chained ablation study on the TJ4DRadSet validation set'；表首行基线为 SGDet3D——论文自述 'the first row presents the SGDet3D baseline'）；4D 雷达-相机（含时序）3D 检测；累计式（逐级链式）消融：Baseline 45.15 / 39.86 → +PDF 46.86 (+1.71) / 41.41 → +DGTF 50.41 (+3.55) / 44.86 → +IGDR 54.07 (+3.66) / 47.29（BEV mAP / 3D mAP，笔记 §3.1 转录，2026-11-05 已实抓原文对照论文 Table 4 逐格核实）；完整模型 54.07 / 47.29 与论文 Table 1（TJ4DRadSet testset）R4Det 行同值；R4Det 自报数字，尚未独立验证；消融仅在 TJ4DRadSet（nightshift/cross/4d-radar.md M4），不可与 VoD 上的消融数字相加或比较"
+scope: "TJ4DRadSet validation set（论文 §4.4 自述 'chained ablation study on the TJ4DRadSet validation set'；表首行基线为 SGDet3D——论文自述 'the first row presents the SGDet3D baseline'）；4D 雷达-相机（含时序）3D 检测；累计式（逐级链式）消融：Baseline 45.15 / 39.86 → +PDF 46.86 (+1.71) / 41.41 → +DGTF 50.41 (+3.55) / 44.86 → +IGDR 54.07 (+3.66) / 47.29（BEV mAP / 3D mAP，笔记 §3.1 转录，2026-11-05 已实抓原文对照论文 Table 4 逐格核实）；完整模型 54.07 / 47.29 与论文 Table 1（TJ4DRadSet testset）R4Det 行同值；R4Det 自报数字；消融仅在 TJ4DRadSet（nightshift/cross/4d-radar.md M4），不可与 VoD 上的消融数字相加或比较"
 tags: [4d-radar, radar-camera-fusion, r4det, detection, tj4dradset, ablation]
 note: library/Classical_Detection/R4Det.md#31-模块正交增益-tj4dradset
 paper: "CVPR 2026 · R4Det: 4D Radar-Camera Fusion for High-Performance 3D Object Detection（笔记标注未开源，未记录 arXiv 号）"
@@ -44,7 +44,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（据笔记 §3.1 转述，尚未独立验证）：在 TJ4DRadSet 上以 Baseline（45.15 BEV mAP / 39.86 3D mAP）为起点，依次叠加 PDF、DGTF、IGDR 三个模块，BEV mAP 逐级 +1.71 / +3.55 / +3.66 至 54.07，3D mAP 至 47.29。
+论文声称（据笔记 §3.1 转述）：在 TJ4DRadSet 上以 Baseline（45.15 BEV mAP / 39.86 3D mAP）为起点，依次叠加 PDF、DGTF、IGDR 三个模块，BEV mAP 逐级 +1.71 / +3.55 / +3.66 至 54.07，3D mAP 至 47.29。
 
 必须记住的限定：
 1. 这是**累计式**消融（每行在前一行基础上加模块；论文原文自称 "chained ablation study"，2026-11-05 实抓）。笔记里「性能提升是正交叠加的」一句**不是论文原话**——原文只用 chained（逐级链式）表述，全文未出现 orthogonal（同日全文核对）；该句应记为笔记作者对链式消融的解读，不再作为论文声称收录。严格的正交性需要全因子实验（各模块单独用与所有组合），论文与笔记均未做（原文只有链式消融 + 各模块内部设计消融 Table 5–7 与补充材料 Table 8/9）。本卡的可证伪内容是表中四行数字本身。

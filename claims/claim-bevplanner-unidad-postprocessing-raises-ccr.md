@@ -3,7 +3,7 @@ id: claim-bevplanner-unidad-postprocessing-raises-ccr
 title: "BEV-Planner 论文声称：UniAD 轨迹后处理降低碰撞率却显著推高 CCR（1.72→7.83），旧指标评判开环方法有偏"
 type: claim
 status: asserted
-scope: "nuScenes val；UniAD 官方开源权重；对比为其轨迹后处理模块（P.P.，非线性优化避开 occupancy grid）开/关两种配置；指标为 Avg L2、Avg 碰撞率、Avg CCR（Table 6）；论文自报数字，尚未独立验证"
+scope: "nuScenes val；UniAD 官方开源权重；对比为其轨迹后处理模块（P.P.，非线性优化避开 occupancy grid）开/关两种配置；指标为 Avg L2、Avg 碰撞率、Avg CCR（Table 6）；论文自报数字"
 tags: [end-to-end-driving, open-loop, nuscenes, bev-planner, evaluation-metric, curb-collision-rate, unidad]
 note: library/ADe2e/BEV-Planner.md#4-核心结论
 paper: "CVPR 2024, Is Ego Status All You Need for Open-Loop End-to-End Autonomous Driving? (BEV-Planner, arXiv:2312.03031)"
@@ -36,7 +36,7 @@ signoff: null
 
 ## 这条主张是什么意思
 
-论文声称（尚未独立验证）：UniAD 的轨迹后处理（P.P.，非线性优化避开 occupancy grid）把 Avg 碰撞率从 0.62 降到 0.51，却把 Avg CCR 从 1.72 推高到 7.83（Table 6，官方权重），即它在压低碰撞率的同时显著增加冲出路面的风险；论文据此声称"依赖旧指标评判开环方法优劣是有偏的"（§4.3：relying on past metrics to judge the superiority of different open-loop methods is biased），并默认报告 UniAD 无后处理的结果。这是机制系的"指标后果"卡：egomlp-parity 说旧指标无区分度，本卡说换指标结论会反转。
+论文声称：UniAD 的轨迹后处理（P.P.，非线性优化避开 occupancy grid）把 Avg 碰撞率从 0.62 降到 0.51，却把 Avg CCR 从 1.72 推高到 7.83（Table 6，官方权重），即它在压低碰撞率的同时显著增加冲出路面的风险；论文据此声称"依赖旧指标评判开环方法优劣是有偏的"（§4.3：relying on past metrics to judge the superiority of different open-loop methods is biased），并默认报告 UniAD 无后处理的结果。这是机制系的"指标后果"卡：egomlp-parity 说旧指标无区分度，本卡说换指标结论会反转。
 
 ## 证据支持到哪里
 
@@ -59,7 +59,7 @@ signoff: null
 
 ## 对研究问题的启发
 
-- 安全评估要成对报告"碰撞率 + 道路边界类指标"：单看碰撞率可能奖励把风险推出可行驶区域的设计（论文以 GoStright/后处理两个例子示范，尚未独立验证）。
+- 安全评估要成对报告"碰撞率 + 道路边界类指标"：单看碰撞率可能奖励把风险推出可行驶区域的设计（论文以 GoStright 和后处理两个例子示范）。
 - 对带后处理的系统，消融要单列后处理的副作用，不能把端到端成绩与后处理成绩混为一谈。
 
 ## 当前立场与下一步

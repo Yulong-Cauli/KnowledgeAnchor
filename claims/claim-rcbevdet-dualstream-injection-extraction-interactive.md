@@ -1,6 +1,6 @@
 ---
 id: claim-rcbevdet-dualstream-injection-extraction-interactive
-title: "RCBEVDet 的 RadarBEVNet 用 point/transformer 双流骨干并经 Injection & Extraction 逐层双向交互（论文声称，尚未独立验证）"
+title: "RCBEVDet 的 RadarBEVNet 用 point/transformer 双流骨干并经 Injection & Extraction 逐层双向交互（论文声称）"
 type: claim
 status: asserted
 scope: "RCBEVDet（CVPR 2024）的方法设计声明；口径：RadarBEVNet 的 point-based 流 + transformer-based 流双分支与 Injection & Extraction 模块（笔记 §二.1）；『逐层双向交互』已对照 arXiv:2403.16440v1（applied at each block，公式 (5)(6)）核实；消融数字 CVPR 原文 Table 5 已含（transformer 流单独 +0.1 NDS、加 Injection & Extraction +0.6 NDS/+0.8 mAP，nuScenes），与扩展版草稿转录一致；本卡只主张『结构存在与逐层双向交互』，不主张增益幅度"
@@ -47,7 +47,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（尚未独立验证）：RadarBEVNet 用两个并行分支处理雷达点——point-based 流（类 PointNet：MLP 升维 + 最大池化再拼接，保留每点独立特征、抓局部细节）与 transformer-based 流（抓点与点之间的全局上下文，内部用 DMSA，见 [claim-rcbevdet-dmsa-gaussian-mask-early-convergence](claim-rcbevdet-dmsa-gaussian-mask-early-convergence.md)）——并由 Injection & Extraction 模块把两流在每一层用交叉注意力双向交互：把全局特征注入 point 流、把 point 流特征提取回 transformer 流，使信息互补。本卡主张『双流 + 逐层双向交互』这一结构事实，不主张相对单流的增益幅度。
+论文声称：RadarBEVNet 用两个并行分支处理雷达点——point-based 流（类 PointNet：MLP 升维 + 最大池化再拼接，保留每点独立特征、抓局部细节）与 transformer-based 流（抓点与点之间的全局上下文，内部用 DMSA，见 [claim-rcbevdet-dmsa-gaussian-mask-early-convergence](claim-rcbevdet-dmsa-gaussian-mask-early-convergence.md)）——并由 Injection & Extraction 模块把两流在每一层用交叉注意力双向交互：把全局特征注入 point 流、把 point 流特征提取回 transformer 流，使信息互补。本卡主张『双流 + 逐层双向交互』这一结构事实，不主张相对单流的增益幅度。
 
 关联：transformer 流输出最终经 RCS-aware BEV 编码器变稠密（[claim-rcbevdet-rcs-aware-scattering-dense-bev](claim-rcbevdet-rcs-aware-scattering-dense-bev.md)），再送入 CAMF 融合（[claim-rcbevdet-camf-alignment-then-fusion-robust](claim-rcbevdet-camf-alignment-then-fusion-robust.md)）。**复审更新（2026-11-02）**：上述消融数字并非只在扩展版——CVPR 原文（arXiv v1）Table 5「Ablation of RadarBEVNet」已含（transformer 流单独 +0.1 NDS，加 Injection and Extraction 后 +0.6 NDS / +0.8 mAP），已核入 evidence，与『两流必须交互才有用』的直觉一致；笔记本身仍无消融数字，本卡主张保持窄口径。
 

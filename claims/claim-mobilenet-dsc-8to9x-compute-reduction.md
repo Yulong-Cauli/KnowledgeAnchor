@@ -3,7 +3,7 @@ id: claim-mobilenet-dsc-8to9x-compute-reduction
 title: "MobileNetV1 论文声称 3×3 深度可分离卷积比标准卷积少 8–9 倍计算，并以 Table 4 全卷积对照（4866M→569M Mult-Adds、精度仅降 1.1 点）自证"
 type: claim
 status: asserted
-scope: "MobileNetV1（arXiv:1704.04861 v1）§3.1 理论计算量主张 + §4.1 Table 4 自报对照；ImageNet 分类、224 输入；计算量为 Mult-Adds（乘加数）理论口径，非实测时延；论文声称口径，尚未独立验证"
+scope: "MobileNetV1（arXiv:1704.04861 v1）§3.1 理论计算量主张 + §4.1 Table 4 自报对照；ImageNet 分类、224 输入；计算量为 Mult-Adds（乘加数）理论口径，非实测时延；论文声称口径"
 tags: [mobilenet, depthwise-separable-conv, efficient-backbone, imagenet]
 note: library/Efficient_Backbone/MobileNet.md#211-depthwise-separable-convolutionv1-31
 paper: "arXiv 2017, MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications (arXiv:1704.04861)"
@@ -52,7 +52,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（尚未独立验证）：把标准卷积 $D_K\cdot D_K\cdot M\cdot N\cdot D_F\cdot D_F$（V1 式2）拆成 depthwise（逐通道滤波）+ 1×1 pointwise（线性组合）两层后，合计计算量为 $D_K\cdot D_K\cdot M\cdot D_F\cdot D_F + M\cdot N\cdot D_F\cdot D_F$（V1 式5），约简比为 $1/N + 1/D_K^2$；对 3×3 核即 8–9 倍更少计算。这是 Mult-Adds 理论口径，不是实测时延主张。
+论文声称：把标准卷积 $D_K\cdot D_K\cdot M\cdot N\cdot D_F\cdot D_F$（V1 式2）拆成 depthwise（逐通道滤波）+ 1×1 pointwise（线性组合）两层后，合计计算量为 $D_K\cdot D_K\cdot M\cdot D_F\cdot D_F + M\cdot N\cdot D_F\cdot D_F$（V1 式5），约简比为 $1/N + 1/D_K^2$；对 3×3 核即 8–9 倍更少计算。这是 Mult-Adds 理论口径，不是实测时延主张。
 
 论文自己的实验锚点是 Table 4：全卷积版 Conv MobileNet（71.7% top-1 / 4866M Mult-Adds / 29.3M 参数）对比 depthwise separable 版 MobileNet（70.6% / 569M / 4.2M）——1.1 点精度换 8.5× 计算缩减、7× 参数缩减。MobileNetV2 §3.1 复述了同一 8–9× 口径（"8 to 9 times smaller"，见笔记 §2.2.1）。
 

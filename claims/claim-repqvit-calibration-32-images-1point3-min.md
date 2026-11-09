@@ -3,7 +3,7 @@ id: claim-repqvit-calibration-32-images-1point3-min
 title: "RepQ-ViT 论文自报：仅需 32 张校准图、单卡 RTX 3090 上 1.3 分钟完成整卡量化，无需梯度重建与超参搜索"
 type: claim
 status: asserted
-scope: "ImageNet ViT 的 PTQ 校准/量化阶段（笔记效率表未注明具体模型与校准集来源 split——校准 32 张 vs 测试 ImageNet，两个口径必须区分）；耗时口径为校准+量化流程在单卡 RTX 3090 上的时间，不是推理延迟；对比 FQ-ViT（1000 张 / 0.5 分钟）与 PTQ4ViT（32 张 / 3.2 分钟）为论文转引；该口径下的测试精度另见 [W4A4 主卡](claim-repqvit-w4a4-imagenet-leads-ptq-baselines.md)；尚未独立验证"
+scope: "ImageNet ViT 的 PTQ 校准/量化阶段（笔记效率表未注明具体模型与校准集来源 split——校准 32 张 vs 测试 ImageNet，两个口径必须区分）；耗时口径为校准+量化流程在单卡 RTX 3090 上的时间，不是推理延迟；对比 FQ-ViT（1000 张 / 0.5 分钟）与 PTQ4ViT（32 张 / 3.2 分钟）为论文转引；该口径下的测试精度另见 [W4A4 主卡](claim-repqvit-w4a4-imagenet-leads-ptq-baselines.md)"
 tags: [quantization, ptq, repqvit, vit, calibration-efficiency]
 note: library/Quantization/RepQ-ViT.md#33-部署与校准效率-efficiency
 paper: "ICCV 2023, RepQ-ViT: Scale Reparameterization for Post-Training Quantization of Vision Transformers（代码：https://github.com/zkkli/RepQ-ViT）"
@@ -36,7 +36,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（asserted，尚未独立验证）：RepQ-ViT 没有梯度重建和超参搜索，量化一个 ViT 模型只需 32 张校准图、单卡 3090 上 1.3 分钟；对比 PTQ4ViT 同为 32 张但需 3.2 分钟，FQ-ViT 需 1000 张 0.5 分钟。
+论文声称（asserted）：RepQ-ViT 没有梯度重建和超参搜索，量化一个 ViT 模型只需 32 张校准图、单卡 3090 上 1.3 分钟；对比 PTQ4ViT 同为 32 张但需 3.2 分钟，FQ-ViT 需 1000 张 0.5 分钟。
 
 必须记住的口径限定（QwT 教训）：
 

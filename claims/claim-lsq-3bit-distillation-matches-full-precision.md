@@ -3,7 +3,7 @@ id: claim-lsq-3bit-distillation-matches-full-precision
 title: "LSQ 自报：3-bit 全量化网络加同架构知识蒸馏首次（作者所知）达到全精度基线精度（ResNet-18 70.6 vs 70.5、ResNet-34 74.3 vs 74.1、ResNet-50 76.9 vs 76.9）"
 type: claim
 status: asserted
-scope: "ImageNet；pre-activation ResNet-18/34/50；权重与激活 3-bit（首末层 8-bit）；教师 = 同架构冻结权重的全精度模型（Hinton 蒸馏 loss、温度 1、标准 loss 与蒸馏 loss 等权）；对照基线为 Table 1 的全精度 top-1（70.5/74.1/76.9）；'首次' 为论文自报（"for the first time that we are aware of"）；论文自报，尚未独立验证"
+scope: "ImageNet；pre-activation ResNet-18/34/50；权重与激活 3-bit（首末层 8-bit）；教师 = 同架构冻结权重的全精度模型（Hinton 蒸馏 loss、温度 1、标准 loss 与蒸馏 loss 等权）；对照基线为 Table 1 的全精度 top-1（70.5/74.1/76.9）；'首次' 为论文自报（"for the first time that we are aware of"）；论文自报"
 tags: [quantization, qat, lsq, knowledge-distillation, 3bit]
 note: library/Quantization/LSQ.md#36-知识蒸馏增益37-table-4
 paper: "ICLR 2020（arXiv:1902.08153）, Learned Step Size Quantization（IBM Research；论文未给官方代码链接）"
@@ -40,7 +40,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（asserted，尚未独立验证）：LSQ 3-bit 网络 + 同架构全精度教师的知识蒸馏（温度 1、等权 loss）后，top-1 达到或略超全精度基线——ResNet-18 70.6 vs 70.5、ResNet-34 74.3 vs 74.1、ResNet-50 76.9 vs 76.9（Table 4 的 32bit 列与 Table 1 的 Full precision 行互为印证，两处数字一致）；蒸馏本身带来最多 +1.1（3-bit ResNet-50，76.9 vs Table 1 无蒸馏 75.8）。
+论文声称（asserted）：LSQ 3-bit 网络 + 同架构全精度教师的知识蒸馏（温度 1、等权 loss）后，top-1 达到或略超全精度基线——ResNet-18 70.6 vs 70.5、ResNet-34 74.3 vs 74.1、ResNet-50 76.9 vs 76.9（Table 4 的 32bit 列与 Table 1 的 Full precision 行互为印证，两处数字一致）；蒸馏本身带来最多 +1.1（3-bit ResNet-50，76.9 vs Table 1 无蒸馏 75.8）。
 
 必须记住的口径限定：
 

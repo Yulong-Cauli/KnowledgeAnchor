@@ -19,7 +19,7 @@
   2. **现有指标不全面**：L2 距离与碰撞率无法惩罚"冲出路面"这类高风险轨迹，论文据此提出路沿碰撞率 CCR（Curb Collision Rate）（§1、§4.2）。
   3. **ego status 对驾驶逻辑的偏置**：§1 原句 *"blanking all the camera input in VAD [16] leads to complete failure of the perception module but minor degrade in planning, when ego status is present. However, altering the input ego velocity can significantly influence the final predicted trajectory."*
 - 论文同时指出 ST-P3 在训练与评测中使用了部分错误的 GT 数据（§3 与 Appendix A；相关 issue：https://github.com/OpenDriveLab/ST-P3/issues/24），因此需要重新设计一个干净的基线，即 BEV-Planner。
-- 结论方向（§1 末）：论文推测 nuScenes 上的 SOTA 分数很可能来自对 ego status 的过度依赖 + 简单直行场景主导，且现有指标无法全面评估轨迹质量——即"ego status 就够了"是一种误导性印象（论文声称，尚未独立验证）。
+- 结论方向（§1 末）：论文推测 nuScenes 上的 SOTA 分数很可能来自对 ego status 的过度依赖 + 简单直行场景主导，且现有指标无法全面评估轨迹质量——即"ego status 就够了"是一种误导性印象（论文声称）。
 
 ## 2. 方法
 
@@ -158,7 +158,7 @@
 
 ## 4. 核心结论
 
-论文在 §5 给出三条结论（以下为论文声称，尚未独立验证）：
+论文在 §5 给出三条结论（以下为论文声称）：
 
 1. *"The planning performance of existing open-loop autonomous driving models based on nuScenes is highly affected by ego status (velocity, acceleration, yaw angle)."* ego status 一旦进入模型，最终预测轨迹基本被其支配，感知信息利用被弱化（§5）。
 2. *"Existing planning metrics fall short of fully capturing the true performance of models."* 换指标结论可能显著变化；论文倡导更多样、更全面的指标，避免模型在特定指标上局部最优而忽视其他安全隐患（§5）。

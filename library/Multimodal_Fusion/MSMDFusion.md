@@ -293,7 +293,7 @@ $$\hat{F}^{M}_{i+1}=F^{M}_{i+1}+\mathtt{DownSample}(\hat{F}^{M}_{i}),$$
    - 以 LiDAR 为引导的门控"选择-聚合"（GMA-Conv，Eq. 2）+ FPS 子采样（L=2048）把体素空间细粒度交互做到整体 $\mathcal{O}(\rm{M+N})$ 复杂度（§3.3.2），是"不想付 cross-attention 二次代价又想要细粒度交互"时的一个参考设计。
    - 速度上本文不是最快：单卡 RTX 3090 上 2.1 FPS，远低于 BEVFusion [16] 的 8.4 FPS（Table 3），选型时需按延迟预算权衡。
 
-3. **本笔记与 claim 的边界**：以上全部结果均为论文声称（nuScenes test/val，单模型无 TTA/ensemble），尚未独立验证。若后续要建 claim 卡，需按 `templates/claim.md` 独立成卡并附 falsifiers，本笔记不承载 verified 结论。
+3. **本笔记与 claim 的边界**：以上全部结果均为论文声称（nuScenes test/val，单模型无 TTA/ensemble）。若后续要建 claim 卡，需按 `templates/claim.md` 独立成卡并附 falsifiers，本笔记不承载 verified 结论。
 
 ---
 

@@ -3,7 +3,7 @@ id: claim-repqvit-w4a4-imagenet-leads-ptq-baselines
 title: "RepQ-ViT 论文自报：W4A4 下 ViT-B / DeiT-S / Swin-S 在 ImageNet 达 68.48 / 69.03 / 79.45，高于 PTQ4ViT 与 APQ-ViT，且无超参调节、无重建"
 type: claim
 status: asserted
-scope: "ImageNet 图像分类；W4A4 PTQ（权重与激活均 4-bit）；模型 ViT-B / DeiT-S / Swin-S（FP32 基准 84.54 / 79.85 / 83.23）；精度为论文自报测试集准确率（笔记未写明 val split 与 top-1 口径）；RepQ-ViT 在无超参调节（No HP）、无昂贵重建（No REC）设定下运行，校准仅用 32 张图（§3.3，笔记未注明校准集来源与 split，校准 vs 测试口径以此区分）；对比方法（FQ-ViT / PTQ4ViT / APQ-ViT）数字为论文转引；尚未独立验证"
+scope: "ImageNet 图像分类；W4A4 PTQ（权重与激活均 4-bit）；模型 ViT-B / DeiT-S / Swin-S（FP32 基准 84.54 / 79.85 / 83.23）；精度为论文自报测试集准确率（笔记未写明 val split 与 top-1 口径）；RepQ-ViT 在无超参调节（No HP）、无昂贵重建（No REC）设定下运行，校准仅用 32 张图（§3.3，笔记未注明校准集来源与 split，校准 vs 测试口径以此区分）；对比方法（FQ-ViT / PTQ4ViT / APQ-ViT）数字为论文转引"
 tags: [quantization, ptq, repqvit, vit, w4a4, imagenet]
 note: library/Quantization/RepQ-ViT.md#31-极限-4-bit-图像分类-imagenet
 paper: "ICCV 2023, RepQ-ViT: Scale Reparameterization for Post-Training Quantization of Vision Transformers（代码：https://github.com/zkkli/RepQ-ViT）"
@@ -33,7 +33,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（asserted，尚未独立验证）：W4A4 极限设定下此前 PTQ 方法全面崩盘（FQ-ViT 0.10、PTQ4ViT 30.69 / 34.08 / 76.09、APQ-ViT 41.41 / 43.55 / 77.15），RepQ-ViT 在 ViT-B / DeiT-S / Swin-S 上达 68.48 / 69.03 / 79.45，且不需要超参调节和梯度重建。论文将此归因于"量化-推理解耦"：量化阶段用复杂量化器（逐通道、log_√2）保精度，推理阶段经尺度重参数化转换为硬件友好的简单量化器（逐层、log_2）。
+论文声称（asserted）：W4A4 极限设定下此前 PTQ 方法全面崩盘（FQ-ViT 0.10、PTQ4ViT 30.69 / 34.08 / 76.09、APQ-ViT 41.41 / 43.55 / 77.15），RepQ-ViT 在 ViT-B / DeiT-S / Swin-S 上达 68.48 / 69.03 / 79.45，且不需要超参调节和梯度重建。论文将此归因于"量化-推理解耦"：量化阶段用复杂量化器（逐通道、log_√2）保精度，推理阶段经尺度重参数化转换为硬件友好的简单量化器（逐层、log_2）。
 
 三个必须记住的限定：
 

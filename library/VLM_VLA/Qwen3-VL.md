@@ -9,7 +9,7 @@
 > - abs 页 https://arxiv.org/abs/2511.21631 本次抓取确认，页面 title 为 "[2511.21631] Qwen3-VL Technical Report"。
 > - 全文依据 arXiv 官方 HTML v2 https://arxiv.org/html/2511.21631v2 （LaTeXML oxide 0.7.6 渲染，约 613 KB，本次抓取）。以下 locator（§x / Table x）均指该 HTML v2 的章节与表格编号；引号内英文为本次实际抓取渲染文本的逐字摘录，HTML 内夹带的粗体/等宽 span 按渲染文本还原；LaTeX 数学按该渲染的 alttext 记录（如 merger 压缩比的 LaTeX alttext "2\times 2" 即 2×2；§2.3 时间戳样例 "<3.0 seconds>" 的尖括号是 token 的一部分，非引用符号）。
 > - 已知 HTML v2 缺陷：§5.1–5.10 正文有 10 处空交叉引用（"shown in Table ,"×3、"shown in ,"×3、"As detailed in , and ,"、"As reported in ,"、"presented in Tables and ,"、"provided in Tables and ,"），对应的多模态结果大表未包含在该 HTML 中（HTML 全文只有 Table 1–9：Table 1 训练配置、Table 2–7 文本中心评测、Table 8/9 消融）。PDF（https://arxiv.org/pdf/2511.21631v2 ，本次抓取后经 pdftotext 抽查）含 12 张表：PDF Table 2/3/4 为 HTML 缺失的多模态大表，PDF Table 5–10 对应 HTML Table 2–7，PDF Table 11/12 对应 HTML Table 8/9（编号相差 3）。本笔记多模态数字一律取自正文 prose 逐字句，未从缺失大表转抄；仅对少量 prose 数字做了 PDF 表抽查（MMStar 78.7 在 Qwen3-VL thinking 列首值块、MMMU 80.6 同块首值、MMBench-EN 89.3/88.9 在 instruct 块，均与 prose 一致），详见 TODO。
-> - 本笔记 2026-11-03 经入库前逐字 QA（quote 自洽 + 数字抽查）后自 nightshift/drafts/ 入库至 library/VLM_VLA/，未经用户核阅前所有结论均属「论文声称 / 尚未独立验证」。
+> - 本笔记 2026-11-03 经入库前逐字 QA（quote 自洽 + 数字抽查）后自 nightshift/drafts/ 入库至 library/VLM_VLA/。
 
 ------
 
@@ -307,7 +307,7 @@ Table 9 逐字行（caption: "Ablation on DeepStack. We conduct the ablation stu
 
 ## 4. 核心结论
 
-1. 论文声称：Qwen3-VL 以「SigLIP-2 视觉编码器 + 两层 MLP merger + Qwen3 LLM 骨干」三模块架构，配合三项升级（interleaved MRoPE、DeepStack 多层 ViT 特征注入前三层 LLM、文本时间戳替代 T-RoPE），在 4 dense（2B/4B/8B/32B）+ 2 MoE（30B-A3B/235B-A22B）上实现 256K 原生交错上下文与 non-thinking/thinking 双模式（Abstract；§1；§2）。此为论文声称、尚未独立验证。
+1. 论文声称：Qwen3-VL 以「SigLIP-2 视觉编码器 + 两层 MLP merger + Qwen3 LLM 骨干」三模块架构，配合三项升级（interleaved MRoPE、DeepStack 多层 ViT 特征注入前三层 LLM、文本时间戳替代 T-RoPE），在 4 dense（2B/4B/8B/32B）+ 2 MoE（30B-A3B/235B-A22B）上实现 256K 原生交错上下文与 non-thinking/thinking 双模式（Abstract；§1；§2）。此为论文声称。
 2. 训练配方可复述为「4 阶段预训练（merger 对齐 67B → 全参 ~1T @8K → 全参 ~1T @32K → 100B @256K）+ 3 阶段后训练（1.2M 样本 SFT → 强到弱蒸馏（仅文本数据、调 LLM 骨干）→ SAPO 强化学习 + 通用 RL）」，配合 thinking with images 两阶段工具集成 RL（Table 1；§3.1；§4）。预训练数据规模声称：30M OCR、3M+4M 文档、6M 图题、>60M 习题、>12M 长 CoT 推理样本（§3.2.3/3.2.3/3.2.8）。
 3. 文本能力：旗舰 Instruct/Thinking 与对应 Qwen3 文本基座及闭源模型"competitive"（Table 2/3 具体数字见 3.2 节）；32B/30B-A3B 全面超过同规模 Qwen3 文本模型（Table 4 逐行成立；Table 5 为 "most of"）；小模型受益于蒸馏（§5.11）。跨代对比（§5.2 原句）："the medium-sized Qwen3-VL model has already surpassed it on reasoning tasks"（指超过上代 Qwen2.5-VL-72B）。
 4. 多模态：论文的 SOTA 声明集中在 OCR/文档（Instruct 建立新 SOTA）、2D grounding（ODinW-13 48.6 mAP）、GUI agent（32B OSWorld 41 / AndroidWorld 63.7）、长文档（MMLongBench-Doc 57.0/56.2）、带工具细粒度感知（V* 93.7 / HRBench-4k 85.3 / HRBench-8k 82.3）等域，且多带限定语；与最强推理模型（GPT-5 high 等）同场时部分基准并非第一（§5.2；§5.4；§5.5；§5.6；§5.10；PDF Table 2 抽查）。视频侧 8B ≈ 上代 72B（§5.9）。

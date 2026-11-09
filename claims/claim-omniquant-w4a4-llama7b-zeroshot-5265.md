@@ -3,7 +3,7 @@ id: claim-omniquant-w4a4-llama7b-zeroshot-5265
 title: "OmniQuant 论文自报：LLaMA-1-7B W4A4 六任务零样本平均准确率 52.65%，高于 SmoothQuant (38.41%) 与 LLM-QAT (41.27%)"
 type: claim
 status: asserted
-scope: "LLaMA-1-7B；W4A4（逐通道 4-bit 权重 + 逐 token 4-bit 激活，Softmax 输出保持 16-bit）；六任务零样本平均准确率（PIQA / ARC-e / ARC-c / BoolQ / HellaSwag / Winogrande，lm-eval-harness，camera-ready Table 2）；FP16 基准 64.09%；OmniQuant 为 PTQ，优化仅用取自 WikiText2 的 128 段 2048-token 校准文本（§4.1，单卡 A100、20 epochs，论文未明说训练/测试 split），评测在 held-out 零样本任务；数字为论文自报；尚未独立验证"
+scope: "LLaMA-1-7B；W4A4（逐通道 4-bit 权重 + 逐 token 4-bit 激活，Softmax 输出保持 16-bit）；六任务零样本平均准确率（PIQA / ARC-e / ARC-c / BoolQ / HellaSwag / Winogrande，lm-eval-harness，camera-ready Table 2）；FP16 基准 64.09%；OmniQuant 为 PTQ，优化仅用取自 WikiText2 的 128 段 2048-token 校准文本（§4.1，单卡 A100、20 epochs，论文未明说训练/测试 split），评测在 held-out 零样本任务；数字为论文自报"
 tags: [quantization, ptq, omniquant, llm, w4a4, zero-shot]
 note: library/Quantization/OmniQuant.md#4-实验与分析-experiments
 paper: "ICLR 2024, OmniQuant: Omnidirectionally Calibrated Quantization for Large Language Models (arXiv:2308.13137)"
@@ -53,7 +53,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（asserted，尚未独立验证）：LLaMA-1-7B 在 W4A4 下六个零样本任务平均准确率 52.65%，比 SmoothQuant (38.41%) 高约 14 个点，也高于 QAT 方法 LLM-QAT (41.27%)；FP16 基准 64.09%。W4A4 的瓶颈在激活离群值，论文将其归因于 LET 的可学习等价变换比 SmoothQuant 的人工缩放规则更有效地平抑离群值。
+论文声称（asserted）：LLaMA-1-7B 在 W4A4 下六个零样本任务平均准确率 52.65%，比 SmoothQuant (38.41%) 高约 14 个点，也高于 QAT 方法 LLM-QAT (41.27%)；FP16 基准 64.09%。W4A4 的瓶颈在激活离群值，论文将其归因于 LET 的可学习等价变换比 SmoothQuant 的人工缩放规则更有效地平抑离群值。
 
 三个必须记住的限定：
 

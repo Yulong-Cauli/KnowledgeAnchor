@@ -3,7 +3,7 @@ id: claim-fcos-centerness-regression-branch-ap-gain
 title: "FCOS 笔记图注声称：将 center-ness 从分类分支移到回归分支后 AP 进一步提升"
 type: claim
 status: asserted
-scope: "FCOS（ICCV 2019）center-ness 的挂载位置设计（分类分支 vs 回归分支）；主张层级为笔记图注转述：笔记未载 AP 数字，数字出处已于 2026-11-03 定位（见下方附注），但数字是否补入 evidence 待主人定夺，本卡 evidence 仍以笔记 quote 为准；复现侧尚未独立验证"
+scope: "FCOS（ICCV 2019）center-ness 的挂载位置设计（分类分支 vs 回归分支）；主张层级为笔记图注转述：笔记未载 AP 数字，数字出处已于 2026-11-03 定位（见下方附注），但数字是否补入 evidence 待主人定夺，本卡 evidence 仍以笔记 quote 为准；本库未复测不同挂载位置的 AP"
 tags: [fcos, anchor-free, detection, centerness, ablation]
 note: library/Classical_Detection/FCOS.md#architecture
 paper: "ICCV 2019, FCOS: Fully Convolutional One-Stage Object Detection（开源：https://github.com/tianzhi0549/FCOS）"
@@ -23,7 +23,7 @@ signoff: null
 
 ## 我的理解
 
-笔记 Figure2 处图注记载：“后续实验证明，将其移到回归分支后，AP 进一步提升”——即 center-ness 挂在回归塔比挂在分类塔更优。本卡按笔记记载转述，尚未独立验证。
+笔记 Figure2 处图注记载：“后续实验证明，将其移到回归分支后，AP 进一步提升”——即 center-ness 挂在回归塔比挂在分类塔更优。本卡按笔记记载转述。
 
 限定：图注未注明“后续实验”的具体出处（原论文正文、扩展版或第三方工作），笔记全文亦无 AP 数字；本卡只记录该设计方向，不主张任何数字。
 

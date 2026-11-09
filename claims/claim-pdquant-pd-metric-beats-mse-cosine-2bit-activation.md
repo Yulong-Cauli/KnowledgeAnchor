@@ -3,7 +3,7 @@ id: claim-pdquant-pd-metric-beats-mse-cosine-2bit-activation
 title: "PD-Quant 声称在 ResNet-18 的 2-bit 激活量化（W8A2/W4A2）下，PD 度量选出的激活缩放因子精度高于 MSE / Cosine（Min-Max 行论文原文无数字）"
 type: claim
 status: asserted
-scope: "ResNet-18 分类；W8A2 与 W4A2 两种设置（激活均为 2-bit，权重 8/4-bit）；对比 Cosine / MSE / PD 三种有数字的激活缩放因子度量（Min-Max 行论文原文为「-」无数字）；精度口径为验证集 top-1 accuracy(%)（论文 Table 1 caption 原文，2026-11-03 实抓核对）；Table 1 的数据集与校准集大小论文 caption 未直接写明（同论文 Table 2 口径为 ImageNet、1024 张校准图，不能默认套用）；PD-Quant 论文自报数字；尚未独立验证"
+scope: "ResNet-18 分类；W8A2 与 W4A2 两种设置（激活均为 2-bit，权重 8/4-bit）；对比 Cosine / MSE / PD 三种有数字的激活缩放因子度量（Min-Max 行论文原文为「-」无数字）；精度口径为验证集 top-1 accuracy(%)（论文 Table 1 caption 原文，2026-11-03 实抓核对）；Table 1 的数据集与校准集大小论文 caption 未直接写明（同论文 Table 2 口径为 ImageNet、1024 张校准图，不能默认套用）；PD-Quant 论文自报数字"
 tags: [quantization, ptq, pdquant]
 note: library/Quantization/PD-Quant.md#41-激活缩放因子度量对比-table-1
 paper: "CVPR 2023, PD-Quant: 基于预测差异度量的后训练量化（开源：https://github.com/hustvl/PD-Quant）"
@@ -42,7 +42,7 @@ signoff: null
 
 > **2026-11-03 笔记数字修正（依据：nightshift/cross/quantization.md §8 + 实抓 URL：https://arxiv.org/pdf/2212.07048v3 、https://arxiv.org/pdf/2212.07048v1 、https://openaccess.thecvf.com/content/CVPR2023/papers/Liu_PD-Quant_Post-Training_Quantization_Based_on_Prediction_Difference_Metric_CVPR_2023_paper.pdf ，2026-11-03 抓取，pdftotext 提取，三版本一致）**：原笔记 Table 1 的 Min-Max 1.83/0.81、Cosine 23.36/15.68、MSE W4A2 17.55、PD W4A2 23.51 在论文三版本中均不存在，笔记已按论文原表逐格重建（还补上了 ResNet-50 与 RegNet-600M 两组列）；W8A2 的 MSE 23.15 与 PD 28.41 两值原本就与论文一致。卡内 evidence quote 已同步为新表逐字引文。**主张方向不变且被修正后数字继续支持**：ResNet-18 W8A2/W4A2 下 PD 28.41/12.27 > MSE 23.15/10.31 > Cosine 11.09/4.15，Min-Max 行论文原文即为「-」（无数字）。另：论文 Table 1 caption 明确口径为「top-1 accuracy(%) on validation set」——本卡 scope 中「精度口径笔记均未注明」的缺口已补上（验证集 top-1）。status 不动。
 
-论文声称（尚未独立验证）：为激活缩放因子 S_a 选度量时，局部特征度量在 2-bit 激活下几乎失效——ResNet-18 W8A2/W4A2 下 MSE 23.15% / 10.31%、Cosine 11.09% / 4.15%，而 PD（把量化误差传播到最终输出、算与全精度预测的 KL 散度）达到 28.41% / 12.27%；Min-Max 行论文原文即为「-」，没有数字（「高于 Min-Max」不构成 Table 1 支持的数字对比）。修正后的 Table 1 还含 ResNet-50 与 RegNet-600M 列，排序方向相同（如 ResNet-50 W8A2：PD 11.31 / MSE 9.23 / Cosine 2.19），本卡主张仍以 ResNet-18 为核心。
+论文声称：为激活缩放因子 S_a 选度量时，局部特征度量在 2-bit 激活下几乎失效——ResNet-18 W8A2/W4A2 下 MSE 23.15% / 10.31%、Cosine 11.09% / 4.15%，而 PD（把量化误差传播到最终输出、算与全精度预测的 KL 散度）达到 28.41% / 12.27%；Min-Max 行论文原文即为「-」，没有数字（「高于 Min-Max」不构成 Table 1 支持的数字对比）。修正后的 Table 1 还含 ResNet-50 与 RegNet-600M 列，排序方向相同（如 ResNet-50 W8A2：PD 11.31 / MSE 9.23 / Cosine 2.19），本卡主张仍以 ResNet-18 为核心。
 
 历史记录（2026-11-03 修正前的旧转录，论文 v1/v3/CVF 三版本中均不存在，仅作历史保留、不作当前证据）：Min-Max 1.83%/0.81%、Cosine 23.36%/15.68%、MSE W4A2 17.55%、PD W4A2 23.51%。
 

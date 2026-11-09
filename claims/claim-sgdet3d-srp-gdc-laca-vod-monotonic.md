@@ -3,7 +3,7 @@ id: claim-sgdet3d-srp-gdc-laca-vod-monotonic
 title: "SGDet3D 自报：VoD 组件消融中 SRP → GDC → LACA 逐级叠加，mAP_EAA 单调增长 50.44 → 56.11 → 58.27 → 59.49"
 type: claim
 status: asserted
-scope: "VoD 数据集；SGDet3D 管线内组件消融（论文 Table，据库内笔记 §5.1 转录）；指标为 mAP_EAA / mAP_DC——口径笔记未定义，且与 HGSFusion 的 EAA AP / RoI AP 口径互不可比（nightshift/cross/4d-radar.md M1/M2），59.49/77.11 不得与 HGSFusion 的 58.96 / 62.61 横向比较；叠加顺序固定为 Baseline → +SRP → +SRP+GDC → 完整模型（GDC 未单测、LACA 未单测）；SGDet3D 自报数字（RA-L 2025），尚未独立验证"
+scope: "VoD 数据集；SGDet3D 管线内组件消融（论文 Table，据库内笔记 §5.1 转录）；指标为 mAP_EAA / mAP_DC——口径笔记未定义，且与 HGSFusion 的 EAA AP / RoI AP 口径互不可比（nightshift/cross/4d-radar.md M1/M2），59.49/77.11 不得与 HGSFusion 的 58.96 / 62.61 横向比较；叠加顺序固定为 Baseline → +SRP → +SRP+GDC → 完整模型（GDC 未单测、LACA 未单测）；SGDet3D 自报数字（RA-L 2025）"
 tags: [4d-radar, radar-camera-fusion, sgdet3d, vod, ablation, srp, gdc, laca]
 note: library/Classical_Detection/SGDet3D.md#51-核心组件消融-vod-数据集
 paper: "RA-L 2025 · SGDet3D（面向 4D 雷达-相机融合的语义与几何融合 3D 目标检测；笔记未记录英文原题与 arXiv 号；开源：https://github.com/shawnnnkb/SGDet3D）"
@@ -40,7 +40,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（据笔记 §5.1 转录，尚未独立验证）：VoD 组件消融中按 SRP（语义雷达 PillarNet，图像语义→雷达特征）→ GDC（几何深度补全，雷达深度→图像特征）→ LACA（定位感知交叉注意力）顺序逐级叠加，mAP_EAA 50.44 → 56.11 → 58.27 → 59.49，mAP_DC 69.76 → 73.06 → 75.80 → 77.11，两指标全序列单调。SRP 的 +5.67 mAP_EAA 是全表最大单步增益，也是唯一的单组件隔离增益（GDC 只在 +SRP 之上出现、LACA 只在 +SRP+GDC 之上出现，两者单独的增益表中未测）。
+论文声称（据笔记 §5.1 转录）：VoD 组件消融中按 SRP（语义雷达 PillarNet，图像语义→雷达特征）→ GDC（几何深度补全，雷达深度→图像特征）→ LACA（定位感知交叉注意力）顺序逐级叠加，mAP_EAA 50.44 → 56.11 → 58.27 → 59.49，mAP_DC 69.76 → 73.06 → 75.80 → 77.11，两指标全序列单调。SRP 的 +5.67 mAP_EAA 是全表最大单步增益，也是唯一的单组件隔离增益（GDC 只在 +SRP 之上出现、LACA 只在 +SRP+GDC 之上出现，两者单独的增益表中未测）。
 
 自洽交叉核对：完整模型行 59.49 / 77.11 与 §5.3 LiDAR 监督行完全相同，两表一致；这也说明完整模型默认用 LiDAR 真值做深度监督（见 [监督源卡](claim-sgdet3d-depth-supervision-density-gain.md)）。
 

@@ -3,7 +3,7 @@ id: claim-sgdet3d-sota-eaa-dc-caliber
 title: "SGDet3D 自报在 VoD（mAP_EAA 59.49 / mAP_DC 77.11 口径）与 TJ4DRadSet 上达到 SOTA；该口径与 HGSFusion 的 RoI AP 口径互不可比"
 type: claim
 status: asserted
-scope: "VoD 与 TJ4DRadSet；SOTA 声称的 VoD 支撑数字为完整模型 mAP_EAA 59.49 / mAP_DC 77.11（笔记 §5.1）；库内笔记未记录 SOTA 对比表（对比方法、各自数字、评测口径均无），TJ4DRadSet 上更无任何数字记录；mAP_EAA/DC 口径笔记未定义，VoD 上与 HGSFusion 的 EAA AP / RoI AP 口径互不可比、与 R4Det 的即插即用 EAA 增量亦不可比（nightshift/cross/4d-radar.md M1/M2），各家各自声称 SOTA；论文自报（RA-L 2025），尚未独立验证"
+scope: "VoD 与 TJ4DRadSet；SOTA 声称的 VoD 支撑数字为完整模型 mAP_EAA 59.49 / mAP_DC 77.11（笔记 §5.1）；库内笔记未记录 SOTA 对比表（对比方法、各自数字、评测口径均无），TJ4DRadSet 上更无任何数字记录；mAP_EAA/DC 口径笔记未定义，VoD 上与 HGSFusion 的 EAA AP / RoI AP 口径互不可比、与 R4Det 的即插即用 EAA 增量亦不可比（nightshift/cross/4d-radar.md M1/M2），各家各自声称 SOTA；论文自报（RA-L 2025）"
 tags: [4d-radar, radar-camera-fusion, sgdet3d, vod, tj4dradset, sota-claim, metric-caliber]
 note: library/Classical_Detection/SGDet3D.md#1-概述
 paper: "RA-L 2025 · SGDet3D（面向 4D 雷达-相机融合的语义与几何融合 3D 目标检测；笔记未记录英文原题与 arXiv 号；开源：https://github.com/shawnnnkb/SGDet3D）"
@@ -32,7 +32,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（据笔记 §1 转录，尚未独立验证）：SGDet3D 在 VoD 和 TJ4DRadSet 两个数据集上达到 SOTA 水平；其 VoD 支撑数字为完整模型 mAP_EAA 59.49 / mAP_DC 77.11（§5.1）。
+论文声称（据笔记 §1 转录）：SGDet3D 在 VoD 和 TJ4DRadSet 两个数据集上达到 SOTA 水平；其 VoD 支撑数字为完整模型 mAP_EAA 59.49 / mAP_DC 77.11（§5.1）。
 
 引用前必读的口径警告（这是本卡存在的首要理由）：
 1. **库内笔记没有 SOTA 对比表**：对比方法清单、各家数字、评测协议全部未记录，TJ4DRadSet 上连一个数字都没有。本卡只能锚定「声称 + VoD 自身数字」，SOTA 的真实性只能回原文核对或复现裁决。

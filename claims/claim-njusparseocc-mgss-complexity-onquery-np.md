@@ -3,7 +3,7 @@ id: claim-njusparseocc-mgss-complexity-onquery-np
 title: "SparseOcc 声称：掩码引导稀疏采样（MGSS）把实例查询的掩码交叉注意力从 O(N_query·M_voxel) 全局计算降为 O(N_query·N_p) 的固定点数采样"
 type: claim
 status: asserted
-scope: "SparseOcc（ECCV 2024）论文自述 Mask Transformer 设计，据库内笔记转述 + 2026-11-05 arXiv v5 原文核查，尚未独立验证；对象为 Mask Transformer 的交叉注意力环节：原文口径为「在上一层预测的 mask 内随机选一组 3D 点，投影回多视图取特征」（未给点数、未写按掩码概率密度加权），笔记细化为「以查询-体素点积生成的掩码分布 M 作离散概率密度、随机采样固定 N_p 点（举例 96）」；O(N_query·N_p) 复杂度式 v5 全文未检得，仍只出自笔记；论文 Table 3 有 MT/交叉注意力消融（dense CA 28.7 RayIoU / 16.2 FPS vs +Mask-guided 29.2 / 24.0，2026-11-05 实抓核对），笔记未录该表；N_p 正式取值与随机性控制笔记与原文均未记录"
+scope: "SparseOcc（ECCV 2024）论文自述 Mask Transformer 设计，据库内笔记转述 + 2026-11-05 arXiv v5 原文核查；对象为 Mask Transformer 的交叉注意力环节：原文口径为「在上一层预测的 mask 内随机选一组 3D 点，投影回多视图取特征」（未给点数、未写按掩码概率密度加权），笔记细化为「以查询-体素点积生成的掩码分布 M 作离散概率密度、随机采样固定 N_p 点（举例 96）」；O(N_query·N_p) 复杂度式 v5 全文未检得，仍只出自笔记；论文 Table 3 有 MT/交叉注意力消融（dense CA 28.7 RayIoU / 16.2 FPS vs +Mask-guided 29.2 / 24.0，2026-11-05 实抓核对），笔记未录该表；N_p 正式取值与随机性控制笔记与原文均未记录"
 tags: [occupancy-prediction, sparse-3d, mask-transformer, sparse-sampling, sparseocc]
 note: library/3D_Occupancy/NJU-SparseOcc.md#22-掩码-transformer-mask-transformer
 paper: "ECCV 2024 · Fully Sparse 3D Occupancy Prediction (SparseOcc) · arXiv:2312.17118 · https://github.com/MCG-NJU/SparseOcc"
@@ -54,7 +54,7 @@ signoff: null
 
 > **原文核查注记（2026-11-05，02 任务书 P1-B5 整理班）**：回 arXiv:2312.17118v5（https://arxiv.org/html/2312.17118v5 ，本次实抓）核对三点：① 原文算子口径为 "**randomly select a set of 3D points within the mask** predicted by the previous (l-1)-th Transformer decoder layer"——在上一层预测的 mask 内随机选点；笔记的「以掩码分布 M 作离散概率密度采样」「查询-体素点积 + Softmax 生成 M」是对原文的细化转述，原文未写概率密度加权与 M 的生成式，N_p 点数原文未给；② **论文 Table 3 有 MT/交叉注意力消融**（笔记未录），LaTeXML 渲染转录（2026-11-05 逐格核对，引用以现页为准）：无 MT（逐体素 MLP）27.0 RayIoU / 29.0 FPS；MT + Dense cross attention 28.7 / 16.2；MT + Sparse sampling（无 mask 引导）25.8 / 24.0；MT + **+ Mask-guided** 29.2 / 24.0——普通稀疏采样比 dense CA 掉 2.9 RayIoU，加 mask 引导后才反超，即论文自报消融中「mask 引导」本身必要；③ O(N_query·N_p) 复杂度表达式 v5 全文未检得（与卡内原限定一致，仍只出自笔记）。卡内笔记引文保留，原文句已补入 evidence；title 与命题不动，scope 已同步改写。
 
-论文声称（据笔记 §2.2 转述 + 2026-11-05 v5 原文核查，尚未独立验证）：Mask2Former 式 Object Query 与全部 3D 体素做交叉注意力在 3D 高分辨率下因体素基数过大不可行；MGSS 改为在上一层预测的 mask 内随机采样一组 3D 点（笔记口径：按掩码分布 M 作离散概率密度采样固定 N_p 个点，举例 96），投影回 2D 取特征更新查询，把交叉注意力从全局稠密计算降为固定点数采样（O(N_query·N_p) 为笔记形式化）。论文自报消融：MGSS 相对 dense cross attention 同更准（29.2 vs 28.7 RayIoU）且更快（24.0 vs 16.2 FPS），稀疏采样环节带来 50% 推理时间缩减。
+论文声称（据笔记 §2.2 转述 + 2026-11-05 v5 原文核查）：Mask2Former 式 Object Query 与全部 3D 体素做交叉注意力在 3D 高分辨率下因体素基数过大不可行；MGSS 改为在上一层预测的 mask 内随机采样一组 3D 点（笔记口径：按掩码分布 M 作离散概率密度采样固定 N_p 个点，举例 96），投影回 2D 取特征更新查询，把交叉注意力从全局稠密计算降为固定点数采样（O(N_query·N_p) 为笔记形式化）。论文自报消融：MGSS 相对 dense cross attention 同更准（29.2 vs 28.7 RayIoU）且更快（24.0 vs 16.2 FPS），稀疏采样环节带来 50% 推理时间缩减。
 
 限定：这是复杂度 / 算子形态的窄主张，不是精度主张；「随机采样」的方差控制（训练 / 推理是否同分布、N_p 正式取值）笔记与原文均未记录，须查官方代码。arXiv:2312.17118 摘要（2026-11-02 抓取）证实 MGSS 的存在与「绕开稠密特征 / 全局注意力」的动机。
 

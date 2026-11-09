@@ -3,7 +3,7 @@ id: claim-repqvit-softmax-reparam-log2-lossless
 title: "RepQ-ViT 论文声称：Softmax 尺度重参数化使硬件友好的 log_2 量化精度无损追平 log_√2 量化（DeiT-S W4A4 均 69.03%）"
 type: claim
 status: asserted
-scope: "DeiT-S（ImageNet 分类）；W4A4 PTQ；§3.2 消融仅改变 Softmax 激活的对数量化器（log_2 / log_√2 / scale 重参数化三选一），其余部分为完整方法（LayerNorm 侧已是 scale 重参数化）；log_√2 69.03% 为『完美量化』精度参考；数字为论文自报测试准确率；笔记未给硬件 benchmark，等价性论证针对反量化公式的奇偶拆解与常数吸收；尚未独立验证"
+scope: "DeiT-S（ImageNet 分类）；W4A4 PTQ；§3.2 消融仅改变 Softmax 激活的对数量化器（log_2 / log_√2 / scale 重参数化三选一），其余部分为完整方法（LayerNorm 侧已是 scale 重参数化）；log_√2 69.03% 为『完美量化』精度参考；数字为论文自报测试准确率；笔记未给硬件 benchmark，等价性论证针对反量化公式的奇偶拆解与常数吸收"
 tags: [quantization, ptq, repqvit, vit, w4a4, softmax, log-quantization]
 note: library/Quantization/RepQ-ViT.md#32-消融实验
 paper: "ICCV 2023, RepQ-ViT: Scale Reparameterization for Post-Training Quantization of Vision Transformers（代码：https://github.com/zkkli/RepQ-ViT）"
@@ -32,7 +32,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（asserted，尚未独立验证）：Attention 概率呈幂律分布，硬件友好的 log_2 量化分辨率不足（67.71%），底数 √2 的量化器精度高（69.03%）但不支持移位加速。RepQ-ViT 在量化阶段用 log_√2（等价于 -2·log_2），反量化时按 $A^{(\mathbb{Z})}$ 的奇偶拆解指数：偶数部分走纯移位 $2^{\lfloor \cdot \rfloor}$，奇数修正常数吸收进新比例尺 $\tilde{s}$，从而把 log_√2 的精度"无损"转到 log_2 形态（消融中两者同为 69.03%，比普通 log_2 高 1.32 点）。
+论文声称（asserted）：Attention 概率呈幂律分布，硬件友好的 log_2 量化分辨率不足（67.71%），底数 √2 的量化器精度高（69.03%）但不支持移位加速。RepQ-ViT 在量化阶段用 log_√2（等价于 -2·log_2），反量化时按 $A^{(\mathbb{Z})}$ 的奇偶拆解指数：偶数部分走纯移位 $2^{\lfloor \cdot \rfloor}$，奇数修正常数吸收进新比例尺 $\tilde{s}$，从而把 log_√2 的精度"无损"转到 log_2 形态（消融中两者同为 69.03%，比普通 log_2 高 1.32 点）。
 
 两个必须记住的限定：
 

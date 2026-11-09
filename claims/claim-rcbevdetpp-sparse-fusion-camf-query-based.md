@@ -3,7 +3,7 @@ id: claim-rcbevdetpp-sparse-fusion-camf-query-based
 title: "RCBEVDet++ 声称以带 3D 坐标的相机 object query 替代相机 BEV 特征、经 project-and-sample 生成稀疏雷达 query，把 CAMF 扩展到无显式 BEV 特征的 query-based 相机模型：nuScenes val 上 SparseBEV 54.5 NDS/43.2 mAP → 60.4/51.9"
 type: claim
 status: asserted
-scope: "RCBEVDet++（arXiv:2409.04979 v1 2024-09-08，RCBEVDet CVPR 2024 的期刊扩展版）的方法设计+消融声明（论文声称，尚未独立验证）；口径：nuScenes val、消融默认配置 ResNet-50 / 256×704 / 128×128 BEV（§V-C）、相机流 SparseBEV（§V-A2）；主张=机制（相机 BEV 特征→带 3D 绝对位置的 object query；project-and-sample 把 query 3D 坐标投影到 BEV 并双线性采样雷达特征形成稀疏雷达 query；deformable/cross attention 对齐；稀疏 1D query 用单层线性融合）+ Table IX 链式消融（SparseBEV 基线 54.5 NDS/43.2 mAP → deformable 对齐 +1.2 → radar query sample +2.4 → sine 位置编码 +1.9 → linear 融合 +0.4 → 60.4/51.9）；『linear 融合足够』限定于 1D query 特征（论文自述 2D dense BEV 特征仍需 channel+spatial 多层融合）；任务扩展（分割/MOT）与 test 集 SOTA 数字不在本卡（见 ViT-L SOTA 快照卡）"
+scope: "RCBEVDet++（arXiv:2409.04979 v1 2024-09-08，RCBEVDet CVPR 2024 的期刊扩展版）的方法设计+消融声明（论文声称）；口径：nuScenes val、消融默认配置 ResNet-50 / 256×704 / 128×128 BEV（§V-C）、相机流 SparseBEV（§V-A2）；主张=机制（相机 BEV 特征→带 3D 绝对位置的 object query；project-and-sample 把 query 3D 坐标投影到 BEV 并双线性采样雷达特征形成稀疏雷达 query；deformable/cross attention 对齐；稀疏 1D query 用单层线性融合）+ Table IX 链式消融（SparseBEV 基线 54.5 NDS/43.2 mAP → deformable 对齐 +1.2 → radar query sample +2.4 → sine 位置编码 +1.9 → linear 融合 +0.4 → 60.4/51.9）；『linear 融合足够』限定于 1D query 特征（论文自述 2D dense BEV 特征仍需 channel+spatial 多层融合）；任务扩展（分割/MOT）与 test 集 SOTA 数字不在本卡（见 ViT-L SOTA 快照卡）"
 tags: [rcbevdetpp, radar-camera-fusion, sparse-fusion, query-based, camf, nuscenes]
 note: library/Multimodal_Fusion/RCBEVDetPP.md#22-rcbevdet-的核心改动sparse-fusion-with-camfiv-a
 paper: "arXiv:2409.04979 (v1), RCBEVDet++: Toward High-accuracy Radar-Camera Fusion 3D Perception Network（RCBEVDet 的期刊扩展）"
@@ -60,7 +60,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（尚未独立验证）：原版 RCBEVDet 的 CAMF 定义在两幅 dense BEV 特征图之间，而 query-based 相机检测器（SparseBEV/DETR3D/PETR 一类）没有显式相机 BEV 特征图，雷达增益接不进去。RCBEVDet++ 的稀疏融合方案：① 用带 3D 绝对坐标的相机 object query 替代相机 BEV 特征；② project-and-sample——把每个 query 的 3D 坐标投影到 BEV 平面、双线性采样出对应雷达特征，构成稀疏雷达 query；③ 图像稀疏特征对 dense 雷达 BEV 用 deformable cross-attention、稀疏雷达 query 对图像稀疏特征用普通 cross-attention；④ 融合只用一层线性层（1D query 特征无需 2D dense 特征的 channel+spatial 多层融合）。链式消融（nuScenes val，ResNet-50/256×704）：SparseBEV 54.5 NDS / 43.2 mAP → +deformable 对齐 55.7/45.5 → +radar query sample 58.1/49.7 → +sine 位置编码 60.0/51.6 → +linear 融合 60.4/51.9——即整条稀疏融合路径给 query-based 相机检测器带来 +5.9 NDS / +8.7 mAP。
+论文声称：原版 RCBEVDet 的 CAMF 定义在两幅 dense BEV 特征图之间，而 query-based 相机检测器（SparseBEV/DETR3D/PETR 一类）没有显式相机 BEV 特征图，雷达增益接不进去。RCBEVDet++ 的稀疏融合方案：① 用带 3D 绝对坐标的相机 object query 替代相机 BEV 特征；② project-and-sample——把每个 query 的 3D 坐标投影到 BEV 平面、双线性采样出对应雷达特征，构成稀疏雷达 query；③ 图像稀疏特征对 dense 雷达 BEV 用 deformable cross-attention、稀疏雷达 query 对图像稀疏特征用普通 cross-attention；④ 融合只用一层线性层（1D query 特征无需 2D dense 特征的 channel+spatial 多层融合）。链式消融（nuScenes val，ResNet-50/256×704）：SparseBEV 54.5 NDS / 43.2 mAP → +deformable 对齐 55.7/45.5 → +radar query sample 58.1/49.7 → +sine 位置编码 60.0/51.6 → +linear 融合 60.4/51.9——即整条稀疏融合路径给 query-based 相机检测器带来 +5.9 NDS / +8.7 mAP。
 
 与本库既有 RCBEVDet 四卡的关系：本卡是扩展版新增的 sparse-fusion 主张，不重复其 RCS-aware 散射、DMSA、双流骨干、CAMF 鲁棒性四张卡（已 related 互链）；CAMF 的 alignment-then-fusion 直觉沿用 CVPR 版。
 

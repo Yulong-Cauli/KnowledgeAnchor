@@ -3,7 +3,7 @@ id: claim-qlora-guanaco-99p3-of-chatgpt-vicuna
 title: "QLoRA 自报：Guanaco 65B 在 GPT-4 评估的 Vicuna benchmark 上达 ChatGPT 的 99.3%（95% CI ±4.4），Elo 1022 vs ChatGPT 966，单卡 24 小时微调"
 type: claim
 status: asserted
-scope: "Vicuna benchmark（80 prompts，zero-shot）；评估 = GPT-4 评分制（相对 ChatGPT 百分比，双序平均）与 GPT-4/人类成对比较 Elo 锦标赛（K=32、10,000 次重采样）；Guanaco 65B = LLaMA-65B + QLoRA（NF4+DQ+paged optimizers）+ OASST1 变体微调、无 RL；自报评估（GPT-4 为判官，存在顺序效应与自评偏高）；注意 99.3% 是相对 ChatGPT 而非 GPT-4（GPT-4 Elo 1348，对 Guanaco 65B 预期胜率约 70%）；尚未独立验证"
+scope: "Vicuna benchmark（80 prompts，zero-shot）；评估 = GPT-4 评分制（相对 ChatGPT 百分比，双序平均）与 GPT-4/人类成对比较 Elo 锦标赛（K=32、10,000 次重采样）；Guanaco 65B = LLaMA-65B + QLoRA（NF4+DQ+paged optimizers）+ OASST1 变体微调、无 RL；自报评估（GPT-4 为判官，存在顺序效应与自评偏高）；注意 99.3% 是相对 ChatGPT 而非 GPT-4（GPT-4 Elo 1348，对 Guanaco 65B 预期胜率约 70%）"
 tags: [quantization, llm, qlora, guanaco, chatbot-eval, elo]
 note: library/Quantization/QLoRA.md#35-聊天机器人研究5-table-1table-6table-7
 paper: "NeurIPS 2023（arXiv:2305.14314）, QLoRA: Efficient Finetuning of Quantized LLMs（开源：https://github.com/artidoro/qlora 、https://github.com/TimDettmers/bitsandbytes）"
@@ -44,7 +44,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（asserted，尚未独立验证）：用 QLoRA 在单卡 24 小时内微调出的 Guanaco 65B（OASST1 变体），在 GPT-4 判分的 Vicuna benchmark 上达到 ChatGPT 性能的 99.3%（GPT-4 Elo 锦标赛 1022±1 vs ChatGPT 966±1），优于此前所有公开发布模型；这是"4-bit QLoRA 能产出接近 ChatGPT 的聊天模型"这一头衔主张。
+论文声称（asserted）：用 QLoRA 在单卡 24 小时内微调出的 Guanaco 65B（OASST1 变体），在 GPT-4 判分的 Vicuna benchmark 上达到 ChatGPT 性能的 99.3%（GPT-4 Elo 锦标赛 1022±1 vs ChatGPT 966±1），优于此前所有公开发布模型；这是"4-bit QLoRA 能产出接近 ChatGPT 的聊天模型"这一头衔主张。
 
 必须记住的四个限定（缺一会误读）：
 

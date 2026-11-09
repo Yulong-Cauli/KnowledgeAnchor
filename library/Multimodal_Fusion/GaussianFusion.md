@@ -11,7 +11,7 @@
 > - 全文 arXiv 官方 HTML v1 https://arxiv.org/html/2607.00746v1 （LaTeXML 0.7.6 生成，页面 title 核对一致，非空、含完整正文与 9 张表、4 张图），本笔记唯一全文来源，未与 ar5iv/PDF 交叉核对（见 TODO）。
 > - HTML v1 未包含正文 3 处引用的 Appendix（§4.2、§4.5、§4.6 各一处），正文目录止于 §5 Conclusion + References。
 > - 引句约定：引号内为本次抓取 HTML 的逐字摘录（空白归一化后核对）；`\mathcal{G}`、`\times` 等为 math alttext 形态（未做排版还原），alttext 替换可能引入多余空格；"(H et al., 2024)" 为论文自身参考文献键（GaussianFormer，其作者名在 References 中排印为 "Y. H"，疑为 BibTeX 解析瑕疵，照抄不改）；"–" 为原文 dash；原文错别字（GausianFormer、v.s、methods( 后缺空格等）照抄保留。
-> - 本笔记为草稿（未入库），所有结论均属"论文声称 / 尚未独立验证"。
+> - 本笔记为草稿（未入库），结果来自论文报告。
 
 ------
 
@@ -194,7 +194,7 @@ Table 5 逐字转录（仅 IoU / mIoU 两列，16 个语义类逐类数值未转
 
 ## 4. 核心结论
 
-1. 论文声称：用连续 3D 高斯空间替代离散 BEV 网格做统一多模态融合，可在检测与占用两任务上同时拿到 task-agnostic 方法中的 SOTA——nuScenes 3D 检测 val 74.0 NDS / 71.7 mAP（test 74.9 / 72.4，Table 2）、3D 占用 28.65 mIoU（Table 5）；且比 BEVFusion 更快更省（132 ms vs 156 ms、4271 M vs 5140 M，Table 3）。均属论文自报、尚未独立验证。
+1. 论文声称：用连续 3D 高斯空间替代离散 BEV 网格做统一多模态融合，可在检测与占用两任务上同时拿到 task-agnostic 方法中的 SOTA——nuScenes 3D 检测 val 74.0 NDS / 71.7 mAP（test 74.9 / 72.4，Table 2）、3D 占用 28.65 mIoU（Table 5）；且比 BEVFusion 更快更省（132 ms vs 156 ms、4271 M vs 5140 M，Table 3）。均属论文自报。
 2. 两个关键设计是**前向投影初始化**（+2.8 NDS over random，Table 8）与**共享编码器 + 增量 offset 更新**（+0.7 mAP 与 +0.9 mAP，Table 9）；LiDAR 投影初始化与之相当（73.6 NDS），backward projection 居中（72.4），随机初始化最差（71.2）——初始化方式本身就是可观的收益来源。
 3. 连续表示对 BEV 分辨率的敏感性更低：100×100 高斯（73.1 NDS、3576 M）已超 BEVFusion 400×400（72.7 NDS、20560 M）（Table 1），支撑"避免早期量化损失"的主张；但该表未注明 BEVFusion 高分辨率项的重训细节，核验时应留意（见遗留）。
 4. 泛化性自报：Waymo 上 GaussianFusion 86.23/84.65/81.47/80.75 对 BEVFusion 82.72/81.35/77.65/76.33（mAP-L1/mAPH-L1/mAP-L2/mAPH-L2，Table 6，split 未注明）；时序变体 GaussianFusion-T 77.6 NDS/75.0 mAP，与专用时序方法 SparseLIF-T（77.5/74.7）相当（Table 4）。

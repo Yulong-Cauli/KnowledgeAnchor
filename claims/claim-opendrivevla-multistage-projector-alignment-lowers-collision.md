@@ -40,7 +40,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（尚未独立验证）：参数高效的多阶段适配配方——Stage 1 用三个 token 专属 projector（scene/agent/map）做层级视觉-语言对齐，此阶段视觉编码器与 LLM 全冻结、仅 3.1 MB 可训参数；逐阶段消融（TABLE V）显示仅 Stage 3 时 UniAD 口径平均碰撞率 0.37%，+Stage 1 降到 0.32%，再 +Stage 2 到 0.31%、+Stage 2.5（agent 轨迹预测辅助任务）后到 0.26%，全四阶段 L2 0.68/碰撞 0.26 为最优。
+论文声称：参数高效的多阶段适配配方——Stage 1 用三个 token 专属 projector（scene/agent/map）做层级视觉-语言对齐，此阶段视觉编码器与 LLM 全冻结、仅 3.1 MB 可训参数；逐阶段消融（TABLE V）显示仅 Stage 3 时 UniAD 口径平均碰撞率 0.37%，+Stage 1 降到 0.32%，再 +Stage 2 到 0.31%、+Stage 2.5（agent 轨迹预测辅助任务）后到 0.26%，全四阶段 L2 0.68/碰撞 0.26 为最优。
 
 限定：
 1. 这是 0.5B 模型上的消融，且各阶段训练数据不同（TABLE XI：Stage 1 536k / Stage 2 566k / Stage 2.5 459k / Stage 3 28k），「逐阶段收益」混有数据量因素。

@@ -3,7 +3,7 @@ id: claim-lsq-step-size-not-minimize-quantization-error
 title: "LSQ 论文自报的负面发现（§3.6）：学到的步长并不最小化量化误差——2-bit ResNet-18 上 ŝ 与误差最优 s 的平均绝对百分比差为激活 50/63/64%、权重 47/28/46%（MAE/MSE/KL），任务 loss 驱动的步长学习 ≠ 量化误差最小化"
 type: claim
 status: asserted
-scope: "ImageNet；2-bit（W2A2）pre-activation ResNet-18 的 LSQ QAT 微调模型（90 epochs，从全精度权重初始化，首末层 8-bit）；§3.6 分析方法：对每层记 LSQ 最终步长 ŝ，在 S={0.01ŝ, 0.02ŝ, …, 20.00ŝ} 网格上按一个 batch 测试数据找最小化 MAE / MSE / KL 散度的 s，与 ŝ 比较；学到的步长本身为激活 ŝ=0.949±0.206、权重 ŝ=0.025±0.019（mean±std）；本卡只主张'学到的步长 ≠ 量化误差最优点'这一负面发现，不主张'拟合数据分布的量化器必然任务性能更差'（后者是论文的推测性解释，§3.6 末句）；论文声称，尚未独立验证；其他架构 / 其他比特数未做该分析"
+scope: "ImageNet；2-bit（W2A2）pre-activation ResNet-18 的 LSQ QAT 微调模型（90 epochs，从全精度权重初始化，首末层 8-bit）；§3.6 分析方法：对每层记 LSQ 最终步长 ŝ，在 S={0.01ŝ, 0.02ŝ, …, 20.00ŝ} 网格上按一个 batch 测试数据找最小化 MAE / MSE / KL 散度的 s，与 ŝ 比较；学到的步长本身为激活 ŝ=0.949±0.206、权重 ŝ=0.025±0.019（mean±std）；本卡只主张'学到的步长 ≠ 量化误差最优点'这一负面发现，不主张'拟合数据分布的量化器必然任务性能更差'（后者是论文的推测性解释，§3.6 末句）；论文声称；其他架构 / 其他比特数未做该分析"
 tags: [lsq, quantization, qat, negative-finding, step-size, imagenet]
 note: library/Quantization/LSQ.md#35-量化误差分析
 paper: "ICLR 2020（arXiv:1902.08153）, Learned Step Size Quantization（IBM Research；论文未给官方代码链接）"

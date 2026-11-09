@@ -3,7 +3,7 @@ id: claim-centernetpoints-regression-replaces-keypoint-grouping
 title: "CenterNet 论文声称：中心点直接回归宽高替代 CornerNet 的 Embedding 角点配对，推理成为纯前向传播"
 type: claim
 status: asserted
-scope: "2D 目标检测 formulation（CenterNet 对 CornerNet 的改动，arXiv 2019）；设计主张：单一中心点 + Size Head 回归宽高替代 embedding 距离聚类配对；不涉及具体精度数字；尚未独立验证"
+scope: "2D 目标检测 formulation（CenterNet 对 CornerNet 的改动，arXiv 2019）；设计主张：单一中心点 + Size Head 回归宽高替代 embedding 距离聚类配对；不涉及具体精度数字"
 tags: [centernet, anchor-free, detection, keypoint-regression]
 note: library/Classical_Detection/CenterNet：Objects as Points.md#方法
 paper: "arXiv 2019, CenterNet: Objects as Points（开源：https://github.com/xingyizhou/CenterNet）"
@@ -44,7 +44,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（尚未独立验证）：CornerNet 需要为每个物体预测左上/右下一对角点，并用 embedding 向量距离做组合配对；CenterNet 把物体建模为单个中心点，在该点上用 Size Head 直接回归宽高（全类别共享、L1 loss、仅中心点位置计算），配对问题随之消失，推理退化为纯前向传播。
+论文声称：CornerNet 需要为每个物体预测左上/右下一对角点，并用 embedding 向量距离做组合配对；CenterNet 把物体建模为单个中心点，在该点上用 Size Head 直接回归宽高（全类别共享、L1 loss、仅中心点位置计算），配对问题随之消失，推理退化为纯前向传播。
 
 这是 formulation 层面的设计主张，笔记未在本节给出与 CornerNet 的逐项精度对比数字，因此本卡不主张"精度更高"。速度上的对应结论见 [claim-centernetpoints-inference-fps-gain-over-cornernet](claim-centernetpoints-inference-fps-gain-over-cornernet.md)。
 

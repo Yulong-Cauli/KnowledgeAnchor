@@ -3,7 +3,7 @@ id: claim-unidad-upstream-tasks-improve-planning
 title: "UniAD 论文声称：Track/Map/Motion/Occ 前置任务联合训练使规划 L2 与碰撞率同时最优——仅规划器（Exp.10）avg.L2 1.131/avg.Col. 0.773，完整栈（Exp.12）1.004/0.430（Table 2）"
 type: claim
 status: asserted
-scope: "nuScenes val；UniAD arXiv v2（arXiv:2212.10156，html/2212.10156v2）主文 Table 2 联合消融；消融训练 8 epochs（Appendix E.6 口径）；BEV 特征均来自 BEVFormer 的 BEV encoder（§2，可替换）；对比 Exp.10（仅 Plan：planner attend BEV 特征 + command embedding，无 Track/Map/Motion/Occ 分支）与 Exp.12（完整 UniAD）；指标 avg.L2（m）与 avg.Col.（%）；论文自报数字，尚未独立验证"
+scope: "nuScenes val；UniAD arXiv v2（arXiv:2212.10156，html/2212.10156v2）主文 Table 2 联合消融；消融训练 8 epochs（Appendix E.6 口径）；BEV 特征均来自 BEVFormer 的 BEV encoder（§2，可替换）；对比 Exp.10（仅 Plan：planner attend BEV 特征 + command embedding，无 Track/Map/Motion/Occ 分支）与 Exp.12（完整 UniAD）；指标 avg.L2（m）与 avg.Col.（%）；论文自报数字"
 tags: [end-to-end-driving, open-loop, nuscenes, planning, multi-task-learning, unidad, bevformer]
 note: library/ADe2e/UniAD.md#31-联合消融
 paper: "CVPR 2023 Best Paper, Planning-oriented Autonomous Driving (UniAD, arXiv:2212.10156)"
@@ -37,7 +37,7 @@ signoff: null
 
 ## 这条主张是什么意思
 
-论文声称（尚未独立验证）：在同样的 BEVFormer BEV 特征之上，只留规划器（Exp.10，avg.L2 1.131 / avg.Col. 0.773）不如把 Track/Map/Motion/Occ 四个前置任务联合进来再规划（Exp.12，avg.L2 1.004 / avg.Col. 0.430）；且论文强调两种预测表示（agent 级 motion + scene 级 occupancy）必须同时引入，规划的 L2 与碰撞率才同时最优（Table 2，arXiv v2）。这是"检测/跟踪等前置任务对规划有增益"主张的受控对比。
+论文声称：在同样的 BEVFormer BEV 特征之上，只留规划器（Exp.10，avg.L2 1.131 / avg.Col. 0.773）不如把 Track/Map/Motion/Occ 四个前置任务联合进来再规划（Exp.12，avg.L2 1.004 / avg.Col. 0.430）；且论文强调两种预测表示（agent 级 motion + scene 级 occupancy）必须同时引入，规划的 L2 与碰撞率才同时最优（Table 2，arXiv v2）。这是"检测/跟踪等前置任务对规划有增益"主张的受控对比。
 
 ## 证据支持到哪里
 

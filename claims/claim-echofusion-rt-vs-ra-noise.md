@@ -3,7 +3,7 @@ id: claim-echofusion-rt-vs-ra-noise
 title: "在 RADIal 上，RT+C 与 RA+C 的总体 BEV AP 差异在误差范围内"
 type: claim
 status: asserted
-scope: "RADIal test split；refined 3D 标注；BEV AP@0.7；RT+C vs RA+C（同一 EchoFusion 架构，同一论文 Table 6 内比较）；每组实验重复 3 次、模态消融报 mean 与 variance（论文 §5.1 所述设置，±值统计口径未进一步定义）；论文自报数字，尚未独立验证"
+scope: "RADIal test split；refined 3D 标注；BEV AP@0.7；RT+C vs RA+C（同一 EchoFusion 架构，同一论文 Table 6 内比较）；每组实验重复 3 次、模态消融报 mean 与 variance（论文 §5.1 所述设置，±值统计口径未进一步定义）；论文自报数字"
 tags: [radar, sensor-fusion, echofusion, radial]
 note: library/3D_Occupancy/EchoFusion.md#32-消融实验雷达数据格式与模态影响
 paper: "NeurIPS 2023, Echoes Beyond Points: Unleashing the Power of Raw Radar Data in Multi-modality Fusion"
@@ -37,7 +37,7 @@ signoff: null
 
 论文明确说 RT+C 与 RA+C 的差距在误差条内；Table 6 的总体 BEV AP 是 **84.92**（RT+C，±0.98）对 **84.77**（RA+C，±0.65），LET-BEV-AP 则是 **88.86** 对 **89.54**。因此“RT 比 RA 更好”不是这篇论文支持的结论；它只支持“RT 与 RA 都优于点云，且不必显式解算方位角”。
 
-证据边界：以上数字全部是论文自报（尚未独立验证），且「在误差条内」是作者对自己 3 次运行结果的表述——误差条的计算方式（方差/标准差/置信区间）论文未写明，本卡无法独立复核该统计判断，只能核对表列数字本身。笔记 `library/3D_Occupancy/EchoFusion.md` §3.2 的消融表与论文 Table 6 不一致（42.4/38.6/33.1 一组数字对不上原表），引用时以论文原表为准，见 [笔记偏差卡](claim-echofusion-note-table-mismatch.md)。
+证据边界：以上数字全部是论文自报，且「在误差条内」是作者对自己 3 次运行结果的表述——误差条的计算方式（方差/标准差/置信区间）论文未写明，本卡无法独立复核该统计判断，只能核对表列数字本身。笔记 `library/3D_Occupancy/EchoFusion.md` §3.2 的消融表与论文 Table 6 不一致（42.4/38.6/33.1 一组数字对不上原表），引用时以论文原表为准，见 [笔记偏差卡](claim-echofusion-note-table-mismatch.md)。
 
 ## 待验证
 

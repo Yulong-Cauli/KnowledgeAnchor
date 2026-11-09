@@ -40,7 +40,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（尚未独立验证）：OpenVLA 可用 int4 量化部署——8 个代表性 BridgeData V2 任务（80 rollouts）上 int4 成功率 71.9±4.7% 与 bfloat16 的 71.3±4.8% 持平，显存从 16.8 GB 降到 7.0 GB（A5000 上 3Hz）。反直觉的 int8 掉点（58.1±5.1%）论文归因于推理速度：A5000 上 int8 只能跑 1.2Hz，改变了 5Hz non-blocking 控制的系统动力学；§D.4 用 blocking control 去掉速度影响后 int8 与 bfloat16/int4 相当，支持该解释。离线 token accuracy 三种精度相当（脚注 5）。
+论文声称：OpenVLA 可用 int4 量化部署——8 个代表性 BridgeData V2 任务（80 rollouts）上 int4 成功率 71.9±4.7% 与 bfloat16 的 71.3±4.8% 持平，显存从 16.8 GB 降到 7.0 GB（A5000 上 3Hz）。反直觉的 int8 掉点（58.1±5.1%）论文归因于推理速度：A5000 上 int8 只能跑 1.2Hz，改变了 5Hz non-blocking 控制的系统动力学；§D.4 用 blocking control 去掉速度影响后 int8 与 bfloat16/int4 相当，支持该解释。离线 token accuracy 三种精度相当（脚注 5）。
 
 限定：结论限于 5Hz 控制的 WidowX 任务与 A5000 硬件；"±" 为 StdErr（80 rollouts）；对 50Hz 级高频控制（如 ALOHA）论文自认推理吞吐仍是瓶颈（§6）。
 

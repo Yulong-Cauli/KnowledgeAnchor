@@ -3,7 +3,7 @@ id: claim-caddn-depth-supervision-dominant-ablation-gain
 title: "CaDDN 消融自报：显式 LiDAR 深度监督带来全表最大单项增益 +10.4% AP，无监督深度预测仅 +1.5% AP"
 type: claim
 status: asserted
-scope: "CaDDN（CVPR 2021）内部模块消融，笔记 §4 Table 3（Exp 1–5 逐步加模块）；单目 3D 检测，深度监督标签由 LiDAR 点云投影生成 One-hot（笔记 §3 Loss Function）；口径：KITTI val set（官方 3,712 train / 3,769 val 划分，消融仅在 train 训练、val 评测）Car 类 3D 检测 AP|R40（IoU 0.7）、Easy/Moderate/Hard 三档（笔记 §4 口径注载明，2026-11-05 实抓原论文 Table 3 表题/表体二次核对）；+1.5% / +10.4% 为 Easy 档差值（Mod/Hard 档差值更小），数字为论文自报相对增量（Δ AP），尚未独立验证"
+scope: "CaDDN（CVPR 2021）内部模块消融，笔记 §4 Table 3（Exp 1–5 逐步加模块）；单目 3D 检测，深度监督标签由 LiDAR 点云投影生成 One-hot（笔记 §3 Loss Function）；口径：KITTI val set（官方 3,712 train / 3,769 val 划分，消融仅在 train 训练、val 评测）Car 类 3D 检测 AP|R40（IoU 0.7）、Easy/Moderate/Hard 三档（笔记 §4 口径注载明，2026-11-05 实抓原论文 Table 3 表题/表体二次核对）；+1.5% / +10.4% 为 Easy 档差值（Mod/Hard 档差值更小），数字为论文自报相对增量（Δ AP）"
 tags: [caddn, monocular-3d, depth-distribution, depth-supervision, frustum, ablation]
 note: library/Classical_Detection/CaDDN.md#4-消融实验
 paper: "CVPR 2021, CaDDN: Categorical Depth Distribution Network for Monocular 3D Object Detection"
@@ -48,9 +48,9 @@ signoff: null
 
 ## 我的理解
 
-论文声称（CaDDN Table 3 内部模块消融，逐步加模块，尚未独立验证）：Exp 1 基线不预测深度、把图像特征沿视锥射线均匀复制，效果最差（特征拖影）；Exp 2 预测深度分布用来加权特征但不加 LiDAR 深度监督、仅靠检测损失，只涨 +1.5% AP；Exp 3 加入 $L_{depth}$（LiDAR one-hot 监督）后 +10.4% AP，为全表最大单项提升。本卡主张：在 CaDDN 式"图像→视锥→BEV"单目方案里，核心增益来源是显式深度监督，而不是深度预测分支本身。
+论文声称（CaDDN Table 3 内部模块消融，逐步加模块）：Exp 1 基线不预测深度、把图像特征沿视锥射线均匀复制，效果最差（特征拖影）；Exp 2 预测深度分布用来加权特征但不加 LiDAR 深度监督、仅靠检测损失，只涨 +1.5% AP；Exp 3 加入 $L_{depth}$（LiDAR one-hot 监督）后 +10.4% AP，为全表最大单项提升。本卡主张：在 CaDDN 式"图像→视锥→BEV"单目方案里，核心增益来源是显式深度监督，而不是深度预测分支本身。
 
-消融口径：KITTI val（3,712/3,769 划分）Car 类 AP|R40（IoU 0.7）三档——笔记 §4 口径注已载明，本班 2026-11-05 实抓原论文（arXiv:2103.01100v2）Table 3 表题与表体二次核对；Exp 2→Exp 3 增量为 Easy +10.40（9.33→19.73）、Mod +7.60（6.43→14.03）、Hard +6.54（5.30→11.84），「全表最大单项提升」在三个难度档上均成立；Exp 1→Exp 2（深度分布分支本身，无监督）三档仅 +1.50/+0.77/+0.46。数字为论文自报，尚未独立验证。
+消融口径：KITTI val（3,712/3,769 划分）Car 类 AP|R40（IoU 0.7）三档——笔记 §4 口径注已载明，本班 2026-11-05 实抓原论文（arXiv:2103.01100v2）Table 3 表题与表体二次核对；Exp 2→Exp 3 增量为 Easy +10.40（9.33→19.73）、Mod +7.60（6.43→14.03）、Hard +6.54（5.30→11.84），「全表最大单项提升」在三个难度档上均成立；Exp 1→Exp 2（深度分布分支本身，无监督）三档仅 +1.50/+0.77/+0.46。数字为论文自报。
 
 ## 待验证
 

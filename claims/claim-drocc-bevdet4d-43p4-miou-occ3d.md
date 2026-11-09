@@ -3,7 +3,7 @@ id: claim-drocc-bevdet4d-43p4-miou-occ3d
 title: "Dr.Occ 论文声称：Occ3D-nuScenes 纯视觉设置下 BEVDet4D 加 Dr.Occ 后 mIoU 36.0→43.4（自报 +7.43% mIoU / +3.09% IoU），超过同表全部公开方法"
 type: claim
 status: asserted
-scope: "Occ3D-nuScenes（850 标注场景、0.4m 体素、18 类）；BEVDet4D（R50，704×256，∗=相机掩码监督）+ D2-VFormer + R2-EFormer；训练 8×L20、24 epochs；指标：Table 1 逐类 mIoU（无总体 IoU 列）+ Table 2 消融 IoU/mIoU；自报 +7.43 mIoU 与表格舍入差（43.4−36.0=7.4）有 0.01 级缝隙，+3.09 IoU 出自 Table 2 消融行（73.45−70.36）而非 Table 1；数字为论文自报（arXiv HTML v3，2026-11-04 抓取）；尚未独立验证"
+scope: "Occ3D-nuScenes（850 标注场景、0.4m 体素、18 类）；BEVDet4D（R50，704×256，∗=相机掩码监督）+ D2-VFormer + R2-EFormer；训练 8×L20、24 epochs；指标：Table 1 逐类 mIoU（无总体 IoU 列）+ Table 2 消融 IoU/mIoU；自报 +7.43 mIoU 与表格舍入差（43.4−36.0=7.4）有 0.01 级缝隙，+3.09 IoU 出自 Table 2 消融行（73.45−70.36）而非 Table 1；数字为论文自报（arXiv HTML v3，2026-11-04 抓取）"
 tags: [occupancy-prediction, drocc, cvpr2026, nuscenes]
 note: library/3D_Occupancy/DrOcc.md#3-实验
 paper: "CVPR 2026, Dr.Occ: Depth- and Region-Guided 3D Occupancy from Surround-View Cameras for Autonomous Driving (arXiv:2603.01007)"
@@ -32,7 +32,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（asserted，尚未独立验证）：纯视觉 3D 语义占用预测在 Occ3D-nuScenes 上，Dr.Occ 的两个组件——D2-VFormer（把 MoGe-2 稠密深度转成 geometry-aware occupancy mask 做引导，而非直接投影）与 R-EFormer/R2-EFormer（按距离×高度划分区域分配专家）——把 BEVDet4D 从 36.0 mIoU 拉到 43.4，超过同表 ViewFormer（41.9）、FB-Occ（39.1）等全部公开方法。
+论文声称（asserted）：纯视觉 3D 语义占用预测在 Occ3D-nuScenes 上，Dr.Occ 的两个组件——D2-VFormer（把 MoGe-2 稠密深度转成 geometry-aware occupancy mask 做引导，而非直接投影）与 R-EFormer/R2-EFormer（按距离×高度划分区域分配专家）——把 BEVDet4D 从 36.0 mIoU 拉到 43.4，超过同表 ViewFormer（41.9）、FB-Occ（39.1）等全部公开方法。
 
 三个引用时必须带上的口径注记：
 

@@ -3,7 +3,7 @@ id: claim-deepcompression-35x-49x-no-accuracy-loss
 title: "Deep Compression 自报：三阶段管线把 AlexNet 压缩 35×（240MB→6.9MB）、VGG-16 压缩 49×（552MB→11.3MB）且精度不降（top-1 error 42.78%→42.78%、31.50%→31.17%）"
 type: claim
 status: asserted
-scope: "ImageNet ILSVRC-2012（1.2M train / 50k val）；AlexNet 与 VGG-16（Caffe model zoo 参考模型，精度测量无数据增强，§5 脚注）；压缩率含码本与稀疏索引开销（§5.1）；三阶段 = 剪枝（9×/13×）+ 训练量化（CONV 8-bit / FC 5-bit）+ Huffman；MNIST 上 LeNet-300-100/LeNet-5 同管线 40×/39× 不在本卡主张内；存储压缩主张，不含推理加速；论文自报，尚未独立验证"
+scope: "ImageNet ILSVRC-2012（1.2M train / 50k val）；AlexNet 与 VGG-16（Caffe model zoo 参考模型，精度测量无数据增强，§5 脚注）；压缩率含码本与稀疏索引开销（§5.1）；三阶段 = 剪枝（9×/13×）+ 训练量化（CONV 8-bit / FC 5-bit）+ Huffman；MNIST 上 LeNet-300-100/LeNet-5 同管线 40×/39× 不在本卡主张内；存储压缩主张，不含推理加速；论文自报"
 tags: [compression, pruning, quantization, huffman, deepcompression, alexnet, vgg16]
 note: library/Quantization/DeepCompression.md#31-总体结果5-experiments-table-1
 paper: "ICLR 2016 (oral)（arXiv:1510.00149）, Deep Compression: Compressing Deep Neural Networks with Pruning, Trained Quantization and Huffman Coding（Song Han, Huizi Mao, William J. Dally）"
@@ -40,7 +40,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（asserted，尚未独立验证）：剪枝 + 训练量化（k-means 码本 + 码本参与反传微调）+ Huffman 编码三阶段叠加，把 AlexNet 从 240MB 压到 6.9MB（35×）、VGG-16 从 552MB 压到 11.3MB（49×），且 top-1/top-5 error 不升（VGG-16 甚至略降：31.50%→31.17%、11.32%→10.91%）。分阶段贡献：剪枝 9×/13×（Table 4/5 Total 行记为 11%(9×)、7.5%(13×)），量化到 P+Q 27×/31×，Huffman 再省 20%–30% 到 35×/49×。
+论文声称（asserted）：剪枝 + 训练量化（k-means 码本 + 码本参与反传微调）+ Huffman 编码三阶段叠加，把 AlexNet 从 240MB 压到 6.9MB（35×）、VGG-16 从 552MB 压到 11.3MB（49×），且 top-1/top-5 error 不升（VGG-16 甚至略降：31.50%→31.17%、11.32%→10.91%）。分阶段贡献：剪枝 9×/13×（Table 4/5 Total 行记为 11%(9×)、7.5%(13×)），量化到 P+Q 27×/31×，Huffman 再省 20%–30% 到 35×/49×。
 
 必须记住的口径限定：
 

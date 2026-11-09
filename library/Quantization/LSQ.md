@@ -4,7 +4,7 @@
 **是否开源：** 官方未开源（本次抓取的 arXiv abs 页与 ar5iv 全文经检索均无代码仓库链接；论文仅声明 "We implemented and tested LSQ in PyTorch"，§2.3）  
 **关键词：** 量化感知训练 (QAT)、可学习量化步长 (Learned Step Size)、均匀量化 (Uniform Quantizer)、步长梯度尺度 (Step Size Gradient Scale)、低比特 (2/3/4-bit)、ImageNet
 
-> **Locator 约定：** 本笔记章节号（§1–§4，Appendix A/B）、公式号（式 (1)–(11)）、表号（Table 1–4）均指 arXiv:1902.08153 的 ar5iv HTML 版（https://ar5iv.labs.arxiv.org/html/1902.08153 ，抓取日期 2026-11-02）的编号，与 ICLR 2020 正式版一致（该文正文即 4 节 + 2 个附录）。英文引号内文字为本次实际抓取的逐字原文；所有数字均为论文声称，未经独立验证。公式按 LaTeX 转写（原文 `\nicefrac` 渲染为分数、编号取自 ar5iv 的 `S2.E*` / `A1.E*` / `A2.E*` 标签），语义与原文一致；表格除粗体标注与"—"（原文空格，未报告）外逐行照抄，并经脚本对抓取文本逐行核验。
+> **Locator 约定：** 本笔记章节号（§1–§4，Appendix A/B）、公式号（式 (1)–(11)）、表号（Table 1–4）均指 arXiv:1902.08153 的 ar5iv HTML 版（https://ar5iv.labs.arxiv.org/html/1902.08153 ，抓取日期 2026-11-02）的编号，与 ICLR 2020 正式版一致（该文正文即 4 节 + 2 个附录）。英文引号内文字为本次实际抓取的逐字原文；所有数字均为论文声称。公式按 LaTeX 转写（原文 `\nicefrac` 渲染为分数、编号取自 ar5iv 的 `S2.E*` / `A1.E*` / `A2.E*` 标签），语义与原文一致；表格除粗体标注与"—"（原文空格，未报告）外逐行照抄，并经脚本对抓取文本逐行核验。
 
 ---
 

@@ -3,7 +3,7 @@ id: claim-brecq-block-granularity-best-w2-ablation
 title: "BRECQ 消融自报：2-bit 权重量化下 block 粒度重建在 ResNet-18 与 MobileNetV2 上均最优（66.39 / 59.67），net-wise 崩至 54.15 / 40.76"
 type: claim
 status: asserted
-scope: "ImageNet top-1；ResNet-18 与 MobileNetV2 两个 CNN；2-bit 权重量化、激活不量化、首末层保持 8-bit；BRECQ 论文 Table 1 自报消融（实现细节：每块 2×10⁴ 次迭代、batch 32、fold BN，§B.4.4）；『block 最优』仅限本消融覆盖的 2 个模型 × 1 种位宽配置，不含 ViT / 检测 / W4；论文声称，尚未独立验证"
+scope: "ImageNet top-1；ResNet-18 与 MobileNetV2 两个 CNN；2-bit 权重量化、激活不量化、首末层保持 8-bit；BRECQ 论文 Table 1 自报消融（实现细节：每块 2×10⁴ 次迭代、batch 32、fold BN，§B.4.4）；『block 最优』仅限本消融覆盖的 2 个模型 × 1 种位宽配置，不含 ViT / 检测 / W4；论文声称"
 tags: [quantization, ptq, brecq, block-reconstruction, ablation]
 note: library/Quantization/BRECQ.md#31-消融四种重建粒度41
 paper: "ICLR 2021（arXiv:2102.05426）, BRECQ: Pushing the Limit of Post-Training Quantization by Block Reconstruction（开源：https://github.com/yhhhli/BRECQ）"
@@ -36,7 +36,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（asserted，尚未独立验证）：把二阶误差（Gauss-Newton 矩阵）展开后，重建粒度有 layer / block / stage / net 四档；BRECQ 的核心立场是取中间的 block 粒度——块内跨层依赖保留、块间依赖忽略。Table 1 的 W2 消融支持这一点：block 列在 ResNet-18（66.39）与 MobileNetV2（59.67）上都是最优，且净差主要来自两端——net-wise 过拟合崩到 54.15 / 40.76，layer-wise 则丢掉块内依赖（65.19 / 52.13）。
+论文声称（asserted）：把二阶误差（Gauss-Newton 矩阵）展开后，重建粒度有 layer / block / stage / net 四档；BRECQ 的核心立场是取中间的 block 粒度——块内跨层依赖保留、块间依赖忽略。Table 1 的 W2 消融支持这一点：block 列在 ResNet-18（66.39）与 MobileNetV2（59.67）上都是最优，且净差主要来自两端——net-wise 过拟合崩到 54.15 / 40.76，layer-wise 则丢掉块内依赖（65.19 / 52.13）。
 
 必须记住的口径限定：
 

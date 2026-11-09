@@ -3,7 +3,7 @@ id: claim-qwen3vl-length-adaptive-sampling-pretraining
 title: "Qwen3-VL 论文声称：预训练采用 Length-Adaptive Sampling——按序列长度约束动态调整视频 fps 与最大帧数以减少信息损失"
 type: claim
 status: asserted
-scope: "Qwen3-VL 预训练数据管线（§3.2.7 Video Data Balancing and Sampling (ii)）；主张内容为『采样参数（fps、最大帧数）随序列长度约束动态调整』这一机制描述，不含性能数字；依据 arXiv:2511.21631v2（2026-11-03 抓取 HTML v2 逐字核对），尚未独立验证"
+scope: "Qwen3-VL 预训练数据管线（§3.2.7 Video Data Balancing and Sampling (ii)）；主张内容为『采样参数（fps、最大帧数）随序列长度约束动态调整』这一机制描述，不含性能数字；依据 arXiv:2511.21631v2（2026-11-03 抓取 HTML v2 逐字核对）"
 tags: [vlm, qwen3-vl, video-sampling, pretraining, data-pipeline]
 note: library/VLM_VLA/Qwen3-VL.md#2-方法
 paper: "arXiv 2025, Qwen3-VL Technical Report (arXiv:2511.21631)"
@@ -32,7 +32,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（尚未独立验证）：Qwen3-VL 的预训练在视频数据采样上按「序列长度约束」动态调整 fps 与最大帧数（Length-Adaptive Sampling），动机是避免过稀帧选择或过低空间分辨率造成的信息损失。这是一个机制描述型主张，论文正文没有给该项的独立消融数字。
+论文声称：Qwen3-VL 的预训练在视频数据采样上按「序列长度约束」动态调整 fps 与最大帧数（Length-Adaptive Sampling），动机是避免过稀帧选择或过低空间分辨率造成的信息损失。这是一个机制描述型主张，论文正文没有给该项的独立消融数字。
 
 三条记录性说明：
 1. 任务描述写作「Length-adaptive Visual Resolution」，论文 v2 实际术语为 **Length-Adaptive Sampling**（§3.2.7），本卡以论文术语为准；笔记对应内容在 §2.6 视频采样条（转述、无直接引文），故本卡 evidence 以本次抓取的 arXiv HTML 逐字引文为主（URL + 抓取日期 2026-11-03）。

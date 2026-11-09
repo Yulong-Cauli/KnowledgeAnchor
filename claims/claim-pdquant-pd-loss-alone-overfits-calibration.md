@@ -32,7 +32,7 @@ signoff: null
 
 ## 这条主张是什么意思
 
-论文声称（尚未独立验证）：在 ResNet-18 W2A2 消融（Table 2）中，只用 PD 损失时校准集精度 70.51%、验证集精度仅 1.07%——校准与验证相差约 70 个百分点，是"校准集数字好看 ≠ 测试可用"的极端案例；加上 MSE 正则化后验证精度恢复到 49.16%。该核心主张经 2026-11-03 三版本（arXiv v1/v3 + CVF camera-ready）实抓核对**双源成立**——论文 Table 2 原值即 1.07(val)/70.51(cali) 与 49.16(val)/71.09(cali)。
+论文声称：在 ResNet-18 W2A2 消融（Table 2）中，只用 PD 损失时校准集精度 70.51%、验证集精度仅 1.07%——校准与验证相差约 70 个百分点，是"校准集数字好看 ≠ 测试可用"的极端案例；加上 MSE 正则化后验证精度恢复到 49.16%。该核心主张经 2026-11-03 三版本（arXiv v1/v3 + CVF camera-ready）实抓核对**双源成立**——论文 Table 2 原值即 1.07(val)/70.51(cali) 与 49.16(val)/71.09(cali)。
 
 口径提醒（QwT 教训）：Table 2 是本笔记里唯一明确分列 Calibration Acc 与 Validation Acc 的表，引用时必须带上两列，不能只抄 70.51%。这篇卡与 [claim-qwt-r2-gate-nonregression](claim-qwt-r2-gate-nonregression.md) 同属"校准集意义下的结论不自动等于测试集结论"主线。
 

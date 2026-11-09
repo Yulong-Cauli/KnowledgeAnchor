@@ -3,7 +3,7 @@ id: claim-brecq-w4a4-comparable-qat-1024-images
 title: "BRECQ 自报：W4A4 下用 1024 张校准图、0.4–0.8 GPU hours 达到与 QAT 可比精度（ResNet-18 69.60 vs PACT 69.2；MobileNetV2 66.57 超两者），仍低于 QAT 最强 LSQ 71.1"
 type: claim
 status: asserted
-scope: "ImageNet top-1；ResNet-18 与 MobileNetV2；W4A4 全量化；PTQ 校准成本口径：1024 张校准图、单卡 GPU hours（BRECQ 自报含 2/4/8-bit 三次统一精度训练的合并口径，§4.3）；对比的 PACT/DSQ/LSQ 数字为 BRECQ 论文 Table 4 转引（各自 1.2M 训练图、100–192 GPU hours，自报口径未独立核对）；摘要 240× 为『quantized model 生产速度』的论文声称；尚未独立验证"
+scope: "ImageNet top-1；ResNet-18 与 MobileNetV2；W4A4 全量化；PTQ 校准成本口径：1024 张校准图、单卡 GPU hours（BRECQ 自报含 2/4/8-bit 三次统一精度训练的合并口径，§4.3）；对比的 PACT/DSQ/LSQ 数字为 BRECQ 论文 Table 4 转引（各自 1.2M 训练图、100–192 GPU hours，自报口径未独立核对）；摘要 240× 为『quantized model 生产速度』的论文声称"
 tags: [quantization, ptq, qat, brecq, lsq, cost-accuracy]
 note: library/Quantization/BRECQ.md#34-与-qat-的成本-精度对比43-table-4
 paper: "ICLR 2021（arXiv:2102.05426）, BRECQ: Pushing the Limit of Post-Training Quantization by Block Reconstruction（开源：https://github.com/yhhhli/BRECQ）"
@@ -44,7 +44,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（asserted，尚未独立验证）：4-bit 全量化下，BRECQ 作为 PTQ 方法（1024 张校准图、ResNet-18 0.4 / MobileNetV2 0.8 GPU hours）达到与 QAT 方法可比的精度，并在 4-bit MobileNetV2 上反超 QAT——这是「PTQ 首次追平 QAT（4-bit）」这一论文头衔主张的证据表（Table 4，2026-11-03 已对 arXiv HTML v2 逐行实抓核对一致）。
+论文声称（asserted）：4-bit 全量化下，BRECQ 作为 PTQ 方法（1024 张校准图、ResNet-18 0.4 / MobileNetV2 0.8 GPU hours）达到与 QAT 方法可比的精度，并在 4-bit MobileNetV2 上反超 QAT——这是「PTQ 首次追平 QAT（4-bit）」这一论文头衔主张的证据表（Table 4，2026-11-03 已对 arXiv HTML v2 逐行实抓核对一致）。
 
 必须记住的三个限定：
 

@@ -3,7 +3,7 @@ id: claim-pointnetpillars-pillar-encoding-2dcnn-avoid-3dconv
 title: "PointPillars 声称：Pillar 化（Z 轴不切分）+ PointNet 编码柱特征 + Scatter 伪图像，使 3D 检测全程只需 2D CNN，避开昂贵 3D 卷积"
 type: claim
 status: asserted
-scope: "3D 目标检测 encoder 架构设计（PointPillars，CVPR 2019）；笔记所载配置与代码实现：POINT_CLOUD_RANGE [0,-39.68,-3,69.12,39.68,1]、VOXEL_SIZE [0.16,0.16,4]（Z 轴 4m 不切分）、每点 9 维特征 (x,y,z,r,xc,yc,zc,xp,yp)、PillarVFE / PointPillarScatter / AnchorHeadSingle 类；笔记未标注数据集版本与任何性能/延迟数字，本卡为架构设计主张，不涉及精度/速度定量结论；尚未独立验证"
+scope: "3D 目标检测 encoder 架构设计（PointPillars，CVPR 2019）；笔记所载配置与代码实现：POINT_CLOUD_RANGE [0,-39.68,-3,69.12,39.68,1]、VOXEL_SIZE [0.16,0.16,4]（Z 轴 4m 不切分）、每点 9 维特征 (x,y,z,r,xc,yc,zc,xp,yp)、PillarVFE / PointPillarScatter / AnchorHeadSingle 类；笔记未标注数据集版本与任何性能/延迟数字，本卡为架构设计主张，不涉及精度/速度定量结论"
 tags: [pointpillars, point-cloud, pillar-encoding, pseudo-image, 2d-cnn, 3d-detection, classical-detection]
 note: library/Classical_Detection/PointNet & PointPillars.md#pointpillars
 paper: "CVPR 2019, PointPillars: Fast Encoders for Object Detection from Point Clouds (arXiv:1812.05784)"
@@ -44,7 +44,7 @@ signoff: null
 
 ## 我的理解
 
-笔记声称（尚未独立验证）：PointPillars 的流水线为——Pillar 化（X-Y 平面网格离散、Z 轴不切分，笔记配置 Z 轴整段 4m）→ PFN 用 PointNet 机制编码柱内特征（点维度扩到 9 维 (x,y,z,r,x_c,y_c,z_c,x_p,y_p)，Linear -> BatchNorm -> ReLU 后 Max Pooling 得到柱级全局特征，机制同 [PointNet 置换不变性卡](claim-pointnetpillars-pointnet-permutation-invariance-symmetric-function.md)）→ Scatter 按网格坐标把稀疏柱特征填回 (C,H,W) 画布得到伪图像 → 标准 2D CNN 检测。论文据此主张避开昂贵 3D 卷积、实现速度与精度平衡。
+笔记声称：PointPillars 的流水线为——Pillar 化（X-Y 平面网格离散、Z 轴不切分，笔记配置 Z 轴整段 4m）→ PFN 用 PointNet 机制编码柱内特征（点维度扩到 9 维 (x,y,z,r,x_c,y_c,z_c,x_p,y_p)，Linear -> BatchNorm -> ReLU 后 Max Pooling 得到柱级全局特征，机制同 [PointNet 置换不变性卡](claim-pointnetpillars-pointnet-permutation-invariance-symmetric-function.md)）→ Scatter 按网格坐标把稀疏柱特征填回 (C,H,W) 画布得到伪图像 → 标准 2D CNN 检测。论文据此主张避开昂贵 3D 卷积、实现速度与精度平衡。
 
 限定：笔记未载任何数据集名称、性能或延迟数字（配置中的 range/voxel size 也未标注数据集版本），因此本卡只立架构层面的可证伪主张——"该结构使检测可全程用 2D CNN 完成、结构上不含 3D 卷积"；"速度与精度平衡"的量化论证笔记无数值支撑，不作为本卡主张，需回原论文/复现另证。
 

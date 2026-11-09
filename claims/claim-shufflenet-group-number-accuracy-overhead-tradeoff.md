@@ -3,7 +3,7 @@ id: claim-shufflenet-group-number-accuracy-overhead-tradeoff
 title: "ShuffleNet 论文声称组数 g 的非单调权衡：g>1 一致优于 g=1、越小模型收益越大（最多 4.4 点），但 g 过大精度饱和回落且实测加速远低于理论（每 4× 理论缩减约 2.6×）"
 type: claim
 status: asserted
-scope: "ShuffleNet V1（arXiv:1707.01083 v2，CVPR 2018）§4.1.1 Table 2（g=1–8 × ShuffleNet 1×/0.5×/0.25×）+ §3.3 机制论述 + §4.5 Table 8（Snapdragon 820 单线程实测）；精度为 ImageNet top-1 错误率（单 crop，错误率越低越好）；「收益」指同复杂度约束下错误率变化；论文声称口径，尚未独立验证"
+scope: "ShuffleNet V1（arXiv:1707.01083 v2，CVPR 2018）§4.1.1 Table 2（g=1–8 × ShuffleNet 1×/0.5×/0.25×）+ §3.3 机制论述 + §4.5 Table 8（Snapdragon 820 单线程实测）；精度为 ImageNet top-1 错误率（单 crop，错误率越低越好）；「收益」指同复杂度约束下错误率变化；论文声称口径"
 tags: [shufflenet, group-convolution, latency, efficient-backbone]
 note: library/Efficient_Backbone/ShuffleNet.md#32-pointwise-组卷积消融411-table-2
 paper: "CVPR 2018, ShuffleNet: An Extremely Efficient Convolutional Neural Network for Mobile Devices (arXiv:1707.01083)"
@@ -68,7 +68,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（尚未独立验证）：组数 g 是同复杂度下「通道宽度 ↔ 单个卷积连接稀疏度」的旋钮——g 越大，同 FLOPs 预算可换更多输出通道（更宽特征图），小模型因此受益；但单个卷积滤波器的输入连接变少，精度在大 g 段饱和甚至回落。Table 2 的形状：g=1→最优 g 的错误率降幅随模型变小而增大（1× 1.2、0.5× 3.5、0.25× 4.4 点），而 0.5× 上 g=8（42.3）劣于 g=4（41.6）——非单调的直接实锚；0.25× 上则 g=8 最优。
+论文声称：组数 g 是同复杂度下「通道宽度 ↔ 单个卷积连接稀疏度」的旋钮——g 越大，同 FLOPs 预算可换更多输出通道（更宽特征图），小模型因此受益；但单个卷积滤波器的输入连接变少，精度在大 g 段饱和甚至回落。Table 2 的形状：g=1→最优 g 的错误率降幅随模型变小而增大（1× 1.2、0.5× 3.5、0.25× 4.4 点），而 0.5× 上 g=8（42.3）劣于 g=4（41.6）——非单调的直接实锚；0.25× 上则 g=8 最优。
 
 开销一侧（§4.5）：g=4/g=8 精度虽好但当时实现效率低，经验折中是 g=3；更一般的规律是「每 4× 理论复杂度缩减 ≈ 2.6× 实测加速」（内存访问与其它开销吃掉其余），Table 8 给出 Snapdragon 820 单线程实测（如 0.5×(g=3) 38M FLOPs → 15.2ms vs AlexNet 720M → 184.0ms）。
 

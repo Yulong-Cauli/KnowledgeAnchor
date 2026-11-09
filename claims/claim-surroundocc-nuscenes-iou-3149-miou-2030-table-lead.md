@@ -3,7 +3,7 @@ id: claim-surroundocc-nuscenes-iou-3149-miou-2030-table-lead
 title: "SurroundOcc 声称：nuScenes 3D 占用预测对比表中，纯相机输入达 SC IoU 31.49 / SSC mIoU 20.30，高于 BEVFormer（30.50 / 16.75）与 TPVFormer（30.86 / 17.10）"
 type: claim
 status: asserted
-scope: "nuScenes 3D 占用预测（笔记未注明 val/test 划分与是否 Occ3D-nuScenes 协议）；三方法均为纯相机（Camera）输入；论文自报对比表数字，据库内笔记 §5.1 转述，尚未独立验证；笔记未说明基线两行是同硬件复现还是引用各自原文"
+scope: "nuScenes 3D 占用预测（笔记未注明 val/test 划分与是否 Occ3D-nuScenes 协议）；三方法均为纯相机（Camera）输入；论文自报对比表数字，据库内笔记 §5.1 转述；笔记未说明基线两行是同硬件复现还是引用各自原文"
 tags: [occupancy-prediction, nuscenes, surroundocc, bevformer, tpvformer, multi-camera]
 note: library/3D_Occupancy/SurroundOcc.md#51-nuscenes-性能对比
 paper: "ICCV 2023 · SurroundOcc: Multi-Camera 3D Occupancy Prediction for Autonomous Driving · arXiv:2303.09551 · https://github.com/weiyithu/SurroundOcc"
@@ -32,7 +32,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（据笔记 §5.1 转述，尚未独立验证）：在 nuScenes 3D 占用预测上，纯相机输入的 SurroundOcc 取得 SC IoU 31.49 / SSC mIoU 20.30，同表高于 BEVFormer（30.50 / 16.75）与 TPVFormer（30.86 / 17.10）。注意差距的结构：语义侧（SSC mIoU +3.2 以上）明显大于几何侧（SC IoU 仅 +0.63 ~ +0.99），本卡主张是「同表更高」，不是「大幅领先」或 SOTA——笔记只列了这两条早期基线，不含与同期更强的占用方法的对比。
+论文声称（据笔记 §5.1 转述）：在 nuScenes 3D 占用预测上，纯相机输入的 SurroundOcc 取得 SC IoU 31.49 / SSC mIoU 20.30，同表高于 BEVFormer（30.50 / 16.75）与 TPVFormer（30.86 / 17.10）。注意差距的结构：语义侧（SSC mIoU +3.2 以上）明显大于几何侧（SC IoU 仅 +0.63 ~ +0.99），本卡主张是「同表更高」，不是「大幅领先」或 SOTA——笔记只列了这两条早期基线，不含与同期更强的占用方法的对比。
 
 限定与注意：
 1. 笔记未注明数据集划分（val / test）与评测协议版本，也未说明基线数字来源；跨论文对比口径常不可比（[EMC2 卡](claim-emc2-orin-sub400ms-leading-accuracy.md)的前车之鉴），故 scope 写明「自报对比表」。

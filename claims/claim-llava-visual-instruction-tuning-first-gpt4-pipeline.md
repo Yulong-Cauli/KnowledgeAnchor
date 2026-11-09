@@ -3,7 +3,7 @@ id: claim-llava-visual-instruction-tuning-first-gpt4-pipeline
 title: "LLaVA 论文声称：首次用 language-only GPT-4 从 image-text 对生成多模态指令数据，并端到端指令微调 CLIP+Vicuna 得到通用多模态助手"
 type: claim
 status: asserted
-scope: "LLaVA（CLIP ViT-L/14 视觉编码器 + 单层线性投影 + Vicuna LLM，两阶段：CC3M 过滤出的 595K 特征对齐预训练 → LLaVA-Instruct-158K 端到端微调）；主张限定为『方法 pipeline 首创性』这一论文自述，不含任何性能数字；依据 arXiv:2304.08485v2（NeurIPS 2023 Oral），尚未独立验证"
+scope: "LLaVA（CLIP ViT-L/14 视觉编码器 + 单层线性投影 + Vicuna LLM，两阶段：CC3M 过滤出的 595K 特征对齐预训练 → LLaVA-Instruct-158K 端到端微调）；主张限定为『方法 pipeline 首创性』这一论文自述，不含任何性能数字；依据 arXiv:2304.08485v2（NeurIPS 2023 Oral）"
 tags: [vlm, visual-instruction-tuning, llava, multimodal, gpt4-data-generation]
 note: library/VLM_VLA/LLaVA.md#1-概述
 paper: "NeurIPS 2023, Visual Instruction Tuning (LLaVA, arXiv:2304.08485)"
@@ -35,7 +35,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（尚未独立验证）：视觉指令微调的完整 pipeline 首次由本文提出——用 language-only GPT-4 以 caption + bounding box 符号化表示图像，生成 conversation / detailed description / complex reasoning 三类共 158K 指令样本（人工只写种子示例），再对 CLIP ViT-L/14 + 线性投影 + Vicuna 做两阶段端到端训练（Stage 1 仅训投影矩阵做特征对齐，Stage 2 微调投影+LLM、视觉编码器全程冻结）。
+论文声称：视觉指令微调的完整 pipeline 首次由本文提出——用 language-only GPT-4 以 caption + bounding box 符号化表示图像，生成 conversation / detailed description / complex reasoning 三类共 158K 指令样本（人工只写种子示例），再对 CLIP ViT-L/14 + 线性投影 + Vicuna 做两阶段端到端训练（Stage 1 仅训投影矩阵做特征对齐，Stage 2 微调投影+LLM、视觉编码器全程冻结）。
 
 两个限定：
 1. "first attempt" 是摘要级首创性声称，限定在「language-only GPT-4 生成多模态指令数据 + 指令微调 LMM」这个定义域；论文自己也把 Flamingo/BLIP-2 等列为『未用视觉-语言指令数据显式调过』的前作（§2）。

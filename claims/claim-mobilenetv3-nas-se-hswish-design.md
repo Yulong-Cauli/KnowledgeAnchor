@@ -3,7 +3,7 @@ id: claim-mobilenetv3-nas-se-hswish-design
 title: "MobileNetV3 论文声称的结构构成：platform-aware NAS（块级）+ NetAdapt（层级）两级搜索得到骨架——Large 档直接复用 MnasNet-A1 作种子、Small 档把奖励权重改为 w=-0.15 重搜——再叠加 SE 瓶颈固定为扩张层通道数的 1/4 与 h-swish 仅用于模型后半段两项手工改造"
 type: claim
 status: asserted
-scope: "MobileNetV3（ICCV 2019，arXiv:1905.02244 v5，笔记按 ar5iv 渲染转写并经官方 PDF 复核一致）；本卡是对论文 §4–§5 方法构成的设计描述主张，不是精度/速度主张：platform-aware NAS 沿用 MnasNet 的 RNN controller 与 factorized hierarchical search space，NetAdapt 按 ΔAcc/|Δlatency| 选案；SE 模块沿用 MnasNet 摆放（expansion 内 depthwise 之后），但瓶颈比例从相对改为固定 1/4；h-swish[x]=x·ReLU6(x+3)/6，只在模型后半段启用（V3 Table 1/2 的 NL 列）；'no discernible accuracy difference / 量化模式消除近似 sigmoid 精度损失 / TFLite 原子算子'为论文自报的部署收益；精度-开销数字不在此卡（另有演进快照卡）；论文声称，尚未独立验证"
+scope: "MobileNetV3（ICCV 2019，arXiv:1905.02244 v5，笔记按 ar5iv 渲染转写并经官方 PDF 复核一致）；本卡是对论文 §4–§5 方法构成的设计描述主张，不是精度/速度主张：platform-aware NAS 沿用 MnasNet 的 RNN controller 与 factorized hierarchical search space，NetAdapt 按 ΔAcc/|Δlatency| 选案；SE 模块沿用 MnasNet 摆放（expansion 内 depthwise 之后），但瓶颈比例从相对改为固定 1/4；h-swish[x]=x·ReLU6(x+3)/6，只在模型后半段启用（V3 Table 1/2 的 NL 列）；'no discernible accuracy difference / 量化模式消除近似 sigmoid 精度损失 / TFLite 原子算子'为论文自报的部署收益；精度-开销数字不在此卡（另有演进快照卡）；论文声称"
 tags: [mobilenetv3, nas, netadapt, squeeze-excitation, h-swish, efficient-backbone]
 note: library/Efficient_Backbone/MobileNet.md#23-mobilenetv3
 paper: "ICCV 2019, Searching for MobileNetV3 (arXiv:1905.02244)"

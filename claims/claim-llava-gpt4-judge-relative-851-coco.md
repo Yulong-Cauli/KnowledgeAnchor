@@ -3,7 +3,7 @@ id: claim-llava-gpt4-judge-relative-851-coco
 title: "LLaVA 论文声称：LLaVA-Bench (COCO) 上取得相对 text-only GPT-4 的 85.1% relative score（GPT-4 作 judge）——相对分而非绝对准确率"
 type: claim
 status: asserted
-scope: "LLaVA 全量数据模型（13B）；LLaVA-Bench (COCO)：COCO-Val-2014 随机 30 图 × 3 类问题 = 90 问；judge 为 text-only GPT-4（1-10 打分，评 helpfulness/relevance/accuracy/detail）；分母/上界是『用 GT caption+bounding box 作视觉输入的 text-only GPT-4』；论文自报数字（NeurIPS 2023，arXiv:2304.08485v2），尚未独立验证"
+scope: "LLaVA 全量数据模型（13B）；LLaVA-Bench (COCO)：COCO-Val-2014 随机 30 图 × 3 类问题 = 90 问；judge 为 text-only GPT-4（1-10 打分，评 helpfulness/relevance/accuracy/detail）；分母/上界是『用 GT caption+bounding box 作视觉输入的 text-only GPT-4』；论文自报数字（NeurIPS 2023，arXiv:2304.08485v2）"
 tags: [vlm, llava, gpt4-judge, relative-score, evaluation-methodology]
 note: library/VLM_VLA/LLaVA.md#3-实验
 paper: "NeurIPS 2023, Visual Instruction Tuning (LLaVA, arXiv:2304.08485)"
@@ -41,7 +41,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（尚未独立验证）：在自建的 LLaVA-Bench (COCO)（30 图 90 问）上，LLaVA 拿到 85.1 的 overall 相对分——这是「相对使用 GT caption+box 的 text-only GPT-4」的百分比（GPT-4 作 judge 打 1-10 分后归一），不是绝对准确率；分项为 conversation 83.1 / detail 75.3 / complex reasoning 96.5。同框架下更难的 In-the-Wild 基准上 overall 只有 67.3（complex reasoning 81.7）。
+论文声称：在自建的 LLaVA-Bench (COCO)（30 图 90 问）上，LLaVA 拿到 85.1 的 overall 相对分——这是「相对使用 GT caption+box 的 text-only GPT-4」的百分比（GPT-4 作 judge 打 1-10 分后归一），不是绝对准确率；分项为 conversation 83.1 / detail 75.3 / complex reasoning 96.5。同框架下更难的 In-the-Wild 基准上 overall 只有 67.3（complex reasoning 81.7）。
 
 引用时必须带的三点限定（笔记 ⚠ 原注）：
 1. 85.1% 是相对分，不是「答对率」；

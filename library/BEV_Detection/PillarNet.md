@@ -35,7 +35,7 @@ pillar size 灵活性（§1）："PillarNet offers an effective solution by skil
 - nuScenes test set（LiDAR-only、非集成，§4.1 + Table 1）：PillarNet-vgg/18/34 分别 69.6/70.8/71.4 NDS、63.3/65.0/66.0 mAP，实时速度 14/13/12 FPS；论文声称 "surpasses all the published LiDAR-only non-ensemble methods on the nuScenes Detection leaderboard on Mar 7, 2022"（§4.1）。
 - PillarNet-18 对比 AFDetV2："PillarNet-18 surprisingly surpasses the most advanced AFDetV2 by +2.3% NDS or +2.6% mAP."（§4.1）
 - Waymo test set（§4.1 + Table 2）：单帧 PillarNet-34 vehicle L1 mAP/mAPH 82.47/82.03，多帧 83.23/82.80；"Our PillarNet-34 outperforms all the previous single-frame and multi-frame LiDAR-only models for the vehicle and pedestrian categories while running at a speed of 19 FPS separately."（§4.1）
-- 以上均为论文声称的基准快照（截至 v5 提交日 2022-08-26），尚未独立验证。
+- 以上均为论文声称的基准快照（截至 v5 提交日 2022-08-26）。
 
 ------
 
@@ -266,7 +266,7 @@ Table 6：不同 pillar size 及对应 encoder stage 组合（PillarNet-18）—
 ## 4. 核心结论
 
 1. PillarNet 的主张：在 "encoder-neck-head" 框架内，把 pillar 系方法的短板定位为"弱 encoder + pillar size 与特征图尺寸耦合"，用稀疏 2D CNN 多 stage encoder（1–4 可拆卸 + stage 5 稠密语义）与 spatial-semantic fusion neck（v1/v2/v2-D/v3）替代 PointPillars 的浅 backbone，并用 OD-IoU 损失 + IoU-Aware rectification 稳定回归与置信度（§1、§3.2–3.4）。结论句："PillarNet achieves the scalability and flexibility for the hard-balanced pillar size and model complexities"（§5 Conclusions；原文自称 "we propose a real-time and high-performance one-stage 3D object detector"，§5）。
-2. 精度快照（论文声称，尚未独立验证；截至 v5 2022-08-26）：nuScenes test LiDAR-only 非集成 NDS 69.6/70.8/71.4（vgg/18/34），超过当时榜上全部已发表同类方法（§4.1，Table 1）；Waymo test 单帧 vehicle L1 mAP/mAPH 82.47/82.03（PillarNet-34，§4.1，Table 2）。
+2. 精度快照（论文声称；截至 v5 2022-08-26）：nuScenes test LiDAR-only 非集成 NDS 69.6/70.8/71.4（vgg/18/34），超过当时榜上全部已发表同类方法（§4.1，Table 1）；Waymo test 单帧 vehicle L1 mAP/mAPH 82.47/82.03（PillarNet-34，§4.1，Table 2）。
 3. 消融给出的量化结论（nuScenes val）：encoder 带来 +7.61% mAP / +5.94% NDS（对 CenterPoint-PointPillars 基线，§4.2 Table 4）；OD-DIoU 在三种 OD 损失中增益最大（+0.24% mAP / +0.24% NDS，§4.2）；IoU-Aware rectification 声称 +0.34% mAP（§4.2，数值对不上 Table 4 行差，见遗留问题）；pillar size 越细 + encoder 越深越好，粗 pillar 配置可通过拆卸 stage 换速度（§4.2，Table 6：0.075m 59.48/67.15 → 0.075×8m 55.37/64.20）。
 4. 代价与边界：nuScenes test 14/13/12 FPS（vgg/18/34，§4.1）、val 16 FPS（PillarNet-18，Table 4；RTX 3090 桌面机口径，§4）；粗 pillar + 少 stage 配置受 cuda atomic max 全局内存操作拖慢（§4.2）；Waymo 两帧输入对 cyclist 无益，作者归因于 4352210/2037627/49518 的类别不均衡（§4.1）。
 

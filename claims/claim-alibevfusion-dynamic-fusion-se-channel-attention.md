@@ -39,7 +39,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（尚未独立验证）：两流 BEV 特征 $F_{Camera}$ 与 $F_{LiDAR}$ 先沿通道拼接，经 3×3 卷积构成的静态融合函数 $f_{static}$ 初步整合并降维，再由全局平均池化 + 1×1 卷积 + Sigmoid 得到逐通道权重、与特征逐通道相乘完成自适应特征选择（AFS），整体公式为 $F_{fused} = f_{adaptive}(f_{static}([F_{Camera}, F_{LiDAR}]))$，机制受 Squeeze-and-Excitation 启发。
+论文声称：两流 BEV 特征 $F_{Camera}$ 与 $F_{LiDAR}$ 先沿通道拼接，经 3×3 卷积构成的静态融合函数 $f_{static}$ 初步整合并降维，再由全局平均池化 + 1×1 卷积 + Sigmoid 得到逐通道权重、与特征逐通道相乘完成自适应特征选择（AFS），整体公式为 $F_{fused} = f_{adaptive}(f_{static}([F_{Camera}, F_{LiDAR}]))$，机制受 Squeeze-and-Excitation 启发。
 
 这是阿里版 BEVFusion（NeurIPS 2022）与 MIT 版 BEVFusion（ICRA 2023，MIT Han Lab）同名不同作的关键差异点之一：MIT 版在 BEV 特征合并后用卷积 BEV encoder 补偿局部错位、不设通道注意力（见 `library/Multimodal_Fusion/MIT-BEVFusion.md` §2.3 与其 §4 结论 5 的两文区分说明），阿里版则是拼接后的通道注意力加权。两文无直接引用关系（MIT 版笔记已核对其抓取的 HTML v3 正文未引用阿里版）。
 

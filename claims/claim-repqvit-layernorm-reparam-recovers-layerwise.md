@@ -3,7 +3,7 @@ id: claim-repqvit-layernorm-reparam-recovers-layerwise
 title: "RepQ-ViT 论文声称：LayerNorm 尺度重参数化把 DeiT-S W4A4 逐层量化精度从 33.17% 恢复到 69.03%（距逐通道上限 1.25 点）"
 type: claim
 status: asserted
-scope: "DeiT-S（ImageNet 分类）；W4A4 PTQ；§3.2 消融仅改变 LayerNorm 后激活的量化器（纯逐层 / 纯逐通道 / scale 重参数化三选一），其余部分为完整方法（Softmax 侧已是 log_√2 重参数化，对应同一 69.03%）；逐通道 70.28% 为硬件不支持的精度参考；重参数化后 QKV 权重需在极少量校准数据上重校准（笔记未注明校准集来源与 split，校准 vs 测试口径以此区分）；数字为论文自报测试准确率；尚未独立验证"
+scope: "DeiT-S（ImageNet 分类）；W4A4 PTQ；§3.2 消融仅改变 LayerNorm 后激活的量化器（纯逐层 / 纯逐通道 / scale 重参数化三选一），其余部分为完整方法（Softmax 侧已是 log_√2 重参数化，对应同一 69.03%）；逐通道 70.28% 为硬件不支持的精度参考；重参数化后 QKV 权重需在极少量校准数据上重校准（笔记未注明校准集来源与 split，校准 vs 测试口径以此区分）；数字为论文自报测试准确率"
 tags: [quantization, ptq, repqvit, vit, w4a4, layernorm, scale-reparameterization]
 note: library/Quantization/RepQ-ViT.md#32-消融实验
 paper: "ICCV 2023, RepQ-ViT: Scale Reparameterization for Post-Training Quantization of Vision Transformers（代码：https://github.com/zkkli/RepQ-ViT）"
@@ -37,7 +37,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（asserted，尚未独立验证）：LayerNorm 后激活通道间波动剧烈，逐层量化在 DeiT-S W4A4 下崩至 33.17%，逐通道量化能到 70.28% 但硬件激活运算不支持。RepQ-ViT 用变异因子 $r_1 = s/\tilde{s}$、$r_2 = z - \tilde{z}$ 构造伪激活，把逐通道量化参数向前吸收进 LayerNorm 的 $\gamma, \beta$、向后补偿进 QKV 权重，从而在硬件支持的逐层量化下恢复到 69.03%，距逐通道上限仅 1.25 点（损失归因于 $r_1$ 改变权重分布后的重校准）。
+论文声称（asserted）：LayerNorm 后激活通道间波动剧烈，逐层量化在 DeiT-S W4A4 下崩至 33.17%，逐通道量化能到 70.28% 但硬件激活运算不支持。RepQ-ViT 用变异因子 $r_1 = s/\tilde{s}$、$r_2 = z - \tilde{z}$ 构造伪激活，把逐通道量化参数向前吸收进 LayerNorm 的 $\gamma, \beta$、向后补偿进 QKV 权重，从而在硬件支持的逐层量化下恢复到 69.03%，距逐通道上限仅 1.25 点（损失归因于 $r_1$ 改变权重分布后的重校准）。
 
 读表注意：§3.2 两个消融表的 Scale Reparam 行同为 69.03%（即完整方法数字），说明每个消融是在另一组件固定为最终设定下做的；69.03% 不是"只动 LayerNorm、其余随机"的结果。
 

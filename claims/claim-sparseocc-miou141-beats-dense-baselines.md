@@ -3,7 +3,7 @@ id: claim-sparseocc-miou141-beats-dense-baselines
 title: "SparseOcc 声称：nuScenes-Occupancy 验证集上 IoU 21.8 / mIoU 14.1，同表高于三条相机稠密基线（C-CONet 20.1/12.8、OpenOccupancy 19.3/10.3、TPVFormer 15.3/7.8）"
 type: claim
 status: asserted
-scope: "nuScenes-Occupancy 验证集（笔记措辞；官方 GitHub README 口径为 OpenOccupancy validation set，arXiv 摘要未点名基准，准确基准名需回原文核对）；相机输入；SparseOcc 自报对比表（笔记 §4.1 / Table 1）；笔记未注明基线数字是同协议复现还是引用各自原文，未注明评测硬件；据库内笔记转述，尚未独立验证"
+scope: "nuScenes-Occupancy 验证集（笔记措辞；官方 GitHub README 口径为 OpenOccupancy validation set，arXiv 摘要未点名基准，准确基准名需回原文核对）；相机输入；SparseOcc 自报对比表（笔记 §4.1 / Table 1）；笔记未注明基线数字是同协议复现还是引用各自原文，未注明评测硬件；据库内笔记转述"
 tags: [occupancy-prediction, sparse-3d, sparse-conv, sparseocc, nuscenes, sparse-tokens]
 note: library/3D_Occupancy/SparseOcc.md#41-nuscenes-occupancy-性能对比-table-1
 paper: "CVPR 2024 · SparseOcc: Rethinking Sparse Latent Representation for Vision-Based Semantic Occupancy Prediction · arXiv:2404.09502 · https://github.com/VISION-SJTU/SparseOcc"
@@ -44,7 +44,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（据笔记 §4.1 Table 1 转述，尚未独立验证）：在 nuScenes-Occupancy 验证集、相机输入口径下，SparseOcc 取得 IoU 21.8 / mIoU 14.1，IoU 与 mIoU 两项均高于同表三条稠密基线——C-CONet（20.1 / 12.8）、OpenOccupancy（19.3 / 10.3）、TPVFormer（15.3 / 7.8）。
+论文声称（据笔记 §4.1 Table 1 转述）：在 nuScenes-Occupancy 验证集、相机输入口径下，SparseOcc 取得 IoU 21.8 / mIoU 14.1，IoU 与 mIoU 两项均高于同表三条稠密基线——C-CONet（20.1 / 12.8）、OpenOccupancy（19.3 / 10.3）、TPVFormer（15.3 / 7.8）。
 
 限定与注意：
 

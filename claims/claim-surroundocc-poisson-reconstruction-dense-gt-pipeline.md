@@ -36,7 +36,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（据笔记 §3 转述，尚未独立验证）：因为原始 LiDAR 点云太稀疏无法直接监督密集预测，SurroundOcc 用一套离线 pipeline 造密集占用真值——① 多帧点云按位姿对齐拼接、动态物体按 Bounding Box 做运动补偿；② 泊松曲面重建把离散点补成连续曲面、填补物理孔洞；③ 曲面网格重新体素化；④ 用最近邻算法把原始点云语义标签传播给新生成的密集体素。arXiv:2303.09551 摘要（抓取于 2026-11-02）印证其通过融合多帧 LiDAR 与 Poisson Reconstruction 生成 dense occupancy ground truth，但摘要未给出四步细节，故四步划分暂以笔记为据。
+论文声称（据笔记 §3 转述）：因为原始 LiDAR 点云太稀疏无法直接监督密集预测，SurroundOcc 用一套离线 pipeline 造密集占用真值——① 多帧点云按位姿对齐拼接、动态物体按 Bounding Box 做运动补偿；② 泊松曲面重建把离散点补成连续曲面、填补物理孔洞；③ 曲面网格重新体素化；④ 用最近邻算法把原始点云语义标签传播给新生成的密集体素。arXiv:2303.09551 摘要（抓取于 2026-11-02）印证其通过融合多帧 LiDAR 与 Poisson Reconstruction 生成 dense occupancy ground truth，但摘要未给出四步细节，故四步划分暂以笔记为据。
 
 限定与注意：
 1. 本卡是方法构造性主张（pipeline 是什么），不主张「该 pipeline 是最优 / 必要」——后者属评价，且其效果数字另见 [消融卡](claim-surroundocc-dense-gt-supervision-sc-iou-1196-to-3149.md)。

@@ -40,7 +40,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（尚未独立验证）：这是 Alpamayo-R1 公开可复现面最宽的一张快照卡——两个发布规格在两个公开评测上的成绩：开环 PhysicalAI-AV（644 held-out 例）上 10B minADE6@6.4s 0.849m，比 0.5B 的 0.913m 好 7.0%；闭环 AlpaSim 公开集（920 场景）上 10B 的 close encounter rate 4% vs 9%（−55%）、off-road 16% vs 19%、AlpaSim Score 0.72 vs 0.35（2 倍多）。
+论文声称：这是 Alpamayo-R1 公开可复现面最宽的一张快照卡——两个发布规格在两个公开评测上的成绩：开环 PhysicalAI-AV（644 held-out 例）上 10B minADE6@6.4s 0.849m，比 0.5B 的 0.913m 好 7.0%；闭环 AlpaSim 公开集（920 场景）上 10B 的 close encounter rate 4% vs 9%（−55%）、off-road 16% vs 19%、AlpaSim Score 0.72 vs 0.35（2 倍多）。
 
 三条必须记住的限定：
 1. 与 Abstract 的 12%/35% 不同，本卡数字均出自**公开**数据集/场景集，是全套数字中复现门槛最低的部分（仍需 gated 权重：README 声明模型需申请访问）。

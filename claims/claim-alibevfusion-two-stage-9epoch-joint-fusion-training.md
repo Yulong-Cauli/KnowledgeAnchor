@@ -31,7 +31,7 @@ signoff: null
 
 ## 我的理解
 
-论文声称（尚未独立验证）：训练分两阶段——第一阶段分别独立训练 LiDAR 流与相机流；第二阶段继承两个预训练流的权重，进行 9 个 epoch 的联合融合训练，并加入 BEV 空间的增强技术。该协议与架构强耦合：正因为两流独立（见[相机流独立卡](claim-alibevfusion-camera-stream-lidar-independent-bev.md)），才能各自预训练，融合阶段才需要联合调——调的对象主要是动态融合模块（见[动态融合卡](claim-alibevfusion-dynamic-fusion-se-channel-attention.md)）。
+论文声称：训练分两阶段——第一阶段分别独立训练 LiDAR 流与相机流；第二阶段继承两个预训练流的权重，进行 9 个 epoch 的联合融合训练，并加入 BEV 空间的增强技术。该协议与架构强耦合：正因为两流独立（见[相机流独立卡](claim-alibevfusion-camera-stream-lidar-independent-bev.md)），才能各自预训练，融合阶段才需要联合调——调的对象主要是动态融合模块（见[动态融合卡](claim-alibevfusion-dynamic-fusion-se-channel-attention.md)）。
 
 笔记 §4 没有任何实验数字（9 epochs 无对照、无消融），本卡只描述协议本身。
 
