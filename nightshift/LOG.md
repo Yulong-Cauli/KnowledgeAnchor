@@ -118,3 +118,5 @@
 2026-11-09 08:20:51 | fire-0820 | 班次开始 | POOL mtime 06:25 无防重入 | probe-2 v2 与 env-v2 v3 均 COMPLETE——晨报火收割+REPORT
 2026-11-09 08:23:14 | fire-0820 | 收割+晨报 | probe-2 v3（__name__ 修复，预算 2/2 尽）+env-v2 v4（pkg_resources→setuptools<70 钉版）重推；REPORT-2026-11-09.md 生成 | 五火全跑
 2026-11-09 14:02:24 | 白天补班 | 用户要求先启动一批 | K-fcos v1（T4 推理配对，预注册 bd9dab9）和 K-lingo v1（CPU 公开资产预检，预注册 4ce8939）均已提交，复查均 RUNNING | 正式 Lingo 相关性复核待逐题输出和人工分
+2026-11-10 02:21:37 | fire-0220 | 班次开始 | 接管守门（POOL mtime 00:44 >40min）| 白天补班推了 K-fcos/K-lingo；主人双授权 B v6 + probe-2 NF4 配方
+2026-11-10 02:28:59 | fire-0220 | probe-2 v4 推送 | 配方执行：三模块 stub+符号适配+布局修正（[:16]→[0:8]+[248:256]）；本地真源码冒烟 max_err=0.0；P2 三 verdict 落位（SUPPORT/Eq.4 确认/NF4 非最低如实记） | 判定带不动

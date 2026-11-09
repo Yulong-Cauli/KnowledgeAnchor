@@ -163,50 +163,58 @@ with open('/kaggle/working/results/rayiou/official_code_check.json', 'w') as f:
     json.dump(P1B, f, indent=1)
 print(json.dumps(P1B, ensure_ascii=False)[:900], flush=True)"""})
 
-CELLS.append({'cell_type': 'code', 'execution_count': None, 'metadata': {}, 'outputs': [], 'source': """# P2 NF4：kernel 内实抓 bnb main functional.py（记录 sha256+URL+日期），公式复算 + Eq.4 字面网格 + 等期望填充 + E|X-Q|
-import json, urllib.request, hashlib, numpy as np
+CELLS.append({'cell_type': 'code', 'execution_count': None, 'metadata': {}, 'outputs': [], 'source': """# P2 NF4：kernel 内实抓 bnb main functional.py（记录 sha256+URL+日期），按 v4 修复配方适配 main 现 API
+# 预注册符号适配（主人 2026-11-10 00:4x 授权，非判定回调）：main 无模块级 nf4 常量/无 create_quantize_nf4——
+# 真入口 get_4bit_type('nf4')（16 码点）+ create_normal_map(offset=0.9677083, use_extra_value=True)[:16]（公式复算）
+import json, urllib.request, hashlib, numpy as np, time
 
 P2 = {'url': 'https://raw.githubusercontent.com/bitsandbytes-foundation/bitsandbytes/main/bitsandbytes/functional.py',
       'fetched_at': time.strftime('%F %T')}
 try:
     src = urllib.request.urlopen(P2['url'], timeout=60).read()
     P2['sha256'] = hashlib.sha256(src).hexdigest()
+    P2['sha_matches_v3_fetch'] = (P2['sha256'] == '520a9e9d3afba11124734df60e48a27e38b6389305df888834405b435e285817')
     open('/kaggle/working/results/nf4/bnb_functional_fetched.py', 'wb').write(src)
-    print('fetched bnb functional.py', P2['sha256'][:16], flush=True)
     import types, sys as _sys
-    _utils_stub = types.ModuleType('bitsandbytes.utils')
-    _utils_stub.pack_dict_to_tensor = lambda *a, **k: None
-    _utils_stub.unpack_tensor_to_dict = lambda *a, **k: None
-    _bnb_stub = types.ModuleType('bitsandbytes'); _bnb_stub.utils = _utils_stub
-    _sys.modules.setdefault('bitsandbytes', _bnb_stub)
-    _sys.modules.setdefault('bitsandbytes.utils', _utils_stub)   # v2 修复：functional.py L16 的包内绝对导入（仅 state 辅助，构造函数不用）
-    ns_bnb = {'__name__': 'bnb_functional_stub'}   # v3 修复：bnb 源码模块级引用 __name__
-    exec(compile(src, 'bnb_functional.py', 'exec'), ns_bnb)   # 隔离命名空间，不 import 安装版
-    nf4_table = list(ns_bnb['nf4'])                            # 硬编码 16 值
-    q_fn = ns_bnb.get('create_quantize_nf4')
-    if q_fn is None:
-        cands = [kk for kk, vv in ns_bnb.items() if kk.lower().startswith('create_') and 'nf4' in kk.lower() and callable(vv)]
-        assert cands, 'bnb functional.py 中未找到 create_*nf4* 构造函数，nf4 相关符号: ' + str([kk for kk in ns_bnb if 'nf4' in kk.lower()][:12])
-        q_fn = ns_bnb[cands[0]]
-    P2['fn_used'] = getattr(q_fn, '__name__', str(q_fn))
+    _bnb = types.ModuleType('bitsandbytes'); _bnb.__path__ = []
+    _utils = types.ModuleType('bitsandbytes.utils')
+    _utils.pack_dict_to_tensor = lambda *a, **k: None
+    _utils.unpack_tensor_to_dict = lambda *a, **k: None
+    _bnb.utils = _utils
+    _cext = types.ModuleType('bitsandbytes.cextension')
+    _cext.lib = types.SimpleNamespace()
+    _bnb.cextension = _cext
+    _sys.modules['bitsandbytes'] = _bnb
+    _sys.modules['bitsandbytes.utils'] = _utils
+    _sys.modules['bitsandbytes.cextension'] = _cext
+    ns_bnb = {'__name__': 'bitsandbytes.functional', '__package__': 'bitsandbytes', '__file__': 'bnb_functional.py'}
+    exec(compile(src, 'bnb_functional.py', 'exec'), ns_bnb)
+    get_4bit_type = ns_bnb['get_4bit_type']
+    create_normal_map = ns_bnb['create_normal_map']
     try:
-        computed = [round(float(x), 8) for x in q_fn(4)]
+        raw16 = get_4bit_type('nf4', device='cpu')
     except TypeError:
-        computed = [round(float(x), 8) for x in q_fn()]
-    P2['bnb_table'] = [round(float(x), 8) for x in nf4_table]
+        raw16 = get_4bit_type('nf4')
+    nf4_table = [round(float(x), 8) for x in raw16]
+    P2['fn_used'] = 'get_4bit_type(nf4) [16 码点] / create_normal_map(offset=0.9677083, use_extra_value=True)[:16] [公式复算]'
+    _cmap = np.asarray(create_normal_map())
+    # v4 配方微调（实测布局，判定带不动）：create_normal_map 256 值的非零码点分居头尾两段——负块 [0:8]（含 idx7 的 0.0）+ 正块 [248:256]
+    computed = [round(float(x), 8) for x in np.concatenate([_cmap[:8], _cmap[248:256]])]
+    P2['normal_map_layout'] = 'neg[0:8] + pos[248:256]（配方 [:16] 的位置假设与实测不符，已按实测修正；公式与判定不变）'
+    P2['bnb_table'] = nf4_table
     P2['computed'] = computed
-    P2['max_err_formula_vs_table'] = float(np.max(np.abs(np.array(computed) - np.array(P2['bnb_table']))))
+    P2['max_err_formula_vs_table'] = float(np.max(np.abs(np.array(computed) - np.array(nf4_table))))
     P2['check1_formula_matches_table'] = P2['max_err_formula_vs_table'] < 1e-6
     # ② Eq.4 字面网格：i/(2^k+1) 相邻均值（k=4）
     from scipy.stats import norm
     k = 4; n = 2 ** k + 1
-    ps = [(i + 1) / n for i in range(n)]                        # 内部网格点
+    ps = [(i + 1) / n for i in range(n)]
     zs = norm.ppf(ps)
     eq4 = [float((zs[i] + zs[i + 1]) / 2) for i in range(n - 1)]
     pos = sorted([x for x in eq4 if x > 0 and np.isfinite(x)])
     P2['eq4_first_positive'] = round(float(pos[0]), 4)
     P2['appendixE_first_positive_1105'] = 0.0796
-    P2['check2_eq4_mismatch_confirmed'] = abs(pos[0] - 0.0796) > 0.01   # Eq.4 字面网格 ≠ 论文表首位正值（#48 材料）
+    P2['check2_eq4_mismatch_confirmed'] = abs(pos[0] - 0.0796) > 0.01
     # ③ 等期望填充：NF4 bin 质量 vs INT4-absmax 均匀格
     code = np.array(sorted(set([0.0] + [abs(x) for x in nf4_table] + [-abs(x) for x in nf4_table])))
     mids = (code[1:] + code[:-1]) / 2
@@ -232,19 +240,21 @@ try:
         return float(np.mean(np.abs(samp - c[np.clip(idx, 0, len(c) - 1)])))
     P2['eq_err_nf4'] = eq_err(nf4_table)
     P2['eq_err_int4'] = eq_err(int_code)
-    P2['eq_err_af4'] = eq_err(np.linspace(-0.9677083 * 1.0, 0.9677083, 16))  # AF4 等距近似（同 bnb offset 幅度）
+    P2['eq_err_af4'] = eq_err(np.linspace(-0.9677083, 0.9677083, 16))
     P2['nf4_lowest'] = P2['eq_err_nf4'] <= min(P2['eq_err_int4'], P2['eq_err_af4'])
-    P2['verdict_1'] = 'SUPPORT' if P2['check1_formula_matches_table'] else 'MISMATCH: 公式复算与硬编码表不符，如实记录'
+    P2['verdict_1'] = 'SUPPORT: 公式复算与 16 码点一致' if P2['check1_formula_matches_table'] else 'MISMATCH: 公式复算与 16 码点不符，如实记录'
     P2['verdict_2'] = 'Eq.4 字面网格不命中确认 -> #48 材料固化' if P2['check2_eq4_mismatch_confirmed'] else 'Eq.4 字面网格意外命中论文表值（与 11-05 结论冲突，如实记录）'
     P2['verdict_4'] = 'NF4 最低（自算）' if P2['nf4_lowest'] else 'NF4 非最低（自算），照实记录'
 except Exception as e:
+    import traceback
     P2['error'] = repr(e)
+    P2['trace_tail'] = traceback.format_exc()[-1200:]
     P2['verdict_1'] = P2['verdict_2'] = P2['verdict_4'] = 'SKIPPED: ' + repr(e)
 RES['p2'] = P2
 with open('/kaggle/working/results/nf4/metrics.json', 'w') as f:
     json.dump(P2, f, ensure_ascii=False, indent=1)
 for k in ['verdict_1', 'verdict_2', 'verdict_4', 'max_err_formula_vs_table', 'eq4_first_positive',
-          'nf4_bin_rel_dev_max', 'int4_bin_rel_dev_max', 'eq_err_nf4', 'eq_err_int4', 'eq_err_af4']:
+          'nf4_bin_rel_dev_max', 'int4_bin_rel_dev_max', 'eq_err_nf4', 'eq_err_int4', 'eq_err_af4', 'sha_matches_v3_fetch']:
     print(k, '=', P2.get(k), flush=True)"""})
 
 CELLS.append({'cell_type': 'code', 'execution_count': None, 'metadata': {}, 'outputs': [], 'source': """# P3 SparseOcc FLOPs：论文侧算术自洽（运行时 profile 缩范围留池——需 mmdet3d，K-env 结论未出前不可行）
