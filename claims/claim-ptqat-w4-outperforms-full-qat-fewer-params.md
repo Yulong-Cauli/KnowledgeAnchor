@@ -38,7 +38,7 @@ related: [claim-ptqat-w8a8-tensorrt-accuracy-recovery]
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 W4 下纯 PTQ 会雪崩（SparseBEV mAP 45.4 → 30.5，BEVFormer 41.6 → 23.2）。PTQAT 只解冻 PTQ 预检查中输出 MSE 小于阈值 θ 的层（"fine-tuning the layers with smaller output discrepancies before and after quantization, rather than those with larger discrepancies, actually leads to greater improvements"，arXiv abs 页摘要原句，2026-11-05 实抓核对），结果是双向占优：SparseBEV 训 32.7M（全 QAT 44.6M 的约 74%），mAP/NDS 44.6/55.2 高于全 QAT 的 43.6/54.3；BEVFormer 训 18.7M（约 27%），38.6/49.1 高于 38.0/48.8。
 
@@ -50,11 +50,11 @@ W4 下纯 PTQ 会雪崩（SparseBEV mAP 45.4 → 30.5，BEVFormer 41.6 → 23.2�
 
 ## 待验证
 
-- 笔记标注"暂无"开源实现：等代码放出后（或按论文复现）在 nuScenes val 上跑 SparseBEV / BEVFormer W4，确认 PTQAT ≥ 全参数 QAT 且参数比一致。
-- 核对全参数 QAT 基线的训练配置是否对等（epoch、lr schedule、数据增广）。
+- 笔记标注"暂无"开源实现：等代码放出后（或按论文复现）在 nuScenes val 上跑 SparseBEV / BEVFormer W4——PTQAT 低于同 bit 全参数 QAT 即触发 falsifier 1，可训练参数反超即触发 falsifier 2。
+- 核对全参数 QAT 基线的训练配置是否对等（epoch、lr schedule、数据增广）——不对等则增益不可归因于层选择（falsifier 3）。
 - 阈值 θ 敏感性：更换 θ 后"小误差层优先"的结论是否稳定，还是只在报告的 θ 下成立。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：3D 感知模型的 W4 量化选型可默认走 PTQAT 而非全参数 QAT，训练显存与时间省一档，可直接写进部署方案（需先验证 W8A8 部署卡）。
 不成立：混合量化的收益只是训练技巧层面，选型时仍需保留全参数 QAT 基线；"挑小误差层"的机制主张需另立卡核对消融（Table 6）。

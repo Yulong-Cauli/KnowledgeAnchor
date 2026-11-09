@@ -34,7 +34,7 @@ related: [claim-echofusion-rt-vs-rp-radial, claim-echofusion-rt-vs-ra-noise, cla
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 笔记 §3.1 主表与论文 Table 2 一致（96.95/93.43/95.16 等；笔记省略了 CMS、T-FFTRadNet 两行，已收录行的数字均一致），但 §3.2/3.3 的消融数字对不上论文原表：
 
@@ -42,7 +42,11 @@ signoff: null
 - 笔记 §3.3 比较 **Cartesian vs Polar**（41.5/42.4）；论文的坐标消融是 **Polar vs Sphere**（84.92 vs 85.02），原文说 polar 只是“on par”，并没有 Cartesian 结果。
 - 论文还有 KRadar-20 结果，笔记完全没有收录。
 
-结论：笔记的方法描述和 §3.1 可以用，但 §3.2/3.3 的定量数字不能作为 EchoFusion 的证据。是否修正 `library/` 原笔记需要你确认；在修正前，以论文 Table 6/S4 为准。2026-11-05 复核：笔记 §3.2/3.3 仍未修正，本卡两条笔记 quote 为现引文（逐字命中）。另注意：论文 §5.4 正文自身有一处「only 0.03 less than LiDAR」与 Table 6 数字不自洽（RT+C 84.92±0.98 vs L 84.47±0.15，实差 +0.45 且方向相反），见 [claim-echofusion-paper-table6-inconsistent-with-text](claim-echofusion-paper-table6-inconsistent-with-text.md)——引用 Table 6 时一律以表为准、勿转述该句正文。
+结论：笔记的方法描述和 §3.1 可以用，但 §3.2/3.3 的定量数字不能作为 EchoFusion 的证据。是否修正 `library/` 原笔记需要你确认；在修正前，以论文 Table 6/S4 为准。
+
+2026-11-05 复核：笔记 §3.2/3.3 仍未修正，本卡两条笔记 quote 为现引文（逐字命中）。
+
+另注意：论文 §5.4 正文自身有一处「only 0.03 less than LiDAR」与 Table 6 数字不自洽（RT+C 84.92±0.98 vs L 84.47±0.15，实差 +0.45 且方向相反），见 [claim-echofusion-paper-table6-inconsistent-with-text](claim-echofusion-paper-table6-inconsistent-with-text.md)——引用 Table 6 时一律以表为准、勿转述该句正文。
 
 ## 待验证
 
@@ -50,7 +54,7 @@ signoff: null
 - 检查笔记 §3.2 的 42.4/59.3 是否来自另一篇雷达融合论文（搜索相同数值组合）。
 - 如果决定修正笔记，只改 §3.2/3.3，并在改动处注明论文版本与表号。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立则这条笔记的消融部分不可引用，EchoFusion 的定量 claim 必须回到论文原表；不成立则说明笔记使用的是另一个版本/来源，需要补上版本信息，否则仍无法追溯。
 

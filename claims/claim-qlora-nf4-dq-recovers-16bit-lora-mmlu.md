@@ -1,9 +1,9 @@
 ---
 id: claim-qlora-nf4-dq-recovers-16bit-lora-mmlu
-title: "QLoRA 自报：NF4+双量化的 4-bit 底座微调完全恢复 16-bit LoRA 的 MMLU 性能（Mean 53.1 vs 53.0；65B FLAN v2 63.9 vs 62.5），FP4 落后约 1 点"
+title: "QLoRA 自报：NF4+双量化的 4-bit 底座微调完全恢复 16-bit LoRA 的 MMLU 性能（Mean 53.1 vs 53.0），FP4 落后约 1 点"
 type: claim
 status: asserted
-scope: "LLaMA 7B/13B/33B/65B；微调数据 Alpaca 与 FLAN v2；评测 5-shot MMLU（平均）；QLoRA 配置：NF4 存储 + FP8 量化常数（DQ，blocksize 64/256）+ LoRA 挂全部线性层（r 不敏感，Appendix A）；对照是 16-bit（BF16）LoRA 微调——不是全量微调：论文 §8 自述 33B/65B 未建全量 16-bit 微调基线，全量微调对照只在 ≤3B（Table 3，GLUE/ Super-NaturalInstructions）；论文自报"
+scope: "LLaMA 7B/13B/33B/65B；微调数据 Alpaca 与 FLAN v2；评测 5-shot MMLU（平均）；QLoRA 配置：NF4 存储 + FP8 量化常数（DQ，blocksize 64/256）+ LoRA 挂全部线性层（r 不敏感，Appendix A）；对照是 16-bit（BF16）LoRA 微调、非全量微调（全量微调基线的边界见限定 1）；论文自报"
 tags: [quantization, llm, qlora, nf4, double-quantization, mmlu, lora]
 note: library/Quantization/QLoRA.md#34-k-bit-qlora-匹配-16-bit-全量微调与-16-bit-lora4-table-3table-4
 paper: "NeurIPS 2023（arXiv:2305.14314）, QLoRA: Efficient Finetuning of Quantized LLMs（开源：https://github.com/artidoro/qlora 、https://github.com/TimDettmers/bitsandbytes）"
@@ -34,11 +34,11 @@ related: [claim-qlora-nf4-info-theoretic-optimal-datatype, claim-qlora-65b-finet
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称（asserted）：4-bit（NF4+DQ）底座 + LoRA 微调能"完全恢复"16-bit LoRA 微调的 MMLU 性能——Table 4 平均 53.1 vs 53.0（NF4+DQ 甚至高 0.1），单点上 65B/FLAN v2 63.9 vs 62.5（+1.4）、7B/Alpaca 39.0 vs 38.4；而 FP4 平均 52.2，落后 16-bit 约 1 点——数据类型（NF4 vs FP4）是 4-bit 能否无损的关键变量。
 
-必须记住的口径限定：
+口径限定：
 
 1. **"恢复"的对照是 16-bit LoRA，不是全量微调**：论文 §8 自述 33B/65B 没有全量 16-bit 微调基线（资源原因）；"QLoRA 匹配 16-bit 全量微调"的直接证据只在 ≤3B（Table 3：GLUE/Super-NaturalInstructions 上 BF16/BF16 replication/LoRA/QLoRA 各档互相咬合）。引用时必须带这个限定，不能写成"4-bit 微调 = 16-bit 微调"。
 2. **擦线数字**：Mean 53.1 vs 53.0 是 0.1 点量级，单次运行不具决定性；可靠的判据是 8 个（规模×数据集）格子里 NF4+DQ 对 BF16 的方向分布（4 升 4 降内含 ±），而不是 Mean 一格。
@@ -47,11 +47,11 @@ signoff: null
 
 ## 待验证
 
-- 用官方 bitsandbytes+qlora 复现 Table 4 的 7B/Alpaca（39.0 vs 38.4）与 65B/FLAN v2（63.9 vs 62.5）两格（多 seed）。
-- 补 33B/65B 全量 16-bit 微调基线，填 §8 留白。
+- 用官方 bitsandbytes+qlora 复现 Table 4 的 7B/Alpaca（39.0 vs 38.4）与 65B/FLAN v2（63.9 vs 62.5）两格（多 seed）——NF4+DQ 低于 BF16 超出正常方差即触发 falsifier 1。
+- 补 33B/65B 全量 16-bit 微调基线，填 §8 留白（相邻命题检查，不充当本卡反证，见 falsifier 3）。
 - 复核 DQ 本身不掉点的口径（Figure 3 caption：DQ 只带来 minor gains，价值在把 33B/65B 塞进 24/48GB）。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：LLaMA 7B–65B、MMLU 口径下，4-bit NF4+DQ 底座 + 全线性层 LoRA 自报恢复 16-bit LoRA 性能，论文据此提出"同预算下优先加参数、降精度"的资源分配取向（§4 Summary）；推广为 LLM 微调默认省钱配置属研究启发（尚未验证，其他模型家族/任务是跨条件迁移检查）。
 不成立：无损恢复依赖论文自报的擦线均值或未建基线的对照，该场景微调显存预算按 16-bit LoRA 或量化后全量微调重估。

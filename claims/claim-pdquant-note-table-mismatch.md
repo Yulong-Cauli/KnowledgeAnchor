@@ -1,6 +1,6 @@
 ---
 id: claim-pdquant-note-table-mismatch
-title: "PD-Quant 笔记三张表部分数字在论文 v1/v3/CVF 三个版本中均不存在（BRECQ 列、ResNet-50 2/2 行、Table 1 的 Min-Max/Cosine/W4A2 四值、Table 2 两个校准值与整行 +DC）"
+title: "PD-Quant 笔记三张表部分数字在论文 v1/v3/CVF 三个版本中均不存在"
 type: claim
 status: asserted
 scope: "library/Quantization/PD-Quant.md §4.1 / §4.2 / §4.3 三张表（2026-11-03 修正前状态）；对照 arXiv:2212.07048 v1 与 v3、CVPR 2023 CVF camera-ready 三个版本逐格核对（2026-11-03 抓取，pdftotext -layout 提取）；不评价笔记 §1-§3 与 §5，不构成对 PD-Quant 方法本身的评价"
@@ -57,7 +57,7 @@ related: [claim-pdquant-beats-brecq-qdrop-lowbit, claim-pdquant-pd-metric-beats-
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 笔记 §4 三张表与 CVPR 2023 论文（arXiv v1、v3、CVF camera-ready 三版本，本次抓取逐格核对，三版本表格彼此一致）存在多处「数字在论文任何版本都不存在」的错配，均为单点事实、可逐格证伪（本卡记录的是 2026-11-03 修正前的笔记状态）：
 
@@ -73,7 +73,7 @@ signoff: null
 - 原笔记 BRECQ 列四数（46.58/55.33/15.11/20.33）与 ResNet-50 行两数（61.94/63.15）的真实出处待查：本卡仅核实其不在 PD-Quant v1/v3/CVF、QDrop ICLR 2022 v2 与 BRECQ 论文中，不排除来自某个无法回溯的第三方汇总。
 - 主人裁定 beats-brecq-qdrop 卡（BRECQ 半边证伪）与 dc-bn-stats 卡（+0.40% 锚点失效）的后续处理：改写主张、拆卡或降级。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：修正前笔记 §4 三张表的具体数字不可引用，引用须回论文原表（与 OmniQuant/EMC2 mismatch 卡同款教训）；修正后笔记数字以论文原表为准。受累四卡按各自卡内注记处理，status 均未动。
 不成立：逐格复核确认原笔记与论文某版本一致，说明本卡核对有误，改判/撤卡并回滚笔记修正。

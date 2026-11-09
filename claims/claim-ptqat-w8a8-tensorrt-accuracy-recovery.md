@@ -1,6 +1,6 @@
 ---
 id: claim-ptqat-w8a8-tensorrt-accuracy-recovery
-title: "BEVDepth4D W8A8 下，PTQAT 引擎在 TensorRT 上以接近官方 PTQ 的速度与更低显存恢复大部分精度"
+title: "BEVDepth4D W8A8 下，PTQAT 引擎在 TensorRT 上恢复官方 PTQ 与 FP16 精度差距的约 67%/77%（mAP/NDS），速度接近官方 PTQ、显存更低"
 type: claim
 status: asserted
 scope: "BEVDepth4D；nuScenes val；W8A8；NVIDIA TensorRT 引擎部署；PTQAT vs NVIDIA 官方 PTQ vs FP16"
@@ -34,7 +34,7 @@ related: [claim-ptqat-w4-outperforms-full-qat-fewer-params]
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 W8A8 下相对 FP16 基线（40.8 / 52.2 / 18 FPS / 860M）：NVIDIA 官方 PTQ 拿到 35 FPS / 607M 但精度崩到 32.4 / 44.1；PTQAT 引擎为 38.0 / 50.3 / 31 FPS / 503M——速度约为 FP16 的 1.7 倍、显存省约 42%，精度恢复到官方 PTQ 与 FP16 差距的约 67%（mAP：(38.0−32.4)/(40.8−32.4)=5.6/8.4）与约 77%（NDS：(50.3−44.1)/(52.2−44.1)=6.2/8.1）。该主张的前提是笔记 §2.3 所述"只用均匀对称量化、不用自定义算子"，这也是"可无缝编译"的根据。
 
@@ -46,11 +46,11 @@ W8A8 下相对 FP16 基线（40.8 / 52.2 / 18 FPS / 860M）：NVIDIA 官方 PTQ 
 
 ## 待验证
 
-- 按论文导出 W8A8 引擎，在自有 GPU 上复测 FPS / 显存 / mAP / NDS 四个数，确认相对官方 PTQ 的恢复幅度。
-- 确认导出路径确实不需要自定义插件（ONNX 算子全覆盖）。
+- 按论文导出 W8A8 引擎，在自有 GPU 上复测 FPS / 显存 / mAP / NDS 四个数——速度/显存劣于官方 PTQ 即触发 falsifier 1，恢复幅度大幅缩水（如 mAP 差距 <1 点）即触发 falsifier 2。
+- 确认导出路径确实不需要自定义插件（ONNX 算子全覆盖）——需要自定义插件即触发 falsifier 3。
 - 在 SparseBEV 或 BEVFormer 上重走一遍 W8A8 部署，确认结论不限于 BEVDepth4D。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：车端/工控机部署可走 PTQAT W8A8 引擎路线，不必在"官方一键 PTQ 不可用"与"全参数 QAT 高成本"间二选一。
 不成立：精度恢复依赖未公开的训练细节或特定环境，部署仍需按模型逐个评估，claim 降级为"仅 BEVDepth4D 论文自报"。

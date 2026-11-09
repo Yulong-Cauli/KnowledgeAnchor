@@ -38,11 +38,11 @@ related: [claim-lsq-3bit-distillation-matches-full-precision, claim-brecq-w4a4-c
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称（asserted）：给每层权重/激活各加一个可学习步长（用对量化切换点敏感的分段梯度 + 步长梯度尺度 $1/\sqrt{NQ_P}$），在 ImageNet 上把 2/3/4-bit 全量化网络的 top-1 推到当时所有已报告方法之上。锚单表 ResNet-18：2-bit 67.6 / 3-bit 70.2 / 4-bit 71.1，对 QIL 65.7/69.2/70.1、PACT 64.4/68.1/69.2——2-bit 领先次优 1.9 点、4-bit 反超全精度基线（71.1 vs 70.5）。
 
-必须记住的口径限定：
+口径限定：
 
 1. **自报跨论文对比**：Table 1 的 QIL/FAQ/LQ-Nets/PACT/NICE/Regularization 数字为转引，方法原论文的训练预算、数据增强、首末层口径未必一致（LSQ 只比较"已发表的、全层量化到指定精度"的模型，首末层允许更高精度）；"高于所有已报告方法"只在论文自报的这张表内成立。
 2. **WxAx 而非 W2A4**：LSQ 的位宽记法是权重与激活同 bit（2/2、3/3、4/4）；引用时勿与 BRECQ 的 W2A4、PD-Quant 的 4/2 等异构配置混比（各卡 scope 已分开）。
@@ -57,7 +57,7 @@ signoff: null
 - 同口径复跑 QIL/PACT（或引用其原论文数字）核对 Table 1 转引是否低报。
 - 验证步长梯度尺度 $1/\sqrt{NQ_P}$ 的消融（笔记 Table 3：去掉则不收敛或掉 3.4 点）——方法有效性的第二支柱。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：可学习步长是 QAT 低比特的标配组件（后续 LSQ+、APOT 等沿此线），2-bit 全量化 QAT 的精度上限由 LSQ 类方法定义。
 不成立：领先来自训练预算/口径差，步长学习退化为普通可学习量化参数，低比特 QAT 选型回到 PACT/QIL 系或 PTQ 路线。

@@ -1,6 +1,6 @@
 ---
 id: claim-sparseocc-note-conversational-residue
-title: "SparseOcc 笔记 §2.4 末尾残留一句对话式问句（「……需要细讲吗？」），非笔记正文内容"
+title: "SparseOcc 笔记「总结：公式如何体现“Sparse”？」末尾残留一句对话式问句（「……需要细讲吗？」），非笔记正文内容"
 type: claim
 status: asserted
 scope: "笔记质量记录，仅针对 library/3D_Occupancy/SparseOcc.md §「总结：公式如何体现“Sparse”？」末一行加粗问句；不涉及论文内容主张；该行不被任何已立 SparseOcc claim 卡的 evidence quote 引用；QA round2 复审（2026-11-02）发现"
@@ -21,7 +21,7 @@ related: [claim-sparseocc-miou141-beats-dense-baselines, claim-sparseocc-flops-7
 signoff: null
 ---
 
-## 这条主张是什么意思
+## 主张
 
 本卡是笔记质量记录（asserted，未经用户复核处置）：SparseOcc 笔记「总结：公式如何体现"Sparse"？」小节末尾曾残留一行加粗的 AI 对话式问句（"你会发现这本质上是一个"由面及点"的过程……关于损失函数中如何利用匈牙利匹配（Hungarian Matching）来训练这套流程，需要细讲吗？"），是 AI 对话残留而非笔记应有内容。QA round2（2026-11-02）复审时发现。
 

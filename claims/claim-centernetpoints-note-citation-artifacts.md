@@ -29,7 +29,7 @@ related: [claim-centernetpoints-heatmap-peaks-replace-nms, claim-centernetpoints
 signoff: null
 ---
 
-## 这条主张是什么意思
+## 主张
 
 本卡是笔记质量记录（asserted，未经用户复核处置）：CenterNet 笔记正文曾有三处网页复制残留的孤立引用编号（17 / 18181818 / 20），QA round2 逐字复核 evidence quote 时（2026-11-02）发现。三处均为孤立数字，不影响笔记中任何数字与结论的数值内容，也不在任何已立 claim 的 evidence quote 内。
 
@@ -45,7 +45,7 @@ signoff: null
 
 CenterNet 笔记其余部分经 round2 复审未发现数字类转抄错误。
 
-## 证据支持到哪里
+## 证据与边界
 
 无需外部验证：残留字符直接读笔记即可确认（evidence 三条为修复前笔记逐字引文，locator 已标注历史记录）。修复动作已于 2026-11-03 由获授权班次执行，非本卡代行。
 

@@ -1,9 +1,9 @@
 ---
 id: claim-lsq-step-size-not-minimize-quantization-error
-title: "LSQ 论文自报的负面发现（§3.6）：学到的步长并不最小化量化误差——2-bit ResNet-18 上 ŝ 与误差最优 s 的平均绝对百分比差为激活 50/63/64%、权重 47/28/46%（MAE/MSE/KL），任务 loss 驱动的步长学习 ≠ 量化误差最小化"
+title: "LSQ 论文自报负面发现（§3.6）：学到的步长并不最小化量化误差——2-bit ResNet-18 上 ŝ 与误差最优 s 的平均绝对百分比差为 28–64%（激活 50/63/64%、权重 47/28/46%，MAE/MSE/KL）"
 type: claim
 status: asserted
-scope: "ImageNet；2-bit（W2A2）pre-activation ResNet-18 的 LSQ QAT 微调模型（90 epochs，从全精度权重初始化，首末层 8-bit）；§3.6 分析方法：对每层记 LSQ 最终步长 ŝ，在 S={0.01ŝ, 0.02ŝ, …, 20.00ŝ} 网格上按一个 batch 测试数据找最小化 MAE / MSE / KL 散度的 s，与 ŝ 比较；学到的步长本身为激活 ŝ=0.949±0.206、权重 ŝ=0.025±0.019（mean±std）；本卡只主张'学到的步长 ≠ 量化误差最优点'这一负面发现，不主张'拟合数据分布的量化器必然任务性能更差'（后者是论文的推测性解释，§3.6 末句）；论文声称；其他架构 / 其他比特数未做该分析"
+scope: "ImageNet；2-bit（W2A2）pre-activation ResNet-18 的 LSQ QAT 微调模型（90 epochs，从全精度权重初始化，首末层 8-bit）；§3.6 协议：每层记最终步长 ŝ，在 0.01ŝ–20.00ŝ 网格上按一个 batch 测试数据找最小化 MAE / MSE / KL 散度的 s，与 ŝ 比较（网格全式见 evidence）；学到的步长为激活 ŝ=0.949±0.206、权重 ŝ=0.025±0.019（mean±std）；本卡只主张'学到的步长 ≠ 量化误差最优点'这一负面发现，不主张论文的推测性解释'拟合数据分布的量化器必然任务性能更差'（§3.6 末句）；其他架构 / 其他比特数未做该分析；论文声称"
 tags: [lsq, quantization, qat, negative-finding, step-size, imagenet]
 note: library/Quantization/LSQ.md#35-量化误差分析
 paper: "ICLR 2020（arXiv:1902.08153）, Learned Step Size Quantization（IBM Research；论文未给官方代码链接）"
@@ -46,7 +46,7 @@ related: [claim-lsq-top1-beats-previous-2-3-4bit, claim-lsq-3bit-distillation-ma
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 这是 LSQ 论文里少见的"作者自己拆自己方法机制"的诚实注记型负面发现：LSQ 用任务 loss 的梯度学步长，但 §3.6 的量化误差分析显示，学到的 ŝ 与"在同一 batch 数据上最小化 MAE/MSE/KL 的 s"平均差 28–64%（激活层 50/63/64%，权重层 47/28/46%），且结论句明确 "does not in fact minimize quantization error"，§4 结论又以 "Interestingly" 重申三种误差度量均如此。
 
@@ -58,11 +58,11 @@ signoff: null
 
 ## 待验证
 
-- 用第三方 LSQ 实现（如 NNI 的 LSQ 量化器）复现 2-bit ResNet-18，按 §3.6 协议复算 ŝ 与误差最优 s 的偏差分布，看 28–64% 是否可复现。
-- 把同一分析扩展到 3/4-bit 与 ResNet-50/VGG-16bn，检验"不最小化量化误差"是否跨设置成立。
+- 用第三方 LSQ 实现（如 NNI 的 LSQ 量化器）复现 2-bit ResNet-18，按 §3.6 协议复算 ŝ 与误差最优 s 的偏差分布——偏差普遍降到个位数（<10%）即触发 falsifier 1，28–64% 不可复现。
+- 把同一分析扩展到 3/4-bit 与 ResNet-50/VGG-16bn——步长系统性落在误差最优点附近即该负面发现只是该设置特例（falsifier 2），跨设置保持偏差则为方法性质。
 - 检验解释性命题（不在本卡主张内）：在 LSQ 训练中显式加入量化误差正则，精度会变好还是变坏。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：量化参数的"最优"定义应服从任务 loss 而非重构误差——做 PTQ/QAT 选型时不能默认"校准准则越接近分布拟合越好"；凡以 MSE/KL 最小化为核心卖点的量化方法，需要拿任务精度而非误差指标说话。
 不成立：LSQ 的优势需另找解释（如梯度尺度启发式或训练日程），"任务驱动步长 ≠ 误差最小点"的机制叙事不成立，涉及量化器设计的方案论证应回到误差最小化基线。

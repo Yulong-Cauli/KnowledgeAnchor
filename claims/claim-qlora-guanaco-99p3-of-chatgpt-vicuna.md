@@ -1,9 +1,9 @@
 ---
 id: claim-qlora-guanaco-99p3-of-chatgpt-vicuna
-title: "QLoRA 自报：Guanaco 65B 在 GPT-4 评估的 Vicuna benchmark 上达 ChatGPT 的 99.3%（95% CI ±4.4），Elo 1022 vs ChatGPT 966，单卡 24 小时微调"
+title: "QLoRA 自报：Guanaco 65B 在 GPT-4 评估的 Vicuna benchmark 上达 ChatGPT 的 99.3%（95% CI ±4.4），单卡 24 小时微调"
 type: claim
 status: asserted
-scope: "Vicuna benchmark（80 prompts，zero-shot）；评估 = GPT-4 评分制（相对 ChatGPT 百分比，双序平均）与 GPT-4/人类成对比较 Elo 锦标赛（K=32、10,000 次重采样）；Guanaco 65B = LLaMA-65B + QLoRA（NF4+DQ+paged optimizers）+ OASST1 变体微调、无 RL；自报评估（GPT-4 为判官，存在顺序效应与自评偏高）；注意 99.3% 是相对 ChatGPT 而非 GPT-4（GPT-4 Elo 1348，对 Guanaco 65B 预期胜率约 70%）"
+scope: "Vicuna benchmark（80 prompts，zero-shot）；评估 = GPT-4 评分制（相对 ChatGPT 百分比，双序平均）与 GPT-4/人类成对比较 Elo 锦标赛（K=32、10,000 次重采样）；Guanaco 65B = LLaMA-65B + QLoRA（NF4+DQ+paged optimizers）+ OASST1 变体微调、无 RL；自报评估（GPT-4 为判官）；相对基准是 ChatGPT 而非 GPT-4（GPT-4 级误读的辨析见限定 1）；论文自报"
 tags: [quantization, llm, qlora, guanaco, chatbot-eval, elo]
 note: library/Quantization/QLoRA.md#35-聊天机器人研究5-table-1table-6table-7
 paper: "NeurIPS 2023（arXiv:2305.14314）, QLoRA: Efficient Finetuning of Quantized LLMs（开源：https://github.com/artidoro/qlora 、https://github.com/TimDettmers/bitsandbytes）"
@@ -42,11 +42,11 @@ related: [claim-qlora-nf4-dq-recovers-16bit-lora-mmlu, claim-qlora-65b-finetune-
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称（asserted）：用 QLoRA 在单卡 24 小时内微调出的 Guanaco 65B（OASST1 变体），在 GPT-4 判分的 Vicuna benchmark 上达到 ChatGPT 性能的 99.3%（GPT-4 Elo 锦标赛 1022±1 vs ChatGPT 966±1），优于此前所有公开发布模型；这是"4-bit QLoRA 能产出接近 ChatGPT 的聊天模型"这一头衔主张。
 
-必须记住的四个限定（缺一会误读）：
+四个限定：
 
 1. **是 ChatGPT 的 99.3%，不是 GPT-4 级**：GPT-4 自身 Elo 1348（Table 1）、对 Guanaco 65B/33B 的预期胜率 70%（论文口径：Guanaco 胜率 30%）；"复现 GPT-4 级 ChatBot"的说法不成立，成立的是"接近 ChatGPT"。
 2. **评估是自报 + GPT-4 判官**：GPT-4 有显著顺序效应（先出现者得分高，§5.2/§6.2）与自评偏高（给自己的 Elo 1348 vs 人类判的 1176）；论文自己推荐双序平均与 Elo 法。
@@ -55,11 +55,11 @@ signoff: null
 
 ## 待验证
 
-- 用发布模型（HuggingFace Guanaco 权重）在 Vicuna 80 题上重跑 GPT-4 双序评估 + 人工评注，复算相对 ChatGPT 的百分比与 CI。
-- 校验 GPT-4 judge 的顺序效应与自评偏差在本评估中的量级（对照 §6.2）。
-- 用后来的 chatbot 榜单（如 Chatbot Arena 时期数据）回看 Guanaco 65B 的实际排位，检验自报口径的外部效度。
+- 用发布模型（HuggingFace Guanaco 权重）在 Vicuna 80 题上重跑 GPT-4 双序评估 + 人工评注，复算相对 ChatGPT 的百分比与 CI——明显低于 99.3%（预设阈值如 <90%，待定）或不再高于其他开源模型即触发 falsifier 1。
+- 校验 GPT-4 judge 的顺序效应与自评偏差在本评估中的量级（对照 §6.2），估计偏差校正后 99.3% 的落点。
+- 用后来的 chatbot 榜单（如 Chatbot Arena 时期数据）回看 Guanaco 65B 的实际排位——排位明显低于自报口径即外部效度存疑（falsifier 1 的跨条件迁移面）。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：Guanaco 65B（LLaMA-65B + QLoRA + OASST1 变体）在 GPT-4 judge 的 Vicuna 口径下自报接近 ChatGPT，支持"单卡 24 小时、纯开源数据可产出接近 ChatGPT 的对话模型"这一候选路线；QLoRA 成为低成本 chatbot 微调默认管线的推断仍属研究启发（尚未验证，其他开源 LLM/数据组合是跨条件迁移检查）。
 不成立：99.3% 依赖 GPT-4 自报评估的口径（顺序效应、宽 CI），Guanaco 实际排位低于声明，评估方法学（GPT-4 judge）需配人工评注与双序校正后才可信。

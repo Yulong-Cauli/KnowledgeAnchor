@@ -82,13 +82,13 @@ evidence:
     quote: "05:19 | fire-now | OmniQuant 挖矿完成（3.0M token，4 张卡）| 产出 4 | validate OK(57→61 含 FCOS 在写) + index 重建 | ⚠ 笔记实验表混列 + FP16 基线不符 → mismatch 卡排队 + QUESTIONS。补槽 CaDDN。累计 37 任务 ≈122.2M；claim 库 → 57+"
     relation: supports
 falsifiers:
-  - "若逐格复核笔记与 arXiv v3 表格发现上述对应无误，则本卡不成立"
+  - "若逐格复核发现修正前笔记与 arXiv v3 Table 1 / Table 3 原表一致（即本卡所记错配不存在），则本卡不成立"
 review_due: 2026-12-02
 related: [claim-omniquant-w2a16g128-llama7b-ppl-beats-gptq-awq, claim-omniquant-w4a16g128-llama13b-a100-913toks, claim-omniquant-w4a4-llama7b-zeroshot-5265, claim-omniquant-let-lwc-ablation-w4a4-best]
 signoff: null
 ---
 
-## 这条主张是什么意思
+## 主张
 
 本卡是笔记质量记录（asserted，单点事实、可逐格证伪）：OmniQuant 笔记 §4 实验 1 表头-数据列错配、实验 4 FP16 基线行与 ICLR 2024 camera-ready（arXiv v3）原表不符。本卡记录的是 2026-11-03 修正前的笔记状态；笔记已于 2026-11-03 修正，status 处置待主人。
 
@@ -106,7 +106,7 @@ signoff: null
 
 nightshift/LOG.md 05:19 的调度班次记录（「笔记实验表混列 + FP16 基线不符」）与上述判断一致。当时结论「引用笔记实验 1 / 实验 4 的任何基线数字前一律回论文原表核对（与 EMC2 mismatch 卡同款教训）」针对修正前转录；修正后笔记可直接引用，重要数字仍建议对照原表。
 
-## 证据支持到哪里
+## 证据与边界
 
 - 笔记侧 7 条 quote：4 条历史记录（表头 / RTN 行 / 显存行 / 速度行）、3 条现引文（GPTQ / AWQ / OmniQuant 行，2026-11-05 复核命中）。
 - 论文侧 8 条 arXiv 引文（v3 Table 1 / Table 3 与 v1 版本差对照）locator 均带抓取日期 2026-11-02，本班未重复实抓；LOG 引文为调度班次在案记录（现引文，2026-11-05 复核命中）。
