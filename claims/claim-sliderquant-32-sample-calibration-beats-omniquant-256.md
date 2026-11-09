@@ -25,18 +25,18 @@ related: [claim-sliderquant-llama2-7b-w4a4-ppl-8p34, claim-omniquant-w4a4-llama7
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称（asserted）：校准数据效率上 SliderQuant 有一个数量级级别的优势——32 条样本就超过对照方法用 256 条（8 倍样本）的结果。这直接冲击"校准集规模是 PTQ 主要成本"的假设，也和 [PD-Quant 的过拟合教训](claim-pdquant-pd-loss-alone-overfits-calibration.md)（校准集小时损失项选择敏感）形成有趣的对照：SliderQuant 用的是重建目标 + 逐层滑窗，不是分布匹配损失。
 
-注意口径：Llama-7B 那组对照是 OmniQuant（无额外推理开销组），Llama2-7B 那组对照是 DuQuant（有额外推理开销组、SliderQuant 加了 rotation）；两组别混。
+注意口径：Llama-7B 那组对照是 OmniQuant（无额外推理开销组），Llama2-7B 那组对照是 DuQuant（有额外推理开销组、SliderQuant 加了 rotation）；两组对比各自成立，不能混比。
 
 ## 待验证
 
 - 用官方仓库做 32/128/256 样本扫描，核对 8.71/11.19 与 11.41/14.90 两格。
 - 换 C4 校准域重复该对比，确认不是 WikiText2 域特化。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：W4A4 下 Llama-7B/Llama2-7B 两设置中，SliderQuant/SliderQuant+ 把校准样本压到 32 条仍优于对照方法 256 条——"PTQ 校准成本可压到 32 条级别"有了具体实例；私有数据/端侧场景量化门槛显著降低的推广属研究启发（尚未验证，其他方法/模型/校准域是迁移检查）。
 不成立：32 样本优势是该两设置、特定校准域或对照配置的产物，校准规模仍是主要敏感因子。

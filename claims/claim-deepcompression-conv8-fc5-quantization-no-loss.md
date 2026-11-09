@@ -3,7 +3,7 @@ id: claim-deepcompression-conv8-fc5-quantization-no-loss
 title: "Deep Compression 自报：剪枝后 AlexNet 权重量化到 CONV 8-bit / FC 5-bit 精度无损（Top-1 Error Increase 0.00%），CONV 低于 4-bit 才显著掉点（4/2 掉 1.99%/2.60%）"
 type: claim
 status: asserted
-scope: "AlexNet on ImageNet ILSVRC-2012（Caffe 参考模型）；量化对象是剪枝后网络（60M→6.7M 权重）的权重；只量化权重、激活 32-bit；质心数 CONV 256（8-bit）/ FC 32（5-bit），k-means + 反传微调（'trained quantization'）；位宽敏感性边界只测了 AlexNet 的 CONV/FC 两类层；论文自报"
+scope: "AlexNet on ImageNet ILSVRC-2012（Caffe 参考模型）；量化对象是剪枝后网络的权重；只量化权重、激活 32-bit；质心数 CONV 256（8-bit）/ FC 32（5-bit），k-means + 反传微调（'trained quantization'）；位宽敏感性边界只测了 AlexNet 的 CONV/FC 两类层；论文自报"
 tags: [quantization, weight-sharing, kmeans, deepcompression, bitwidth]
 note: library/Quantization/DeepCompression.md#35-讨论6-discussions
 paper: "ICLR 2016 (oral)（arXiv:1510.00149）, Deep Compression: Compressing Deep Neural Networks with Pruning, Trained Quantization and Huffman Coding"
@@ -34,11 +34,11 @@ related: [claim-deepcompression-35x-49x-no-accuracy-loss, claim-deepcompression-
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称（asserted）：对剪枝后的 AlexNet，k-means 质心 + 反传微调的"训练量化"可以把 CONV 层压到 8-bit（256 质心）、FC 层压到 5-bit（32 质心）而不损精度——Table 6 给出 8/5 bits 档 Top-1 Error Increase 0.00%（top-5 还降 0.03%）；更硬件友好的 8/4 档也只有 0.01%；最激进的 4/2 档掉 1.99%/2.60%。位宽敏感性分层：CONV 低于 4-bit 才显著掉点，FC 到 2-bit 才显著。
 
-必须记住的口径限定：
+口径限定：
 
 1. **量化在剪枝之后**：论文解释是剪枝后待量化权重从 60M 降到 6.7M，同质心数下量化误差更小（§6.1）；本卡主张不含"未剪枝网络同位宽也无损"。
 2. **只权重、不激活**：W8A32（CONV）/W5A32（FC）类配置；与库内 W4A4/激活量化路线（RepQ-ViT、OmniQuant 等）的比特预算不同口径，引用时不可横比压缩率。
@@ -51,7 +51,7 @@ signoff: null
 - 扫 CONV 4/3/2-bit 与 FC 3/2-bit，确认敏感性边界（"below 4 bits" / "not until 2 bits"）。
 - 在未剪枝 AlexNet 上跑同位宽量化对照，验证剪枝前置的必要性。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：权重共享量化的实用位宽档是 CONV≥8 / FC≥5（激进档 4/2 代价 ~2%），为存储受限部署提供位宽选型基线；FC 层容忍更低比特。
 不成立：无损依赖剪枝-量化-微调的特定顺序与 2016 年网络结构，位宽档位需按模型重扫，8/5 不再是安全默认。

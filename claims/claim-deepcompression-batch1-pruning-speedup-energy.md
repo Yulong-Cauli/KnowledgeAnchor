@@ -3,7 +3,7 @@ id: claim-deepcompression-batch1-pruning-speedup-energy
 title: "Deep Compression 自报：batch=1 实时场景下剪枝层平均 3×–4× 加速、3×–7× 省能，batching 场景优势消失；量化模型未测"
 type: claim
 status: asserted
-scope: "FC 层为主（占模型大小 90%+、VGG-16 剪掉 96% 权重）；batch size = 1；硬件：NVIDIA GTX Titan X / Intel Core i7 5930K / NVIDIA Tegra K1；dense 用 cuBLAS/MKL GEMV、sparse 用 cuSPARSE/MKL SPBLAS CSRMV（§6.3）；只测剪枝稀疏模型，量化+权重共享模型未 benchmark（BLAS 不支持 indirect lookup）；加速/能耗是逐层平均口径；论文自报"
+scope: "FC 层为主（占模型大小 90%+、VGG-16 剪掉 96% 权重）；batch size = 1；硬件：NVIDIA GTX Titan X / Intel Core i7 5930K / NVIDIA Tegra K1；dense 用 cuBLAS/MKL GEMV、sparse 用 cuSPARSE/MKL SPBLAS CSRMV（§6.3）；只测剪枝稀疏模型，量化+权重共享模型未 benchmark；加速/能耗是逐层平均口径；论文自报"
 tags: [pruning, speedup, energy-efficiency, deepcompression, batch1, edge-deployment]
 note: library/Quantization/DeepCompression.md#35-讨论6-discussions
 paper: "ICLR 2016 (oral)（arXiv:1510.00149）, Deep Compression: Compressing Deep Neural Networks with Pruning, Trained Quantization and Huffman Coding"
@@ -38,11 +38,11 @@ related: [claim-deepcompression-35x-49x-no-accuracy-loss, claim-deepcompression-
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称（asserted）：在延迟敏感、batch=1 的实时场景（论文举的例子是车载嵌入式行人检测），剪枝稀疏网络层相对稠密层平均提速 3×–4×（CPU 3× / GPU 3.5× / mobile GPU 4.2×）、省能 3×–7×（CPU 7× / GPU 3.3× / mobile GPU 4.2×）；机理是访存减少（权重 fit 进 cache）。但一旦 batching（batch=64），GEMM 的权重复用使稀疏优势消失。
 
-必须记住的口径限定：
+口径限定：
 
 1. **只测了剪枝（稀疏），没测量化**：量化+权重共享模型的端到端收益在 2016 年没有任何硬件证据（cuBLAS/MKL 不支持 indirect lookup），论文把出路指向定制 ASIC（后来的 EIE）。引用 DeepCompression 的"35× 压缩 + 3×–4× 加速"时必须拆开：前者是存储，后者只属剪枝。
 2. **逐层平均、FC 为主**：速度/能耗数字是 FC 层平均（FC 占参数 90%+、剪枝最狠），CONV 层未给出同口径汇总；"3×–7× 能效" 的两端差在 CPU 与 GPU 之间，不是同一硬件的不确定度。
@@ -55,7 +55,7 @@ signoff: null
 - 复现 batch=64 反转（对照 Appendix A Table 8 的明细——需先补转录）。
 - 用 EIE 论文或现代稀疏推理库核实"量化+稀疏端到端收益"是否被后续硬件工作兑现。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：单样本实时推理（车载、边缘）里非结构化剪枝是有效的延迟/能耗手段，batch 服务场景则不值得；压缩收益要按"存储 vs 延迟"分账。
 不成立：加速/能耗是特定 2016 年库与硬件的产物，现代硬件上需重测，剪枝选型回到结构化稀疏/蒸馏路线。

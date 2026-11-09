@@ -51,11 +51,11 @@ related: [claim-omniquant-let-lwc-ablation-w4a4-best, claim-omniquant-w2a16g128-
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称（asserted）：LLaMA-1-7B 在 W4A4 下六个零样本任务平均准确率 52.65%，比 SmoothQuant (38.41%) 高约 14 个点，也高于 QAT 方法 LLM-QAT (41.27%)；FP16 基准 64.09%。W4A4 的瓶颈在激活离群值，论文将其归因于 LET 的可学习等价变换比 SmoothQuant 的人工缩放规则更有效地平抑离群值。
 
-三个必须记住的限定：
+三个限定：
 
 1. **校准集 vs 测试集口径**（参照 [QwT R² 门控核验](claim-qwt-r2-gate-nonregression.md) 同一教训）：OmniQuant 是 PTQ，优化只用来自 WikiText2 的 128 段 2048-token 校准文本（§4.1；笔记 §6.3 的「仅需 128 个样本即可收敛」与此一致），评测在 held-out 零样本任务上。52.65% 是校准后模型的自报测试值，不是免校准结论，也未被独立验证。
 2. **「超越 QAT」的幅度要看对哪个变体**：论文正文称「在 LLaMA-7B 上超过 LLM-QAT +6.22%」，但按 Table 2 计算 52.65 − 41.27 (LLM-QAT) = 11.38，+6.22 实际对应 LLM-QAT+SQ (46.43)。引用「超越 QAT」时需注明对比对象。
@@ -69,7 +69,7 @@ PDF 引文为 pdftotext -layout 提取（仅去行首空白）。原始笔记见
 - 校准域敏感性：换 C4 / Pile 校准后重跑六任务，确认平均准确率是否仍约 52.65%。
 - 确认 W4A4（per-token 激活）在目标推理引擎上是否有硬件/内核支持（论文 §4.5 承认 W4A4/W6A6 缺乏开箱即用支持，部署表只测了 weight-only）。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：LLaMA-1-7B W4A4、六任务零样本口径下，激活瓶颈可在 PTQ 成本内用 LET+LWC 解决且自报优于 QAT 基线，为该场景的激活量化路线提供选型参考（部署侧需先确认硬件支持，见 [部署卡](claim-omniquant-w4a16g128-llama13b-a100-913toks.md)）。其他模型规模/任务清单/校准域上的泛化属迁移性检查（见 falsifier 3），不能由本卡直接外推。
 不成立：52.65% 依赖自报协议或特定校准域，该场景 W4A4 选型回退到 W4A16 + W8A8，或等待 4-bit 激活硬件支持成熟。

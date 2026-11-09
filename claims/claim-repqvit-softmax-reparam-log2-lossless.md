@@ -30,11 +30,11 @@ related: [claim-repqvit-w4a4-imagenet-leads-ptq-baselines, claim-repqvit-layerno
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称（asserted）：Attention 概率呈幂律分布，硬件友好的 log_2 量化分辨率不足（67.71%），底数 √2 的量化器精度高（69.03%）但不支持移位加速。RepQ-ViT 在量化阶段用 log_√2（等价于 -2·log_2），反量化时按 $A^{(\mathbb{Z})}$ 的奇偶拆解指数：偶数部分走纯移位 $2^{\lfloor \cdot \rfloor}$，奇数修正常数吸收进新比例尺 $\tilde{s}$，从而把 log_√2 的精度"无损"转到 log_2 形态（消融中两者同为 69.03%，比普通 log_2 高 1.32 点）。
 
-两个必须记住的限定：
+两个限定：
 
 1. 消融表的 69.03% 同时是完整方法数字（另一组件 LayerNorm 已固定为最终设定），见 [LayerNorm 消融卡](claim-repqvit-layernorm-reparam-recovers-layerwise.md) 的读表注意。
 2. "100% 数学等价"是对反量化公式的数学论证，笔记没有给硬件 benchmark；且奇偶修正项按笔记公式是随 $A^{(\mathbb{Z})}$ 逐元素变化的常数，部署时是否真等价于"纯移位"需看内核实现——这直接关系该主张的部署价值。原始笔记见 [RepQ-ViT](../library/Quantization/RepQ-ViT.md#32-消融实验)。
@@ -45,7 +45,7 @@ signoff: null
 - 阅读官方实现的反量化内核，确认奇偶修正是否实现为纯整数移位 + 常数修正，有无逐元素浮点乘法。
 - 在目标硬件上测 log_2 移位版相对 log_√2 版的实际时延差。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：DeiT-S W4A4 下，RepQ-ViT 的 softmax 尺度重参数化使硬件友好的 log_2 形态无损追平 log_√2 精度——"对数域激活量化落硬件移位运算"路线在该场景可行，可作为 Attention 概率低比特部署的模板候选（其他结构/位宽是跨条件迁移检查，不能由本卡直接外推）。
 不成立：等价性只在数学上成立、实现层有额外开销，该场景 Attention 概率低比特量化仍需定制硬件指令或保持 8-bit。

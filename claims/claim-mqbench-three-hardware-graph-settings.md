@@ -3,7 +3,7 @@ id: claim-mqbench-three-hardware-graph-settings
 title: "MQBench 声称其量化计算图约束覆盖学术设定、TensorRT 式推理引擎与 SNPE 式低功耗 DSP 三类硬件设定"
 type: claim
 status: asserted
-scope: "PyTorch 伪量化 QAT/PTQ 计算图；以残差结构（Conv+Add 拓扑）为例；三类设定：Academic / TensorRT 式（Add 前移到 Conv 输入端，高精度累加）/ SNPE(DSP) 式（Conv+ReLU 物理融合、Add 双分支 INT8 且 Scale 绑定一致）；笔记未记录其余算子类型是否覆盖"
+scope: "PyTorch 伪量化 QAT/PTQ 计算图；以残差结构（Conv+Add 拓扑）为例；三类设定：Academic / TensorRT 式 / SNPE(DSP) 式（定义见正文）；笔记未记录其余算子类型是否覆盖"
 tags: [quantization, benchmark, mqbench, qat, ptq, tensorrt, snpe, deployment]
 note: library/Quantization/MQBench.md#23-架构对齐硬件计算图约束
 paper: "NeurIPS 2021, MQBench（笔记未记录完整论文标题；代码 https://github.com/ModelTC/MQBench）"
@@ -26,7 +26,7 @@ related: [claim-mqbench-first-hardware-aligned-quant-benchmark, claim-mqbench-sn
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称 MQBench 把"硬件编译器对节点拓扑的苛刻约束"纳入评测：学术设定（算子后随意插 FakeQuant）、TensorRT 式张量推理引擎（量化节点前移、Add 高精度累加后统一量化）、SNPE 式极低功耗 DSP（Conv+ReLU 强制融合、Add 双分支必须 INT8 且 Scale 绑定一致）。这是工具覆盖范围类主张：MQBench 支持在至少这三种图约束下评测同一算法。
 
@@ -38,7 +38,7 @@ signoff: null
 - 对照论文原文确认三类设定的正规定义与命名（笔记为中文转述，原始术语待核）。
 - 确认除残差结构外还有哪些算子/结构被纳入图约束覆盖。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：评估 QAT/PTQ 算法"可部署性"时可直接用 MQBench 的三档图约束做分级测试，特别是 SNPE 档作为最严门槛。
 不成立：MQBench 的硬件覆盖弱于声称，三档设定可能只有图示无实现，部署前仍需自建目标硬件的图约束检查。

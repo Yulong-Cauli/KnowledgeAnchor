@@ -3,7 +3,7 @@ id: claim-qdbev-tiny-w4a6-nds-surpasses-fp32
 title: "QD-BEV 论文声称：W4A6 的 QD-BEV-T 以约 8 倍压缩（15.9 MB vs 126.8 MB）取得 NDS 0.372，反超 FP32 BEVFormer-T 的 0.354"
 type: claim
 status: asserted
-scope: "nuScenes；完整 QD-BEV（渐进式 QAT + 视点引导蒸馏 VGD）W4A6 vs FP32 基线，BEVFormer-Tiny（笔记 §3.4 Table 4 口径；Base 行为补充：QD-BEV-B NDS 0.509 vs FP32 0.517，32.9 MB vs 262.9 MB）；模型大小为论文自报存储占用；数字为论文自报"
+scope: "nuScenes；BEVFormer-Tiny（Base 为补充行）；完整 QD-BEV（渐进式 QAT + 视点引导蒸馏 VGD）W4A6 vs FP32 基线（笔记 §3.4 Table 4 口径）；模型大小为论文自报存储占用；数字为论文自报"
 tags: [quantization, qat, distillation, bev, bevformer, nuscenes, qd-bev]
 note: library/Quantization/QD-BEV.md#34-qd-bev-综合对比实验-table-4
 paper: "ICCV 2023, QD-BEV: Quantization-aware View-guided Distillation for Multi-view 3D Object Detection (arXiv:2308.10515)"
@@ -34,11 +34,11 @@ related: [claim-qdbev-progressive-qat-beats-standard-w4a6]
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
-论文声称（asserted）：完整 QD-BEV（渐进式 QAT + 视点引导蒸馏）在 W4A6 下，Tiny 版以 15.9 MB（相对 FP32 BEVFormer-T 的 126.8 MB 约 8 倍压缩）取得 NDS 0.372 > 0.354；Base 版 NDS 0.509 vs 0.517，损失 ≤1%。数字已与 arXiv 摘要（37.2% NDS、outperforming BevFormer-Tiny by 1.8%、8x compression）及 ar5iv HTML 版 Table 4 逐项核对一致（均抓取 2026-11-02）。
+论文声称（asserted）：完整 QD-BEV（渐进式 QAT + 视点引导蒸馏）在 W4A6 下，Tiny 版以 15.9 MB（相对 FP32 BEVFormer-T 的 126.8 MB 约 8 倍压缩）取得 NDS 0.372 > 0.354；Base 版 NDS 0.509 vs FP32 0.517（32.9 MB vs 262.9 MB），损失 ≤1%。数字已与 arXiv 摘要（37.2% NDS、outperforming BevFormer-Tiny by 1.8%、8x compression）及 ar5iv HTML 版 Table 4 逐项核对一致（均抓取 2026-11-02）。
 
-三个必须记住的限定：
+三个限定：
 1. **反超幅度很小**：NDS +0.018、mAP +0.002（0.255 vs 0.253），且 mASE 变差（0.294→0.321）。「反超」是单次自报结果，多种子下可能翻转；引用时表述为「论文声称反超」，不是已验证的结论。
 2. **模型大小口径有两处数字**：arXiv 摘要写 15.8 MB，笔记 Table 4 与 ar5iv HTML 版 Table 4 均为 15.9 MB。引用时以 Table 4 为准并注明摘要差异。
 3. Table 4 的输入分辨率/训练配置笔记未注明（ar5iv HTML 版将该表标为 450×800 输入，与笔记 §3.5 Table 6 的 900×1600 是否同口径待核，未对照 PDF）。
@@ -52,7 +52,7 @@ signoff: null
 - 确认 Table 4 的输入分辨率与训练配置，及其与 Table 6（流式 sAP 实验，900×1600）的口径关系。
 - 统计 W4A6 权重实际打包大小，验证 8 倍压缩口径（126.8/15.9≈7.97）。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：nuScenes 上 QD-BEV-T（W4A6 + 渐进 QAT + 视点引导蒸馏）以约 8 倍存储压缩自报小幅反超 FP32 BEVFormer-T，是该配置下 BEV 部署量化的候选路线（配合 [渐进式卡](claim-qdbev-progressive-qat-beats-standard-w4a6.md)评估训练成本）。其他模型/数据集上能否复现是跨条件迁移检查，不能由本卡直接外推。
 不成立：反超或 8 倍压缩依赖自报口径，该配置量化收益退回「精度换体积」，选型需重算精度-压缩权衡。

@@ -26,7 +26,7 @@ related: [claim-omniquant-w4a4-llama7b-zeroshot-5265, claim-omniquant-w2a16g128-
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称（asserted）：把序列量化统一为滑窗形式后，按逐层敏感性分三段用不同滑窗（浅层渐进扩张 PESW、中间层固定 {s=2,i=1}、深层渐进收缩 PCSW），窗口内再按 γ=0.5 增量量化，Llama2-7B W4A4 从固定滑窗基线 12.73/14.45 降到 8.34/11.10（Wiki/C4），同表全部无额外推理开销对照中最强的是 CBQ 12.73/14.45。可学习参数只有 channel scaling + LoRA(r=4)，推理零开销（论文自报）。
 
@@ -42,7 +42,7 @@ signoff: null
 - 换校准域（C4/Pile）重跑，确认 PPL 排序不变。
 - 核对 Table 12（CS/LoRA 消融）的 PDF 勾选结构，解决"合用反而劣于仅 LoRA"的疑似矛盾。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：Llama2-7B W4A4 这一格上逐层敏感性驱动的滑窗设计自报大幅领先（PTQ 成本内该设置可用），量化选型时 SliderQuant 进入 trial 候选，与 [OmniQuant](claim-omniquant-w4a4-llama7b-zeroshot-5265.md) 同表对比（14.26 vs 8.34）；推广到"W4A4 全量化普遍可用"属研究启发（尚未验证，见限定 2 的 W4A16 反差）。
 不成立：8.34 依赖自报协议或对照口径，滑窗自适应增益回落到 <1 PPL 量级，量化主线继续以 OmniQuant/PD-Quant 为基准。

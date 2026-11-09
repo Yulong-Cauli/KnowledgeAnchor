@@ -34,13 +34,13 @@ related: [claim-omniquant-w4a4-llama7b-zeroshot-5265, claim-qwt-r2-gate-nonregre
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 > 修订注记 2026-11-03：笔记实验 4 的 FP16 基线行已按论文原表修正——修正前「~26 GB / ~40 tokens/s / 加速 > 2倍」，修正后「WM 24.3 GB / RM 27.1 GB / 52.5 tokens/s、加速约 1.74×、WM 口径节省 ~71%」，与本卡 scope 既有描述（同表 FP 行 24.3/27.1/52.5、实际加速约 1.74 倍）一致；本卡 evidence 中笔记两行 quote 已同步更新。修正依据：https://arxiv.org/pdf/2308.13137v3 Table 3 p.9（pdftotext 提取，2026-11-03 抓取核对，与本卡下方论文引文一致）。量化侧 7.0 GB / 91.3 tokens/s 未变，本卡主张与 status 不受影响。
 
 论文声称（asserted）：LLaMA-13B 经 W4A16g128 量化并完成参数融合（LET 吸收进 LayerNorm、LWC 融合进权重，推理零额外算子）后，用 MLC-LLM 部署在 NVIDIA A100-80G 上：量化权重存储 (WM) 7.0 GB（运行显存 RM 10.0 GB），512-token 生成吞吐 91.3 tokens/s。
 
-两个必须记住的限定：
+两个限定：
 
 1. **笔记的 FP16 基线与原表不符**：camera-ready Table 3（v1 与 v3 相同，本次均抓取核对）中 13B FP16 为 WM 24.3 GB / RM 27.1 GB / 52.5 tokens/s；笔记记的「~26 GB / ~40 tokens/s / 加速 > 2 倍」中，~26 GB 介于 WM 与 RM 之间属含糊取整，~40 tokens/s 与 >2 倍加速是笔记自算误差——同口径实际加速约 1.74 倍（91.3/52.5），显存节省约 71%（WM 口径）。本卡主张只取与原表一致的 7.0 GB 与 91.3 tokens/s。
 2. **配置是 W4A16g128**（128 分组），部署表只测了 weight-only：论文 §4.5 明确 W4A4/W6A6 缺少开箱即用硬件支持，未部署。吞吐是生成 512 tokens 的平均速度，无批大小与尾延迟信息；引用时不能当作任何负载下的延迟上界（同 [EMC2 卡的平均延迟教训](claim-emc2-orin-sub400ms-leading-accuracy.md)）。校准数据口径同其他卡（WikiText2 128 段，见 [QwT 核验的口径教训](claim-qwt-r2-gate-nonregression.md)）。
@@ -53,7 +53,7 @@ PDF 引文为 pdftotext -layout 提取（仅去行首空白）。原始笔记见
 - 换推理引擎（TensorRT-LLM / vLLM / llama.cpp）复测，确认加速不依赖 MLC-LLM 特定内核。
 - 补测批大小 >1 与长上下文下的吞吐与显存，给出尾延迟。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：LLaMA-13B W4A16g128 + MLC-LLM / A100-80G 场景下，参数融合式 PTQ 零开销兑现显存与吞吐收益，该配置的部署选型可引用（按约 1.74 倍而非 >2 倍报告收益；精度侧见 [W4A4 主表卡](claim-omniquant-w4a4-llama7b-zeroshot-5265.md)）。换推理引擎或批大小 >1、长上下文负载下的收益是跨条件迁移检查（见 falsifier 3），不能由本卡直接外推。
 不成立：该场景加速依赖论文自报口径或 MLC-LLM 特定实现，部署收益需按实际栈重新实测后再进方案。

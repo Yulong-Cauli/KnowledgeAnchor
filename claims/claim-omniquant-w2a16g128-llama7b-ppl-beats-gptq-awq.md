@@ -43,13 +43,13 @@ related: [claim-omniquant-w4a4-llama7b-zeroshot-5265, claim-qwt-r2-gate-nonregre
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 > 修订注记（2026-11-03）：OmniQuant 笔记实验 1 表头已按 camera-ready 归因修正为「LLaMA-1-7B W2A16g128」并补 RTN 1.9e3（GPTQ 44.01 / AWQ 2.6e5 / OmniQuant 9.72 三值不变，本卡三条笔记 quote 逐字仍有效），本卡 evidence 第一条 locator 的过期括注（「笔记表头标 LLaMA-13B」）已同步更新。修正依据与过程见 [笔记表格错位卡](claim-omniquant-note-table-mismatch.md)；限定 1 中「笔记表格待修正」至此完成，其余描述按历史记录保留。本卡主张、scope 与 status 不变。
 
 论文声称（asserted）：在 2-bit 权重、128 分组的 W2A16g128 设置下，OmniQuant 把 LLaMA-1-7B 的 WikiText2 PPL 做到 9.72，而 GPTQ (44.01) 与 AWQ (2.6e5) 均失效、RTN 完全乱码——即极低比特 weight-only 场景中，可学习裁剪阈值（LWC）相对手工规则有数量级优势。
 
-两个必须记住的限定：
+两个限定：
 
 1. **笔记表头归因有误**：笔记表格写的是「LLaMA-13B W2A16 PPL 对比」，但与 ICLR 2024 camera-ready（arXiv v3 Table 1, p.7，本次抓取逐格核对）比对，44.01 / 2.6e5 / 9.72 三个数字实际属于 **LLaMA-1-7B W2A16g128** 列；LLaMA-1-13B 逐通道 W2A16 的论文数字是 RTN 6.8e4 / GPTQ 5.5e3 / OmniQuant 13.21（笔记只抄对了 RTN 6.8e4；论文引言 prose 里的 13.21 与 Table 1 一致）。本卡按 camera-ready 归因立卡；笔记表格待修正（属 `library/`，本卡不改）。v1 中该列 OmniQuant 为 10.53，9.72 是 camera-ready 更新值。
 2. **校准与评测同语料**：校准数据是取自 WikiText2 的 128 段 2048-token 文本（§4.1），而本卡数字正是 WikiText2 PPL；论文未明说校准段是否取自训练 split。同源乐观风险的教训参照 [QwT R² 门控核验](claim-qwt-r2-gate-nonregression.md)（校准集 vs 测试集口径）。
@@ -62,7 +62,7 @@ PDF 引文为 pdftotext -layout 提取（仅去行首空白）。原始笔记见
 - 复现 LLaMA-1-13B 逐通道 W2A16，确认 13.21 vs 5.5e3 的量级差距（笔记表头所指场景）。
 - 换非 WikiText2 域校准数据（C4 / Pile / 中文语料），观察排序是否保持（论文 Table A10 只报告了校准域变化下 PPL 方差 0.0006–0.17，但均在 LLaMA-7B W3A16/W4A4，未覆盖 W2A16）。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：LLaMA-1-7B W2A16g128、同校准设置下，可学习量化参数路线（OmniQuant）相对 GPTQ/AWQ 有数量级优势，该场景的极端压缩选型可参考（需先确认 scope 中同源校准风险不改变结论）。其他模型或其他 2-bit 设置是否同样占优，属跨条件迁移检查（见 falsifier 3），不能由本卡直接外推。
 不成立：LLaMA-1-7B W2A16g128 的优势依赖论文自报口径或同源校准，该场景选型回退到 3/4-bit 分组量化 + GPTQ/AWQ 方案。

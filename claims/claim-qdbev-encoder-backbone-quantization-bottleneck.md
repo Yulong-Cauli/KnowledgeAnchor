@@ -3,7 +3,7 @@ id: claim-qdbev-encoder-backbone-quantization-bottleneck
 title: "QD-BEV 论文声称：BEVFormer 各模块单独 W4A6 量化时，Encoder 与 Backbone 是精度瓶颈，Neck/Decoder 几乎无损（NDS 变化 ≤0.002）"
 type: claim
 status: asserted
-scope: "nuScenes（数据集名据 arXiv:2308.10515 摘要核对，笔记正文未注明）；BEVFormer-Tiny/Small/Base；单模块量化、其余模块保持全精度（论文 Table 1 表题自述逐模块施加 PTQ，§4.2.1，2026-11-05 ar5iv 实抓；W4A6 位宽为笔记转录表头标注，ar5iv 渲染表头无位宽标注，待对 PDF 核实）；指标 NDS；数字为论文自报"
+scope: "nuScenes（数据集名据 arXiv:2308.10515 摘要核对，笔记正文未注明）；BEVFormer-Tiny/Small/Base；单模块 W4A6 量化（PTQ 口径）、其余模块保持全精度；指标 NDS；数字为论文自报"
 tags: [quantization, qat, bev, bevformer, nuscenes, qd-bev]
 note: library/Quantization/QD-BEV.md#31-模块量化敏感度分析-table-1
 paper: "ICCV 2023, QD-BEV: Quantization-aware View-guided Distillation for Multi-view 3D Object Detection (arXiv:2308.10515)"
@@ -42,7 +42,7 @@ related: [claim-qwt-r2-gate-nonregression, claim-repqvit-layernorm-reparam-recov
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称（asserted）：按笔记 §3.1 Table 1，BEVFormer 三个规模模型各自做「仅量化一个模块、其余保持全精度」的 W4A6 实验，单独量化 Encoder 使 NDS 至少下降 0.058（Tiny 0.354→0.295、Small 0.479→0.421、Base 0.517→0.303），单独量化 Backbone 至少下降 0.044（Base 0.517→0.440）；而单独量化 Neck 或 Decoder 的 NDS 变化不超过 0.002。
 
@@ -59,7 +59,7 @@ signoff: null
 - 换 W8A8 / W4A4 或非对称量化重测敏感度排序，确认排序是否随位宽稳定。
 - 确认 Encoder 掉点是否主要来自注意力/LayerNorm 激活（可对照 RepQ-ViT 的重参数化是否单独救回 Encoder）。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：BEV 模型做低比特量化时，预算与更强方法（重参数化、蒸馏）应优先投向 Backbone/Encoder，Neck/Decoder 可激进量化；渐进式量化的分阶段顺序有实验依据。
 不成立：敏感度排序依赖 W4A6 对称量化口径或特定架构，设计量化方案前需重测排序，不能直接沿用 Backbone→Neck→Encoder→Decoder 顺序。

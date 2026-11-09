@@ -25,7 +25,7 @@ related: [claim-sliderquant-llama2-7b-w4a4-ppl-8p34, claim-sliderquant-adaptive-
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称（asserted）：对 LLM 做低比特逐层量化时，误差沿深度分布不均匀——浅层/深层整体比中间层更敏感，且浅/深段中最敏感的是第一层/最后一层；作者在 layer-wise（SmoothQuant）、block-wise（OmniQuant）、multi-block-wise（CBQ）三种代表性框架的 W4A4 逐层误差曲线上都观察到该模式，并用它论证"对所有层一视同仁的序列量化不是最优"。
 
@@ -36,7 +36,7 @@ signoff: null
 - 任取一个开源 PTQ 框架（如 OmniQuant 官方仓库），记录 W4A4 逐层量化误差曲线，检查首/末层是否显著突出。
 - 检查该模式是否随模型家族（Llama vs Qwen）与比特配置（W4A16 vs W4A4）稳定。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：PTQ 工具链（含库内 OmniQuant/PD-Quant 路线）应把"层位置"纳入量化预算分配的考虑维度。
 不成立：层敏感性模式是作者实现特有，滑窗自适应设计的动机失效，回到均匀量化 + 全局校准的主流做法。

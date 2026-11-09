@@ -38,7 +38,7 @@ related: [claim-repqvit-w4a4-imagenet-leads-ptq-baselines, claim-omniquant-w4a4-
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称（asserted）：BEVFormer-Base 不训练直接量化时，W8A8 尚可（NDS 0.487，相对 FP32 0.517 下降 5.8%），但 W4A6 崩塌至 NDS 0.226（下降 56.3%、mAP 0.076），W4A4 近乎失效（NDS 0.023、mAP 0.000）。表内下降比与原始数字换算一致（(0.517−0.487)/0.517≈5.8%，(0.517−0.226)/0.517≈56.3%），无错位迹象。
 
@@ -55,7 +55,7 @@ signoff: null
 - 在同设置下叠加 RepQ-ViT 式激活重参数化或逐通道 scale，检验崩塌是否可被常规 PTQ 手段缓解。
 - 确认论文 PTQ 的校准口径（有无校准集、scale 统计方式）。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：BEVFormer-Base 在 nuScenes sub-8-bit 下朴素对称线性 PTQ 不可用，该配置部署需预算 QAT/蒸馏工程量。其他 BEV 模型或更强 PTQ 方法是否同样崩塌是跨条件/机制检查（见 falsifier 2），不能由本卡直接外推。
 不成立：崩塌是特定校准/实现口径的产物，该场景低比特部署可先试改进 PTQ（更便宜），再考虑 QAT。

@@ -38,7 +38,7 @@ related: [claim-pdquant-beats-brecq-qdrop-lowbit]
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 > **2026-11-03 笔记数字修正（依据：nightshift/cross/quantization.md §8 + 实抓 URL：https://arxiv.org/pdf/2212.07048v3 、https://arxiv.org/pdf/2212.07048v1 、https://openaccess.thecvf.com/content/CVPR2023/papers/Liu_PD-Quant_Post-Training_Quantization_Based_on_Prediction_Difference_Metric_CVPR_2023_paper.pdf ，2026-11-03 抓取，pdftotext 提取，三版本一致）**：原笔记 Table 1 的 Min-Max 1.83/0.81、Cosine 23.36/15.68、MSE W4A2 17.55、PD W4A2 23.51 在论文三版本中均不存在，笔记已按论文原表逐格重建（还补上了 ResNet-50 与 RegNet-600M 两组列）；W8A2 的 MSE 23.15 与 PD 28.41 两值原本就与论文一致。卡内 evidence quote 已同步为新表逐字引文。**主张方向不变且被修正后数字继续支持**：ResNet-18 W8A2/W4A2 下 PD 28.41/12.27 > MSE 23.15/10.31 > Cosine 11.09/4.15，Min-Max 行论文原文即为「-」（无数字）。另：论文 Table 1 caption 明确口径为「top-1 accuracy(%) on validation set」——本卡 scope 中「精度口径笔记均未注明」的缺口已补上（验证集 top-1）。status 不动。
 
@@ -56,7 +56,7 @@ signoff: null
 - 在 ResNet-18 W4A2 上复现：MSE 与 PD 各搜一次缩放因子，比较同一验证集精度。
 - 补测激活 3/4-bit 下两种度量的差距，确认"局部度量失效"的边界（跨条件迁移检查）。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：ResNet-18（修正后 Table 1 同表的 ResNet-50/RegNet-600M 同向）在 2-bit 激活下，PTQ 缩放因子搜索换用任务级度量（预测差异类）优于 MSE/Cosine，对端侧极限压缩选型有参考意义。其他架构类型/任务/位宽是跨条件迁移检查（见 falsifier 3），不能由本卡直接外推。
 不成立：增益依赖论文特定实现或口径，该场景缩放因子搜索继续用 MSE 即可，PD-Quant 的方法论优势降级为"仅在个别设置成立"。

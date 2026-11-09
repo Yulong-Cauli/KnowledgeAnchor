@@ -1,9 +1,9 @@
 ---
 id: claim-brecq-w4a4-comparable-qat-1024-images
-title: "BRECQ 自报：W4A4 下用 1024 张校准图、0.4–0.8 GPU hours 达到与 QAT 可比精度（ResNet-18 69.60 vs PACT 69.2；MobileNetV2 66.57 超两者），仍低于 QAT 最强 LSQ 71.1"
+title: "BRECQ 自报：W4A4 用 1024 张校准图与 QAT 精度可比（R18 69.60 / MobileNetV2 66.57），低于 LSQ 71.1"
 type: claim
 status: asserted
-scope: "ImageNet top-1；ResNet-18 与 MobileNetV2；W4A4 全量化；PTQ 校准成本口径：1024 张校准图、单卡 GPU hours（BRECQ 自报含 2/4/8-bit 三次统一精度训练的合并口径，§4.3）；对比的 PACT/DSQ/LSQ 数字为 BRECQ 论文 Table 4 转引（各自 1.2M 训练图、100–192 GPU hours，自报口径未独立核对）；摘要 240× 为『quantized model 生产速度』的论文声称"
+scope: "ImageNet top-1；ResNet-18 与 MobileNetV2；W4A4 全量化；PTQ 校准成本口径：1024 张校准图、单卡 GPU hours（BRECQ 自报）"
 tags: [quantization, ptq, qat, brecq, lsq, cost-accuracy]
 note: library/Quantization/BRECQ.md#34-与-qat-的成本-精度对比43-table-4
 paper: "ICLR 2021（arXiv:2102.05426）, BRECQ: Pushing the Limit of Post-Training Quantization by Block Reconstruction（开源：https://github.com/yhhhli/BRECQ）"
@@ -42,11 +42,11 @@ related: [claim-brecq-block-granularity-best-w2-ablation, claim-brecq-w2a4-first
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称（asserted）：4-bit 全量化下，BRECQ 作为 PTQ 方法（1024 张校准图、ResNet-18 0.4 / MobileNetV2 0.8 GPU hours）达到与 QAT 方法可比的精度，并在 4-bit MobileNetV2 上反超 QAT——这是「PTQ 首次追平 QAT（4-bit）」这一论文头衔主张的证据表（Table 4，2026-11-03 已对 arXiv HTML v2 逐行实抓核对一致）。
 
-必须记住的三个限定：
+三个限定：
 
 1. **"可比" ≠ "超过 LSQ"**：ResNet-18 上 BRECQ 69.60 仍比 QAT 最强的 LSQ（71.1）低 1.5 点；"comparable" 成立的对象是 PACT（69.2）/ DSQ（69.56），且 MobileNetV2 上超 PACT（61.40）/ DSQ（64.80）达 1.8～5.2 点。引用时不能写成「BRECQ 精度等于/高于 QAT」。
 2. **成本口径不对称**：BRECQ 的 0.4/0.8 GPU hours 是校准+逐块重建（§4.3 自述含 2/4/8-bit 三次统一精度训练、混合精度只查表），QAT 的 100/192 GPU hours 是端到端训练；两边都不含超参搜索时间，但数据量（1024 vs 1.2M）与流程性质不同，比较是数量级意义上的。摘要的 240× 是"quantized models 生产速度"，与 GPU hours 列不是同一口径。
@@ -58,7 +58,7 @@ signoff: null
 - 用 LSQ 官方代码核对其 4-bit ResNet-18 71.1 的训练配置，确认 BRECQ 转引无低报。
 - 澄清 240× 的分母（相对什么流程的"production"时间）。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：4-bit 场景下 PTQ 是默认起点（成本差 2–3 个数量级，精度代价 ≤1.5 点），只有追求最后零点几点的场景才上 QAT；边缘部署选型可按此估成本。
 不成立：精度-成本优势依赖口径（校准集、GPU hours 计法、转引基线），4-bit 部署仍需按 QAT 流程做预算，BRECQ 降级为快速估算工具。
