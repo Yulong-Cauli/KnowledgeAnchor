@@ -5,3 +5,5 @@
 - R3（Q1 批）：guanaco falsifier 1「<90%」、nf4-dq falsifier「差距 >0.5」「≥2 点」等预设阈值标注「待定」，具体数值待主人定夺。
 - R4（Q2 批）：brecq-block-granularity 卡「核查记录」节位于「主张」与「待验证」之间，节序与库内多数卡不一致（同 R1 类），本班未动。
 - R5（Q2 批）：MQBench 四卡共同证据缺口——笔记未记录论文实验的数据集/模型清单/位宽/具体数字（§5.2/§5.3 表未转录），四卡停在「笔记转述」层；补强须先补笔记（library 只读）。
+- R6（C1 批）：centernetpoints-regression 卡正文细节「全类别共享、L1 loss、仅中心点位置」与 heatmap-peaks 卡 scope「每图前 100 峰值解码」均无 evidence quote 逐字覆盖（出自笔记节）；补 quote 需另行走流程，登记待补。
+- R7（C2 批）：fcos-centerness-regression 卡 Table 3 的 37.1→37.4 是否补入 evidence 待主人定夺；fcos-suppresses 卡在跑实验 ka-verify-fcos-centerness 未在卡内标注，出结果后需回填 falsifier 2/3 复现项——是否现在加指针待定（未擅自新增）。
