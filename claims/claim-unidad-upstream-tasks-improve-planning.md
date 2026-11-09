@@ -35,13 +35,13 @@ related: [claim-unidad-planning-oriented-stack-beats-mtl, claim-unidad-nlo-train
 signoff: null
 ---
 
-## 这条主张是什么意思
+## 主张
 
 论文声称：在同样的 BEVFormer BEV 特征之上，只留规划器（Exp.10，avg.L2 1.131 / avg.Col. 0.773）不如把 Track/Map/Motion/Occ 四个前置任务联合进来再规划（Exp.12，avg.L2 1.004 / avg.Col. 0.430）；且论文强调两种预测表示（agent 级 motion + scene 级 occupancy）必须同时引入，规划的 L2 与碰撞率才同时最优（Table 2，arXiv v2）。这是"检测/跟踪等前置任务对规划有增益"主张的受控对比。
 
-## 证据支持到哪里
+## 证据与边界
 
-- 四条 evidence：ID-10/ID-12 两行 + §3.1"两预测任务缺一不可"句 + §2.1 BEV encoder 可替换声明。行值逐字在库，本班与笔记逐格核对一致。
+- 四条 evidence：ID-10/ID-12 两行 + §3.1"两预测任务缺一不可"句 + §2.1 BEV encoder 可替换声明。行值逐字在库，已与笔记逐格核对一致。
 - 证据边界（重要缺口）：Table 2 笔记仅逐字摘录 ID-0/6/9/10/12 五行（笔记 TODO 注明），中间行（含 11）未在库内——"单任务不足"的行级数字（如 Exp.11）暂无支撑，相关判断以复现为准。
 - 全部为 8-epoch 消融口径的论文自报数字，无独立复现；笔记数字 arXiv HTML v2 与 ar5iv 交叉核对（2026-11-02）。
 
@@ -49,29 +49,29 @@ signoff: null
 
 本卡数字绑定 UniAD 原文 arXiv v2 主文 Table 2（8-epoch 消融口径），不可与 Table 7 主结果（1.03/0.31）、BEV-Planner 复现（1.03/0.77/CCR 1.93）或官方 ckpt（0.66/0.62/1.72）混用。
 
-## 可能的解释与未排除的因素
+## 解释与未排除因素
 
 - 行为观察（Table 2 直接报告）：Exp.10→Exp.12 规划两指标同向大幅改善（Col 0.773→0.430 接近减半）。
 - 作者解释（论文立场，非本库复核）：agent 级 motion（带身份稀疏轨迹）与 scene 级 occupancy（稠密未来场景）互补，同时引入才最优（§3.1；Appendix B 原句见笔记 §4）。
-- 未排除因素（本班整理者对照两份笔记整理，尚未验证）：① Exp.12 相对 Exp.10 同时改变了任务、参数量、监督信号与 ego 信息通路——MotionFormer 的 ego-vehicle query 是显式自车建模（§2.1 原句在笔记 §2.2），Planner 用的正是 MotionFormer 的 ego-vehicle query（§2.4），gap 是否来自"上游任务协作"还是"新增自车信息/监督量"未分离（falsifier 2/4 覆盖）；② BEV 阶段经 BEVFormer 的 ego status 隐式注入（UniAD 经 `use_can_bus` 开关，BEV-Planner 笔记 §3.5(b) 转述）在两行可能同在——此时不解释行间差，但复测时要固定。
+- 未排除因素（整理者对照两份笔记整理，尚未验证）：① Exp.12 相对 Exp.10 同时改变了任务、参数量、监督信号与 ego 信息通路——MotionFormer 的 ego-vehicle query 是显式自车建模（§2.1 原句在笔记 §2.2），Planner 用的正是 MotionFormer 的 ego-vehicle query（§2.4），gap 是否来自"上游任务协作"还是"新增自车信息/监督量"未分离（falsifier 2/4 覆盖）；② BEV 阶段经 BEVFormer 的 ego status 隐式注入（UniAD 经 `use_can_bus` 开关，BEV-Planner 笔记 §3.5(b) 转述）在两行可能同在——此时不解释行间差，但复测时要固定。
 - "两任务缺一不可"句覆盖 Exp.10-12，但库内只有两端行（10/12）的数字，中间档（11）行值缺失，该句的行级支撑不完整。
 
 ## 与 BEV-Planner 系卡的关系（条件不同，不互相否定）
 
 claim-bevplanner-egostatus-injection-closes-gap 与 claim-bevplanner-ego-velocity-dominates-planning 分别从"注入位置"与"ego 扰动因果"两端质疑开环规划增益的归因；本卡是 UniAD 原文的正方证据。两方口径不同（原文自报 vs 统一实现复测）——BEV-Planner 用统一实现 + 0.1m 网格 + 碰撞率定义修正，UniAD 原文"采用与 ST-P3 相同的指标"——不构成直接互相否定，待同口径复现对账。
 
-## 适用范围与迁移限制
+## 范围与迁移限制
 
 - 绑定：nuScenes val、BEVFormer BEV 特征（论文声明可替换，但本表未测其他 encoder）、8-epoch 消融、论文自报指标实现。
 - 不外推：前置任务有增益 ≠ 联合训练整体优于分阶段（后者是 stack-beats-mtl 卡的命题，两卡变量不同）；跨 encoder、跨数据集、20-epoch 主口径均属迁移检查。
 - "前置任务对规划有增益"是端到端联合训练路线的核心卖点，若 falsifier 1/2 成立则增益需重新归因（ego status、数据失衡、训练量），与 BEV-Planner 结论合流（原卡"不成立"分支）。
 
-## 对研究问题的启发
+## 研究启发
 
 - "上游预测表示（agent 级 + scene 级）互补"是可检验的设计假设：在自己栈上加预测头时按"单加 motion / 单加 occ / 双加"设计消融，而不是直接全开（论文的 Exp.10-12 正是该设计的两端，研究启发，尚未验证）。
-- 归因检查通用化：任何"上游任务帮助规划"的对比，先审计参数量、监督量、自车信息通路是否同时改变（本卡 falsifier 2/4 的通用化，本班整理者整理）。
+- 归因检查通用化：任何"上游任务帮助规划"的对比，先审计参数量、监督量、自车信息通路是否同时改变（本卡 falsifier 2/4 的通用化，整理者整理）。
 
-## 当前立场与下一步
+## 下一步
 
 - 当前 stance：watch。原卡未记录立场依据，按未记录处理。
 - 同范围复现：复现 Exp.10 与 Exp.12（8-epoch 消融配置），核对 avg.L2/avg.Col. 两列，并记录两边参数量与训练预算（falsifier 2 的前置）。

@@ -24,9 +24,9 @@ related: [claim-bevplanner-kradar-ddp24-image-noise-sensitivity]
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
-项目记录声称，尚未在 KnowledgeAnchor 中由用户独立验证或签署：所记录的组合配方把该闭集训练切片的终点 ADE 从 7.061858 m 降至 1.387194 m，约下降 80.36%。这张卡只保留这一对明确实验的终点比较。
+项目记录声称，尚未由用户独立验证或签署：batch24/SyncBN/多流组合配方（bevplanner_ddp24fit_1103_2121）把该闭集训练切片的终点 ADE 从 7.061858 m（batch1 对照，bevplanner_fixednavfit4k_1103_1925）降至 1.387194 m，约下降 80.36%。本卡只保留这一对预定终点权重的比较。
 
 对照使用：
 
@@ -34,7 +34,7 @@ signoff: null
 - 新 run：bevplanner_ddp24fit_1103_2121，raw iter_1000.pth，SHA256 82e9de09046465aca5d2fe517b7609cfaa90092bf851c646b221e5e9aca66c28。
 - 选择规则：两次运行各自预定终点的 raw 权重，不挑 best、不混入 EMA。新 run 的 step500 指标更低，但未保存该步 checkpoint，不作为本卡比较对象。
 
-batch、SyncBN、单流变多流、更新次数与中心帧暴露量都变了：旧4000更新/4000中心帧，新1000更新/24000中心帧。不能据此确定 batch 是唯一原因，也不能外推为 batch 越大越好或保证泛化。图像敏感性是另一项独立观测，见关联卡。
+batch、SyncBN、单流变多流、更新次数与中心帧暴露量都变了：旧 4000 更新/4000 中心帧，新 1000 更新/24000 中心帧。不能据此确定 batch 是唯一原因，也不能外推为 batch 越大越好或保证泛化。图像敏感性是另一项独立观测，见关联卡 claim-bevplanner-kradar-ddp24-image-noise-sensitivity。
 
 ## 待验证
 
@@ -44,7 +44,7 @@ batch、SyncBN、单流变多流、更新次数与中心帧暴露量都变了：
 
 原始比较记录：[comparison_batch1.json](D:/Research/Replication/Kradar_benchmark/methods/BEV-Planner/runs/bevplanner_ddp24fit_1103_2121/comparison_batch1.json)。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：支持在解释这次拟合失败时把训练配方作为实质变量，不能由 batch1 单一配方的失败直接推断模型不具备拟合能力。关于具体成因仍须保留组合变化的限制。
 

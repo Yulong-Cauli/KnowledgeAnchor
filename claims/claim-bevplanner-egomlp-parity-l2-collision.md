@@ -25,35 +25,35 @@ related: [claim-bevplanner-egostatus-injection-closes-gap, claim-bevplanner-unid
 signoff: null
 ---
 
-## 这条主张是什么意思
+## 主张
 
-论文声称：在 nuScenes 开环评测的 L2 距离与碰撞率两个旧指标口径下，完全不用感知模块、只吃 ego status 的 Ego-MLP（Table 1 ID-8：L2-Avg 0.35 m / Colli-Avg 0.37%）与 UniAD、VAD 等 SOTA 方法持平。该 Ego-MLP 是论文作者复现 AD-MLP 时修复其 issue #4、去掉历史轨迹 GT 以防标签泄露之后的版本，对应笔记 §1 "Yes 的一面"。这是 bevplanner 机制系的“现象”卡，关联注入位置、速度扰动与指标后果等检查。另关联 nuScenes 数据集性质卡，但数据分布普查不以本卡的模型持平现象为前提，两者不能互相替代验证。
+论文声称：在 nuScenes 开环评测的 L2 距离与碰撞率两个旧指标口径下，完全不用感知模块、只吃 ego status 的 Ego-MLP（Table 1 ID-8：L2-Avg 0.35 m / Colli-Avg 0.37%）与 UniAD、VAD 等 SOTA 方法持平。该 Ego-MLP 是论文作者复现 AD-MLP 时修复其 issue #4、去掉历史轨迹 GT 以防标签泄露之后的版本，对应笔记 §1 "Yes 的一面"。nuScenes 数据分布普查卡（claim-nuscenes-three-second-ego-motion-distribution）与本卡互不替代：本卡证“模型持平”现象，普查卡证“数据分布”背景。
 
-## 证据支持到哪里
+## 证据与边界
 
-- 两条 evidence 支撑：Table 1 caption 的"on par"概括句 + ID-8 行内数字。注意"on par"是论文对全表的定性判断，无统计检验、无显著性报告（deep-read §1.1 评 ★★，报告层评估）。
-- quote 2 末尾"（原表为空）"是笔记自注（原表 ckpt. source 单元格为空），round2 QA 已判"逐字引用成立，不判错"；引用时注意它不是论文原文。
-- 同表基线行（UniAD ID-1 1.03/0.77/1.93、ID-3 0.46/0.37/1.59；VAD-Base ID-4 1.25/1.09/3.82、ID-6 0.37/0.33/2.47；GoStright ID-7 0.83/1.08/8.62）在笔记 §3.3，本班逐行核对一致。
+- 两条 evidence 支撑：Table 1 caption 的"on par"概括句 + ID-8 行内数字。"on par"是论文对全表的定性判断，无统计检验、无显著性报告（deep-read §1.1 评 ★★，报告层评估）。
+- quote 2 末尾"（原表为空）"是笔记自注（原表 ckpt. source 单元格为空），不是论文原文；round2 QA 已判"逐字引用成立，不判错"。
+- 同表基线行（UniAD ID-1 1.03/0.77/1.93、ID-3 0.46/0.37/1.59；VAD-Base ID-4 1.25/1.09/3.82、ID-6 0.37/0.33/2.47；GoStright ID-7 0.83/1.08/8.62）在笔记 §3.3，已逐行核对一致。
 - 证据边界：全部是论文报告数字，本库无独立复现；笔记数字来自 arXiv HTML v2 实抓（2026-11-02），代码开源（github.com/NVlabs/BEV-Planner，无 LICENSE 文件，GitHub API 2026-11-03 核实在案）。读到原文 ≠ 效果复现，由 falsifier 分别检验。
 
-## 可能的解释与未排除的因素
+## 解释与未排除因素
 
-- 现象本身（Table 1 直接报告）：无感知模型在旧指标上与感知 SOTA 同档。这是本卡标题的主张本身。
+- 行为观察（Table 1 直接报告）：无感知模型在旧指标上与感知 SOTA 同档。
 - 论文的解释框架（作者立场，非本库复核）：直行场景主导 + ego status 注入让模型无需感知即可拿到低误差——即“持平”反映指标/数据的区分度问题，而非“感知无用”（论文自己用 CCR 与 Appendix E 反例区分了这两件事）。注入位置见 claim-bevplanner-egostatus-injection-closes-gap。数据背景见 [claim-nuscenes-three-second-ego-motion-distribution](claim-nuscenes-three-second-ego-motion-distribution.md)（asserted / adopt，本库普查）；该卡描述约 3 秒轨迹窗口的横向位移与速度分布，不证明论文成因解释。
 - 未排除因素：① "持平"无显著性检验——ID-8 的 0.35/0.37 与 ID-3 的 0.46/0.37、ID-6 的 0.37/0.33 之间差距无方差报告，"持平"的判读区间未定义；② Ego-MLP 防泄露配置只有论文自述，未独立核对；③ "持平"只覆盖旧指标——按 CCR，Ego-MLP（2.93）差于 UniAD（1.93）/VAD（2.47），结论在新指标下已不同。
 
-## 适用范围与迁移限制
+## 范围与迁移限制
 
-- 两个必须随结论携带的限定：① "持平"只覆盖 L2 与碰撞率两个旧指标，不能外推为"Ego-MLP 整体与 SOTA 相当"；② 该对比成立的前提是同一评测实现与网格分辨率（0.1m）——若沿用 AD-MLP 的 0.5m 粗网格，论文认为碰撞率本身有假碰撞问题（笔记 §3.2）。
+- 两个限定：① "持平"只覆盖 L2 与碰撞率两个旧指标，不能外推为"Ego-MLP 整体与 SOTA 相当"；② 该对比成立的前提是同一评测实现与网格分辨率（0.1m）——若沿用 AD-MLP 的 0.5m 粗网格，论文认为碰撞率本身有假碰撞问题（笔记 §3.2）。
 - 结论绑定 nuScenes val + 论文统一实现口径 + Table 1 的具体方法行；不外推到 CCR 或其他新指标口径、闭环/实车、其他数据集。
-- 依存关系：若同口径复现中 Ego-MLP 显著落后，说明 Table 1 对比或其解释需重审；这不会直接推翻独立计算的数据集运动分布。2026-11-08 原 imbalance 卡已由 nuScenes 数据集性质卡替代，旧“四卡归因依存”不再适用于该新卡。
+- 依存关系：若同口径复现中 Ego-MLP 显著落后，说明 Table 1 对比或其解释需重审；这不会直接推翻 nuScenes 数据分布普查卡的独立计算结果。
 
-## 对研究问题的启发
+## 研究启发
 
-- 引用任何只报 L2/碰撞率的开环对比前，先核对：双方 ego status 注入位置、碰撞率网格与实现、是否带后处理——这三项任一不同，数字不可比（deep-read §2.3 第 1/2/6 条的通用化，本班整理者整理）。
+- 引用任何只报 L2/碰撞率的开环对比前，先核对：双方 ego status 注入位置、碰撞率网格与实现、是否带后处理——这三项任一不同，数字不可比（deep-read §2.3 第 1/2/6 条的通用化，整理者整理）。
 - "加一个无信息基线"（仅 ego status 的 MLP）是检验指标区分度的廉价手段，可迁移到其他开环 benchmark；但"其他 benchmark 上也持平"属于跨条件迁移，结论不可预支，需单独检查。
 
-## 当前立场与下一步
+## 下一步
 
 - 当前 stance：watch。原卡未记录立场依据，按未记录处理。
 - 优先执行的最小检查——同范围复现（对照侧）：用官方仓库复现 Ego-MLP（ID-8）配置，与同表 UniAD（ID-1/2/3）、VAD-Base（ID-4/5/6）在同一指标实现下重算 L2/碰撞率。固定：数据 split、指标实现、0.1m 网格；只改"有无感知输入"。观察 L2-Avg/Colli-Avg 差距：若 Ego-MLP 落后 2 倍以上（预设判据，见 falsifier）→ 按 falsifier 登记并启动 related 卡重审；若复现持平 → 现象成立，但这只是行为复现，不构成对"为何持平"任何解释的证明。

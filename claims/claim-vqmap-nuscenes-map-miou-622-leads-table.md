@@ -3,7 +3,7 @@ id: claim-vqmap-nuscenes-map-miou-622-leads-table
 title: "论文声称：VQ-Map 在 nuScenes val 环视 BEV 地图分割上 mean mIoU 62.2，高于同表全部对比方法（BEVFusion 56.6 / MapPrior 56.7 / DDP 59.4）"
 type: claim
 status: asserted
-scope: "nuScenes 验证集、环视（Surround-View）BEV 语义地图分割（笔记抄 Drivable / Ped. Cross. / Walkway / Stopline 四类 + Mean；Mean 62.2 实为论文 6 类平均）；VQ-Map 自报数字与 BEVFusion、MapPrior、DDP 同表对比；数字已对照 arXiv:2411.01618 Table 1 核实与笔记一致（2026-11-02 抓取；论文原表为 6 类 + 9 个对比方法行——另有 Carpark/Divider 两类与 X-Align 58.0、MetaBEV 59.3 等，笔记只抄了 4 类与 3 行，全部方法行均低于 62.2；2026-11-05 复抓修正：对比方法行为 9 行（OFT/LSS/CVT/M2 BEV/BEVFusion/MapPrior/X-Align/MetaBEV/DDP），11-02 复审段曾误记为 7 行）；模态与阈值口径：Table 1 原注自称全表只评 camera-only 设定、VQ-Map 恒用 IoU 阈值 0.5 而其余方法按原文各自最优阈值（2026-11-05 抓取，属论文自报口径）；nuScenes val 为 150 场景 / 6019 样本（PON split）；camera-only 与划分的实际同口径性仍是论文一面之词"
+scope: "nuScenes val（150 场景 / 6019 样本，PON split）环视（Surround-View）BEV 语义地图分割；mean mIoU 62.2 为论文 6 类平均（笔记只抄 Drivable / Ped. Cross. / Walkway / Stopline 四类，原表另有 Carpark/Divider）；VQ-Map 自报数字与同表 9 个对比方法行对比（笔记只抄 BEVFusion / MapPrior / DDP 三行；9 行为 OFT/LSS/CVT/M2 BEV/BEVFusion/MapPrior/X-Align/MetaBEV/DDP，含 X-Align 58.0、MetaBEV 59.3，全部方法行均低于 62.2）；模态与阈值口径：Table 1 原注自称全表只评 camera-only 设定、VQ-Map 恒用 IoU 阈值 0.5 而其余方法按原文各自最优阈值（属论文自报口径）；数字已对照 arXiv:2411.01618 Table 1 核实与笔记一致"
 tags: [bev, map-segmentation, vqvae, discrete-representation, nuscenes, vq-map]
 note: library/Quantization/VQ-Map.md#41-核心指标对比-state-of-the-art-comparison
 paper: "NeurIPS 2024, VQ-Map (arXiv:2411.01618)（代码：https://github.com/Z1zyw/VQ-Map）"
@@ -50,22 +50,22 @@ related: [claim-vqmap-token-classification-618-beats-regression, claim-vqmap-tin
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称：在 nuScenes val 环视 BEV 地图分割上，VQ-Map 取得 mean mIoU 62.2，高于同表所列全部对比方法（BEVFusion 56.6、MapPrior 56.7、DDP 59.4），且提升集中在依赖结构先验的细粒度类别——相对 BEVFusion，Stopline +10.3（47.4 → 57.7）、Walkway +5.8（58.4 → 64.2）。数字均为论文自报。
 
-必须记住的限定（2026-11-05 复抓后更新）：模态疑虑在论文自报口径下已解除——Table 1 原注明言"只评 camera-only 设定"（见 evidence），即 BEVFusion 行也是相机-only 配置，与 VQ-Map 同模态；但这仍是论文一面之词，BEVFusion 行的具体输入配置可按其官方 camera-only 复现配置独立复核。阈值口径：VQ-Map 恒用 0.5，其余方法按原文各自最优阈值（给对手留了最优阈值，对 VQ-Map 偏保守）。涨幅 +10.3 / +5.8 是相对 BEVFusion（基线行）的差值，不是相对最强基线 DDP。
-
-**复审更新（2026-11-02；2026-11-05 补充并修正一处行数笔误）**：数字已对照 arXiv:2411.01618 Table 1 逐格核实与笔记一致；论文原表实为 6 类（另有 Carpark/Divider）+ 9 个对比方法行（OFT/LSS/CVT/M2 BEV/BEVFusion/MapPrior/X-Align/MetaBEV/DDP；11-02 复审段曾误写"7 个"），最高对手 DDP 59.4，「VQ-Map 62.2 高于同表全部对比方法」在论文全表口径下同样成立。11-05 复抓补充：Table 1 原注自称全表 camera-only、VQ-Map 恒用阈值 0.5（见 evidence）——11-02 遗留的模态口径问题在论文自报层面解决，独立复核仍待做。
+限定：
+1. 模态口径：Table 1 原注明言"只评 camera-only 设定"（见 evidence），即 BEVFusion 行也是相机-only 配置，与 VQ-Map 同模态；但这仍是论文一面之词，BEVFusion 行的具体输入配置可按其官方 camera-only 复现配置独立复核。
+2. 阈值口径：VQ-Map 恒用 0.5，其余方法按原文各自最优阈值（给对手留了最优阈值，对 VQ-Map 偏保守）。
+3. 涨幅 +10.3 / +5.8 是相对 BEVFusion（基线行）的差值，不是相对最强基线 DDP。论文原表为 6 类（另有 Carpark/Divider）+ 9 个对比方法行（OFT/LSS/CVT/M2 BEV/BEVFusion/MapPrior/X-Align/MetaBEV/DDP），最高对手 DDP 59.4——「62.2 高于同表全部对比方法」在论文全表口径下同样成立。
 
 ## 待验证
 
 - 已核对（2026-11-02 + 2026-11-05 复抓）：arXiv:2411.01618 Table 1 数字行与笔记一致（见 evidence）；对比方法 9 行；表原注自称全表 camera-only、VQ-Map 恒用阈值 0.5。
 - 待补（独立复核）：BEVFusion 行等对比方法的 camera-only 具体配置——按 BEVFusion 官方 camera-only 复现配置独立确认，不依赖论文原注一面之词。
-- 用 [Z1zyw/VQ-Map](https://github.com/Z1zyw/VQ-Map) 在 nuScenes val（150 场景 / 6019 样本，PON split）上复现 mean mIoU 与逐类指标。
-- 确认评测口径：Patch 网格（8×8）、IoU 阈值与 mIoU 计算是否与对比方法一致（复现时对齐 Table 1 原注）。
+- 用 [Z1zyw/VQ-Map](https://github.com/Z1zyw/VQ-Map) 在 nuScenes val（150 场景 / 6019 样本，PON split）上复现 mean mIoU 与逐类指标，复现时对齐 Table 1 原注口径（Patch 网格 8×8、IoU 阈值与 mIoU 计算是否与对比方法一致）。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：纯相机 BEV 地图估计用"离散 Token 分类 + 生成式地图字典"可以在细粒度类别上压过多模态基线，值得在 BEV 感知选型中把 VQ-Map 列为相机-only 路线的候选基线。
 不成立：领先依赖对比口径不对等或自报数字偏差，地图先验路线退回与 DDP / MapPrior 同档，选型时不应给 VQ-Map 额外权重。

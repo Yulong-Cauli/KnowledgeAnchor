@@ -36,11 +36,11 @@ signoff: null
 
 ## 我的理解
 
-> 修订注记 2026-11-03：笔记 §5.1 表已按论文原表重建（恢复 A4000/Jetson 两列延迟列，并修正 Second-IoU/LoGoNet/TED 三行的错位数字），EMC2 自身行数字 66.81 / 88.15 / 77.62 / 372.5 未变、仅新增 A4000 列 160，本卡 §5.1 evidence quote 已同步更新。修正依据：arXiv:2507.04123v1 与 ICCV 2025 camera-ready（CVF Open Access）Table 1，2026-11-03 抓取逐格核对一致。本卡主张与 status 不受影响（EMC2 自身行数字一致，且本卡限定 1 本就按 v1 指出对比方法 Jetson 列多为 N/A / 972ms）。
+> 修订注记（2026-11-03）：笔记 §5.1 表已按论文原表重建（恢复 A4000/Jetson 两列延迟列，修正 Second-IoU/LoGoNet/TED 三行的错位数字），EMC2 自身行数字 66.81 / 88.15 / 77.62 / 372.5 未变；依据 arXiv:2507.04123v1 与 ICCV 2025 camera-ready（CVF Open Access）Table 1 逐格核对一致。本卡主张与 status 不受影响。
 
 EMC2 自报：KITTI 上 372.5ms 且三类 Hard AP（66.81 / 88.15 / 77.62）为对比表最高；nuScenes 上 229.3ms 且 mAP/NDS（0.7241 / 0.7316）高于 BEVFusion（0.6852 / 0.7138）。"表中领先"成立的前提是精度数字来自同一评测协议（KITTI R40 Hard；nuScenes val）。
 
-两个必须记住的限定：
+限定：
 1. arXiv v1 的 Table 1 中，Second-IoU / LoGoNet / TED 的 Jetson 延迟列均为 N/A（原注释：开源实现不兼容 Jetson），PointPillar 的 Jetson 延迟是 972ms。"在 Jetson 上比基线快"实际只在 EMC2 vs PointPillar 之间有直接同硬件数字。
 2. 延迟是动态调度的期望值：APE 单专家在远场模糊场景要 526ms（笔记 §5.3 消融），<400ms 是全场景平均，不是最坏情况延迟。做安全分析时不能把 372.5ms 当作上界。
 
@@ -52,7 +52,7 @@ EMC2 自报：KITTI 上 372.5ms 且三类 Hard AP（66.81 / 88.15 / 77.62）为�
 - 确认延迟统计口径：是否含 AMDB 预处理与后处理，是否为全验证集平均，P99 延迟是多少。
 - 确认 SAD 的 D/C 阈值与路由分布：极端场景占比多高时延迟会越过 400ms。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：边缘平台（Jetson 级）做多模态 3D 检测时，MoE 动态分流是可行路线，可作为部署选型参考；但方案落地仍需按第 2 条限定补最坏情况延迟。
 不成立：精度优势或 <400ms 延迟依赖论文自报口径，选型回到传统单专家模型 + TensorRT 加速的老路。
