@@ -1,6 +1,6 @@
 # nuScenes 短时自车运动分布：补充实验结果
 
-本轮为描述性补充统计，关联 `claim-nuscenes-three-second-low-lateral-displacement-majority`（asserted / watch）。先完整呈现分布，再讨论锚点如何提炼；未修改原卡标题、status、stance或signoff。
+本轮为描述性补充统计，关联 `claim-nuscenes-three-second-ego-motion-distribution`（asserted / watch）。先完整呈现分布，再讨论锚点如何提炼；未修改原卡标题、status、stance或signoff。
 
 ## 1. 主要观察
 

@@ -1,6 +1,6 @@
 # 实验设计：nuScenes 直行场景占比能否复得 73.9%
 
-> **历史实验，已由后续数据集普查替代（2026-11-08）。** 原设计及下文旧卡 id 只保留历史含义；结果中的“精准复现/强支持”解释已撤回。见 [审核说明](AUDIT-2026-11-08.md)；现行卡为 [nuScenes 六步低横向位移](../../claims/claim-nuscenes-three-second-low-lateral-displacement-majority.md)（asserted / watch）。
+> **历史实验，已由后续数据集普查替代（2026-11-08）。** 原设计及下文旧卡 id 只保留历史含义；结果中的“精准复现/强支持”解释已撤回。见 [审核说明](AUDIT-2026-11-08.md)；现行卡为 [nuScenes 六步低横向位移](../../claims/claim-nuscenes-three-second-ego-motion-distribution.md)（asserted / watch）。
 
 - **原对应卡**：`claim-bevplanner-nuscenes-straight-driving-imbalance`（原 status: asserted；已移除，历史由 Git 保留）
 - **复核问题**：论文 §1 自报 "73.9% of the nuScenes data involve scenarios of driving straightforwardly"（Fig. 2），对 nuScenes v1.0 trainval 全量 ego 未来轨迹按预注册判据族重算，73.9% 能否在合理阈值带内复得？附录 E 的评测样本口径（87%）能否同步复得？

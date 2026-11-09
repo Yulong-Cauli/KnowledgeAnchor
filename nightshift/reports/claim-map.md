@@ -1,6 +1,6 @@
 # [report] 全库 Claim 地图（服务人工核验与 signoff 决策）
 
-> **2026-11-08 现行状态更正（本报告其余内容为历史快照）：** 原 `claim-bevplanner-nuscenes-straight-driving-imbalance` 已移除，由 [nuScenes 六步低横向位移数据属性卡](../../claims/claim-nuscenes-three-second-low-lateral-displacement-majority.md)（asserted / watch，尚未独立验证）替代。原“精准复现/强证据”解释已撤回，见 [审核说明](../../experiments/bevplanner-nuscenes-straight-driving-imbalance/AUDIT-2026-11-08.md)。旧 id 与旧评级仅保留历史语境，新卡不承接捷径因果。
+> **2026-11-08 现行状态更正（本报告其余内容为历史快照）：** 原 `claim-bevplanner-nuscenes-straight-driving-imbalance` 已移除，由 [nuScenes 六步低横向位移数据属性卡](../../claims/claim-nuscenes-three-second-ego-motion-distribution.md)（asserted / watch，尚未独立验证）替代。原“精准复现/强证据”解释已撤回，见 [审核说明](../../experiments/bevplanner-nuscenes-straight-driving-imbalance/AUDIT-2026-11-08.md)。旧 id 与旧评级仅保留历史语境，新卡不承接捷径因果。
 
 - **日期**：2026-11-02
 - **性质**：只读盘点。本报告不新增、不修改任何 claim 卡；所有 id / 数量 / 状态字段均与 `claims/` 下卡文件逐一核对（evidence quote 未重复验证，以各 QA 报告为准）。
@@ -156,7 +156,7 @@ QA：round2-classical（PASS 15 / FIXED 1）、round2-sparseocc-surroundocc-cent
 | [claim-centernetpoints-heatmap-peaks-replace-nms](../../claims/claim-centernetpoints-heatmap-peaks-replace-nms.md) | 热力图 3×3 Max Pooling 峰值提取本身即起 NMS 作用，推理无需 NMS | 笔记单源 | PASS | ★★ |
 | [claim-centernetpoints-regression-replaces-keypoint-grouping](../../claims/claim-centernetpoints-regression-replaces-keypoint-grouping.md) | 中心点直接回归宽高替代 CornerNet 的 Embedding 配对，推理成纯前向传播 | 笔记单源 | PASS | ★★ |
 | [claim-centernetpoints-inference-fps-gain-over-cornernet](../../claims/claim-centernetpoints-inference-fps-gain-over-cornernet.md) | 同骨干下推理速度约为 CornerNet 两倍（7.8 vs 4.1 FPS），DLA-34 达 52 FPS（无硬件口径） | 笔记单源 | PASS | ★★ |
-| [claim-centernetpoints-center-collision-rare-on-coco](../../claims/claim-centernetpoints-center-collision-rare-on-coco.md) | 同类中心点碰撞在 COCO 上 <0.1%，远低于 anchor 方法 IoU 匹配失败漏检率（约 20%） | 笔记单源 | PASS | ★★ |
+| [claim-centernetpoints-coco-train2017-same-class-center-collision-rare](../../claims/claim-centernetpoints-coco-train2017-same-class-center-collision-rare.md) | 同类中心点碰撞在 COCO 上 <0.1%，远低于 anchor 方法 IoU 匹配失败漏检率（约 20%） | 笔记单源 | PASS | ★★ |
 | [claim-centernettriplets-cre-ap-gain-small-objects](../../claims/claim-centernettriplets-cre-ap-gain-small-objects.md) | 增加中心点热图分支（CRE）AP 37.6→39.9，增益集中于小物体（AP_S +4.6） | 笔记单源 | 未复审 | ★ |
 | [claim-centernettriplets-ctp-ap-gain-large-objects](../../claims/claim-centernettriplets-ctp-ap-gain-large-objects.md) | 中心点分支用 Center Pooling 再 +0.9 AP（39.9→40.8），增益主要来自大物体 | 笔记单源 | 未复审 | ★ |
 | [claim-centernettriplets-ccp-ap-gain-large-objects](../../claims/claim-centernettriplets-ccp-ap-gain-large-objects.md) | 级联角点池化（先边界后内部）再 +0.5 AP（40.8→41.3），全配置 AP_L 达 55.8% | 笔记单源 | 未复审 | ★ |
@@ -226,7 +226,7 @@ QA：round2-ali-mq-lingoqa（PASS ×3，11 条 quote 逐字命中、表格行归
 
 ### 3.3 含「待回原文 / 待人工核对」限定的卡（19 张，strict 命中）
 
-claim-centernettriplets-ccp-ap-gain-large-objects、claim-centernettriplets-cre-ap-gain-small-objects、claim-centernettriplets-ctp-ap-gain-large-objects、claim-centernettriplets-gt-center-oracle-ap-565、claim-centernetpoints-center-collision-rare-on-coco、claim-centernetpoints-inference-fps-gain-over-cornernet、claim-hgsfusion-dark-scene-gain-dominates、claim-hgsfusion-rhgm-dsm-superadditive-roi-gain、claim-hgsfusion-2d-spatial-mode-beats-3d、claim-njusparseocc-decoder-pruning-complexity-onactive、claim-radarocc-s2c-deformable-avoids-interp-degradation、claim-r4det-pdf-depth-supervision-monotonic-gain、claim-rcbevdet-camf-alignment-then-fusion-robust、claim-rcbevdet-dmsa-gaussian-mask-early-convergence、claim-rcbevdet-rcs-aware-scattering-dense-bev、claim-rcbevdet-dualstream-injection-extraction-interactive、claim-sgdet3d-depth-supervision-density-gain、claim-sparseocc-miou141-beats-dense-baselines、claim-sparseocc-flops-749pct-below-dense。
+claim-centernettriplets-ccp-ap-gain-large-objects、claim-centernettriplets-cre-ap-gain-small-objects、claim-centernettriplets-ctp-ap-gain-large-objects、claim-centernettriplets-gt-center-oracle-ap-565、claim-centernetpoints-coco-train2017-same-class-center-collision-rare、claim-centernetpoints-inference-fps-gain-over-cornernet、claim-hgsfusion-dark-scene-gain-dominates、claim-hgsfusion-rhgm-dsm-superadditive-roi-gain、claim-hgsfusion-2d-spatial-mode-beats-3d、claim-njusparseocc-decoder-pruning-complexity-onactive、claim-radarocc-s2c-deformable-avoids-interp-degradation、claim-r4det-pdf-depth-supervision-monotonic-gain、claim-rcbevdet-camf-alignment-then-fusion-robust、claim-rcbevdet-dmsa-gaussian-mask-early-convergence、claim-rcbevdet-rcs-aware-scattering-dense-bev、claim-rcbevdet-dualstream-injection-extraction-interactive、claim-sgdet3d-depth-supervision-density-gain、claim-sparseocc-miou141-beats-dense-baselines、claim-sparseocc-flops-749pct-below-dense。
 
 （放宽措辞后的更全命中为 33 张；差异主要是「原文未能抓取」类自我声明，如 alibevfusion ×4、vqmap-tiny、qdbev-tiny 等。）
 

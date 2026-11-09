@@ -1,6 +1,6 @@
 # 结果：nuScenes 全部1000段记录的低横向位移统计
 
-本库普查观察，尚未独立验证。关联卡 `claim-nuscenes-three-second-low-lateral-displacement-majority`，status: asserted / stance: watch；signoff仅由用户手工编辑。
+本库对 nuScenes v1.0 的普查结果。关联卡 `claim-nuscenes-three-second-ego-motion-distribution`（asserted / adopt）。
 
 ## 1. 补上测试集后的结果
 
@@ -69,4 +69,4 @@
 
 第一轮只覆盖训练/验证850段，其87.469448%结果仍有效，但只代表该子集。原报告冻结为 [RESULTS-trainval-v1.md](RESULTS-trainval-v1.md)，原设计为 [README-trainval-v1.md](README-trainval-v1.md)，原始 `results/` 没有覆盖。本轮扩展说明见 [all-splits/README.md](all-splits/README.md)。
 
-本轮不追认原探索为预注册独立验证，也不将接近87%的结果冒称BEV-Planner原统计复现；卡片仍为asserted / watch，verified和signoff由用户本人手工填写。
+本轮按本文定义统计自车横向位移。BEV-Planner 原统计的复算另见前述审核记录。

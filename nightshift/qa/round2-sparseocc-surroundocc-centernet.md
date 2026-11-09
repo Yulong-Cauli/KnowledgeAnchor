@@ -82,7 +82,7 @@
 - 数字：4.1 / 7.8 / 52 FPS 与笔记对比表一致；7.8/4.1≈1.9，「约两倍」表述成立。
 - Caveat：**无硬件口径**这一关键 caveat 在 scope、我的理解 #2、待验证三处如实保留（测量硬件/分辨率/数据集/增强均未注明，数字间可能不同口径）——正是本轮重点核查项，合格。
 
-### 11. claim-centernetpoints-center-collision-rare-on-coco — PASS
+### 11. claim-centernetpoints-coco-train2017-same-class-center-collision-rare — PASS
 
 - Quote 验证：2 条逐字命中（L167 定义句含 `（Stride $R=4$ ）` 原样空格、L171 实际影响句——引用止于「（约 20%）。」，避开尾部残留"20"）。
 - 数字：<0.1%、约 20% 与笔记一致。

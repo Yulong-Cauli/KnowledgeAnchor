@@ -1,2 +1,3 @@
 28c8da6cf68d5665c5426d53aef0fbfbd1922eb9649ff421b3f5819da24fa5b4  results/metrics-v2.json
 b29b42c3e7c9a32b57c8a47f728a0240083ddcdf7da93d4845632a182620372c  results/metrics-v1-defect.json
+86c6cf779b4bca02e090443507d4fca42f947bab19c5aa1b982f2e6750f31884  results/metrics-floor.json

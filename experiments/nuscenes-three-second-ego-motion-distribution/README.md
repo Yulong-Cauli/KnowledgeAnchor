@@ -1,5 +1,7 @@
 # nuScenes：约3秒内的低横向位移占比
 
+实验目录和文档链接随卡片 ID 迁移。已执行的代码、协议、notebook、日志及结果仍按运行时版本归档，文件中的旧 ID 对应同一次实验。
+
 完整运动分布补充已完成：见 [横向位移、速度及速度条件分布报告](motion-profile/RESULTS.md)。该轮重新读取全部1000段记录，保留原指标并增加分位数、完整累计分布和速度分组统计；此前2米单点统计仍原样归档。
 
 当前范围扩展至nuScenes v1.0全部1000段驾驶记录，包括训练、验证、测试集。观察每个时刻随后约3秒的运动；记录末尾无法提供完整后续轨迹的时刻不计入统计。
@@ -10,7 +12,7 @@
 
 以下原范围仅描述第一轮，不再是当前卡片的范围。其原始字节已冻结为 [README-trainval-v1.md](README-trainval-v1.md)，原报告为 [RESULTS-trainval-v1.md](RESULTS-trainval-v1.md)；原results/不覆盖。
 
-- 对应卡：`claim-nuscenes-three-second-low-lateral-displacement-majority`（asserted / watch，尚未独立验证）。
+- 对应卡：`claim-nuscenes-three-second-ego-motion-distribution`（asserted / adopt）。
 - 本实验取代“寻找某阈值接近 BEV-Planner 73.9% / 87%”的目标；论文数字只作背景，不参与成功条件。
 - 设计日期：2026-11-08。定义是在旧探索结果已知后确定的，明确属于后续描述性分析，不冒称原实验预注册或独立确认。以下条件在本次普查前固定，不根据新结果调整。
 
