@@ -54,9 +54,9 @@ related: [claim-pillarnet-sparse2dcnn-encoder-decouple-pillar-size, claim-pillar
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
-这是 PillarNet 论文的 nuScenes test 精度-速度快照卡：三个 encoder 尺寸（vgg / ResNet-18 / ResNet-34 复杂度对齐）在 nuScenes test split 上自报 69.6 / 70.8 / 71.4 NDS、63.3 / 65.0 / 66.0 mAP，对应 14 / 13 / 12 FPS。三个前提必须一起记住：
+论文自报（nuScenes test 快照）：三个 encoder 尺寸（vgg / ResNet-18 / ResNet-34 复杂度对齐）达 69.6 / 70.8 / 71.4 NDS、63.3 / 65.0 / 66.0 mAP，对应 14 / 13 / 12 FPS，并声称超过 2022-03-07 榜上全部已发表 LiDAR-only 非集成方法。三个前提：
 
 1. **FPS 口径是桌面机**：论文 §4 明确 runtime 对比在 "an i9 CPU and RTX 3090 GPU" 的桌面机上进行。"real-time" 是桌面 GPU 意义上的实时，不能直接外推到车规 SoC（Orin 等）——跨硬件引用时必须带口径。
 2. **非集成但有 TTA**：nuScenes test 上无模型 ensemble，但保留了 CenterPoint 式 double-flip test-time augmentation；与完全无 TTA 的方法对比时有轻微口径差。
@@ -70,7 +70,7 @@ signoff: null
 - 查 nuScenes Detection leaderboard 存档，确认 2022-03-07 时点上 LiDAR-only 非集成组的最高 NDS 确低于 71.4。
 - 若要用于车规部署论证：在目标平台（如 Orin）实测，本卡数字不构成依据。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：pillar-based（纯 2D 卷积）路线在 2022 年中可以达到与 voxel-based 二阶段方法相当或更高的 nuScenes test 精度、同时保持桌面机实时速度，可作为"LiDAR-only 实时检测"选型里的低成本基线快照（须带时间与硬件口径）。
 不成立：精度或速度数字依赖特定口径（TTA、桌面 GPU、快照时点），选型时应回退到 CenterPoint 系 voxel 方法或按目标硬件重测；"pillar 系追平 voxel 系"的叙事需重新审视。

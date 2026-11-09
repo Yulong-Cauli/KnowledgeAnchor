@@ -38,9 +38,9 @@ related: [claim-bevdet-bda-decouple-imageview-bev-augmentation, claim-bevdet-sca
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
-论文声称：BEVDet-Tiny（SwinTransformer-Tiny，704×256 输入）在 nuScenes val 上取得 31.2% mAP / 39.2% NDS，与当时 image-view 领先方法 FCOS3D（1600×900，29.5% / 37.2%）相当，但计算量仅 215.3 GFLOPs——约为 FCOS3D 2,008.2 GFLOPs 的 11%——且 15.6 FPS 对 1.7 FPS 快约 9.2 倍。这是论文摘要主打的 trade-off 卖点。注意口径边界：速度/计算量按论文自述基于 MMDetection3D、无增强、单目速度已除以 6；"comparable" 是论文措辞，两个指标其实都略高于 FCOS3D，但本卡只主张"相当精度 + 两个数量级内的效率差"这一可证伪命题。
+论文声称：BEVDet-Tiny（SwinTransformer-Tiny，704×256 输入）在 nuScenes val 上取得 31.2% mAP / 39.2% NDS，与当时 image-view 领先方法 FCOS3D（1600×900，29.5% / 37.2%）相当，但计算量仅 215.3 GFLOPs——约为 FCOS3D 2,008.2 GFLOPs 的 11%——且 15.6 FPS 对 1.7 FPS 快约 9.2 倍。这是论文摘要主打的 trade-off 卖点。口径边界：速度/计算量按论文自述基于 MMDetection3D、无增强、单目速度已除以 6；"comparable" 是论文措辞，两个指标其实都略高于 FCOS3D，但本卡只主张"相当精度 + 11% 计算量、9.2 倍速度"这一可证伪命题。
 
 ## 待验证
 
@@ -48,7 +48,7 @@ signoff: null
 - 已核对（2026-11-03）：arXiv abs 页摘要含 "31.2% mAP and 39.2% NDS … just 11% computational budget of 215.3 GFLOPs … 9.2 times faster at 15.6 FPS"，与笔记引句逐字一致（URL 见 evidence）。
 - 用统一口径（同 GPU、同精度模式）重测 FCOS3D 与 BEVDet-Tiny 的 latency，检验 9.2× 是否依赖"单目速度÷6"的口径。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：BEV 范式在车载算力约束下有真实效率优势，多相机 3D 检测选型时 BEV 路线可作为低算力档默认候选。
 不成立：效率差主要来自评测口径（速度÷6）而非范式本身，或精度复现不到 31.2/39.2，则该 trade-off 主张降级，选型依据回退到统一口径实测。

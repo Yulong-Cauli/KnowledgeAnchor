@@ -58,7 +58,7 @@ related: [claim-pillarnet-od-diou-decouple-orientation-regression, claim-pillarn
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称：pillar 系方法（PointPillars 类）精度远落后于 voxel 系的根因是 pillar 特征编码太弱——PointPillars 把浅 backbone 直接架在粗 pillar 伪图像上，且输出特征图尺寸与初始 pillar 尺寸耦合（pillar 越细计算/显存代价急剧上升）。PillarNet 的方案是：先用细 pillar（nuScenes 上 0.075m）投影，再用 VGG/ResNet 式的稀疏 2D CNN 多 stage encoder（stage 1–4 可拆卸、逐级下采样，stage 5 用稠密 2D CNN 提语义）做深层特征学习。消融（nuScenes val，Table 4）：同 codebase 的 CenterPoint-PointPillars 基线 50.26 mAP / 60.22 NDS，换成该 encoder 后（neckv1）57.87 / 66.16，+7.61 mAP / +5.94 NDS。精度-效率旁证：PillarNet-18 全配置 16 FPS 达 59.90 / 67.39，而 CenterPoint-SECOND 8 FPS 仅 59.56 / 66.76——同精度下约 2 倍速度（RTX 3090 桌面机口径）。
 
@@ -68,7 +68,7 @@ signoff: null
 - 已核对（2026-11-03）：ar5iv 渲染版 Table 4 的 †CenterPoint-PointPillars 行与 PillarNet-18(neckv1) 行数值与笔记逐值一致（见 evidence）；+7.61/+5.94 行差验算一致。
 - 验证 pillar size 解耦的实际操作：按 Table 6 配置（0.075m→5 stage、0.075×8m→2 stage）各训一版，确认粗 pillar 换速度的路径可行。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：同配置复现出约 +7.6 mAP / +5.9 NDS，则论文『精度差距主要来自弱 pillar 特征编码』的瓶颈归因在该对比范围（nuScenes val、同 codebase CenterPoint-PointPillars 基线）内得到支持；『pillar 路线的精度天花板主要由 encoder 深度决定』是超出该单基线消融的概括、『细 pillar + 稀疏 2D CNN encoder 可作 voxel 系低算力替代』是跨基线迁移假设，两者均尚未验证；pillar size 拆卸 stage 换速度属 Table 6 自报口径，待复现。
 不成立：增益主要来自训练配方/其他组件而非 encoder，或 pillar size 仍与特征图尺寸耦合，则该设计主张降级，选型回退到 voxel 系或 SECOND 类 3D 稀疏卷积方案。

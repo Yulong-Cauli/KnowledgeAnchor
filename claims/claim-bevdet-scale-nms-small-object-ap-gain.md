@@ -46,7 +46,7 @@ related: [claim-bevdet-bda-decouple-imageview-bev-augmentation, claim-bevdet-tin
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称：image-view 中各类目标因透视成像共享相似空间分布，固定阈值的经典 NMS 有效；BEV 空间则不然——各类目标占地固有不同，行人、交通锥等小目标的占地可能小于输出分辨率（CenterPoint 头 0.8 m），冗余预测框与真阳框可能完全无交集、IOU 恒为 0，经典 NMS 无法消除这类冗余框。Scale-NMS 的做法是先按类别缩放目标尺寸（小目标放大以建立空间关系，之后还原）再做经典 NMS。Table 5（nuScenes val，BEVDet-Tiny）：mAP 0.295→0.312（+1.7），其中 pedestrian 0.297→0.345（+4.8）、traffic cone 0.425→0.500（+7.5）受益最大，大目标也有小幅收益；缩放因子按类别由验证集超参搜索得到，barrier 类除外（尺寸变化大）。
 
@@ -57,7 +57,7 @@ signoff: null
 - 读官方仓库确认 Scale-NMS 的类别缩放因子表与 barrier 除外逻辑。
 - 消融配置口径（2026-11-05 单次实抓 ar5iv，经摘要模型转述，待二次复核）：原文 §4.3 Scale-NMS 段仅作 "We adopt BEVDet-Tiny in Tab. 1 for ablation study on the NMS strategy"，未明示该消融的增强配置；本卡 scope 中"与 Table 4 D 行同配置"为整理者按 mAP 0.312 数值吻合所作推断（原文未述，待核）。原文其余各句（+4.8%/+7.5% AP、barrier "as its size is various" 除外、缩放因子验证集超参搜索）均与笔记一致。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：BEV 头的后处理要按类别几何尺度定制，小目标检测的输出端收益可观；自研 BEV 检测器可直接借用该设计与验证集调参流程。
 不成立：BEV 中经典 NMS 并不失效或 Scale-NMS 增益无法复现，则笔记 §2.3/§3.3（2）的转写需回原文重核，后处理设计回退到经典 NMS/Circular-NMS 对比。

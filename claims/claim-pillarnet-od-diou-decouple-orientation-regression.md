@@ -3,7 +3,7 @@ id: claim-pillarnet-od-diou-decouple-orientation-regression
 title: "PillarNet 声称把方向 θ 从 (x,y,z,w,l,h,θ) 耦合回归参数中解耦的 OD-IoU 回归损失能改善定位精度，三种 OD 损失变体（OD-IoU/OD-GIoU/OD-DIoU）中 OD-DIoU 增益最大：nuScenes val +0.24 mAP / +0.24 NDS"
 type: claim
 status: asserted
-scope: "PillarNet（ECCV 2022，arXiv:2205.07403，笔记按 ar5iv 渲染版转写、推断对应 v5 2022-08-26）的回归损失设计+消融声明（论文声称）；口径：nuScenes val、Table 4，对比对象为 PillarNet-18(neckv3) 59.48 mAP / 67.15 NDS → PillarNet-18(OD-DIoU) 59.72 / 67.39（行差验算 +0.24/+0.24 一致；mAOE 27.54→27.38）；只主张『OD-DIoU 相对同骨架 neckv3 基线有 +0.24 mAP / +0.24 NDS 增益，且在 OD-IoU/OD-GIoU/OD-DIoU 三者中增益最大』；不主张『OD 系损失均相对基线有增益』（同表 OD-IoU 行 59.51/67.09 对基线为 +0.03/−0.06，论文 "All three types of losses ... play a role" 句的覆盖面本卡不采）；不主张 IoU-Aware rectification 的 +0.34% 声明（该数字与 Table 4 行差 59.90−59.82=+0.08 不符，笔记遗留问题 #3，本卡不引）；Fig. 5 的三类交叉效应（中心偏差→局部最优、尺寸变化→优化平台、方向偏差对中心/尺寸回归影响小）是论文的观察性论证，未独立复现"
+scope: "PillarNet（ECCV 2022，arXiv:2205.07403，笔记按 ar5iv 渲染版转写、推断对应 v5 2022-08-26）的回归损失设计+消融声明（论文声称）；口径：nuScenes val、Table 4，对比对象为 PillarNet-18(neckv3) 59.48 mAP / 67.15 NDS → PillarNet-18(OD-DIoU) 59.72 / 67.39（行差验算 +0.24/+0.24 一致；mAOE 27.54→27.38）；只主张『OD-DIoU 相对同骨架 neckv3 基线有 +0.24 mAP / +0.24 NDS 增益，且在 OD-IoU/OD-GIoU/OD-DIoU 三者中增益最大』；不主张『OD 系损失均相对基线有增益』（同表 OD-IoU 行 59.51/67.09 对基线为 +0.03/−0.06，论文 "All three types of losses ... play a role" 句的覆盖面本卡不采）；不引 IoU-Aware rectification 的 +0.34% 声明（与 Table 4 行差 +0.08 不符，笔记遗留 #3，完整陈述见正文边界）；Fig. 5 三类交叉效应为论文的观察性论证、未独立复现（见正文）"
 tags: [pillarnet, od-iou, orientation-regression, iou-loss, nuscenes]
 note: library/BEV_Detection/PillarNet.md#24-orientation-decoupled-iou-回归损失与-iou-aware-rectification
 paper: "ECCV 2022, PillarNet: Real-Time and High-Performance Pillar-based 3D Object Detection (arXiv:2205.07403)"
@@ -46,7 +46,7 @@ related: [claim-pillarnet-sparse2dcnn-encoder-decouple-pillar-size, claim-pillar
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称：IoU 类回归损失把方向 θ 与 (x,y,z,w,l,h) 六个参数耦合优化，论文用 2D 框 [0,0,3.9,1.6,0] 展示三类交叉效应——中心偏差大时方向回归易陷入局部最优、框尺寸变化大时陷入优化平台、而方向偏差大时对中心/尺寸回归影响反而小——据此提出把方向解耦出来的 OD-IoU 回归损失（并从 IoU/GIoU/DIoU 扩展出 OD-IoU/OD-GIoU/OD-DIoU 三变体）。消融（nuScenes val，Table 4）：同骨架 neckv3（59.48 mAP / 67.15 NDS / mAOE 27.54）上加 OD-DIoU 后 59.72 / 67.39 / 27.38，+0.24 mAP / +0.24 NDS，且在三种 OD 变体中增益最大。
 
@@ -58,7 +58,7 @@ signoff: null
 - 已核对（2026-11-03）：ar5iv 渲染版 Table 4 neckv3 行、OD-DIoU 行与 §4.2 增益句均与笔记一致（见 evidence）。
 - 对照实验：标准 DIoU（方向不解耦）在相同配置下的增益，检验『解耦』是否为增益来源。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：同配置复现出 +0.24/+0.24 且 OD-DIoU 在三种 OD 损失中增益最大，则『OD 方向解耦改善该配置定位精度』在原范围（nuScenes val、neckv3 基线）内成立；『方向/中心/尺寸耦合是普遍优化陷阱』是机制解释，尚需标准 DIoU 对照区分增益来源；『可移植到其他 center-based 检测头』是跨检测头迁移假设，尚未验证。
 不成立：增益不可复现或与解耦无关，则该损失设计不做选型依据，笔记 §2.4/§3.4 的转写与 Table 4 需回原文重核。

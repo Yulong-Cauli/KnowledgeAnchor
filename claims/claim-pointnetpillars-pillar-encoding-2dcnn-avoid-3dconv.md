@@ -42,11 +42,11 @@ related: [claim-pointnetpillars-pointnet-permutation-invariance-symmetric-functi
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 笔记声称：PointPillars 的流水线为——Pillar 化（X-Y 平面网格离散、Z 轴不切分，笔记配置 Z 轴整段 4m）→ PFN 用 PointNet 机制编码柱内特征（点维度扩到 9 维 (x,y,z,r,x_c,y_c,z_c,x_p,y_p)，Linear -> BatchNorm -> ReLU 后 Max Pooling 得到柱级全局特征，机制同 [PointNet 置换不变性卡](claim-pointnetpillars-pointnet-permutation-invariance-symmetric-function.md)）→ Scatter 按网格坐标把稀疏柱特征填回 (C,H,W) 画布得到伪图像 → 标准 2D CNN 检测。论文据此主张避开昂贵 3D 卷积、实现速度与精度平衡。
 
-限定：笔记未载任何数据集名称、性能或延迟数字（配置中的 range/voxel size 也未标注数据集版本），因此本卡只立架构层面的可证伪主张——"该结构使检测可全程用 2D CNN 完成、结构上不含 3D 卷积"；"速度与精度平衡"的量化论证笔记无数值支撑，不作为本卡主张，需回原论文/复现另证。
+限定：笔记未载任何数据集名称、性能或延迟数字（配置中的 range/voxel size 也未标注数据集版本），"速度与精度平衡"因此没有数值支撑。本卡只立架构层面的可证伪主张——"该结构使检测可全程用 2D CNN 完成、结构上不含 3D 卷积"；速度/精度的量化结论需回原论文/复现另证。
 
 ## 待验证
 
@@ -54,7 +54,7 @@ signoff: null
 - 用笔记所载配置（POINT_CLOUD_RANGE / VOXEL_SIZE）跑通该结构，确认伪图像 shape 与 2D backbone 输入匹配。
 - 回原论文补速度/精度数字后，再评估"速度与精度平衡"是否值得单独立卡（当前笔记撑不起）。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：3D 检测 encoder 可以完全建在 2D CNN 之上，部署/加速可复用成熟的 2D 卷积生态，是后续 BEV pillar 类方法（含笔记所载 PillarNet 的改进出发点）的共同前提。
 不成立：实现依赖 3D 算子或伪图像无法无缝接 2D backbone，本卡改为记录"笔记表述与实现不符"，2D-only 主张按实际实现重写。

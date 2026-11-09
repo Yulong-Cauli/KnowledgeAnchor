@@ -30,11 +30,11 @@ related: [claim-sgdet3d-srp-gdc-laca-vod-monotonic, claim-hgsfusion-cyclist-roi-
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称（据笔记 §1 转录）：SGDet3D 在 VoD 和 TJ4DRadSet 两个数据集上达到 SOTA 水平；其 VoD 支撑数字为完整模型 mAP_EAA 59.49 / mAP_DC 77.11（§5.1）。
 
-引用前必读的口径警告（这是本卡存在的首要理由）：
+三点口径警告：
 1. **库内笔记没有 SOTA 对比表**：对比方法清单、各家数字、评测协议全部未记录，TJ4DRadSet 上连一个数字都没有。本卡只能锚定「声称 + VoD 自身数字」，SOTA 的真实性只能回原文核对或复现裁决。
 2. **VoD 上各家的指标族互不可比**：SGDet3D 用 mAP_EAA / mAP_DC；HGSFusion 消融用 EAA AP / RoI AP、SOTA 表用 mAP (RoI) 62.61（头条 88.28 是 Car 类 RoI AP，见 [Cyclist 卡](claim-hgsfusion-cyclist-roi-ap-below-all-baselines.md) 口径警告）；R4Det 在 VoD 只报即插即用 mAP_EAA 增量。59.49 与 58.96（HGSFusion EAA）、62.61（HGSFusion RoI）**不可横向比较**，两篇各自声称 VoD SOTA，笔记层面无法仲裁（cross 文档 M1/M2）。
 3. 因此任何「SGDet3D 与 HGSFusion 谁强」的表述都构成口径错误；要做横向比较，必须先回各自原文核对 EAA / DC / RoI 的定义并统一协议。
@@ -47,7 +47,7 @@ signoff: null
 - 核对 HGSFusion / R4Det 原文中 EAA、DC、RoI 的定义，仲裁 VoD 上各口径是否可比（此为 cross 文档遗留问题 2，裁决后本卡 scope 可更新）。
 - 用开源实现（https://github.com/shawnnnkb/SGDet3D）复测 VoD：mAP_EAA / mAP_DC 是否达到 59.49 / 77.11。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：语义引导 + 几何补全的双分支路线在 VoD（EAA/DC 口径）与 TJ4DRadSet 上自报领先，可作为该方向选型的候选强基线；但与 HGSFusion 的比较必须等口径统一后进行。
 不成立：SOTA 依赖口径混用、对比表选择性引用或复现不达标，SGDet3D 降级为「消融自洽但外部领先未证实」，与 HGSFusion 的 RoI 口径声称一并进入待仲裁状态。
