@@ -34,13 +34,13 @@ related: [claim-alibevfusion-dynamic-fusion-se-channel-attention, claim-alibevfu
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称：摄像头流为了摆脱对激光雷达点云的依赖，独立把多视图图像转成 BEV 特征——CB-Swin-Tiny 提取基础特征，FPN + ADP（自适应平均池化 + 1×1 卷积）精炼上采样特征；视图投影以分类方式密集预测图像深度、结合相机外参把 2D 特征投到 3D 自车坐标系生成伪体素；BEV 编码器用 S2C（空间转通道）把 4D 张量重塑为 3D、不走池化或步长 2 的 3D 卷积，再经四个 3×3 卷积逐层降通道得到 $F_{Camera}$。整条链路输入只有图像，两流直到动态融合模块才相遇（见[动态融合卡](claim-alibevfusion-dynamic-fusion-se-channel-attention.md)）。
 
 与 MIT 版对照：MIT 版同样走"纯图像 → BEV"（LSS 式显式深度散射 + BEV pooling，见 `library/Multimodal_Fusion/MIT-BEVFusion.md` §2.2），差异在工程实现（MIT 版做预计算 + interval reduction kernel 提速）；阿里版笔记未记载任何视图变换效率数字，勿跨文比较速度。
 
-注意：这是论文声称的架构设计，笔记没有实验数字支持"独立性带来什么收益"。补充（2026-11-05 单次实抓 abs 页，经摘要模型转述）：论文摘要本身声称在模拟 LiDAR 故障的鲁棒性训练设置下超出 SOTA 15.7%–28.9% mAP——即"相机流不依赖点云"在论文中配有鲁棒性实验主张；本笔记未记载该实验，上文"笔记无鲁棒性实验"指笔记口径，论文侧主张尚未核对全文细节。
+口径边界：以上是论文声称的架构设计，笔记口径内没有实验数字支持"独立性带来什么收益"。论文摘要则声称在模拟 LiDAR 故障的鲁棒性训练设置下超出 SOTA 15.7%–28.9% mAP（2026-11-05 单次实抓 abs 页，经摘要模型转述）——即"相机流不依赖点云"在论文中配有鲁棒性实验主张；该实验笔记未记载，全文细节尚未核对。
 
 ## 待验证
 
@@ -48,9 +48,9 @@ signoff: null
 - 论文原文核对：2026-11-05 单次实抓 arXiv abs 页（2205.13790）+ ar5iv 全文（经摘要模型转述，未逐字对原始 HTML）：摘要句 "whose camera stream does not depend on the input of LiDAR data" 直接支撑本卡核心主张；"densely predicts the depth through a classification manner" 与 "Spatial to Channel (S2C) operation … from 4D tensor to 3D tensor" 等句与笔记 §1 一致。疑点：ar5iv 三处作 "Dual-Swin-Tiny [liang2021cbnetv2]" 且全文未检得 "CB-Swin-Tiny" 字样，与笔记 `CB-Swin-Tiny` 有出入——单次实抓不作改写依据，待二次实抓（并查 arXiv 版本史）复核。
 - 核对 S2C 与 ADP 的具体实现：4D→3D 重塑 + 四层 3×3 卷积降通道；FPN 后 ADP 的池化与卷积配置。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
-成立：两流可解耦开发与预训练（训练协议见[两阶段训练卡](claim-alibevfusion-two-stage-9epoch-joint-fusion-training.md)），相机流可单独替换升级；但笔记无鲁棒性实验（论文摘要另声称鲁棒性设置下 +15.7%–28.9% mAP，见上注），不能外推"相机故障时系统仍可用"这类结论。不成立：相机流实际依赖点云信息，则"摆脱对点云的依赖"叙事与两阶段解耦训练的前提都要重估。
+成立：两流可解耦开发与预训练（训练协议见[两阶段训练卡](claim-alibevfusion-two-stage-9epoch-joint-fusion-training.md)），相机流可单独替换升级；但笔记无鲁棒性实验（论文摘要另声称鲁棒性设置下 +15.7%–28.9% mAP，见上节口径边界），不能外推"相机故障时系统仍可用"这类结论。不成立：相机流实际依赖点云信息，则"摆脱对点云的依赖"叙事与两阶段解耦训练的前提都要重估。
 
 ## 核查记录
 

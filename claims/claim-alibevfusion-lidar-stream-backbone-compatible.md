@@ -30,7 +30,7 @@ related: [claim-alibevfusion-dynamic-fusion-se-channel-attention, claim-alibevfu
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称：LiDAR 流通过参数化体素化 + 3D 稀疏卷积骨干，把原始点云转成与相机流同一 BEV 空间的 $F_{LiDAR}$；且框架对 LiDAR 检测网络不可知，可兼容 PointPillars、CenterPoint、TransFusion。这与笔记 §4"检测头可灵活挂载 Anchor-based / Anchor-free / Transformer 头"共同构成该框架的通用性主张：换 LiDAR 骨干或换检测头，融合模块本身不动。
 
@@ -42,7 +42,7 @@ signoff: null
 - 找论文原文实验表：哪些骨干有实测结果，兼容性声称的实测覆盖多大。
 - 论文原文核对：2026-11-05 单次实抓 ar5iv 2205.13790（经摘要模型转述，未逐字对原始 HTML）：§3.2 有 "In practice, we adopt three popular methods, PointPillars, CenterPoint and TransFusion as our LiDAR stream"，三种骨干名与笔记 §2 一致；论文措辞是"采用三种作为 LiDAR 流"，笔记"兼容多种…如"为转述措辞，实测覆盖仍需查实验表。单次实抓待二次复核。笔记历史残留编号已于 2026-11-03 清理（见笔记排版注记）。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：已有 LiDAR 检测器可低成本接入该融合框架（保留原骨干，只加相机流与融合模块），对存量模型升级友好；可与 MIT 版"固定 Swin-T 图像骨干 + VoxelNet LiDAR 骨干"的用法对照（`library/Multimodal_Fusion/MIT-BEVFusion.md` §2.4）。不成立：骨干兼容只是宣传口径、实际接入成本高，选型时按"单骨干融合框架"评估。
 

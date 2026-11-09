@@ -3,7 +3,7 @@ id: claim-mobilenet-series-accuracy-latency-progression
 title: "MobileNet 系列论文自报同点演进：ImageNet top-1 70.6（V1，569M Mult-Adds）→ 72.0（V2，300M）→ 75.2（V3-Large，219M，Pixel-1 51ms）"
 type: claim
 status: asserted
-scope: "MobileNetV1/V2/V3 各自论文表格自报数字（V1 Table 6、V2 Table 4、V3 Table 3，均 224 输入 / width 1.0）；V3 时延为 Pixel-1 大核单线程 TFLite 口径（P-1）；跨论文 MAdds 口径不一（同一 V1-224 在 V1 Table 6 记 569M、在 V2 Table 4 记 575M），本卡各数字均标注出处表号；不含 V3 的 SE/h-swish/NAS 设计主张（以笔记 §2.3 为准，未立卡）；论文声称口径"
+scope: "MobileNetV1/V2/V3 各自论文表格自报数字（V1 Table 6、V2 Table 4、V3 Table 3，均 224 输入 / width 1.0）；V3 时延为 Pixel-1 大核单线程 TFLite 口径（P-1）；跨论文 MAdds 口径不一（569M/575M 细节见正文引用纪律 1），各数字均标注出处表号；不含 V3 的 SE/h-swish/NAS 设计主张（见 claim-mobilenetv3-nas-se-hswish-design 卡）；论文声称口径"
 tags: [mobilenet, mobilenetv2, mobilenetv3, imagenet, latency, efficient-backbone]
 note: library/Efficient_Backbone/MobileNet.md#1-概述
 paper: "MobileNetV1 (arXiv:1704.04861); MobileNetV2 (CVPR 2018, arXiv:1801.04381); MobileNetV3 (ICCV 2019, arXiv:1905.02244)"
@@ -58,11 +58,11 @@ related: [claim-mobilenet-dsc-8to9x-compute-reduction, claim-mobilenetv2-inverte
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文各自声称：在 224 输入、width 1.0 的同点上，ImageNet top-1 / Mult-Adds 沿 V1→V2→V3 为 70.6%/569M → 72.0%/300M → 75.2%/219M（P-1 时延 64→51ms——两数均出自 V3 Table 3 的 V2 1.0 行与 V3-Large 行；V2 自家 Table 4 的 Pixel-1 CPU 为 75ms，属另一测量批次，不可混入本序列）。V3 摘要百分点采用 PDF 口径：V3-Large 比 V2 +3.2 点、时延 −20%；V3-Small 对可比延迟 V2 +6.6%（arXiv v5 PDF 与 CVF camera-ready 一致；arXiv abs 页的 15%/4.6% 是脱节元数据，verify 班 2026-11-03 已裁定，见笔记遗留问题 1/2）。
 
-三条引用纪律（本卡已按此执行）：
+三条引用纪律：
 1. **MAdds 跨论文口径差**：同一 V1-224 模型在 V1 Table 6 记 569M、在 V2 Table 4 记 575M——引用任一数字必须带表号，不得混用得出「V2 虚报」或「V3 口径漂移」类结论。
 2. **V3 内部两套数字**：Table 3 的 V3-Large MAdds 219 / V3-Small top-1 67.4 对附录 Table 9 的 217 / 67.5（官方 PDF 内部即不一致），本卡一律取 Table 3 并注明。
 3. **时延口径**：V1/V2 为 TF-Lite Pixel-1 单大核，V3 另有 TFLite h-swish 原子算子优化——三代时延不能直接混比，绝对值仅在同代内可比。
@@ -73,7 +73,7 @@ signoff: null
 - 用相同训练配方复训三点，看 70.6→72.0→75.2 的演进方向与幅度能否复现。
 - 跟踪 arXiv 页面/勘误，确认摘要版本裁定未被推翻。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：三代演进可作为「同预算下精度-开销逐年改善」的引用锚点；MobileOne 等后续工作 Table 9 转录的同套数字（V2 72.0/300M/0.98ms、V3-L 75.2/219/1.09ms）与之相容。
 不成立：演进叙事要按复现口径重写，引用 V3 时优先附录 Table 9 或第三方复测数字。

@@ -30,13 +30,13 @@ related: [claim-surroundocc-nuscenes-iou-3149-miou-2030-table-lead, claim-gaussi
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
-论文声称（asserted）：同样是相机高斯路线，GaussianFusion-C 用"前向投影初始化 + 共享编码器增量更新"替代 GaussianFormer 的"随机初始化 + 每层重预测"，以约 30% 的高斯数和约 4.5× 的推理速度把 mIoU 从 19.10 提到 20.65。同表（Table 5）里它也高于 SurroundOcc 的 20.30 与 TPVFormer 的 17.10——即"高斯表示 + 好的初始化"在相机占用线上追平了 BEV/TPV 稠密路线。
+论文声称：同样是相机高斯路线，GaussianFusion-C 用"前向投影初始化 + 共享编码器增量更新"替代 GaussianFormer 的"随机初始化 + 每层重预测"，以约 30% 的高斯数和约 4.5× 的推理速度把 mIoU 从 19.10 提到 20.65。同表（Table 5）里它也高于 SurroundOcc 的 20.30 与 TPVFormer 的 17.10——即"高斯表示 + 好的初始化"在相机占用线上追平了 BEV/TPV 稠密路线。
 
-注意两点：
+两点口径注意：
 
-1. 20.65 是 **IoU 32.48 / mIoU 20.65** 里的 mIoU；对比 [SurroundOcc 卡](claim-surroundocc-nuscenes-iou-3149-miou-2030-table-lead.md)（31.49/20.30）时两行 IoU 差 1.0、mIoU 差 0.35，主张只在 mIoU 侧成立优势，IoU 侧也是领先的但幅度更小。
+1. 20.65 是 **IoU 32.48 / mIoU 20.65** 里的 mIoU，+1.55 的增量主张落在 mIoU 口径；与 [SurroundOcc 卡](claim-surroundocc-nuscenes-iou-3149-miou-2030-table-lead.md)（31.49/20.30）相比，IoU 侧也领先但幅度更小（IoU 差 1.0、mIoU 差 0.35）。
 2. 延迟的硬件/batch 口径论文没写（笔记遗留），4.5× 不可跨硬件引用。
 
 ## 待验证
@@ -44,7 +44,7 @@ signoff: null
 - 复现 GaussianFormer（开源）19.10 锚点与 GaussianFusion-C 20.65（若开源）。
 - 同硬件同 batch 重测两者延迟，核对 4.5×。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：初始化策略本身是高斯感知的主要收益来源（与 G3 消融一致），相机占用的高斯路线具备效率优势。
 不成立：+1.55 依赖对比实现的次优配置，高斯路线回到与 GaussianFormer 打平的水平。

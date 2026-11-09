@@ -29,7 +29,7 @@ related: [claim-alibevfusion-dynamic-fusion-se-channel-attention, claim-alibevfu
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称：训练分两阶段——第一阶段分别独立训练 LiDAR 流与相机流；第二阶段继承两个预训练流的权重，进行 9 个 epoch 的联合融合训练，并加入 BEV 空间的增强技术。该协议与架构强耦合：正因为两流独立（见[相机流独立卡](claim-alibevfusion-camera-stream-lidar-independent-bev.md)），才能各自预训练，融合阶段才需要联合调——调的对象主要是动态融合模块（见[动态融合卡](claim-alibevfusion-dynamic-fusion-se-channel-attention.md)）。
 
@@ -43,7 +43,7 @@ signoff: null
 - 论文原文核对（2026-11-05 单次实抓 ar5iv 2205.13790，经摘要模型转述，未逐字对原始 HTML）：正文 §4.1 "ii) We then train BEVFusion for another 9 epochs that inherit weights from two trained streams." 与笔记 §4 一致；"we additionally train the fusion phase with BEV-space data augmentation" 与笔记"加入 BEV 空间的增强技术"一致。**新发现（正文-附录口径张力）**：附录 B.1 作 "For PointPillars, we train the detector for 12 epochs…"、"For CenterPoint and TransFusion, we train detectors for 6 epochs … and we freeze the weights of the LiDAR stream"——融合训练轮数按骨干为 12/6 而非 9，且 CP/TF 冻结 LiDAR 流。与正文 9 epochs 不一致，单次实抓不作改写依据，待二次实抓（含 arXiv 版本史与官方仓库配置）复核后再决定是否在本卡内并列两种口径。
 - 历史注：网页转贴数字必须对原文的提醒仍然有效（前车之鉴：EMC2 笔记表格错位，见 claim-emc2-note-table-mismatch）；笔记原残留编号已于 2026-11-03 清理（见笔记排版注记），笔记头部已回填 arXiv:2205.13790 与论文全名（paper 字段冻结，本卡未改，特此记录）。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：复用该框架时可沿用"两流各自预训练 + 短程（正文口径 9 epochs，附录口径按骨干 12/6 且 CP/TF 冻结 LiDAR 流）联合微调"的配方，联合训练成本可控，也便于把现成单模态模型接入融合。不成立（epochs 数或两阶段描述与仓库/原文不符）：训练协议以仓库为准重写，笔记 §4 的转写可靠性整体降级，本笔记阿里版其余章节的数字与表述也需加严核对。
 

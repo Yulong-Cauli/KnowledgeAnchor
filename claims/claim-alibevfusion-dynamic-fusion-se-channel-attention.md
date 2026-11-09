@@ -3,7 +3,7 @@ id: claim-alibevfusion-dynamic-fusion-se-channel-attention
 title: "阿里版 BEVFusion 声称动态融合模块为 SE 式通道注意力：拼接两流 BEV 特征后先 3×3 卷积静态融合、再逐通道自适应加权选择"
 type: claim
 status: asserted
-scope: "阿里版 BEVFusion（NeurIPS 2022，ADLab-AutoDrive；与 MIT Han Lab 的 ICRA 2023 版同名不同作）方法设计描述；口径为笔记 §3 的方法转述，笔记无实验数字与数据集结果，本卡不涉及任何性能主张；对照物为论文原文与官方开源仓库（论文侧 2026-11-05 单次实抓 abs+ar5iv 已检得对应方法描述、待二次实抓复核；官方仓库 ADLab-AutoDrive/BEVFusion 为笔记标注，仍未核验）"
+scope: "阿里版 BEVFusion（NeurIPS 2022，ADLab-AutoDrive；与 MIT Han Lab 的 ICRA 2023 版同名不同作）方法设计描述；口径为笔记 §3 的方法转述，笔记无实验数字与数据集结果，本卡不涉及任何性能主张；对照物为论文原文与官方开源仓库 ADLab-AutoDrive/BEVFusion（核验状态见待验证）"
 tags: [bevfusion-ali, lidar-camera-fusion, dynamic-fusion, channel-attention, squeeze-excitation]
 note: library/Multimodal_Fusion/Ali-BEVFusion.md#3-动态融合模块-dynamic-fusion-module
 paper: "NeurIPS 2022 阿里版 BEVFusion（开源地址见笔记头部；论文全名笔记未载，待人工补核）"
@@ -37,7 +37,7 @@ related: [claim-alibevfusion-camera-stream-lidar-independent-bev, claim-alibevfu
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称：两流 BEV 特征 $F_{Camera}$ 与 $F_{LiDAR}$ 先沿通道拼接，经 3×3 卷积构成的静态融合函数 $f_{static}$ 初步整合并降维，再由全局平均池化 + 1×1 卷积 + Sigmoid 得到逐通道权重、与特征逐通道相乘完成自适应特征选择（AFS），整体公式为 $F_{fused} = f_{adaptive}(f_{static}([F_{Camera}, F_{LiDAR}]))$，机制受 Squeeze-and-Excitation 启发。
 
@@ -51,7 +51,7 @@ signoff: null
 - 论文原文核对：2026-11-05 单次实抓 ar5iv 2205.13790（经摘要模型转述，未逐字对原始 HTML）：§3.3 有 "…concatenation operation along the channel dimension"、"f_static is a static channel and spatial fusion function implemented by a 3×3 convolution layer"、"f_adaptive(F)=σ(W f_avg(F))·F"（W 为 1×1 卷积、f_avg 全局平均池化、σ sigmoid），与笔记 §3 描述逐点一致。单次实抓待二次复核；NeurIPS 2022 proceedings 版未核。笔记历史残留编号已于 2026-11-03 清理（见笔记排版注记）。
 - 若找到消融表：核对去掉 AFS / CSF 的影响，确认"逐通道自适应选择"确为论文主张的有效机制，而非等价于静态融合。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：阿里版 BEVFusion 的融合 = 轻量 SE 式通道注意力 + 两流独立 BEV 编码，可作为多模态融合选型中的低开销融合基线，与 MIT 版 feature-level 融合（elementwise 合并 + 卷积 BEV encoder）对照评估。不成立：笔记 §3 为转述失真或论文-代码不一致，涉及该模块的一切引用须回退到论文原文/仓库重写，本笔记其余阿里版卡片的可靠性同步降级。
 

@@ -3,7 +3,7 @@ id: claim-mitbevfusion-modality-importance-flips-bev-seg
 title: "MIT BEVFusion 声称模态重要性随任务翻转：nuScenes 检测上 LiDAR-only 领先 camera-only 约 20 mAP，而 BEV 地图分割上 camera-only BEVFusion 反超 LiDAR-only 基线 8–13% mIoU"
 type: claim
 status: asserted
-scope: "MIT Han Lab BEVFusion（ICRA 2023，arXiv:2205.13542，笔记按官方 HTML v3 2024-09-01 转写）的实验观察声明（论文声称）；窄卡绑定：nuScenes val、BEV 地图分割为 6 类（drivable / ped-crossing / walkway / stop line / carpark / divider）IoU 均值口径、评测区域 [-50m,50m]²（§IV-B）；分割侧：camera-only BEVFusion mean IoU 56.6 对 LiDAR-only PointPillars 43.8 / CenterPoint 48.6（Table III，8–13 点差）；检测侧对照：Table I 中 CenterPoint（L）59.6 mAP（val）对 BEVFormer（C）41.6，约 18 点差（论文表述『almost 20 mAP』）；『模态均衡』的实验含义=模态重要性不是固定的、随任务从 LiDAR 主导翻转为相机主导；本卡不主张多模态 BEVFusion 62.7 mIoU 的 SOTA 数字（归 SOTA 快照卡）"
+scope: "MIT Han Lab BEVFusion（ICRA 2023，arXiv:2205.13542，笔记按官方 HTML v3 2024-09-01 转写）的实验观察声明（论文声称）；nuScenes val；BEV 地图分割为 6 类（drivable / ped-crossing / walkway / stop line / carpark / divider）IoU 均值口径、评测区域 [-50m,50m]²（§IV-B）；分割/检测两侧对照数字见正文与 evidence；本卡不主张多模态 BEVFusion 62.7 mIoU 的 SOTA 数字（归 SOTA 快照卡）"
 tags: [bevfusion-mit, modality-balance, map-segmentation, nuscenes]
 note: library/Multimodal_Fusion/MIT-BEVFusion.md#33-bev-地图分割table-iiiiv-b
 paper: "ICRA 2023, BEVFusion: Multi-Task Multi-Sensor Fusion with Unified Bird's-Eye View Representation (arXiv:2205.13542, MIT Han Lab)"
@@ -50,7 +50,7 @@ related: [claim-mitbevfusion-shared-bev-space-unified-fusion, claim-mitbevfusion
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称：模态重要性随任务类型翻转——3D 检测上 LiDAR-only 明显强于 camera-only（Table I：CenterPoint 59.6 vs BEVFormer 41.6 val mAP，约 18 点，论文称 almost 20），但在 BEV 地图分割上恰好相反：camera-only 的 BEVFusion（mean IoU 56.6）反超 LiDAR-only 基线（PointPillars 43.8、CenterPoint 48.6）8–13 点（Table III，6 类 IoU 均值、[-50m,50m]² 区域）。这也是对 point-level 融合的间接否定：PointPainting/MVP 这类把相机信息绑在 LiDAR 点上的方法在分割上几乎无效（49.1 / 49.0），因为它们预设了 LiDAR 是更强模态。对设计「模态均衡」的含义：融合框架不应把相机特征当作 LiDAR 的附属品，语义类任务中相机才是主模态。
 
@@ -62,7 +62,7 @@ signoff: null
 - 已核对（2026-11-03）：官方 HTML v3 中 "got outperformed by LiDAR-only detectors by almost 20 mAP" 句与 Table III BEVFusion-C 行（81.7 … 56.6）、CenterPoint-L 行（75.6 … 48.6）均与笔记一致（URL 见 evidence）。
 - 用官方分割头对调模态（camera-only vs LiDAR-only 各训一版）验证翻转是否稳健于训练配方。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：多传感器方案按任务分配模态权重——检测以 LiDAR 为主、地图/语义分割以相机为主，融合框架必须保留两侧信息才能两头受益。
 不成立：分割上 LiDAR 仍占优或翻转只在特定类别成立，则「模态均衡」论述降级，融合设计继续以 LiDAR 为主模态、相机作辅助。

@@ -1,6 +1,6 @@
 ---
 id: claim-mobilenet-dsc-8to9x-compute-reduction
-title: "MobileNetV1 论文声称 3×3 深度可分离卷积比标准卷积少 8–9 倍计算，并以 Table 4 全卷积对照（4866M→569M Mult-Adds、精度仅降 1.1 点）自证"
+title: "MobileNetV1 论文声称 3×3 深度可分离卷积比标准卷积少 8–9 倍计算，并以 Table 4 全卷积对照自证（Mult-Adds 4866M→569M，top-1 仅降 1.1 点）"
 type: claim
 status: asserted
 scope: "MobileNetV1（arXiv:1704.04861 v1）§3.1 理论计算量主张 + §4.1 Table 4 自报对照；ImageNet 分类、224 输入；计算量为 Mult-Adds（乘加数）理论口径，非实测时延；论文声称口径"
@@ -50,7 +50,7 @@ related: [claim-mobilenetv2-inverted-residual-linear-bottleneck, claim-mobilenet
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称：把标准卷积 $D_K\cdot D_K\cdot M\cdot N\cdot D_F\cdot D_F$（V1 式2）拆成 depthwise（逐通道滤波）+ 1×1 pointwise（线性组合）两层后，合计计算量为 $D_K\cdot D_K\cdot M\cdot D_F\cdot D_F + M\cdot N\cdot D_F\cdot D_F$（V1 式5），约简比为 $1/N + 1/D_K^2$；对 3×3 核即 8–9 倍更少计算。这是 Mult-Adds 理论口径，不是实测时延主张。
 
@@ -60,11 +60,11 @@ signoff: null
 
 ## 待验证
 
-- 对若干典型层形状（$D_K=3$、$N\in\{64,128,256,512,1024\}$）核算式(2)/(5) 比值是否落在 1/9–1/8（按前提依赖推导，预期 N≥72 严格落入、N=64 约 7.9 倍略出界）。
-- 用开源实现统计全模型 Mult-Adds，核对 569M（separable）与 4866M（全卷积）两个总量及其比值。
-- 复训 Table 4 对照，验证 1.1 点精度差与 8.5× 计算差。
+计算量侧两项已由 2026-11-09 K-probe-1 复算覆盖（详见核查记录）：式(2)/(5) 约简比按 N≥72 网格核算全部落在 [8.0×, 9.0×]（N=72 恰 8.0×；N=64 约 7.9 倍属前提依赖已注明的口径边界）；Table 4 逐层重建得 578.9M / 4867.3M，比值 8.408×（论文 8.552×），预注册 <2% 带内。剩余开放项：
 
-## 若成立 / 不成立意味着什么
+- 复训 Table 4 精度对照：固定 ImageNet 数据与论文训练配方，只改块形式（全卷积 vs depthwise separable），观察两侧 top-1 差；差显著大于 1.1 点（或 Mult-Adds 比值远离 4866/569≈8.6×）按 falsifier 2 登记。该项按 2026-11-09 预注册缩范围暂不做——1.1 点精度差目前只有论文自报一个来源，此为本卡剩余证据缺口。
+
+## 成立/不成立的含义
 
 成立：移动端选型可以把「depthwise separable 降本一个量级、精度掉约 1 点」作为基线事实引用（仍须注明为论文自报口径）。
 不成立：V1 的核心降本主张要按实测口径重估，V2/V3 继承的「低成本骨架」前提随之动摇。

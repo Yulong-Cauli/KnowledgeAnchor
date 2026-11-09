@@ -30,9 +30,9 @@ related: [claim-gaussianfusion-val-2p6nds-over-bevfusion, claim-gaussianfusion-c
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
-论文声称（asserted）：高斯初始化策略本身就是可观的收益来源——同一模型只换初始化，前向投影（LSS 深度分布直接作高斯中心初值）74.0 NDS > LiDAR 投影 73.6 > backward projection（BEVFormer 式）72.4 > 随机初始化 71.2。forward 对 random 的 +2.8 NDS 比很多结构改动都大，支撑"GaussianFormer 的随机初始化是高斯感知主要瓶颈"的论断。
+论文声称：高斯初始化策略本身就是可观的收益来源——同一模型只换初始化，前向投影（LSS 深度分布直接作高斯中心初值）74.0 NDS > LiDAR 投影 73.6 > backward projection（BEVFormer 式）72.4 > 随机初始化 71.2。forward 对 random 的 +2.8 NDS 仅靠换初始化得到；"GaussianFormer 的随机初始化是高斯感知主要瓶颈"是由此引申的判断（本卡解读）。
 
 口径注记：论文 §4.5 正文把该表称为 Table 9，但表 caption 是 Table 8（HTML 内部矛盾，笔记遗留有记录）；backward projection / Lidar projection 的实现细节在未随 HTML 发布的 Appendix 里，独立复现需等代码。
 
@@ -41,7 +41,7 @@ signoff: null
 - 控制变量复现四种初始化（若开源）；至少先复现 random vs forward 两端。
 - 核对 PDF 版本中该表的真实编号与数值。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：3DGS 感知方法的初始化应作为标准消融维度，GaussianFormer 系（含库内关注的占用线）的改进空间先看初始化。
 不成立：+2.8 是与训练配置耦合的产物，初始化策略收益存疑。

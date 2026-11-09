@@ -50,13 +50,13 @@ related: [claim-mobilenet-dsc-8to9x-compute-reduction, claim-mobilenet-series-ac
 signoff: null
 ---
 
-## 我的理解
+## 主张
 
 论文声称：V2 的块设计与经典残差「两头宽中间窄」相反——shortcut 直接接在两个窄 bottleneck 之间，块内先 1×1 扩张（主实验固定 t=6）、3×3 depthwise、再 linear 1×1 投影；linear（bottleneck 处去非线性）来自「ReLU 在低维会不可逆丢信息」的论证（§3.2）。两个设计各自的消融自报在 §6.4：shortcut 接 bottleneck 优于接扩张层；linear bottleneck 提升性能。注意该消融的数值只在其 Figure 6 曲线上（ar5iv 未给数值表），本卡不引用具体消融数字。
 
 块的收益另一面是内存：倒残差使推理期只需物化 bottleneck 端张量（V2 §5.1：分块累加时中间表示只需驻留 n/t 通道），见笔记 §2.2.5（Table 3：V2 峰值 400K 通道 vs V1 1600K）。
 
-边界：本卡只主张「块设计与消融方向」，不主张 V2 整体精度-延迟数字（另有专卡）；t 的取值消融（§4：5–10 内曲线接近）也不在本卡范围。
+边界：本卡只主张「块设计与消融方向」，不主张 V2 整体精度-延迟数字（见 claim-mobilenet-series-accuracy-latency-progression 卡）；t 的取值消融（§4：5–10 内曲线接近）也不在本卡范围。
 
 ## 待验证
 
@@ -64,7 +64,7 @@ signoff: null
 - 核算单块 MAdds 与 hw·d′·t(d′+k²+d″) 是否一致。
 - 在低维 bottleneck 处加 ReLU 的对照实验（验证「低维非线性破坏信息」）。
 
-## 若成立 / 不成立意味着什么
+## 成立/不成立的含义
 
 成立：倒残差+线性瓶颈可作为移动端/端侧块设计的默认起点；后续 V3、EfficientNet 等继承该块。
 不成立：V2 相对 V1 的提升要归因到别的因素（如缩放策略或训练配方），块设计主张降级。
