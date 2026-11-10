@@ -12,8 +12,6 @@
 - R10（F2 批）：msmdfusion-multidepth 卡原 scope「Table 6，nuScenes val 1/4 子集」无据（笔记仅载 1/4 训练子集；Table 4 表题明示 val set，Table 6 未见单独说明）——已收敛为「（Table 6）」，Table 6 评测集（全 val 还是子集）待核论文后定。
 - R11（F4 批）：radarocc-dbd 卡无标准「核查记录」节，其「消融核查结果（2026-11-03，falsifier 2 部分触发记录）」节含 falsifier 触发账目与 2026-11-05 复核行，本班按核查记录同等冻结、整节未动；该节节名与位置（居「成立/不成立的含义」之后）是否归一待主人裁定。
 - R12（F4 批）：r4det-pdf 卡「主张」节内嵌 2026-11-03 笔记修正同步附注（blockquote，自注「保留作历史记录」）及 2026-11-05 B4d 补记，本班按历史标记整块保留未动；该卡无「核查记录」节，附注日后是否压缩或迁入核查记录待主人裁定（同 R8 类，prose 班不追加核查记录）。
-- R11（F4 批）：radarocc-dbd 卡「消融核查结果」节按核查记录同等冻结，节名/位置是否归一待主人裁定。
-- R12（F4 批）：r4det-pdf 卡主张节内嵌历史附注 blockquote 整块保留（卡无核查记录节），日后压缩/迁移待裁定（同 R8 类）。
 - R13（O1 批）：drocc-cotr-plus 卡原句「官方 43.1」疑笔误（COTR 官论文自报约 41.4，见 cotr-compact 卡口径 2）——prose 已改为「与 COTR 官方口径是否等价」回避疑点，请主人复核原意。
 - R14（V1 批）：B3c 整理班五卡（llava×3、qwen3vl×2）核查记录均称「scope 末补『尚未独立验证』」，但五卡 scope 实文均无此字样（各有其他归属表述）——账实不符；是否补回及补在何处待主人裁定。
 - R15（P1a 批）：kradar 两卡（image-noise-sensitivity、seq13-ddp24-recipe）无「核查记录」节，起草账目留在「待验证」节；且原始来源链接指向 Windows 本地路径 D:/Research/Replication/…，库内无归档——是否补建核查记录节与归档原始记录文件，待主人裁定（同 R8 类）。

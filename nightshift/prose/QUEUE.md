@@ -1,7 +1,7 @@
 # QUEUE — 卡面文字质量整改班（prose 班，2026-11-10 建）
 
 - 状态：**P2 自查轮完成（2026-11-10 03:1x）**——P1 全清 189/189（187 改/2 整卡 KEEP），P2 深核 40 张 PASS39/FIXED1/ISSUED0，全程冻结行 0 变更、池外 0 改动。待 08:32 火次晨报模式出 PROSE-REPORT-2026-11-10.md 后写 ⛔。
-- mode: **active**（active = 正常执行；⛔ = 停机注记——**REPORT 生成前的所有班次直接退出，报告已存在则按提示词退出分支处理**）
+- mode: **⛔ 停机（2026-11-10 08:34 晨报收班）——REPORT 生成前的所有班次直接退出，报告已存在则按提示词退出分支处理。唯一恢复开关 = 主人把 mode 改回 active。**（active = 正常执行；⛔ = 停机注记——**REPORT 生成前的所有班次直接退出，报告已存在则按提示词退出分支处理**）
 - 依据：主人 2026-11-10 00:4x 批示——按其签署定稿的两张 verified 卡的标准修全库卡面文字：**意义不明的、过度防御的、自我窄化的、问题不闭环说不清楚的，全部改过来**；把东西写明白。
 - automation: `automation-d6c0d81c-3ef5-4755-88a3-c7777bb62b2f`（2026-11-10 00:4x 建，`*/15`，首火 01:0x）
 - 唯一规格：本文件 + nightshift/prose/style-guide.md（P0 产出）。与验证池班互不越界：不碰 nightshift/verify/、REPORT-2026-11-10.md、QUESTIONS.md；本班问题登记 nightshift/prose/QUESTIONS-prose.md。
