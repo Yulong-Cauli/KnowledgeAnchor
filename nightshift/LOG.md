@@ -127,3 +127,4 @@
 2026-11-10 04:23:48 | fire-0420 | K-lsq 侦察定论 | 官方未开源(笔记在案)+hustzxd 0 releases 无 ckpt——ckpt 门触发，POOL 转 blocked(ckpt 门)+三选一待主人；不降协议不短训 |
 2026-11-10 06:21:06 | fire-0620 | 班次开始 | POOL mtime 04:23 无防重入 | B v6 QUEUED 6h（零动作）；fcos v1 ERROR——预 staged 修复不推（T4 纪律）
 2026-11-10 06:22:06 | fire-0620 | fcos v2 预 staged | v1 死因=MPLBACKEND 泄漏进 subprocess（env 加 Agg 一行修复）；builder+ipynb 已改未推（T4 纪律：B v6 QUEUED 占队）；T4 一空即推（修复 1/2） |
+2026-11-10 08:21:14 | fire-0820 | 晨报 | REPORT-2026-11-10.md 生成（六节：done6/queued1/blocked1/staged1/pending8；B v6 QUEUED 8h 异常标注；K-lsq 三选一待主人）| sweep 无新 COMPLETE
