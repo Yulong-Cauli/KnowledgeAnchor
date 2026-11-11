@@ -1,0 +1,15 @@
+{
+  "id": "cauliyulong/mae-decay-cifar-100-minival",
+  "title": "MAE decay CIFAR-100 minival",
+  "code_file": "train.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": false,
+  "dataset_sources": [
+    "fedesoriano/cifar100"
+  ],
+  "competition_sources": [],
+  "kernel_sources": []
+}
