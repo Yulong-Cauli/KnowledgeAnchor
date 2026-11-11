@@ -202,18 +202,18 @@ Batch Renormalization 原论文明确讨论了小批次和非独立样本下的 
 - [batch24 完成核验记录](D:/Research/Replication/Kradar_benchmark/methods/BEV-Planner/runs/bevplanner_ddp24fit_1103_2121/completion_verification.json)
 - [噪声实验原始摘要](D:/Research/Replication/Kradar_benchmark/methods/BEV-Planner/results/bevplanner_ddpnoise50_1103_2302/summary.json)
 
-## 6. 对应 Claim 与使用边界
+## 6. 使用边界
 
-公式、BN 的定义及构造例子留在 L1，保留假设和推导；项目实证分别进入两张原子卡片：
+公式、BN 的定义及构造例子留在 L1，保留假设和推导；项目实证只留在本笔记 §5，未建立对应的 claim 卡：
 
-| Claim | status | stance | 主张 |
-| --- | --- | --- | --- |
-| [claim-bevplanner-kradar-seq13-ddp24-recipe-lowers-fit-ade](../../claims/claim-bevplanner-kradar-seq13-ddp24-recipe-lowers-fit-ade.md) | asserted | watch | 指定两次训练的终点 ADE 比较 |
-| [claim-bevplanner-kradar-ddp24-image-noise-sensitivity](../../claims/claim-bevplanner-kradar-ddp24-image-noise-sensitivity.md) | asserted | watch | 指定 checkpoint 在固定 50 帧干预中的平均轨迹位移 |
+| 实证记录 | 适用范围 | 结论口径 |
+| --- | --- | --- |
+| §5.1 两次训练的终点 ADE 比较 | 冻结 seq13 闭集切片 | 指定 raw checkpoint 的 ADE/FDE |
+| §5.1 batch24 终点的配对噪声诊断 | 固定 50 中心帧、400 有效步 | 50×8 个 xy 位移的算术平均 |
 
-两张卡分别写明适用范围、原始来源、可推翻条件和进一步核查要求，signoff 均为 null；只有用户本人能签署并升级为 verified。建立卡片或通过结构校验不等于实证结论通过独立验证。
+上述数字是项目实验记录，未经用户独立复核或签署，引用时按“作者报告”处理。
 
-“batch 越大越好”“B=1 是本次唯一根因”“大 batch 保证泛化”都不是本笔记或对应卡片已经证实的结论。
+“batch 越大越好”“B=1 是本次唯一根因”“大 batch 保证泛化”都不是本笔记已经证实的结论。
 
 ## 参考来源
 

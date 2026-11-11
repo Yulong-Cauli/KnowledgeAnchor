@@ -207,8 +207,6 @@
   "claim-bevplanner-ego-velocity-dominates-planning.md",
   "claim-bevplanner-egomlp-parity-l2-collision.md",
   "claim-bevplanner-egostatus-injection-closes-gap.md",
-  "claim-bevplanner-kradar-ddp24-image-noise-sensitivity.md",
-  "claim-bevplanner-kradar-seq13-ddp24-recipe-lowers-fit-ade.md",
   "claim-bevplanner-unidad-postprocessing-raises-ccr.md",
   "claim-emc2-orin-sub400ms-leading-accuracy.md",
   "claim-lingoqa-7b-baseline-matches-gpt4v.md",
